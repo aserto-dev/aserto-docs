@@ -1,0 +1,75 @@
+---
+name: Set up test users 
+---
+
+# Set up test users for PeopleFinder
+
+The PeopleFinder sample uses [Auth0](https://www.auth0.com) as its identity provider.  If you don't have 
+an Auth0 account, create one now.  
+
+PeopleFinder expects to operate over users with extended attributes like `department`, `title`, `manager`, 
+as well as roles.  
+
+In order to set things up correctly, you can load these user definitions into your Auth0 tenant using 
+a command-line tool. Let’s install the Aserto IDP seed tool which will help with this:
+
+## Install the `aserto-idp-seed` tool
+
+For Mac or Linux systems:
+
+```bash
+brew tap aserto-dev/tap && brew install aserto-idp-seed
+```
+
+> To download the Windows version, or from a zip file, refer to the releases page on [Github](https://github.com/aserto-dev/aserto-idp-seed/releases).
+
+## Set up an Auth0 Machine-to-Machine application
+
+> **Important note**: you’ll need an Auth0 Machine-to-Machine (M2M) Application, 
+which has been authorized to talk to the Auth0 Management API. In the Auth0 dashboard, 
+select an existing **M2M application** that has access to the Auth0 Management API, 
+or create a new one.  You will need to authorize this M2M application with at least the
+following scopes: **read:users**, **create:users**, and **update:users**. 
+It will look something like this:
+
+![Auth0 M2M application](/auth0-m2m.png)
+
+> Ensure that the M2M application is authorized to call the Auth0 management API:
+
+![Auth0 M2M application management](/auth0-m2m-mgmt.png)
+
+> Ensure the scopes that are authorized include at least **`read:users`**, **`create:users`**, and 
+**`update:users`**, so that the `aserto-idp-seed` tool can read and write users.  You can remove 
+`create:users` and `update:users` once the seed tool is done.
+
+![Auth0 M2M scopes](/auth0-m2m-seed-perms.png)
+
+## Create a `.env` file for the Aserto IDP seed tool
+
+Create a new file called .env and give it the following structure: 
+
+```bash
+AUTH0_DOMAIN="mydomain.us.auth0.com"
+AUTH0_CLIENT_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+AUTH0_CLIENT_SECRET="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+
+TEMPL_CORPORATION="acmecorp"
+TEMPL_EMAIL_DOMAIN="acmecorp.com"
+TEMPL_PASSWORD="V@rySecr#et321!"
+```
+
+The first three values come from the Domain, Client ID, and Client Secret of the Auth0 M2M application.
+
+The last three values determine the name of the company our test users work at, the domain of email addresses 
+that we will create for these users, and the password for these users. You can leave these values as the same ones above (or change the password to something even more secret :) ).
+
+Finally, run the tool to seed the test users into your Auth0 tenant:
+
+```bash
+aserto-idp-seed seed
+```
+
+You should see the 272 test users being created.
+
+See the [README](https://github.com/aserto-dev/aserto-idp-seed) for the 
+`aserto-idp-seed` tool for more information.

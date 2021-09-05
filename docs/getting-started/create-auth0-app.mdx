@@ -1,0 +1,34 @@
+---
+name: Create an Auth0 SPA and API
+---
+
+# Create an Auth0 SPA and API for PeopleFinder
+
+PeopleFinder is a React single-page application (SPA) that uses Auth0 as its identity provider.
+
+We need to create an Auth0 SPA application for PeopleFinder to bind to.
+
+> Note: this is a different application type than the M2M application we created when we connected Aserto to Auth0.
+
+## Create an Auth0 SPA
+
+Create an Auth0 Single-Page Application called `PeopleFinder`, if you don’t have a SPA set up already that you would like to reuse.
+
+Here is an example of what the Single Page Application needs to look like in the Auth0 management console:
+
+[<img src="/auth0-spa.png" width="500px" />](/auth0-spa.png)
+
+> Note that the Application Type must be “Single Page Application” and all the URLs (callback URLs, logout URLs, Web Origins, and Origins should be set to 
+`http://localhost:3000, https://*.netlify.app` (to cover both local development and the Netlify deployment).
+
+## Create an Auth0 API
+
+Create a new API with an Audience name of `express.sample`.
+
+![Auth0 API](/auth0-api.png)
+
+Note: in the Auth0 UI, this will be labeled as “Identifier”.
+
+![Auth0 API identifier](/auth0-api-identifier.png)
+
+Congratulations! You now have everything you need for the Authentication portion of the PeopleFinder application. 

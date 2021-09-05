@@ -1,0 +1,38 @@
+---
+name: Resource Context
+---
+
+# Resource Context
+
+When an Authorizer evaluates a policy, it may optionally receive a Resource Context from the calling application. 
+
+The `resourceContext` is a key-value map that is passed into the authorizer and materialized 
+as `input.resource` in the policy. This allows a policy to evaluate a decision in the context of both a user 
+as well as a more specific resource (or set of resource attributes).
+
+One common use case for the resource context is to drive lookup tables that match up resources to their owners. 
+As a simple example, let's say you have a sales order that is owned by a user in the system, and you 
+only want that user to be able to view the sales order.  
+
+Passing in the following `resourceContext`:
+
+```json
+"resourceContext": {
+  "ownerId": "[owner-resource-id]"
+}
+```
+
+You can use this in a policy as follows:
+
+```rego
+package sample.GET.api.orders
+default allowed = false
+
+allowed {
+  input.user.id == input.resource.ownerId
+}
+```
+
+If the logged-in user's ID is the same as the ownerId passed in for the sales order, the `allowed`
+decision will evaluate to `true`.
+

@@ -1,0 +1,96 @@
+---
+name: Extend user attributes 
+---
+
+# Add extended attributes for PeopleFinder users
+
+PeopleFinder expects to operate over users with extended attributes like department, title, manager.  
+These extended attributes can come from the identity provider, or can be stored as user extensions 
+in the Aserto directory. This second option is more flexible, since it doesn't require an application 
+to have write access to a customer's identity provider in order to store properties, roles, or permissions.
+
+The PeopleFinder sample demonstrates this use case. It utilizes three properties that aren't stored 
+in the identity provider: **department**, **title**, and **manager**.
+
+We're going to use the Aserto CLI to add these extended attributes to each of the users that Aserto 
+imported from the identity provider (Auth0) in the last step.
+
+## Install the Aserto CLI
+
+On a Mac or Linux system:
+
+```bash
+brew tap aserto-dev/tap && brew install aserto
+```
+
+> For Windows (or if you want to download it as a zip file), refer to the [CLI installation page](/command-line-interface/installation).
+
+Login to your account:
+
+```bash
+aserto login
+```
+
+## Verify that the users were successfully imported 
+
+In the previous step, you connected Auth0 as an identity provider. Let's make sure those users
+were synchronized into the Aserto directory:
+
+```bash
+aserto directory get-user karinl@acmecorp.com
+```
+
+You should get a result that looks like this:
+```json
+{
+  "result":  {
+    "id":  "011a88bc-7df9-4d92-ba1f-2ff319e101e1",
+    "enabled":  false,
+    "display_name":  "Karin Lamb",
+    "email":  "karinl@acmecorp.com",
+    ...
+  }
+}
+```
+
+> Note: if you get an error that looks like the one below, repeat the previous step of connecting the Auth0 tenant.
+> `aserto: error: resolve identity: rpc error: code = Unknown desc = key [karinl@acmecorp.com]: key not found` 
+
+> Advanced: you can also [side-load](/command-line-interface/directory#side-loading) users, but we 
+> don't recommend it just yet - since you'll need to have your Auth0 tenant in good working order in order to 
+> use it as the identity provider for your PeopleFinder instance!
+
+## Add the user extensions 
+
+Download the `peoplefinder.json` file, which contains the user extension data for the 272 users that 
+we loaded into Auth0 in the [Set up test users](/getting-started/set-up-users) topic:
+
+> Note: install `wget` if you don't have it yet: `brew install wget`
+
+```bash
+wget https://raw.githubusercontent.com/aserto-dev/aserto-cli/main/assets/peoplefinder.json
+```
+
+Use the Aserto CLI to upload extended attributes for every user we created in Auth0:
+
+```bash
+aserto directory load-user-ext --provider=json --file=peoplefinder.json
+```
+
+Verify that the users now have extended attributes:
+
+```bash
+aserto directory get-user-props karinl@acmecorp.com 
+```
+
+You should get back a result that looks like this:
+
+```json
+{
+  "department": "CRM Strategy",
+  "manager": "2cfdb538-a03d-44b1-a0f2-b7ef32b713a7",
+  "phone": "+1-20-5555-9834",
+  "title": "CRM Consultant"
+}
+```
+

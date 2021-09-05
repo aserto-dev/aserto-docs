@@ -1,0 +1,39 @@
+---
+name: Display State Map
+---
+
+# Display State Map
+
+A common problem for SaaS front-ends is to conditionally display UI elements based on the set of permissions 
+that the logged-in user possesses. For example, if a user only has "viewer" permissions, 
+the front-end typically wants to avoid displaying UI elements that allow users to edit or update resources.
+
+Aserto addresses this problem by defining the **display state map** pattern. An authorization policy  
+defines [decisions](/overview/policy#decision) called `visible` and `enabled`, which take on `true` / `false` 
+values when evaluated against the roles and attributes of the logged-in user. We refer to the following 
+type of JSON map as a **display state**:
+
+```json
+{ "visible": true, "enabled": false }
+```
+
+Aserto's [`decisiontree`](/authorizer-guide/decisiontree) API makes it possible to compute these *display states* 
+for **every route or permission in your application** based on the roles and attributes of the logged-in 
+user. We call this map of maps a **display state map** and it looks like this:
+
+```json
+{
+  "GET/api/users": { "visible": true, "enabled": true },
+  "POST/api/users": { "visible": true, "enabled": false },
+  ...
+}
+```
+
+## SDK Usage
+
+The Aserto [Javascript SPA SDK](/software-development-kits/javascript) and 
+[React SDK](/software-development-kits/react ) support this pattern.  Each of these SDKs works together 
+with other high-level language SDKs like the 
+[Express.js](/software-development-kits/express#displayStateMap-middleware) to allow retrieving this 
+**display state map** when the user logs in (and/or reload it). This in turn can be used to instruct 
+the UI on whether to render specific UI elements that correspond to these routes / permissions.

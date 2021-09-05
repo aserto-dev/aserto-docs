@@ -1,0 +1,50 @@
+---
+name: Exploring PeopleFinder 
+---
+
+# Exploring PeopleFinder
+
+Click on the Login button and sign in with `euang@acmecorp.com`, one of the users that we set up earlier in your Auth0 account. 
+If you didn't change the password when setting up the users, the password is `V@rySecr#et321!`. 
+
+[<img src="/peoplefinder-login.png" width="400"/>](peoplefinder-login.png)
+
+The next few screens assume that you’ve seeded your Auth0 tenant with the sample users that we’ve set up for the PeopleFinder application.  These users have extended attributes, like `manager `and `department`, which the PeopleFinder application relies on, and are used in the authorization policy. 
+
+![peoplefinder users](/peoplefinder-users.png)
+
+Clicking on any of the users will show their information. Note that users can click the “Edit” button and edit their own information (phone number), but can’t update other user’s information. 
+
+For example, logged in as Euan, click on Karin Lamb, and then click the "Edit" button next to her information.
+
+![peoplefinder karin](/peoplefinder-karin.png)
+
+If you change her phone number, and click "Save", you’ll get an error:
+
+![peoplefinder put error](/peoplefinder-put-error.png)
+
+Note that if you go back to the people directory, navigate to Euan's card instead, and try to change your own information, you’ll be able to do it.
+
+This behavior is controlled by the policy for the API call behind the "Edit" button, which is 
+`peoplefinder.PUT.api.users.__id`. 
+
+## Hosted Authorizer policy
+
+The Aserto console shows the current loaded policy for the hosted Authorizer instance for your tenant. If 
+you click the `peoplefinder` policy in the Policies tab, you will see the current set of policy modules. 
+
+Click the policy file called `peoplefinder.PUT.api.users.__id` to explore the policy behind the "Edit" button:
+
+![peoplefinder put policy](/peoplefinder-put-policy.png)
+
+The way to read this policy is:
+* By default, the operation is **not** allowed 
+* By default, the "Edit" button is both *visible* and *enabled*
+* The operation is **allowed** if the `department` property of the logged-in user is "Operations"
+* The operation is **also allowed** if the logged-in user's `id` property is the same as the `id` of the resource we are examining (in this case, the `id` at the end of the URL, which is the person we are currently viewing). This is why a user can edit their own phone number, but not other people's.
+
+Note that the two **allowed** clauses are "OR-ed" together, while every expression **inside** an **allowed** clause are "AND-ed" together.
+
+## Next steps
+
+Next, we'll make a change in the policy that will enable managers to update the titles of their reports.

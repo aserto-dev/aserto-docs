@@ -1,0 +1,59 @@
+---
+name: Managing Tenants
+---
+
+# Managing Tenants
+
+As a Tenant Owner, you can invite other members to your tenant, and control the roles and 
+permissions for other members of your tenant.
+
+Naturally, Aserto uses an Aserto [authorization policy](https://github.com/aserto-dev/policy-aona) 
+to manage access to the Aserto APIs that expose Aserto's functionality (including through the Console and CLI).
+
+The Aserto roles are described [here](/overview/tenant).
+
+## Switching tenants
+
+On the main navbar, you'll find the Tenant Dropdown. In this dropdown, you'll find all of the tenants 
+that you have access to. To switch a tenant context, simply choose a tenant name from the dropdown:
+
+![tenant dropdown](/tenant-dropdown.png)
+
+## Managing the current tenant
+
+To manage the currently selected tenant, choose the **Manage tenant** menu item from the dropdown.
+
+## Inviting a user to a tenant
+
+![invite member](/invite-member.png)
+
+To invite a new user to a tenant, go to **Manage Tenant** screen, click the **Invite member...** button, and enter their email. If the 
+user exists in the Aserto directory, they will be invited to join the tenant as a Viewer. If they don't 
+yet have an Aserto account, they will be invited to create one and change their password.
+
+> Note: every new user is invited to a tenant as a **Viewer**, to maintain the principle of least 
+> privilege. Once a new user has accepted an invitation, a Tenant Owner can upgrade their role.
+
+> Note: if a tenant invitation isn't accepted or declined within a week, that invitation will expire.
+
+## Managing invitations
+
+A tenant owner can view the status of invitations, and cancel invitations that are still pending.
+
+![manage invitations](/manage-invitations.png)
+
+## Change member roles
+
+Once a new member has accepted their invitation to join a tenant, as a tenant owner, you can change 
+the role of that user in the context of this tenant using the role dropdown. 
+
+![manage tenant](/manage-tenant.png)
+
+## Remove a member from a tenant
+
+As a tenant owner, you can remove a member from a tenant by selecting the **Remove member from tenant** 
+item in the role dropdown.  Also, as a member of a tenant, you can remove yourself from the tenant using 
+the same menu item, unless you're the last remaining owner.
+
+> Note: Every tenant must have at least one owner.
+

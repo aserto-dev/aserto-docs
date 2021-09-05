@@ -1,0 +1,147 @@
+---
+name: Make a policy change
+---
+
+# Make a policy change
+
+Now that we have PeopleFinder up and running against our policy, we'll make a policy change 
+and see it reflected in PeopleFinder.
+
+To start, note that for any user that is not in the "Operations" department, the "Update" button is visible, but disabled. 
+This includes the hero of our story, Euan.
+
+## Policy conventions
+
+The Aserto console shows the current loaded policy for the hosted Authorizer instance for your tenant. If 
+you click the `peoplefinder` policy in the Policies tab, you will see the current set of policy modules. 
+
+The PeopleFinder policy follows the Aserto convention of a single policy module for each { method, route } 
+of the API.  So PeopleFinder defines a policy for `GET /api/users`, `POST /api/users`, and so on.
+
+The modules are named using the Rego `package` directive, and follow the convention `policyroot.METHOD.route`.
+
+Let's look at the `peoplefinder.POST.api.users.__id` module. In this case,
+* `policyroot` is `peoplefinder` 
+* `METHOD` is `POST` (signifying an HTTP POST method)
+* `route` is `api.users.__id` (signifying the /api/users/:id route, with periods instead of slashes for a delimiter, following the Rego EBNF rules)
+
+Click the `peoplefinder.POST.api.users.__id` policy file. This package controls access to the “Update” button at the bottom of a User card, 
+and defines the policy that authorizes users to make changes to `department` and `title` attributes.
+
+![peoplefinder post](/peoplefinder-post.png)
+
+> Note: don't confuse the this with the `peoplefinder.POST.api.users` policy, which controls the ability to add new users.
+
+```rego
+package peoplefinder.POST.api.users.__id
+
+default allowed = false
+default visible = true
+default enabled = false
+
+allowed {
+	props = input.user.attributes.properties
+	props.department == "Operations"
+}
+
+enabled {
+    allowed
+}
+```
+
+This policy exports three values - `allowed`, `visible`, and `enabled`. `allowed` is the decision that 
+governs whether an operation is allowed at the API. `visible` and `enabled` are used by the React app to 
+determine how to render the UI element associated with this operation (in this case, the `Update` button).
+
+The policy only allows the Update (POST) operation if the logged-in user has a `department` attribute that is 
+equal to `Operations` - meaning, only users in the IT operations group can change titles or departments for other users.
+
+The Update button is visible to anyone, but only enabled for users who are allowed to perform the operation.
+
+## Making a local clone of the policy repository
+
+In the Policy settings tab, click on the `https://github.com/[user]/policy-peoplefinder]` link which opens a new browser window. 
+
+![peoplefinder policy clone](/peoplefinder-policy-clone.png)
+
+Copy the clone URL, open a terminal window, and do a `git clone` on the URL. Open a code editor window in that repository directory. You’ll see all the modules for the PeopleFinder policy.
+
+The policy modules are organized by HTTP method and path. E.g. the `post.rego` file in the `src/policies/__id directory` has a package named `peoplefinder.POST.api.users.__id.`
+
+## Policy Change
+
+Let’s make a change that will allow managers to update the `department` and `title` of their employees.
+
+As we mentioned, the policy defined above only allows users in the “Operations” department to Update the extended user attributes, and only enables the button if the action is allowed.
+
+If you change the line defining the `enabled `decision to default to `true `instead of `false`, the Update button will be enabled for all users.
+
+```rego
+default enabled = true
+```
+
+If you then **add** the following `allowed` clause to the file (after the first **allowed** clause), 
+the policy will allow the operation if the logged-in user is the manager of the user they are trying to Update.
+
+```rego
+allowed {
+   dir.is_manager_of(input.user.id, input.resource.id)
+}
+```
+
+> Note: the `dir.is_manager_of` function is part of a set of built-in Rego functions that Aserto provides.
+
+The final state of the Rego file should look like the code listing below:
+
+```rego
+package peoplefinder.POST.api.users.__id
+
+default allowed = false
+default visible = true
+default enabled = true
+
+allowed {
+	props = input.user.attributes.properties
+	props.department == "Operations"
+}
+
+allowed {
+   dir.is_manager_of(input.user.id, input.resource.id)
+}
+
+enabled {
+    allowed
+}
+```
+
+So now the Update operation is allowed if the logged in user is in the Operations department, OR if the 
+logged in user is the manager of the employee that they are trying to update.
+
+Now commit the changes, and create and push a new tag, so that the Aserto CI/CD workflow for policy changes kicks in, creates a new policy bundle based on the new tag, and makes it available to the authorizer:
+
+```bash
+git commit -am 'allow managers to update their employees'
+git push 
+git tag v0.0.1    # or whatever is the next tag number 
+git push --tags
+```
+
+Check back to the console and ensure that the new policy is reflected in the Policy browser.
+
+![peoplefinder post updated ](/peoplefinder-post-updated.png)
+
+When you see the new policy has been loaded by the authorizer, go back to PeopleFinder, and switch context to April Stewart from the top-right user context menu. This 
+will simulate a logout of Euan and a login of his manager, April.  Now the Update button is enabled, and April (as Euan's manager) should be able to update Euan's title.
+
+![april can update euan](/april-can-update-euan.png)
+
+If you change cards (for example, to April's own card), and try to update her title or department, you'll 
+see the error caused by the policy denying the operation, since April is not her own manager. 
+
+## Recap
+
+We were able to change the authorization policy of the application without changing the application code, and without redeploying the application itself!
+
+## Next steps
+
+Next, we'll learn how to install the Onebox for local development.

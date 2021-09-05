@@ -1,0 +1,31 @@
+---
+name: Tenants
+---
+
+# Aserto Tenants
+
+The tenant provides the  context for the artifacts that are managed by Aserto - 
+[*connections*](/overview/connections), [*policies*](/overview/policy-lifecycle), and the 
+[*user directory*](/overview/directory). You can think of it like a GitHub organization.
+
+Every tenant has at least one owner. It can also have members and viewers.
+
+## Artifacts
+
+Aserto manages the following artifacts for a tenant:
+* [Connections](/overview/connections) - these are connections to external systems such as source code control systems and identity providers
+* [Policies](/overview/policy-lifecycle) - these are references to git repositories that store authorization policies
+* [User Directory](/overview/directory) - these are the users that Aserto has synched from one or more connected identity providers
+
+## Role-based access control
+
+Naturally, Aserto uses Aserto for authorization, using a simple role-based access control (RBAC) model.
+
+The roles that Aserto supports:
+* Owner: can perform all operations on a tenant, including inviting other viewers, members, and owners, as well as reset the role of another member of the tenant
+* Member: can perform all operations on a tenant except inviting others to the tenant or managing tenant membership
+* Viewer: allowed to see all tenant information, but not create or edit any tenant artifacts
+
+The Aserto policy for the Aserto API can be found [here](https://github.com/aserto-dev/policy-aona). 
+
+Learn more about how to [manage Aserto tenants](/aserto-console/manage-tenant) using the Aserto Console.

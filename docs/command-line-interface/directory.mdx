@@ -1,0 +1,36 @@
+---
+name: Directory
+---
+
+# Interact with the Aserto Directory
+
+Here are some commands that can get you started interacting with the Aserto directory.
+For a full listing, type `aserto directory`, or `aserto d` for short.
+
+```bash
+aserto d list-users          # list users in the directory
+aserto d get-identity <key>  # get the GUID associated with a user's identity key (e.g. email)
+aserto d get-user <key>      # get the full user object based on a GUID or a key
+```
+
+## Loading users
+
+You can load users into the Aserto directory either from an identity provider or from a file.
+
+### Identity Provider
+
+To load users from an existing IDP connection, use the following command:
+
+```bash
+aserto d load-users --provider=auth0
+```
+
+### Side-loading
+
+To "side-load" users from a JSON file in our canonical user format, use this command:
+
+```bash
+aserto d load-users --provider=json file=peoplefinder.json
+```
+
+An example json file for the peoplefinder users can be found [here](https://raw.githubusercontent.com/aserto-dev/aserto-cli/main/assets/peoplefinder.json).

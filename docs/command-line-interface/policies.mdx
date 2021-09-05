@@ -1,0 +1,24 @@
+---
+name: Policies
+---
+
+# Policies
+
+Aserto manages the workflow and lifecycle for authorization policies. A policy is composed of a set of 
+Rego files and (optionally) json data files. Aserto promotes treating these policies as code, just 
+like you would application code and infrastructure-as-code. 
+
+In the Aserto Console, you can create a Policy reference to a git repository by connecting to the 
+source code provider, choosing a repository (or cloning one from a template), and naming it.
+
+To list the policies that Aserto is managing for you, use the following command:
+
+```bash
+aserto tenant list-policy-references
+```
+
+## Policies are references
+
+A policy is a named reference to a git repository. A policy therefore requires Aserto to be connected 
+to the source code control system that manages the git repository. These are known as Connections, 
+described next.

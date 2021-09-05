@@ -1,0 +1,55 @@
+---
+name: OneBox
+---
+
+# Local developer experience (OneBox)
+
+Aserto's authorizer is available as a docker container that you can run locally. 
+This "all-in-one" version of the Aserto Authorizer is referred to as the **OneBox**.
+
+The CLI provides a management experience over the OneBox.
+
+> Note: the OneBox requires `docker` to be installed and running. 
+> To install Docker on a Mac or Linux system: `brew install --cask docker`
+
+To get started with the OneBox, you can pull it down using the Aserto CLI.
+
+Login to your Aserto account:
+```bash
+aserto login
+```
+
+The following command will pull down the latest `aserto-one` docker image.
+
+```bash
+aserto developer install  
+```
+
+The next command will pull down the configuration for a policy that you've set up in the console, using 
+the name you gave it (in the example below, `peoplefinder`).
+
+```bash
+aserto developer configure peoplefinder 
+```
+
+The following command will `docker run` a local container with the `peoplefinder` policy configuration:
+
+```bash
+aserto developer start peoplefinder 
+```
+
+You can use the next command to open a browser window that shows a local version of the console, to 
+see what policies and users the local authorizer has. It also has a Rego playground and an API explorer 
+that allow you to experiment with the Aserto authorization system.
+
+```bash
+aserto developer console  # will show you what the local authorizer is running
+```
+
+The next few commands help manage the `aserto-one` docker instance and image.
+
+```bash
+aserto developer status   # displays the running status of the authorizer
+aserto developer stop     # stops the authorizer
+aserto developer update   # updates the authorizer image to :latest
+```

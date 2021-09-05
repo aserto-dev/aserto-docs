@@ -1,0 +1,32 @@
+.custom-link a {
+  align-self: center;
+}
+
+.chakra-stack > a {
+  color: inherit !important;
+}
+
+.dark-scrollbar ::-webkit-scrollbar {
+   width: 10px;
+   height: 10px;
+   background-color: #1E1E1E;
+ }
+
+.dark-scrollbar ::-webkit-scrollbar-corner {
+   background-color: #1E1E1E;
+ }
+
+.dark-scrollbar ::-webkit-scrollbar-thumb {
+   background: #595959;
+   border-radius: 10px;
+ }
+
+.dark-scrollbar ::-webkit-scrollbar-track {
+   margin: 4px;
+   border-radius: 10px;
+ }
+
+
+ul {
+    overflow: hidden;
+}
