@@ -198,7 +198,7 @@ const { sidebar } = require("./sidebars");
         prism: {
           theme: lightCodeTheme,
           darkTheme: darkCodeTheme,
-          additionalLanguages: ['powershell', 'csharp', 'rego', 'cmd'],
+          additionalLanguages: ['powershell', 'csharp', 'rego'],
         },
       }),
   }
