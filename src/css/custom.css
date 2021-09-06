@@ -4,9 +4,46 @@
  * work well for content-centric websites.
  */
 
+ @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Roboto');
+
+ /* change default font sizes */
+ @media screen and (max-width: 996px) {
+  article header h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  h3 {
+    font-size: 1.2rem !important;
+  }
+  
+  .hero .hero__title {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (min-width: 997px) {
+  article header h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  h3 {
+    font-size: 1.2rem !important;
+  }
+}
+
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #25c2a0;
+  /*--ifm-color-primary: #277f82;*/
+  --ifm-color-primary: #3ecacf;
   --ifm-color-primary-dark: rgb(33, 175, 144);
   --ifm-color-primary-darker: rgb(31, 165, 136);
   --ifm-color-primary-darkest: rgb(26, 136, 112);
@@ -14,6 +51,18 @@
   --ifm-color-primary-lighter: rgb(102, 212, 189);
   --ifm-color-primary-lightest: rgb(146, 224, 208);
   --ifm-code-font-size: 95%;
+
+  /* switch font */
+  --ifm-font-family-base: 'Open Sans';
+
+  /* footer theme adjustments */
+  --ifm-footer-background-color: rgba(30,30,30,1.0);
+  --ifm-footer-title-color: #e7e7e7;
+  --ifm-footer-link-color: #a0a0a0;
+
+  /* header theme adjustments - these don't seem to work */
+  --ifm-navbar-link-color: #a0a0a0;
+  --ifm-navbar-link-hover-color: #e7e7e7;
 }
 
 .docusaurus-highlight-code-line {
@@ -26,3 +75,48 @@
 html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+.footer-logo {
+  width: 60px;
+  max-width: 60px;
+}
+
+.footer {
+  font-family: 'Roboto';
+}
+.footer__link-item {
+  font-size: 14px;
+}
+
+.footer__copyright {
+  color: #a0a0a0;
+}
+
+.navbar {
+  height: 80px;
+  font-family: 'Roboto';
+}
+
+.navbar__brand {
+  height: 44px;
+}
+
+/* set navbar background color and links to match aserto navbar */
+.navbar--dark {
+  background-color:  rgba(30,30,30,1.0) !important;
+}
+.navbar__link {
+  color: #a0a0a0;
+}
+.navbar__link--active, .navbar__link:hover {
+  color: #e7e7e7;
+}
+.navbar__item {
+  padding-left: 32px;
+}
+
+/* reduce size of sizebar items */
+.menu__link {
+  font-size: 0.9rem;
+}
+

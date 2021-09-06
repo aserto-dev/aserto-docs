@@ -68,10 +68,11 @@ const { sidebar } = require("./sidebars");
         },
         navbar: {
           style: "dark",
-          title: "Aserto",
           logo: {
             alt: "Aserto Logo",
-            src: "logo.png",
+            src: "Aserto-logo-color-120px.png",
+            href: "https://aserto.com",
+            target: "_self",
           },
           items: [
             {
@@ -83,16 +84,19 @@ const { sidebar } = require("./sidebars");
               to: "https://aserto.com/blog",
               label: "Blog",
               position: "left",
+              target: "_self",
             },
             {
               to: "https://aserto.com/about",
               label: "About",
               position: "left",
+              target: "_self",
             },
             {
               to: "https://aserto.com/careers",
               label: "Careers",
               position: "left",
+              target: "_self",
             },
             {
               to: "https://github.com/aserto-dev/aserto-doc",
@@ -102,7 +106,6 @@ const { sidebar } = require("./sidebars");
           ],
         },
         footer: {
-          style: "dark",
           links: [
             {
               title: "PRODUCT",
@@ -158,7 +161,7 @@ const { sidebar } = require("./sidebars");
                   to: "https://www.aserto.com/news",
                 },
                 {
-                  label: "Contact ss",
+                  label: "Contact us",
                   to: "mailto:info@aserto.com",
                 },
               ],
@@ -191,9 +194,22 @@ const { sidebar } = require("./sidebars");
                   label: "Linked In",
                   to: "https://www.linkedin.com/company/aserto-com",
                 },
+                {
+                  html: `
+                      <a href="https://twitter.com/aserto_com" target="_blank" rel="noreferrer noopener" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                    `,
+                },      
               ],
-            },          ],
-          copyright: `Copyright © ${new Date().getFullYear()} Aserto Inc. Built with Docusaurus.`,
+            },
+          ],
+          logo: {
+            alt: 'Aserto Logo',
+            src: 'Aserto-logo-color-120px.png',
+            href: 'https://aserto.com',
+          },    
+          copyright: `Copyright © ${new Date().getFullYear()} Aserto Inc. All rights reserved.`,
         },
         prism: {
           theme: lightCodeTheme,
