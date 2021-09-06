@@ -31,10 +31,15 @@ To invite a new user to a tenant, go to **Manage Tenant** screen, click the **In
 user exists in the Aserto directory, they will be invited to join the tenant as a Viewer. If they don't 
 yet have an Aserto account, they will be invited to create one and change their password.
 
-> Note: every new user is invited to a tenant as a **Viewer**, to maintain the principle of least 
-> privilege. Once a new user has accepted an invitation, a Tenant Owner can upgrade their role.
+:::note
+You can set the role for the new user by selecting a value from the dropdown. By default, the user is 
+invited to a tenant as a **Member**. Once a new user has accepted an invitation, a Tenant Owner 
+can change their role.
+:::
 
-> Note: if a tenant invitation isn't accepted or declined within a week, that invitation will expire.
+:::caution Note
+If a tenant invitation isn't accepted or declined within a week, that invitation will expire.
+:::
 
 ## Managing invitations
 
@@ -55,5 +60,7 @@ As a tenant owner, you can remove a member from a tenant by selecting the **Remo
 item in the role dropdown.  Also, as a member of a tenant, you can remove yourself from the tenant using 
 the same menu item, unless you're the last remaining owner.
 
-> Note: Every tenant must have at least one owner.
+:::note
+Every tenant must have at least one owner.
+:::
 

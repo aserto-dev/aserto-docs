@@ -31,9 +31,11 @@ can be part of the policy.
 The set of source files that comprise a policy are built into a **Policy Image** using a set of tools that 
 are modeled after the `docker` toolset.  You can build and tag a policy just like you build and tag a docker image.
 
-> Currently, the Aserto control plane wires up directly to a git repository that contains policy files, and 
-> does not expose the policy image directly. A GitHub **build action** automatically builds a new version of 
-> a policy image when the source repository is **tagged** with a new tag:
+:::note
+Currently, the Aserto control plane wires up directly to a git repository that contains policy files, and 
+does not expose the policy image directly. A GitHub **build action** automatically builds a new version of 
+a policy image when the source repository is **tagged** with a new tag:
+:::
 
 ```bash
 git commit -am 'new policy version'
@@ -46,9 +48,11 @@ You can push a policy image to a **Policy Repository**, which is hosted in a **P
 
 You can pull a policy image from a Policy Repository just like you pull a docker image.
 
-> Currently, the Aserto Policy Registry is not exposed using a public API. The GitHub action will build 
-> a policy image and push it to the Aserto Policy Registry when the repo is tagged. In the future, the Policy 
-> Registry will support a set of public operations very similar to a Docker registry.
+:::note
+Currently, the Aserto Policy Registry is not exposed using a public API. The GitHub action will build 
+a policy image and push it to the Aserto Policy Registry when the repo is tagged. In the future, the Policy 
+Registry will support a set of public operations very similar to a Docker registry.
+:::
 
 ---
 
@@ -70,8 +74,10 @@ The secret is a JSON object that looks like this:
 
 You can run a policy image, which loads it into an **Authorizer** instance.  
 
-> Currently, Authorizers will automatically load and run the latest policy version stored in the  
-> Policy Registry. In the future, Authorizers will be able to load run an explicit version of a policy image.
+:::note
+Currently, Authorizers will automatically load and run the latest policy version stored in the  
+Policy Registry. In the future, Authorizers will be able to load run an explicit version of a policy image.
+:::
 
 ### Consume
 

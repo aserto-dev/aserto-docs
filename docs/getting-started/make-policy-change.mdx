@@ -30,7 +30,9 @@ and defines the policy that authorizes users to make changes to `department` and
 
 ![peoplefinder post](/peoplefinder-post.png)
 
-> Note: don't confuse the this with the `peoplefinder.POST.api.users` policy, which controls the ability to add new users.
+:::caution Note
+Don't confuse the this with the `peoplefinder.POST.api.users` policy, which controls the ability to add new users.
+:::
 
 ```rego
 package peoplefinder.POST.api.users.__id
@@ -89,7 +91,9 @@ allowed {
 }
 ```
 
-> Note: the `dir.is_manager_of` function is part of a set of built-in Rego functions that Aserto provides.
+:::tip
+The `dir.is_manager_of` function is part of a set of built-in Rego functions that Aserto provides.
+:::
 
 The final state of the Rego file should look like the code listing below:
 

@@ -142,7 +142,9 @@ dotnet run --project dotnetmvc/src/QuickstartMVC/QuickstartMVC.csproj
 ```
 
 **Adding authentication**
-> Note: this guide assumes that you already have an Auth0 account setup up and an Auth0 Regular Web Application created.
+:::note
+This guide assumes that you already have an Auth0 account setup up and an Auth0 Regular Web Application created.
+:::
 
 For authentication we will use the Cookie and OpenID Connect(OIDC) authentication middleware. For this you need to add `Microsoft.AspNetCore.Authentication.OpenIdConnect` package to your application. This can be done using NuGet by running the following command in your project directory:
 
@@ -357,8 +359,9 @@ Next we're going to add the login and logout buttons to the shared layout. To do
 
 ```
 
-> Note: The callback url(https://localhost:5001/callback) configured in the `ConfigureServices` method of Startup.cs needs to be set as an *Allowed Callback URL* in Auth0. Similarly the logout url(https://localhost:5001/) needs to be set in the *Allowed Logout URLs* list.
-
+:::note
+The callback url(https://localhost:5001/callback) configured in the `ConfigureServices` method of Startup.cs needs to be set as an *Allowed Callback URL* in Auth0. Similarly the logout url(https://localhost:5001/) needs to be set in the *Allowed Logout URLs* list.
+:::
 
 **Creating policy for QuickstartMVC**
 
@@ -413,7 +416,9 @@ On the rest of the endpoints we're going to allow anonymous access, so the rest 
 allowed = true
 ```
 
-> Note: if you've created the policy from the default template, you need to create a tag in order to push it to Aserto.
+:::note
+If you've created the policy from the default template, you need to create a tag in order to push it to Aserto.
+:::
 
 **Adding Aserto authorization**
 To enable Aserto authorization you need to add a dependency to the Aserto dotnet middleware:

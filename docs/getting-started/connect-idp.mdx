@@ -17,11 +17,15 @@ Aserto to Auth0.
 
 ![Auth0 M2M application](/auth0-m2m.png)
 
-> Ensure that the M2M application is authorized to call the Auth0 management API:
+:::caution Note
+Ensure that the M2M application is authorized to call the Auth0 management API:
+:::
 
 ![Auth0 M2M application](/auth0-m2m-mgmt.png)
 
-> Ensure the scopes that are authorized include at least `read:users` so that Aserto can read your users.  
+:::caution Note
+Ensure the scopes that are authorized include at least `read:users` so that Aserto can read your users.  
+:::
 
 ![Auth0 M2M scopes](/auth0-m2m-perms.png)
 
@@ -48,7 +52,9 @@ your Auth0 tenant users into the Aserto directory.
 Once you’ve connected your Auth0 tenant as an Identity Provider and loaded test users, you should be 
 able to click the Users tab in the Navbar and see your users stream in using the Directory browser.
 
-> Note: loading users from the Identity Provider into the Aserto Directory is an asynchronous task. 
-> If you don't see all your users, you may need to reload the user list using the refresh button.
+:::note
+Loading users from the Identity Provider into the Aserto Directory is an asynchronous task. 
+If you don't see all your users, you may need to reload the user list using the refresh button.
+:::
 
 ![users](/users.png)

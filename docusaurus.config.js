@@ -183,21 +183,15 @@ const { sidebar } = require("./sidebars");
               title: "SOCIAL",
               items: [
                 {
-                  label: "Twitter",
-                  to: "https://twitter.com/aserto_com",
-                },
-                {
-                  label: "Medium",
-                  to: "https://aserto.medium.com/",
-                },
-                {
-                  label: "Linked In",
-                  to: "https://www.linkedin.com/company/aserto-com",
-                },
-                {
                   html: `
                       <a href="https://twitter.com/aserto_com" target="_blank" rel="noreferrer noopener" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
+                        <img src="/icons/twitter.svg" alt="twitter" />
+                      </a>
+                      <a href="https://aserto.medium.com" target="_blank" rel="noreferrer noopener" aria-label="Medium">
+                        <img style="margin-left: 24px" src="/icons/community.svg" alt="medium" />
+                      </a>
+                      <a href="https://www.linkedin.com/company/aserto-com" target="_blank" rel="noreferrer noopener" aria-label="Twitter">
+                        <img style="margin-left: 24px" src="/icons/linkedin.svg" alt="linkedin" />
                       </a>
                     `,
                 },      

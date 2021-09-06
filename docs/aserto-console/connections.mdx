@@ -21,7 +21,9 @@ for each tenant.
 
 Aserto needs to connect to one or more identity providers as the source of user attributes and roles. 
 
-> Currently Aserto supports Auth0 as an identity provider. More are on the way!
+:::note
+Currently Aserto supports Auth0 as an identity provider. More are on the way!
+:::
 
 Click on the “Add a connection” button. You will be prompted to enter connection parameters:
 
@@ -29,17 +31,23 @@ Click on the “Add a connection” button. You will be prompted to enter connec
 
 Name your connection, and copy the Domain, Client ID, and Client Secret from the Auth0 UI into the Aserto UI.
 
-> Note: the Auth0 application must be a machine-to-machine (M2M) application.
+:::caution Note 
+The Auth0 application must be a machine-to-machine (M2M) application.
+:::
 
-> For more detailed instructions, refer to the [Connect IDP](/getting-started/connect-idp) topic in the 
+:::info 
+For more detailed instructions, refer to the [Connect IDP](/getting-started/connect-idp) topic in the 
 Getting Started documentation.
+:::
 
 When you click the Connect button, Aserto will start streaming your Auth0 tenant users into 
 the Aserto directory.
 
 ## Connecting a Source Code provider
 
-> Currently Aserto supports GitHub as a source code provider. More are on the way!
+:::note
+Currently Aserto supports GitHub as a source code provider. More are on the way!
+:::
 
 ### Connecting GitHub using the OAuth2 flow
 
