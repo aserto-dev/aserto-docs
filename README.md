@@ -39,3 +39,13 @@ The main branch is built and deployed with Netlify to https://doc.aserto.com.
 ## Contributions
 
 To contribute a change, open a PR against the main branch. Once merged, it will automatically be deployed.
+
+## Algolia search
+
+`scripts/scrape.sh` contains a script that scrapes the doc site to an Algolia account. It relies on having `jq` installed (`brew install jq`).
+
+From the room directory of the project, run:
+
+```
+$ yarn scrape
+```
