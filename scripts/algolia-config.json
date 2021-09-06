@@ -1,4 +1,11 @@
 {
     "index_name": "aserto-docs",
-    "start_urls": ["https://doc.aserto.com"]
+    "start_urls": ["https://doc.aserto.com"],
+    "selectors": {
+      "lvl0": "header h1",
+      "lvl1": "article h2",
+      "lvl2": "article h3",
+      "lvl3": "article h4",
+      "text": "header p,article p,article ol"
+    }
   }
