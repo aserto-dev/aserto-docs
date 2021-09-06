@@ -6,6 +6,6 @@
       "lvl1": "article h2",
       "lvl2": "article h3",
       "lvl3": "article h4",
-      "text": "header p,article p,article ol"
+      "text": "header p, article p, article ol, article li, article td:last-child"
     }
   }

@@ -54,17 +54,7 @@ const { sidebar } = require("./sidebars");
         algolia: {
           apiKey: process.env.REACT_APP_ALGOLIA_API_KEY || '_',
           indexName: process.env.REACT_APP_ALGOLIA_INDEX_NAME || '_',
-
-          // Optional: see doc section below
-          contextualSearch: true,
-
-          // Optional: see doc section below
           appId: process.env.REACT_APP_ALGOLIA_APP_ID,
-
-          // Optional: Algolia search parameters
-          searchParameters: {},
-
-          //... other Algolia params
         },
         navbar: {
           style: "dark",
