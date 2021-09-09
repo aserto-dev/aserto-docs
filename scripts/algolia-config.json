@@ -1,12 +1,12 @@
 {
-    "index_name": "aserto-docs",
-    "start_urls": ["https://doc.aserto.com"],
-    "selectors": {
+  "index_name": "aserto-docs",
+  "start_urls": ["https://doc.aserto.com"],
+  "selectors": {
     "lvl0": {
-        "selector": "(//ul[contains(@class,'menu__list')]//a[contains(@class, 'menu__link menu__link--sublist menu__link--active')]/text())[last()]",
-        "type": "xpath",
-        "global": true,
-        "default_value": "Documentation"
+      "selector": "(//ul[contains(@class,'menu__list')]//a[contains(@class, 'menu__link menu__link--sublist menu__link--active')]/text())[last()]",
+      "type": "xpath",
+      "global": true,
+      "default_value": "Documentation"
     },
     "lvl1": "header h1",
     "lvl2": "article h2",
@@ -15,5 +15,5 @@
     "lvl5": "article h5, article td:first-child",
     "lvl6": "article h6",
     "text": "article p, article li, article td:last-child"
-    }
   }
+}
