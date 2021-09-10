@@ -44,7 +44,7 @@ resource context, and a set of options.
     "additionalProp3": "string"
   },
   "options": {
-    "pathSeparator": "SLASH"
+    "pathSeparator": "PATH_SEPARATOR_SLASH"
   }
 }
 ```
@@ -61,8 +61,8 @@ paths and decisions that are being requested.
 ### Path separator
 
 Path separator values are:
-* SLASH: the key in the returned decision tree is of the form `VERB/route/segments/etc`
-* DOT: the key in the returned decision tree is of the form `VERB.route.segments.etc`
+* PATH_SEPARATOR_SLASH: the key in the returned decision tree is of the form `VERB/route/segments/etc`
+* PATH_SEPARATOR_DOT: the key in the returned decision tree is of the form `VERB.route.segments.etc`
 
 ## Output payload
 
