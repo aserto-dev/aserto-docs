@@ -1,6 +1,6 @@
 {
     "index_name": "aserto-docs",
-    "start_urls": ["https://doc.aserto.com"],
+    "start_urls": ["https://docs.aserto.com"],
     "selectors": {
     "lvl0": {
         "selector": "(//ul[contains(@class,'menu__list')]//a[contains(@class, 'menu__link menu__link--sublist menu__link--active')]/text())[last()]",
