@@ -4,7 +4,6 @@
  * work well for content-centric websites.
  */
 
- @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
  @import url('https://fonts.googleapis.com/css2?family=Roboto');
 
  /* change default font sizes */
@@ -55,6 +54,11 @@
   /* switch font */
   --ifm-font-family-base: 'Roboto';
   --ifm-font-color-base: #121212;
+  --ifm-color-secondary-contrast-foreground: #121212;
+  --ifm-color-success-contrast-foreground: #121212;
+  --ifm-color-info-contrast-foreground: #121212;
+  --ifm-color-warning-contrast-foreground: #121212;
+  --ifm-color-danger-contrast-foreground: #121212;
 
   /* footer theme adjustments */
   --ifm-footer-background-color: rgba(30,30,30,1.0);
@@ -83,19 +87,20 @@ html[data-theme='dark'] {
   --ifm-heading-color: #e7e7e7;
   --ifm-color-primary: #67CBCF;
 
-  --ifm-color-secondary-contrast-foreground: #d0d0d0;
+  --ifm-color-secondary-contrast-foreground: #e7e7e7;
   --ifm-color-secondary-contrast-background: #414141;
 
-  /*
-  --ifm-color-success-contrast-foreground: 
-  --ifm-color-success-contrast-background:
-  */
+  --ifm-color-success-contrast-foreground: #e7e7e7;
+  --ifm-color-success-contrast-background: #20351f;
 
-  --ifm-color-info-contrast-foreground: #7db1ff;
+  --ifm-color-info-contrast-foreground: #e7e7e7;
   --ifm-color-info-contrast-background: #254069;
 
-  --ifm-color-warning-contrast-foreground:#FFBB7D;
+  --ifm-color-warning-contrast-foreground:#e7e7e7;
   --ifm-color-warning-contrast-background: #46311d;
+
+  --ifm-color-danger-contrast-foreground:#e7e7e7;
+  --ifm-color-danger-contrast-background: #41201e;
 }
 
 /* set light theme colors */
