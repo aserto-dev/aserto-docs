@@ -42,7 +42,7 @@ To contribute a change, open a PR against the main branch. Once merged, it will 
 
 ## Algolia search
 
-`scripts/scrape.sh` contains a script that scrapes the doc site to an Algolia account. It relies on having `jq` installed (`brew install jq`).
+`scripts/scrape.sh` contains a script that scrapes the doc site to an Algolia account. 
 
 From the room directory of the project, run:
 
