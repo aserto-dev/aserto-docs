@@ -43,7 +43,7 @@
 /* You can override the default Infima variables here. */
 :root {
   /*--ifm-color-primary: #277f82;*/
-  --ifm-color-primary: #3ecacf;
+  --ifm-color-primary: #36B1B5;
   --ifm-color-primary-dark: rgb(33, 175, 144);
   --ifm-color-primary-darker: rgb(31, 165, 136);
   --ifm-color-primary-darkest: rgb(26, 136, 112);
@@ -53,7 +53,8 @@
   --ifm-code-font-size: 95%;
 
   /* switch font */
-  --ifm-font-family-base: 'Open Sans';
+  --ifm-font-family-base: 'Roboto';
+  --ifm-font-color-base: #121212;
 
   /* footer theme adjustments */
   --ifm-footer-background-color: rgba(30,30,30,1.0);
@@ -72,31 +73,56 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
+/* set dark theme colors */
 html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
+html[data-theme='dark'] {
+  background-color: #121212;
+  --ifm-font-color-base: #A0A0A0;
+  --ifm-heading-color: #e7e7e7;
+  --ifm-color-primary: #67CBCF;
 
+  --ifm-color-secondary-contrast-foreground: #d0d0d0;
+  --ifm-color-secondary-contrast-background: #414141;
+
+  /*
+  --ifm-color-success-contrast-foreground: 
+  --ifm-color-success-contrast-background:
+  */
+
+  --ifm-color-info-contrast-foreground: #7db1ff;
+  --ifm-color-info-contrast-background: #254069;
+
+  --ifm-color-warning-contrast-foreground:#FFBB7D;
+  --ifm-color-warning-contrast-background: #46311d;
+}
+
+/* set light theme colors */
+html[data-theme='light'] {
+  background-color: #ffffff;
+}
+
+/* set footer styles */
 .footer-logo {
   width: 60px;
   max-width: 60px;
 }
-
 .footer {
   font-family: 'Roboto';
 }
 .footer__link-item {
   font-size: 14px;
 }
-
 .footer__copyright {
   color: #a0a0a0;
 }
 
+/* set the navbar height and brand height to match website */
 .navbar {
   height: 80px;
   font-family: 'Roboto';
 }
-
 .navbar__brand {
   height: 44px;
 }
@@ -115,8 +141,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   padding-left: 32px;
 }
 
-/* reduce size of sizebar items */
-.menu__link {
-  font-size: 0.9rem;
+/* reset the table of contents font size */
+.table-of-contents {
+  font-size: 14px;
 }
-
