@@ -60,7 +60,7 @@ const { sidebar } = require("./sidebars");
           style: "dark",
           logo: {
             alt: "Aserto Logo",
-            src: "Aserto-logo-color-120px.png",
+            src: "logo-header.svg",
             href: "https://aserto.com",
             target: "_self",
           },
