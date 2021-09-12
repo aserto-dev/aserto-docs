@@ -38,7 +38,7 @@ const { sidebar } = require("./sidebars");
             sidebarPath: require.resolve("./sidebars.js"),
             editUrl:
               "https://github.com/aserto-dev/aserto-docs/edit/main/",
-            routeBasePath: "docs",
+            routeBasePath: "/",
           },
           theme: {
             customCss: require.resolve("./src/css/custom.css"),
@@ -46,7 +46,6 @@ const { sidebar } = require("./sidebars");
           sitemap: {
             changefreq: 'weekly',
             priority: 0.5,
-            trailingSlash: false,
           }
         }),
       ],
