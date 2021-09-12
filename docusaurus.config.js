@@ -8,7 +8,7 @@ const { sidebar } = require("./sidebars");
   module.exports = {
     title: "Aserto Documentation",
     tagline: "Welcome to modern authorization.",
-    url: "https://doc.aserto.com",
+    url: "https://docs.aserto.com",
     baseUrl: "/",
     onBrokenLinks: "throw",
     onBrokenMarkdownLinks: "warn",
