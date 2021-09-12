@@ -36,14 +36,18 @@ const { sidebar } = require("./sidebars");
         ({
           docs: {
             sidebarPath: require.resolve("./sidebars.js"),
-            // Please change this to your repo.
             editUrl:
-              "https://github.com/aserto-dev/aserto-doc/edit/main/",
-            routeBasePath: "/",
+              "https://github.com/aserto-dev/aserto-docs/edit/main/",
+            routeBasePath: "docs",
           },
           theme: {
             customCss: require.resolve("./src/css/custom.css"),
           },
+          sitemap: {
+            changefreq: 'weekly',
+            priority: 0.5,
+            trailingSlash: false,
+          }
         }),
       ],
     ],
