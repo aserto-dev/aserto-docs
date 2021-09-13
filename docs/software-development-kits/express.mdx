@@ -95,8 +95,8 @@ Passing in the `resourceMap` parameter into the `jwtAuthz()` function will overr
 ## displayStateMap middleware
 
 The `displayStateMap` middleware is how the Express.js SDK exposes the 
-[**display state map**](/authorizer-guide/display-state-map) pattern to front-ends (e.g. the 
-[React SDK](/software-development-kits/react) and [Javascript SPA SDK](/software-development-kits/javascript).
+[**display state map**](/docs/authorizer-guide/display-state-map) pattern to front-ends (e.g. the 
+[React SDK](/docs/software-development-kits/react) and [Javascript SPA SDK](/docs/software-development-kits/javascript).
 
 Use the displayStateMap middleware to set up an endpoint that returns the display state map to a caller. The endpoint is named `__displaystatemap` by default, but can be overridden in `options`.
 
@@ -208,11 +208,11 @@ Passing in the `resourceMap` parameter into the `is()` function will override th
 
 ## Certificates
 
-The Aserto [authorizer](/overview/authorizer) exposes HTTPS-only endpoints. In order for a node.js policy to properly communicate with the authorizer, TLS certificates must be verified.
+The Aserto [authorizer](/docs/overview/authorizer) exposes HTTPS-only endpoints. In order for a node.js policy to properly communicate with the authorizer, TLS certificates must be verified.
 
 For a hosted authorizer that has a TLS certificate that is signed by a trusted Certificate Authority, this section isn't relevant because that TLS certificate will be successfully validated.
 
-In a development environment, the Aserto [OneBox](/command-line-interface/onebox) automatically creates a set of self-signed certificates and certificates of the CA (certificate authority) that signed them. It places them in a well-known location on the filesystem, defaulting to `$HOME/.config/aserto/aserto-one/certs/`.
+In a development environment, the Aserto [OneBox](/docs/command-line-interface/onebox) automatically creates a set of self-signed certificates and certificates of the CA (certificate authority) that signed them. It places them in a well-known location on the filesystem, defaulting to `$HOME/.config/aserto/aserto-one/certs/`.
 
 In order for the `express-jwt-aserto` package to perform the TLS handshake, it needs to verify the TLS certificate of the one-box using the certificate of the CA that signed it - which was placed in `$HOME/.config/aserto/aserto-one/certs/aserto-one-gateway-ca.crt`. Therefore, in order for this middleware to work successfully, either the `authorizerCertFile` must be set to the correct path for the CA cert file, or the `disableTlsValidation` flag must be set to `true`.
 

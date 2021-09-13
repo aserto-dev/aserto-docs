@@ -10,9 +10,9 @@ with a user context, but without a resource context.
 This API is useful for getting a "decision tree" that guides a calling application around what 
 functionality will be available to a user based on their context. 
 
-It is used by the the [**display state map**](/authorizer-guide/display-state-map) middleware in SDKs 
-such as the [Aserto Express.js SDK](/software-development-kits/express#displaystatemap-middleware), in 
-conjunction with the [Aserto React SDK](/software-development-kits/react), that is useful in 
+It is used by the the [**display state map**](/docs/authorizer-guide/display-state-map) middleware in SDKs 
+such as the [Aserto Express.js SDK](/docs/software-development-kits/express#displaystatemap-middleware), in 
+conjunction with the [Aserto React SDK](/docs/software-development-kits/react), that is useful in 
 conditionally rendering UI elements based on the **display state** that corresponds to a decision. 
 
 The inputs to the `decisiontree` API are the user context, the set of decisions that the calling 
@@ -49,11 +49,11 @@ resource context, and a set of options.
 }
 ```
 
-The `identityContext` map is documented [here](/authorizer-guide/identity-context).
+The `identityContext` map is documented [here](/docs/authorizer-guide/identity-context).
 
-The `policyContext` map is documented [here](/authorizer-guide/policy-context).
+The `policyContext` map is documented [here](/docs/authorizer-guide/policy-context).
 
-The `resourceContext` map is documented [here](/authorizer-guide/resource-context).
+The `resourceContext` map is documented [here](/docs/authorizer-guide/resource-context).
 
 The `options` map allows the caller to specify the format for retrieving the cartesian product of 
 paths and decisions that are being requested.

@@ -5,7 +5,7 @@ sidebar_label: User Directory
 # Aserto Directory
 
 The Aserto Directory collects user information from identity providers that the user has 
-[connected](/overview/connections) to the control plane, and makes that user information available 
+[connected](/docs/overview/connections) to the control plane, and makes that user information available 
 to Authorizer instances. 
 
 ## Tenant Directory
@@ -25,8 +25,8 @@ Authorizers.
 
 ## User Context
 
-Policies can reference [user context](/overview/policy#user-context). A calling application can 
-provide the [identity context](/authorizer-guide/identity-context) which is used to load that user context.
+Policies can reference [user context](/docs/overview/policy#user-context). A calling application can 
+provide the [identity context](/docs/authorizer-guide/identity-context) which is used to load that user context.
 
 The Authorizer will look up the user identity in its local Edge Directory Service  (EDS). It will then 
 load the user context and make it available to the Policy as `input.user`.
