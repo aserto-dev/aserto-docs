@@ -19,14 +19,24 @@ const { sidebar } = require("./sidebars");
     plugins: [
       ['docusaurus2-dotenv',
         {
-            path: "./.env", // The path to your environment variables.
-            safe: false, // If false ignore safe-mode, if true load './.env.example', if a string load that file as the sample
-            systemvars: true, // Set to true if you would rather load all system variables as well (useful for CI purposes)
-            silent: false, //  If true, all warnings will be suppressed
-            expand: false, // Allows your variables to be "expanded" for reusability within your .env file
-            defaults: false, //  Adds support for dotenv-defaults. If set to true, uses ./.env.defaults
+          path: "./.env", // The path to your environment variables.
+          safe: false, // If false ignore safe-mode, if true load './.env.example', if a string load that file as the sample
+          systemvars: true, // Set to true if you would rather load all system variables as well (useful for CI purposes)
+          silent: false, //  If true, all warnings will be suppressed
+          expand: false, // Allows your variables to be "expanded" for reusability within your .env file
+          defaults: false, //  Adds support for dotenv-defaults. If set to true, uses ./.env.defaults
         }
-      ]
+      ],
+      ['@docusaurus/plugin-client-redirects',
+        {
+          redirects: [
+            {
+              to: '/docs',
+              from: '/'
+            },
+          ],
+        },
+      ],
     ],
 
     presets: [
