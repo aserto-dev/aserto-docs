@@ -31,7 +31,7 @@ const { sidebar } = require("./sidebars");
         {
           redirects: [
             {
-              to: '/docs',
+              to: '/docs/',
               from: '/'
             },
           ],
