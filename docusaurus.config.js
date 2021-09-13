@@ -39,7 +39,7 @@ const { sidebar } = require("./sidebars");
             // Please change this to your repo.
             editUrl:
               "https://github.com/aserto-dev/aserto-doc/edit/main/",
-            routeBasePath: "/",
+            routeBasePath: "docs",
           },
           theme: {
             customCss: require.resolve("./src/css/custom.css"),
@@ -66,7 +66,7 @@ const { sidebar } = require("./sidebars");
           },
           items: [
             {
-              to: "/",
+              to: "docs",
               position: "left",
               label: "Docs",
             },
@@ -115,7 +115,7 @@ const { sidebar } = require("./sidebars");
               items: [
                 {
                   label: "Docs",
-                  to: "/",
+                  to: "docs",
                 },
                 {
                   label: "GitHub",
