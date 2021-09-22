@@ -13,8 +13,8 @@ const { sidebar } = require("./sidebars");
     onBrokenLinks: "throw",
     onBrokenMarkdownLinks: "warn",
     favicon: "img/favicon.ico",
-    organizationName: "aserto-dev", // Usually your GitHub org/user name.
-    projectName: "aserto-doc", // Usually your repo name.
+    organizationName: "aserto-dev",
+    projectName: "aserto-docs", 
 
     plugins: [
       ['docusaurus2-dotenv',
