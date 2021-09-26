@@ -1,0 +1,36 @@
+---
+sidebar_label: Introduction
+---
+
+# Introduction
+
+Aserto supports multiple deployment models, which involve different tradeoffs:
+* Use our hosted multi-tenant authorizer
+* Deploy our edge authorizer as a microservice in your subnet
+* Deploy our edge authorizer as a sidecar 
+
+The first option is good for prototyping; when deploying your production application, 
+we strongly recommend one of the other two.
+
+## Hosted multi-tenant authorizer
+
+Every Aserto tenant has access to our hosted authorizer. This is a great option for 
+getting started, but not a great option for a production application, since your 
+application makes an HTTPS call across the internet for every application request, 
+introducing unpredictability in latency and availability. 
+
+## Deploy the edge authorizer as a microservice in your subnet
+
+For non-kubernetes deployments, you can deploy the Aserto edge authorizer as a 
+microservice in your environment. This means that you have to manage the lifecycle of 
+the service just like you manage the lifecycle of your application, but it gives you 
+a low-latency path from your application to the authorizer, and removes your application's 
+dependency on an external service.
+
+## Deploy the edge authorizer as a sidecar
+
+For kubernetes deployments, an attractive deployment model is to configure the 
+Aserto authorizer as a sidecar container in your application's pod. This ensures the 
+lowest latency and highest availability path between your application container and 
+the authorizer, since the sidecar is deployed on the same Kubernetes node as your 
+application. 

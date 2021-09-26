@@ -90,6 +90,14 @@ module.exports = {
         "command-line-interface/directory",
         "command-line-interface/onebox",
       ],
+    },
+    {
+      type: 'category',
+      label: 'Deployment Guide',
+      items: [
+        "deployment-guide/intro",
+        "deployment-guide/sidecar",
+      ]
     }
   ]
 };
