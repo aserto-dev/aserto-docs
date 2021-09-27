@@ -4,3 +4,18 @@ sidebar_label: Sidecar deployment
 
 # Sidecar deployment
 
+Deploying the edge authorizer as a sidecar involves the following steps:
+
+1. Deploy the edge authorizer as a sidecar inside the Kubernets pod in which your application resides. This step is comprised of multiple sub tasks.
+
+	1. Enable the protocol used to communicate between the application and the authorizer container, for which there are two options: gRPC or REST HTTPS.
+	2. Enable TLS, since both protocol options require TLS to establish a trusted connection between the application and the authorizer, we need to provide application access to the CA certificate.
+	3. Create a persisted volume to the authorizer to store the edge directory database file, so that data can survive pod restarts and updates.
+
+2. Configure the authorizer so it can download the policy bundle from the policy registry
+3. Create a job to synchronize the edge directory data from the shared hosted authorizer
+
+
+> The examples shown, are using [traefik](https://traefik.io/) for ingress and [cert-manager](https://cert-manager.io/) for X.509 certificate management, using Let's Encrypt as the certificate authority. 
+
+

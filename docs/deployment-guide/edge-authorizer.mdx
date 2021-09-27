@@ -1,0 +1,112 @@
+---
+sidebar_label: Edge Authorizer Configuration
+---
+
+# Edge authorizer configuration
+
+Using and configuration of the edge authorizer.
+
+Installing the edge authorizer
+
+```
+docker pull ghcr.io/aserto-dev/aserto-one:latest
+```
+
+Running the edge authorizer
+
+```
+docker run -ti --platform=linux/amd64 ghcr.io/aserto-dev/aserto-one:latest
+
+```
+
+```
+❯ docker run -ti --platform=linux/amd64 ghcr.io/aserto-dev/aserto-one:latest
+
+Usage:
+  aserto-one [command]
+
+Available Commands:
+  build       Build an OPA bundle
+  completion  generate the autocompletion script for the specified shell
+  help        Help about any command
+  push        Push a policy bundle release to the Aserto Registry
+  run         Run the Aserto One Box server
+  version     Print version and exit
+
+Flags:
+  -h, --help   help for aserto-one
+
+Use "aserto-one [command] --help" for more information about a command.
+```
+
+Running a local container instance
+
+```
+mkdir -p ~/example/certs
+mkdir -p ~/example/config
+mkdir -p ~/example/db
+
+cd ~/example
+
+docker run \
+-ti | -d \
+--rm \
+--platform linux/amd64
+--name aserto-one
+-p 8282:8282
+-p 8383:8383
+-p 8484:8484
+-v $PWD/certs:/app/certs:ro
+-v $PWD/config:/app/config:ro
+-v $PWD/db:/app/db:rw
+ghcr.io/aserto-dev/aserto-one:latest
+run
+--config-file /app/config/config.yaml
+--dbpath /app/db/edge.db
+```
+
+
+## Authorizer config.yaml file
+```
+---
+logging:
+  prod: false
+  log_level: {{ .LogLevel }}
+
+directory_service:
+  path: "/app/db/eds.db"
+
+api:
+  grpc:
+    connection_timeout_seconds: 2
+    certs:
+      tls_key_path: "/app/certs/grpc.key"
+      tls_cert_path: "/app/certs/grpc.crt"
+      tls_ca_cert_path: "/app/certs/grpc-ca.crt"
+  gateway:
+    certs:
+      tls_key_path: "/app/certs/gateway.key"
+      tls_cert_path: "/app/certs/gateway.crt"
+      tls_ca_cert_path: "/app/certs/gateway-ca.crt"
+
+opa:
+  instance_id: "{{ .TenantID }}"
+  store: aserto
+  graceful_shutdown_period_seconds: 2
+  config:
+    services:
+      acmecorp:
+        url: {{ .RegistrySvc }}/{{ .TenantID }}
+        response_header_timeout_seconds: 5
+        credentials:
+          bearer:
+            token: "{{ .DownloadAPIKey }}"
+    bundles:
+      {{ .PolicyID }}:
+        service: acmecorp
+        resource: "/{{ .PolicyID }}/bundle.tar.gz"
+        persist: true
+        polling:
+          min_delay_seconds: 10
+          max_delay_seconds: 30
+```

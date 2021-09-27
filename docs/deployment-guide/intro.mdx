@@ -19,6 +19,11 @@ getting started, but not a great option for a production application, since your
 application makes an HTTPS call across the internet for every application request, 
 introducing unpredictability in latency and availability. 
 
+## Deploy the edge authorizer as a local container instance
+
+You can deploy the edge authorizer as a local container instance, doing will allow you to locally validate configuring and using the authorizer. 
+
+
 ## Deploy the edge authorizer as a microservice in your subnet
 
 For non-kubernetes deployments, you can deploy the Aserto edge authorizer as a 
@@ -34,3 +39,5 @@ Aserto authorizer as a sidecar container in your application's pod. This ensures
 lowest latency and highest availability path between your application container and 
 the authorizer, since the sidecar is deployed on the same Kubernetes node as your 
 application. 
+
+
