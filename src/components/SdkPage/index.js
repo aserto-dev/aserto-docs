@@ -1,6 +1,6 @@
 import React from 'react'
 import sdks from '../../sdks'
-import Sdk from './Sdk/Sdk'
+import Sdk from './Sdk'
 import styles from './SdkPage.module.css';
 
 const SdkPage = () => {
@@ -14,6 +14,7 @@ const SdkPage = () => {
                         key={s.title}
                         title={s.title}
                         icon={s.icon}
+                        link={s.link}
                         github={s.github}
                         docs={s.docs}
                     />

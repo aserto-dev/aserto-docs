@@ -24,7 +24,17 @@ All three of these capabilities call out to an authorizer service, which must be
 
 ## Installation
 
-    $ npm install express-jwt-aserto
+Using [npm](https://npmjs.org):
+
+```sh
+npm install express-jwt-aserto
+```
+
+Using [yarn](https://yarnpkg.com):
+
+```sh
+yarn add express-jwt-aserto
+```
 
 :::note
 `express@^4.0.0` is a peer dependency. Make sure it is installed in your project.
@@ -96,7 +106,7 @@ Passing in the `resourceMap` parameter into the `jwtAuthz()` function will overr
 
 The `displayStateMap` middleware is how the Express.js SDK exposes the 
 [**display state map**](/docs/authorizer-guide/display-state-map) pattern to front-ends (e.g. the 
-[React SDK](/docs/software-development-kits/react) and [JavaScript SPA SDK](/docs/software-development-kits/javascript).
+[React SDK](/docs/software-development-kits/javascript/react) and [JavaScript SPA SDK](/docs/software-development-kits/javascript/spa)).
 
 Use the displayStateMap middleware to set up an endpoint that returns the display state map to a caller. The endpoint is named `__displaystatemap` by default, but can be overridden in `options`.
 
