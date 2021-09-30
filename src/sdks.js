@@ -5,7 +5,7 @@ export default [{
   docs: '/docs/software-development-kits/react',
   sample: 'https://github.com/aserto-demo/peoplefinder',
 }, {
-  title:'Javascript SPA', 
+  title:'JavaScript SPA', 
   icon: 'javascript.png',
   github: 'https://github.com/aserto-dev/aserto-spa-js',
   docs: '/docs/software-development-kits/javascript',

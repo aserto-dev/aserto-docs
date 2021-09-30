@@ -7,6 +7,8 @@
 # Generated files
 .docusaurus
 .cache-loader
+.next
+sidebar.json
 
 # Misc
 .DS_Store
