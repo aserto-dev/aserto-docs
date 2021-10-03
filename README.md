@@ -34,7 +34,7 @@ This will serve the React bundle built in the `build` directory.
 
 ## Deployment
 
-The main branch is built and deployed with Netlify to https://doc.aserto.com.
+The main branch is built and deployed with Netlify to https://docs.aserto.com.
 
 ## Contributions
 
