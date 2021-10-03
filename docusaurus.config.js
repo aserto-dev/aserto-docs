@@ -102,7 +102,7 @@ const { sidebar } = require("./sidebars");
               target: "_self",
             },
             {
-              to: "https://github.com/aserto-dev/aserto-doc",
+              to: "https://github.com/aserto-dev/aserto-docs",
               label: "GitHub",
               position: "right",
             },
