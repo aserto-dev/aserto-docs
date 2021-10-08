@@ -1,27 +1,22 @@
 export default [{
   title: 'React', 
-  icon: 'react.png',
+  icon: 'react.svg',
   github: 'https://github.com/aserto-dev/aserto-react',
-  docs: '/docs/software-development-kits/react',
-  sample: 'https://github.com/aserto-demo/peoplefinder',
+  docs: '/docs/software-development-kits/react'
 }, {
   title:'JavaScript SPA', 
-  icon: 'javascript.png',
+  icon: 'javascript.svg',
   github: 'https://github.com/aserto-dev/aserto-spa-js',
-  docs: '/docs/software-development-kits/javascript',
-  sample: 'https://github.com/aserto-demo/peoplefinder',
+  docs: '/docs/software-development-kits/javascript'
 }, {
   title:'Express.js', 
-  icon: 'nodejs.png',
+  icon: 'nodejs.svg',
   github: 'https://github.com/aserto-dev/express-jwt-aserto',
-  docs: '/docs/software-development-kits/express',
-  sample: 'https://github.com/aserto-demo/peoplefinder',
-}, 
-{
+  docs: '/docs/software-development-kits/express'
+}, {
   title:'ASP.NET Core', 
-  icon: 'dotnet-core.png',
+  icon: 'dotnet-core.svg',
   github: 'https://github.com/aserto-dev/aserto-dotnet',
-  docs: '/docs/software-development-kits/dotnetcore',
-  sample: 'https://github.com/aserto-dev/aserto-dotnet/tree/main/examples',
+  docs: '/docs/software-development-kits/dotnetcore'
 }, 
 ]

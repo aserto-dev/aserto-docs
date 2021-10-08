@@ -159,3 +159,92 @@ html[data-theme='dark'] .main-wrapper aside {
 .table-of-contents {
   font-size: 14px;
 }
+
+/* Aserto SDKs - set to Aserto's light and dark theme */
+.sdk-page-title {
+  font-size: 32px;
+  color: #121212;
+}
+
+html[data-theme='dark'] .sdk-page-title {
+  color: #a0a0a0;
+}
+
+.sdks-div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sdk-card {
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  margin: 10px;
+  width: 241px;
+  height: 317px;
+  text-align: center;
+}
+
+.sdk-card:hover {
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+html[data-theme='dark'] .sdk-card {
+  background-color: #1e1e1e;
+}
+
+html[data-theme='dark'] .sdk-card:hover {
+  background-color: #2a2a2a;
+}
+.sdk-name {
+  height: 48px;
+  color: #121212;
+  font-size: 22px;
+  font-weight: bold;
+  border-width: 2px 0;
+  border-color: #414141;
+  border-style: solid;
+  padding: 0 20px;
+  margin: 0 20px;
+  line-height: 48px;
+}
+
+html[data-theme='dark'] .sdk-name {
+  color: #e7e7e7;
+}
+
+.sdk-image {
+  display: inline-block;
+  margin: 20px 0;
+  height: 100px;
+}
+
+.sdk-github-link {
+  display: block;
+  font-size: 14px;
+  font-weight: 900;
+  color: #3ecacf;
+  padding: 0 20px;
+  margin: 20px;
+}
+
+.launch-button {
+  display: none;
+  width: 201px;
+  color: white;
+  background-color: rgb(31, 83, 85);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  border-width: 0;
+  padding: 9px 1px;
+}
+
+.sdk-card:hover .launch-button, .launch-button:hover {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.launch-button:hover {
+  background-color: rgb(37, 116, 119);
+}

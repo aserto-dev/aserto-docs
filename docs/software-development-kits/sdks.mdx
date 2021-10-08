@@ -2,24 +2,8 @@
 sidebar_label: SDKs
 ---
 
-import sdks from '../../src/sdks'
-import Sdk from '../../src/components/Sdk'
-import Hr from '../../src/components/Hr'
+import SdkPage from '../../src/components/SdkPage/SdkPage'
 
 # Aserto SDKs
 
-<div>
-  <Hr />
-  {sdks.map((s) => 
-    <div>
-      <Sdk
-        title={s.title}
-        icon={s.icon}
-        github={s.github}
-        docs={s.docs}
-        sample={s.sample}
-        />
-      <Hr />
-    </div>
-  )}
-</div>
+<SdkPage />
