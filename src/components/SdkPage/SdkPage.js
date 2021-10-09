@@ -1,14 +1,14 @@
 import React from 'react'
 import sdks from '../../sdks'
 import Sdk from './Sdk/Sdk'
-import '../../css/custom.css'
+import styles from './SdkPage.module.css';
 
 const SdkPage = () => {
     return (
         <div>
-            <p className="sdk-page-title">Get up and running fast with Aserto SDKs.</p>
+            <p className={styles.sdkPageTitle}>Get up and running fast with Aserto SDKs.</p>
 
-            <div className="sdks-div">
+            <div className={styles.sdksDiv}>
                 {sdks.map((s) => 
                     <Sdk
                         key={s.title}

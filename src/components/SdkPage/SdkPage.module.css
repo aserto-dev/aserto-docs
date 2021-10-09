@@ -1,0 +1,15 @@
+/* Aserto SDK Page - set to Aserto's light and dark theme */
+
+.sdkPageTitle {
+    font-size: 32px;
+    color: #121212;
+}
+
+html[data-theme='dark'] .sdkPageTitle {
+    color: #a0a0a0;
+}
+
+.sdksDiv {
+    display: flex;
+    flex-wrap: wrap;
+}
