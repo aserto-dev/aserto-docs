@@ -10,7 +10,7 @@ const Sdk = ({ title, icon, github, docs }) => {
       <Link className={styles.sdkGithubLink} href={github} target='_self'>
         GitHub
       </Link>
-      <Link href={docs} target='_docs'>
+      <Link href={docs}>
         <button className={styles.launchButton}>View Docs</button>
       </Link>
     </div>    
