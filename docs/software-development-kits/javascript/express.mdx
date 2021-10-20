@@ -206,7 +206,7 @@ The Express request object.
 
 By default, `is` will follow the same heuristic behavior as `jwtAuthz` - it will infer the packge name from the policy name, HTTP method, and route path. If provided, the `packageName` argument will override this and specify a policy package to use.
 
-By convention, Aserto Rego policies are named in the form `policyRoot.METHOD.path`. Following the node.js idiom, you can also pass it in as `policyRoot/METHOD/path`, and the path can contain the Express parameter syntax.
+By convention, Aserto Rego policies are named in the form `policyRoot.METHOD.path`. Following the Node.js idiom, you can also pass it in as `policyRoot/METHOD/path`, and the path can contain the Express parameter syntax.
 
 For example, passing in `policyRoot/GET/api/users/:id` will resolve to a policy called `policyRoot.GET.api.users.__id`.
 
@@ -218,7 +218,7 @@ Passing in the `resourceMap` parameter into the `is()` function will override th
 
 ## Certificates
 
-The Aserto [authorizer](/docs/overview/authorizer) exposes HTTPS-only endpoints. In order for a node.js policy to properly communicate with the authorizer, TLS certificates must be verified.
+The Aserto [authorizer](/docs/overview/authorizer) exposes HTTPS-only endpoints. In order for a Node.js policy to properly communicate with the authorizer, TLS certificates must be verified.
 
 For a hosted authorizer that has a TLS certificate that is signed by a trusted Certificate Authority, this section isn't relevant because that TLS certificate will be successfully validated.
 

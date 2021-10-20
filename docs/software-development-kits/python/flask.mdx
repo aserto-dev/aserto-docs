@@ -44,30 +44,8 @@ All options must be passed as keyword arguments, but may be provided in any orde
 
 - `policy_id` (_required_): Policy ID
 - `policy_path_root` (_required_): Policy root
-- `authorizer` (_required_): An `Authorizer` instance that describes the Authorizer service being used
-
-  #### Examples:
-
-  ```py
-  from aserto import HostedAuthorizer, EdgeAuthorizer
-
-  # If using Aserto's hosted authorizer
-  authorizer = HostedAuthorizer(
-      api_key=YOUR_ASERTO_API_KEY,
-      tenant_id=YOUR_ASERTO_TENANT_ID,
-      service_type="REST",
-  )
-
-  # If using a self-hosted (Edge) authorizer
-  authorizer = EdgeAuthorizer(
-      url=AUTHORIZER_SERVICE_URL,
-      cert_file_path=FILE_PATH_TO_YOUR_AUTHORIZER_CA_CERTIFICATE,
-      service_type="gRPC",
-  )
-  ```
-
-- `identity_provider` (_required_): A callable object which returns an `Identity` instance that represents
-  a user.
+- `authorizer` (_required_): An [`Authorizer`](/docs/software-development-kits/python/authorizers) instance that describes the Authorizer service being used.
+- `identity_provider` (_required_): A callable object which returns an `Identity` instance that represents a user.
 
   #### Example using the [aserto-idp](/docs/software-development-kits/python/identity-providers) package to define an Auth0 identity provider
 
@@ -256,4 +234,4 @@ async def api_users() -> Response:
 
 ## Github
 
-This SDK is open source and can be found on [GitHub](https://github.com/aserto-dev/aserto-python/tree/main/packages/flask-aserto).
+This package is open source and can be found on [GitHub](https://github.com/aserto-dev/aserto-python/tree/main/packages/flask-aserto).

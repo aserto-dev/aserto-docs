@@ -1,5 +1,3 @@
-import Flags from '../flags'
-
 export default [
   {
     title: 'React.js',
@@ -22,17 +20,13 @@ export default [
     github: 'https://github.com/aserto-dev/express-jwt-aserto',
     docs: '/docs/software-development-kits/javascript/express',
   },
-  ...(Flags.PYTHON_API_CLIENT_DOCS
-    ? [
-        {
-          title: 'Python',
-          icon: 'python.svg',
-          link: 'https://www.python.org',
-          github: 'https://github.com/aserto-dev/aserto-python',
-          docs: '/docs/software-development-kits/python/api-client',
-        },
-      ]
-    : []),
+  {
+    title: 'Python',
+    icon: 'python.svg',
+    link: 'https://www.python.org',
+    github: 'https://github.com/aserto-dev/aserto-python',
+    docs: '/docs/software-development-kits/python/api-client',
+  },
   {
     title: 'Flask',
     icon: 'flask.svg',
