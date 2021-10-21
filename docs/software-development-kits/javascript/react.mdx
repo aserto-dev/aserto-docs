@@ -1,5 +1,5 @@
 ---
-sidebar_label: React 
+sidebar_label: React.js
 ---
 
 # React SDK
@@ -13,7 +13,7 @@ the front-end typically wants to avoid displaying UI elements that allow users t
 Aserto addresses this problem by defining the [**display state map**](/docs/authorizer-guide/display-state-map) pattern. 
 
 The Aserto React SDK works together with other high-level language SDKs like the 
-[Express.js](/docs/software-development-kits/express#displayStateMap-middleware) to allow retrieving this 
+[Express.js](/docs/software-development-kits/javascript/express#displayStateMap-middleware) to allow retrieving this
 **display state map** when the user logs in (and/or reload it). This in turn can be used to instruct 
 the UI on whether to render specific UI elements that correspond to these routes / permissions.
 
@@ -166,7 +166,7 @@ console.log(displayStateMap);
 
 ### identity and setIdentity
 
-- `setIdentity` can be used to set the identity to pass as an `identity` HTTP header.  It will override an `identity` header that is passed into `reload(headers)`.  This is the preferred way to send an identity to the [displayStateMap](/docs/software-development-kits/express#displayStateMap-middleware) API, which can be used to override the Authorization header by the displayStateMap middleware.
+- `setIdentity` can be used to set the identity to pass as an `identity` HTTP header.  It will override an `identity` header that is passed into `reload(headers)`.  This is the preferred way to send an identity to the [displayStateMap](/docs/software-development-kits/javascript/express#displayStateMap-middleware) API, which can be used to override the Authorization header by the displayStateMap middleware.
 - `identity` will return the current identity (or undefined if it hasn't been set).
 
 ### getDisplayState('method, 'path')

@@ -2,10 +2,12 @@ import React from 'react'
 import Link from '@docusaurus/Link'
 import styles from './Sdk.module.css'
 
-const Sdk = ({ title, icon, github, docs }) => {
+const Sdk = ({ title, link, icon, github, docs }) => {
   return (
     <div className={styles.sdkCard}>
-      <img className={styles.sdkImage} src={`/${icon}`} alt={title} />
+      <a href={link}>
+        <img className={styles.sdkImage} src={`/${icon}`} alt={title} />
+      </a>
       <p className={styles.sdkTitle}>{title}</p>
       <Link className={styles.sdkGithubLink} href={github} target='_self'>
         GitHub
