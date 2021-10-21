@@ -79,6 +79,15 @@ module.exports = {
           items: [
             'software-development-kits/python/api-client',
             'software-development-kits/python/flask',
+            {
+              type: 'category',
+              label: 'Reference',
+              collapsed: false,
+              items:  [
+                'software-development-kits/python/identity-providers',
+                'software-development-kits/python/authorizers',
+              ]
+            }
           ],
         },
         'software-development-kits/dotnetcore',
