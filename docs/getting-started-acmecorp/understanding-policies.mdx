@@ -1,0 +1,317 @@
+---
+sidebar_label: Understanding Policies
+---
+
+# Understanding Policies
+
+## The Structure of a Policy Bundle
+
+The Aserto Authorizer is loaded with a policy bundle that includes all the assets needed to make decisions. The bundle includes a `policies` folder, a `data.json` file and a manifest file.
+
+In this example, the `data.json` file specifies the roles that are available for all the policies. For each role, it enumerates the module which governs them. Finally, for each module it enumerates the permissions settings that would apply for that role and module combination. Every module corresponds to a method and route in the api, following the convention `policyroot.METHOD.route` (where the route is dot delimited instead of slash delimited). For example:
+
+```javascript
+{
+ "roles": {
+   "roles": {
+     "admin": {...},
+     "editor": {...},
+     "viewer": {
+        "peoplefinder.GET.api.users": {
+           "allowed": true,
+           "enabled": true,
+           "visible": true
+         }
+       },
+       ...
+   }
+ }
+}
+```
+
+In this snippet we can see that people with the role of `viewer` are `allowed` to access the method **GET** and the route `/api/users` for the policy root `peoplefinder`.
+
+The policies folder contains all the policies used by the bundle. Policies contain rules which govern how the authorizer makes its decision. Aserto makes two pieces of information available to the policies: the roles that are defined in the `data.json` file and the user information from the user directory.
+
+## The User object
+
+Aserto caches all user information in the Authorizer, so that we can use the identity context as a key for looking up all the known data about the user in constant time. Here is an example of a user object that is stored in the directory:
+
+```javascript
+{
+  "id": "cirkzmrhzgmzos03mzm1ltqwngqtywy2ni1jnzdjzjezyte1zjgsbwxvy2fs",
+  "enabled": true,
+  "display_name": "Euan Garden",
+  "email": "euang@acmecorp.com",
+  "picture": "https://github.com/aserto-demo/contoso-ad-sample/raw/main/UserImages/Euan%20Garden.jpg",
+  "identities": {
+    "+1-804-555-3383": {
+      "kind": "IDENTITY_KIND_PHONE",
+      "provider": "",
+      "verified": false
+    },
+    "CiRkZmRhZGMzOS03MzM1LTQwNGQtYWY2Ni1jNzdjZjEzYTE1ZjgSBWxvY2Fs": {
+      "kind": "IDENTITY_KIND_PID",
+      "provider": "local",
+      "verified": true
+    },
+    "euang": {
+      "kind": "IDENTITY_KIND_USERNAME",
+      "provider": "",
+      "verified": false
+    },
+    "euang@acmecorp.com": {
+      "kind": "IDENTITY_KIND_EMAIL",
+      "provider": "local",
+      "verified": true
+    }
+  },
+  "attributes": {
+    "properties": {
+      "department": "Sales Engagement Management",
+      "manager": "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
+      "phone": "+1-804-555-3383",
+      "title": "Salesperson"
+    },
+    "roles": [
+      "acmecorp",
+      "sales-engagement-management",
+      "user",
+      "viewer"
+    ],
+    "permissions": []
+  },
+  "applications": {},
+  "metadata": {
+    "created_at": "2021-11-08T21:16:13.883383606Z",
+    "updated_at": "2021-11-08T21:16:13.883383606Z",
+    "deleted_at": null
+  },
+  "deleted": false
+}
+```
+
+Next we’ll see how we can refer back to this user object as part of our policies.
+
+## The Structure of a Policy
+
+Policies are written in a language called Rego - which is the language used to build policies handled by the OPA engine Aserto uses in its authorizer.
+
+Let’s examine the first policy:
+
+```
+package peoplefinder.GET.api.users
+```
+
+The first line of the policy defines the name of the package using the Rego `package` directive. As mentioned before, this name corresponds to the method and route in the application. In this case, the policy with the root `peoplefinder` is applied to a route for `GET /api/users` - which returns a list of all the users shown in the “People” view.
+
+```
+import input.user.attributes.roles as user_roles
+import input.policy.path
+```
+
+Here we use the `import` directive to access the user object which is made available to the policy by Aserto. In this example, we alias `attributes.roles` in the user object as `user_roles` so that later on in the policy we can refer to it directly without specifying the full path. Similarly, we import `input.policy.path` object which will allow us to refer the policy’s path - `people.GET.api.users` - directly.
+
+```
+default allowed = false
+default visible = false
+default enabled = false
+```
+
+There are three decisions that are set as `false` by default:
+`allowed` - governs whether an operation is allowed at the API level.
+`visible` and `enabled` are used by the React app to determine how to render the UI elements associated with this operation (in this case, whether to show or hide the user list).
+The policy rules that follow define the exception to the default behavior.
+
+```
+allowed {
+  some index
+  data.roles[user_roles[index]].perms[path].allowed
+}
+```
+
+The first rule in our policy is for the `allowed` decision. Let’s break it up, since it is somewhat complex:
+
+```
+user_roles[index]
+```
+
+This expression will use the `some index` expression to iterate over all the roles a user has in the user object as seen below.
+
+```javascript
+{
+    "attributes": {
+        "properties": {
+          "department": "Sales Engagement Management",
+          "manager": "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
+          "phone": "+1-804-555-3383",
+          "title": "Salesperson"
+        },
+        "roles": [
+          "acmecorp",
+          "sales-engagement-management",
+          "user",
+          "viewer"
+        ],
+        "permissions": []
+    }
+}
+```
+
+Let’s look at the entire expression again:
+
+```
+data.roles[user_roles[index]].perms[path].allowed
+```
+
+For each one of those roles, the policy will access the roles object in the data.json file (seen below), drill down to the `perms` object, and then continue drilling down to the path that defines the permission being evaluated - `peoplefinder.GET.api.users`. Finally the rule accesses the `allowed` property and that will dictate what the final value will be.
+
+```javascript
+{
+ "roles": {
+   "roles": {
+     "admin": {...},
+     "editor": {...},
+     "viewer": {
+        "peoplefinder.GET.api.users": {
+           "allowed": true,
+           "enabled": true,
+           "visible": true
+         },
+         …
+         "peoplefinder.PUT.api.users.__id": {
+            "allowed": false,
+            "visible": true,
+            "enabled": true
+         },
+       },
+       ...
+   }
+ }
+}
+```
+
+In this example, our user has the role of a `viewer`, the policy will follow the path `roles` -> `viewer` -> `perms` -> `peoplefinder.GET.api.users` -> `allowed` and will eventually return the value `true`. On the other hand, if a `viewer` attempts to access the route `PUT api/users/:id` the value for `allowed` will be `false` and the user will be disallowed.
+
+:::caution Note
+Roles that do not exist in the `data.json` file will be ignored.
+:::
+
+Unlike a viewer, an `admin` user trying to access `PUT api/users/:id` will be allowed to do so - that’s the behavior we observed when attempting to edit a user’s phone number as the user “Kris”. Here is the `admin` definition in the `data.json` file:
+
+```
+{
+    "roles": {
+        "viewer": {...},
+        "editor": {...},
+        "admin": {
+            "description": "PeopleFinder administrator",
+            "perms": {
+               ...
+                "peoplefinder.PUT.api.users.__id": {
+                    "allowed": true,
+                    "visible": true,
+                    "enabled": true
+                },
+               ...
+            }
+        }
+    }
+}
+```
+
+Let's review the rest of the policy:
+
+```
+visible {
+  some index
+  data.roles[user_roles[index]].perms[path].visible
+}
+
+enabled {
+  some index
+  data.roles[user_roles[index]].perms[path].enabled
+}
+```
+
+The `visible` and `enabled` rules are built similarly, they just access their respective properties under the path object. If present, these rules can be used in conjunction with the [`Display State Map`](/authorizer-guide/authorizer-guide/display-state-map) utility.
+
+## Test Policy Behavior in the Aserto Playground
+
+Open the [Aserto playground](https://aserto-playground.netlify.app/). You’ll see the following:
+
+TODO: Update Playground URL
+
+![playground-empty](/getting-started-acmecorp/playground-empty.png)
+
+This is the Aserto Playground. It allows you to experiment with permissions, roles, policies and attributes and see how they affect users you may have in your system.
+In the top right corner you can see the User drop down. Here you can choose which user to inspect - each user is going to have their own roles and attributes that would affect their permissions. Let’s start with the first user on the list - euang@acmecorp.com. After selecting the user in the drop-down, click on “Edit”.
+
+![euan-garden-playground](/getting-started-acmecorp/euan-garden-playground.png)
+
+Here you can see which roles are currently assigned to this user - in this case, this user has been assigned the role of `viewer` - and there are some properties associated with them - their department, their manager and their title. These properties will come in handy later.
+
+Next, we’ll load the peoplefinder-rbac template into the Playground.
+
+![playground-permissions-1](/getting-started-acmecorp/playground-permissions-1.png)
+
+When we click on each of these permissions, the corresponding policy package will be loaded in the details panel. The roles section of this table specifies which roles have access to which route. Reviewing the permissions, we can see for example that all roles can access `GET /api/users`, but only an admin can invoke `DELETE /api/users/:id`.
+
+To see the the results of the evaluation of the policy, we’ll click the “Evaluate” button:
+
+![evaluate-button](/getting-started-acmecorp/evaluate-button.png)
+
+Let’s look at the results:
+
+![playground-evaluated-results](/getting-started-acmecorp/playground-evaluated-results.png)
+
+Modifying the values of items in the roles section updates the roles/data.json file to reflect those changes, so we can experiment and see what happens if we enable or disable roles from particular routes.
+Let’s uncheck “viewer” from the `people.GET.api.users` and see how the change would affect Euan’s access:
+
+![playground-evaluated-results-2](/getting-started-acmecorp/playground-evaluated-results-2.png)
+
+Euan no longer has access since now only people with either an “editor” or “admin” roles can access this route.
+
+We can similarly make modifications to other roles definitions to see how they would affect the final decision for any particular user - given the roles assigned to that user. Take some time to explore the different combinations of role assignments to permissions and users.
+
+Now let’s take a look at a policy: Click on the `people.PUT.api.users.__id` permission to load it into the Policy Detail panel.
+
+![playground-put-policy](/getting-started-acmecorp/playground-put-policy.png)
+
+As mentioned before, this policy essentially states that each of the permissions listed are going to be dependent on the user’s role. We can now make this policy a bit more fine grained, and add the use of _attributes_ to it.
+
+## Attribute based access control
+
+With Aserto, we can very easily extend this RBAC authorization scheme and make use of particular attributes a user may have to make authorization decisions. As we saw before, the users in this example have attributes like “department”, “manager” and “title”. For example: we want to allow people from Euan’s “Sales Engagement Management” department to make changes to user information, regardless of their role.
+
+We’ll open the `people.PUT.api.users.__id` policy and add the following import statement:
+
+```
+import input.user.attributes.properties as props
+```
+
+And the following rule:
+
+```
+allowed {
+	props = attributes.properties
+	props.department == "Sales Engagement Management"
+}
+
+```
+
+We can have multiple “allowed” clauses and if any of them evaluates to `true` the decision for `allowed` for this package will be `true` as well.
+
+Now run “Evaluate” once more.
+
+We can see that with this modification Euan is now allowed to access the route even though he otherwise doesn’t have the role required to do so - but rather a specific property. This allows us to define a fine-grained authorization model that gives us the freedom to choose from a large number of attributes.
+
+## Save your work
+
+You can save your policy bundle by clicking the download button.
+
+![playground-download](/getting-started-acmecorp/playground-download.png)
+
+## Next Steps
+
+While the playground is a good utility for experimenting with policies, you’ll need to interact with OPCR in order to push your own policy to the authorizer - we’ll learn how to do that in the next section.

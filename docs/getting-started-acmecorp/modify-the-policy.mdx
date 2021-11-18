@@ -1,0 +1,52 @@
+---
+sidebar_label: Modify the Policy
+---
+
+# Modify the Policy
+
+So far, we were using a policy created by Aserto. Let’s modify this policy and learn how to update our changes in Aserto. To make changes to the policy, clone the Github repository created in [Part I](/docs/getting-started-acmecorp/setup-aserto#choose-a-source-code-provider) of this tutorial. Open the cloned repository in your favorite IDE.
+
+Let’s examine the files:
+
+![policy-file-list](/getting-started-acmecorp/policy-file-list.png)
+
+1. `data.json` includes all the role definitions used by the authorizer. Any additional data can be included here, and it will be made accessible to policies under the `data` object.
+2. `.manifest` specifies the policy root (in this case, `peoplefinder`) as well as properties in `data.json` that we want to make available. In our example, the root “roles” is referenced since it is the root property in our `data.json` file.
+3. All of the policies are under the `policies` directory.
+4. The policies under the `__id` folder are policies for routes that have an `id` passed to them - e.g. `/api/users/:id`. In the following example, we’ll modify the `__id/put.rego` policy.
+5. Note that the naming of the directories here is only a convention to make it easier to understand the structure of the policies, but all `.rego` will be loaded into the authorizer regardless of the folder structure.
+
+Similar to the experiment we ran in the Aserto playground, we’re going to make use of the `attributes` a user has to refine the current `allowed` rule such that only a person from the “Sales Engagement Management” department would be allowed to make modifications to a user’s profile.
+
+We’ll add another rule to this policy:
+
+```
+allowed {
+	props = attributes.properties
+	props.department == "Sales Engagement Management"
+}
+```
+
+## Push to Github
+
+To have the policy updated in Aserto, all we have to do is to commit our changes, tag a release and push it to Github.
+
+```bash
+git add .
+git commit -m "Updated policy"
+git tag v0.0.1
+git push
+git push --tags
+```
+
+This is the "Policy as Code" workflow - it allows us to make changes to our policy without having to make any changes or redeploy our application.
+
+## Review the behavior in the application
+
+We now expect Euan - who is a member of the “Sales Engagement Management” department - to be able to make updates to user details. Open the PeopleFinder, and select Euan in the profile switcher.
+
+Now open the first user (Karin Lamb) and edit her phone number:
+
+![karin-lamb-edit](/getting-started-acmecorp/karin-lamb-edit.png)
+
+When you hit save _no errors should be shown_, since now this is a permitted operation for people from Euan’s department.
