@@ -115,6 +115,7 @@ The following environment variables are used to point your application to Aserto
 REACT_APP_OIDC_DOMAIN=acmecorp.demo.aserto.com
 REACT_APP_OIDC_CLIENT_ID=acmecorp-app
 REACT_APP_OIDC_AUDIENCE=acmecorp-app
+REACT_APP_API_ORIGIN=http://localhost:8080
 ```
 
 :::caution note
@@ -138,7 +139,9 @@ const configuration = {
   scope: "openid profile email",
   redirectUri: window.location.origin,
   audience: process.env.REACT_APP_OIDC_AUDIENCE,
-  apiOrigin: process.env.apiOrigin || `http://localhost:3001`,
+  onSignIn: () => {
+    window.location.replace(window.location.origin);
+  },
 };
 ```
 
@@ -303,37 +306,37 @@ app.listen(8080);
 
 To test this endpoint we're going to have to make sure the React app actually sends the authentication token to the server and requests the protected resources. To do that, we'll have to make some changes to the App.js file in our React app.
 
-```
+```javascript
 function App() {
    const auth = useAuth();
    const [message, setMessage] = useState(false)
    const isAuthenticated = auth.userData?.id_token ? true : false
 
    const accessSensitiveInformation = useCallback(async () => {
-       try {
-           if (!auth.isLoading) {
-               const accessToken = auth.userData?.id_token
-               const sensitiveInformationURL = `http://localhost:8080/api/protected`;
-               const sensitiveDataResponse = await fetch(sensitiveInformationURL, {
-                   headers: {
-                       Authorization: `Bearer ${accessToken}`,
-                   },
-               });
+        try {
+            if (!auth.isLoading) {
+                const accessToken = auth.userData?.id_token
+                const sensitiveInformationURL = `${process.env.REACT_APP_API_ORIGIN}/api/protected`;
+                const sensitiveDataResponse = await fetch(sensitiveInformationURL, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
 
-               try {
-                   const res = await sensitiveDataResponse.json();
-                   setMessage(res.secret)
-               } catch (e) {
-                   //In case no access is given, the response will return 403 and not return a JSON response
-                   setMessage("No access to sensitive information")
-               }
-           }
+                try {
+                    const res = await sensitiveDataResponse.json();
+                    setMessage(res.secret)
+                } catch (e) {
+                    //In case no access is given, the response will return 403 and not return a JSON response
+                    setMessage(sensitiveDataResponse.status)
+                }
+            }
 
-       } catch (e) {
-           console.log(e.message);
-       }
+        } catch (e) {
+            console.log(e.message);
+        }
 
-   }, [auth.isLoading, auth.userData?.id_token])
+    }, [auth.isLoading, auth.userData?.id_token])
 
    ...
 
@@ -360,12 +363,22 @@ Next we’ll update the `main` section of the app (in the `div` with the classNa
               Get Sensitive Resource
             </button>
           )}
-          {message && (
-            <div className="secret-message-container">
-              <div className="lottie"></div>
-              <div className="secret-message">{message}</div>
-            </div>
-          )}
+          <div className="message-container">
+            {message && message !== 403 && (
+              <>
+                <div className="lottie"></div>
+                <div className="message">{message}</div>
+              </>
+            )}
+            {message && message === 403 && (
+              <>
+                <div className="sad-lottie"></div>
+                <div className="message">
+                  No access to sensitive information
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </>
@@ -509,7 +522,7 @@ Continue by creating the configuration object for the Aserto middleware:
 
 ```javascript
 const authzOptions = {
-  authorizerServiceUrl: "https://authorizer.prod.aserto.com",
+  authorizerServiceUrl: process.env.AUTHORIZER_SERVICE_URL,
   policyId: process.env.POLICY_ID,
   policyRoot: process.env.POLICY_ROOT,
   authorizerApiKey: process.env.AUTHORIZER_API_KEY,
@@ -527,6 +540,7 @@ const checkAuthz = jwtAuthz(authzOptions);
 Lastly, add the `checkAuthz` middleware to our protected path.
 
 ```
+//Protected API endpoint
 app.get("/api/protected", checkJwt, checkAuthz, function (req, res) {
   //send the response
   res.json({ secret: "Very sensitive information presented here" });
@@ -547,7 +561,6 @@ So far, we have defined rules that support a single role - `admin`. We’ll now 
 Create a new file and name it `data.json` and add the following contents:
 
 ```javascript
-
 {
   "roles": {
     "viewer": {
