@@ -1,0 +1,206 @@
+---
+sidebar_label: React and Node - Chapter 2
+---
+
+# React and Node.js (Express.js) - Conditional UI Rendering
+
+A common pattern for leveraging authorization in the UI is to conditionally render components based on the user’s access. We will expand our policy to include decisions that will be used by our application to conditionally render as well as disable/enable a couple of buttons.
+
+We’re going to add a bit more sophistication to our app. Instead of just presenting the message when the user loads, we are going to add a button that, based on the user’s role, will let them access the sensitive resource.
+
+The `viewer` will be able to see the button - but they will not be able to click it (since the “enabled” decision will be `false` for them). The `editor` will be able to click the button, but the resource will not be accessible to them. And finally, the `admin` will be able to see the button and they will have access to the protected resource.
+First, we’ll update our policy to include clauses for `visible` and `enabled`. They will look very similar to the `allowed` clause:
+
+```
+package asertodemo.GET.api.protected
+
+import input.user.attributes.roles as user_roles
+
+default allowed = false
+
+default visible = false
+
+default enabled = false
+
+allowed {
+	some i
+	data.roles[user_roles[i]].perms[path].allowed
+}
+
+visible {
+	some i
+	data.roles[user_roles[i]].perms[path].visible
+}
+
+enabled {
+	some i
+	data.roles[user_roles[i]].perms[path].enabled
+}
+```
+
+## Update the Policy
+
+Commit, tag and push the changes you made:
+
+```
+git commit -m "updated policy to include visible and enabled clauses"
+git tag v0.0.3
+git push origin master
+git push --tags
+```
+
+## Use The Display State Map middleware
+
+Aserto provides a utility called Display State Map that will return the `visible` and `enabled` decisions from the authorizer to the server and finally to the application. To enable support for the Display State Map, first update the Express.js service: add the reference to `displayStateMap` in the object destructuring for the `express-jwt-aserto` dependencies.
+
+```
+const { displayStateMap, jwtAuthz } = require('express-jwt-aserto');
+```
+
+Then add the following middleware after the `authzOptions` variable definition:
+
+```
+app.use(displayStateMap(authzOptions));
+```
+
+## Update the Application
+
+Next, we’ll add the Aserto React SDK to our application:
+
+```
+yarn add @aserto/aserto-react
+```
+
+In `index.js` add the following dependency:
+
+```
+import { AsertoProvider } from '@aserto/aserto-react'
+```
+
+Wrap the `<App />` component with the `<AsertoProvider>` provider:
+
+```javascript
+<React.StrictMode>
+  <AuthProvider {...configuration}>
+    <AsertoProvider>
+      <App />
+    </AsertoProvider>
+  </AuthProvider>
+</React.StrictMode>
+```
+
+In `App.js`, we’ll add the `userAserto` hook, as well as a stateful object that will track the result coming back from `getDisplayState`.
+
+```javascript
+function App() {
+    const [message, setMessage] = useState(false)
+const [displayState, setDisplayState] = useState({ visible: false, enabled: false })
+    const auth = useAuth();
+    const { init, loading, getDisplayState, error: asertoError } = useAserto();
+    ...
+```
+
+We’ll add an effect to initialize the Aserto SDK:
+
+```javascript
+useEffect(() => {
+  async function initAserto() {
+    try {
+      const token = auth.userData?.id_token;
+
+      if (token) {
+        await init({
+          serviceUrl: "http://localhost:8080",
+          accessToken: token,
+          policyRoot: "asertodemo",
+          throwOnError: false,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  if (!asertoError && isAuthenticated) {
+    initAserto();
+  }
+
+  if (!auth.isLoading && !isAuthenticated) {
+    auth.signIn();
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [isAuthenticated, auth.userData?.id_token, auth.isLoading]);
+```
+
+In this effect, we also ensure that if a user logs out, the login screen will be shown.
+
+Next, we’ll add an effect to call `getDisplayState`:
+
+```javascript
+useEffect(() => {
+  if (!loading) {
+    const displayState = getDisplayState("GET", "/api/protected");
+    setDisplayState(displayState);
+  }
+}, [loading, getDisplayState]);
+```
+
+Outside of the effect, we’ll add some error handling - if the Aserto SDK ran into an error, we’ll display it and not render anything else.
+
+```javascript
+if (asertoError) {
+  return (
+    <div>
+      <h1>Error encountered</h1>
+      <p>{asertoError}</p>
+    </div>
+  );
+}
+```
+
+Lastly, we’ll update the `main` section of the app again:
+
+```javascript
+<div className="main">
+  {loading && <div className="loading">Loading...</div>}
+  {!loading && isAuthenticated && (
+    <>
+      <div className="top-main">
+        <div className="welcome-message">
+          Welcome {auth.userData?.profile?.email}!
+        </div>
+        <div>
+          {!message && (
+            <button
+              className="primary-button"
+              disabled={!displayState.enabled}
+              onClick={() => accessSensitiveInformation()}
+            >
+              Get Sensitive Resource
+            </button>
+          )}
+          {message && (
+            <div className="secret-message-container">
+              <div className="lottie"></div>
+              <div className="secret-message">{message}</div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="center-main">
+        {displayState.visible && (
+          <div>You have been identified as an `admin`.</div>
+        )}
+      </div>
+    </>
+  )}
+</div>
+```
+
+Based on our current policy:
+
+1. The button we added will be disabled for anyone who doesn’t have the `admin` or `editor` roles.
+2. While the `editor` will be able to click the button “Get Sensitive Information”, only the `admin` will be able to access the protected resource and receive the message.
+3. The `div` showing the “You have been identified as an `admin`” message will only be visible to users with the `admin` role.
+
+Using the Aserto React SDK with the displayStateMap middleware, we can make use of these decisions - which were previously only exposed to the server - directly in the UI.
