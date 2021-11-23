@@ -1,0 +1,34 @@
+---
+sidebar_label: Explore PeopleFinder
+---
+
+# Explore PeopleFinder
+
+Click on the Login button and sign in with euang@acmecorp.com - the password is V@rySecr#et321!.
+
+![login-screen](/getting-started-acmecorp/login-screen.png)
+
+The users loaded into your directory have attributes like manager and department, which the PeopleFinder application relies on, and are used in the authorization policies.
+
+![users-list](/getting-started-acmecorp/users-list.png)
+
+The policies used by this app dictate that people with the role of `viewer`, `editor` or `admin` are allowed to access and view the list of all users in the directory. They also govern who may make changes to a user’s contact information. Let’s click on the first user card (Karin Lamb):
+
+![karin-lamb-default](/getting-started-acmecorp/karin-lamb-default.png)
+
+Click on “Edit” and try to modify and save the phone number for this user.
+
+![karin-lamb-edit](/getting-started-acmecorp/karin-lamb-edit.png)
+
+Once you save, you’ll run into the error:
+
+![peoplefinder-error](/getting-started-acmecorp/peoplefinder-error.png)
+
+This means that the current user (Euan) with the role of `viewer` is not `allowed` to edit other users. Navigate back to the People directory and open Euan’s user. If you try and edit this user the operation will succeed - later we’ll see how the access policy is defined to achieve this behavior.
+Now, use the account switcher (on the top right) and choose Kris. As we saw before, Kris has the role of `admin` and so has stronger editing privileges. When you attempt to edit any user’s phone number as Kris, the operation will be permitted. This is again due to the role definition in the template policy we've set up for this application, which we'll review in the next section.
+
+## Summary
+
+That’s it! You loaded a set of demo users into your directory, and you now have an application which is communicating with the Aserto hosted authorizer. The authorizer is making decisions about which of the application routes users are allowed to interact with, as well as what content would be visible and enabled for them.
+
+This simple example showcases the essence of the role-based access control (RBAC) model: a user is assigned a role which in turn is associated with a set of permissions that dictate the resources the user may access. In the next part of this tutorial we’ll go deeper into Aserto’s policies to understand how they are constructed.

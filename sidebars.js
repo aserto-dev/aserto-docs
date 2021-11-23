@@ -20,7 +20,7 @@ module.exports = {
             ],
         },
         {
-            'Getting Started': [
+            'Getting Started (Auth0)': [
                 'getting-started/quickstart',
                 'getting-started/create-account',
                 'getting-started/create-policy',
@@ -35,11 +35,14 @@ module.exports = {
             ],
         },
         {
-            'Getting Started (AcmeCorp)': [
+            'Getting Started': [
+                'getting-started-acmecorp/quickstart',
+                'getting-started-acmecorp/create-account',
+                'getting-started-acmecorp/create-policy',
                 'getting-started-acmecorp/setup-aserto',
+                'getting-started-acmecorp/explore-peoplefinder',
                 'getting-started-acmecorp/understanding-policies',
                 'getting-started-acmecorp/modify-the-policy',
-                'getting-started-acmecorp/using-opcr',
                 'getting-started-acmecorp/bring-your-own-idp',
                 'getting-started-acmecorp/install-onebox'
             ]

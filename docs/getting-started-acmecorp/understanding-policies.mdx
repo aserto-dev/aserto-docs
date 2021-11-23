@@ -191,13 +191,13 @@ For each one of those roles, the policy will access the roles object in the data
 }
 ```
 
-In this example, our user has the role of a `viewer`, the policy will follow the path `roles` -> `viewer` -> `perms` -> `peoplefinder.GET.api.users` -> `allowed` and will eventually return the value `true`. On the other hand, if a `viewer` attempts to access the route `PUT api/users/:id` the value for `allowed` will be `false` and the user will be disallowed.
+In this example, our user has the role of a `viewer`, the policy will follow the path `roles` -> `viewer` -> `perms` -> `peoplefinder.GET.api.users` -> `allowed` and will eventually return the value `true`. On the other hand, if a `viewer` attempts to access the route `PUT api/users/:id` the value for `allowed` will be `false` and the user will be disallowed (this is why the `viewer` Euan was prevented from editing the details of another user).
 
 :::caution Note
 Roles that do not exist in the `data.json` file will be ignored.
 :::
 
-Unlike a viewer, an `admin` user trying to access `PUT api/users/:id` will be allowed to do so - that’s the behavior we observed when attempting to edit a user’s phone number as the user “Kris”. Here is the `admin` definition in the `data.json` file:
+Unlike a `viewer`, an `admin` user trying to access `PUT api/users/:id` will be allowed to do so - that’s the behavior we observed when attempting to edit a user’s phone number as the user “Kris”. Here is the `admin` definition in the `data.json` file:
 
 ```
 {
@@ -297,7 +297,6 @@ allowed {
 	props = attributes.properties
 	props.department == "Sales Engagement Management"
 }
-
 ```
 
 We can have multiple “allowed” clauses and if any of them evaluates to `true` the decision for `allowed` for this package will be `true` as well.
@@ -314,4 +313,4 @@ You can save your policy bundle by clicking the download button.
 
 ## Next Steps
 
-While the playground is a good utility for experimenting with policies, you’ll need to interact with OPCR in order to push your own policy to the authorizer - we’ll learn how to do that in the next section.
+In this section we experimented with the Aserto Playground that let us explore how policies behave under for different users and using different rules in a sandboxed environment. In the next section we'll learn how to modify and deploy our policy, without requiring any modification to the application.
