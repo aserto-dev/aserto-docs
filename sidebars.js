@@ -38,14 +38,29 @@ module.exports = {
             'Quick Starts': [
                 {
                     type: 'category',
-                    label: 'JavaScript',
+                    label: 'Javascript',
                     collapsed: false,
                     items: [
-                        'quickstarts/javascript/react-and-node-1',
-                        'quickstarts/javascript/react-and-node-2'
-                    ]
-                }
-            ]
+                        {
+                            type: 'category',
+                            label: 'React',
+                            collapsed: false,
+                            items: [
+                                'quickstarts/javascript/react/react-and-node-1',
+                                'quickstarts/javascript/react/react-and-node-2'
+                            ]
+                        },
+                        {
+                            type: 'category',
+                            label: 'Next.JS',
+                            collapsed: false,
+                            items: [
+                                'quickstarts/javascript/next/next-and-node'
+                            ]
+                        }
+                    ],
+                },
+            ],
         },
         {
             Console: [
