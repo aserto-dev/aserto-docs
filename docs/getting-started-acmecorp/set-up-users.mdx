@@ -1,0 +1,125 @@
+---
+sidebar_label: Set up demo users 
+---
+
+# Set up demo users for PeopleFinder
+
+Aserto needs to know about your users in order to make authorization decisions over 
+various attributes of these users (including _roles_ and _properties_).  In order to do this, 
+you'll need to connect Aserto with an identity provider, so that Aserto can import and sync users 
+and their attributes.
+
+The PeopleFinder application operates over users with roles (such as `viewer`, `editor` and `admin`) 
+as well as properties (such as `department`, `title` and `manager`). We've created a sample 
+identity provider that contains a set of users with the requisite attributes. The users 
+all work at a company called **Acmecorp**, and the identity provider is therefore called `acmecorp`.
+
+## Load the demo Acmecorp Users
+
+We are going to connect the `acmecorp` identity provider to your tenant, which will import 
+a set of 272 user records. 
+
+:::note
+Note: once you are done with this sample, you'll be able to remove these user 
+records from your tenant by disconnecting the `acmecorp` identity provider.
+:::note
+
+Navigate to the “Connections” tab
+
+![connections-tab](/getting-started-acmecorp/connections-tab.png)
+
+and click “Add a connection”
+
+![add-connection-button](/getting-started-acmecorp/add-connection-button.png)
+
+Next, select the `acmecorp` provider:
+
+![add-acmecorp-connections](/getting-started-acmecorp/add-acmecorp-connections.png)
+
+Name the provider (you can choose whatever name you want) and give it a description.
+
+Finally click “Add connection”
+
+![add-connection-button](/getting-started-acmecorp/add-connection-button.png)
+
+When a new connection to an identity provider is added, Aserto automatically imports the users from that identity provider into the Aserto Directory. The users loaded into the directory have different roles and attributes that will help us understand how authorization works. To see them, click on the users tab:
+
+![users-tab](/getting-started-acmecorp/users-tab.png)
+
+Use the directory filter to find the user “Euan Garden”:
+
+![directory-filter](/getting-started-acmecorp/directory-filter.png)
+
+![euan-garden-card](/getting-started-acmecorp/euan-garden-card.png)
+
+Click on the user card and examine the JSON object (shortened here for brevity):
+
+```
+{
+  "id": "cirkzmrhzgmzos03mzm1ltqwngqtywy2ni1jnzdjzjezyte1zjgsbwxvy2fs",
+  "display_name": "Euan Garden",
+  ...
+  "identities": {
+    ...
+  },
+  "attributes": {
+    "properties": {
+      "department": "Sales Engagement Management",
+      "manager": "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
+      "phone": "+1-804-555-3383",
+      "title": "Salesperson"
+    },
+    "roles": [
+      "acmecorp",
+      "sales-engagement-management",
+      "user",
+      "viewer"
+    ],
+    "permissions": []
+  },
+  "applications": {},
+  "metadata": {
+    "created_at": "2021-11-08T21:16:13.883383606Z",
+    "updated_at": "2021-11-08T21:16:13.883383606Z",
+    "deleted_at": null
+  },
+  "deleted": false
+}
+```
+
+As you can see here, Euan has the role of a `viewer` (among others), and he is a member of the “Sales Engagement Management” department. Let’s look at another user: go back to the Directory and search for the user Kris Johnsen.
+
+```
+{
+  "id": "cirknjriodq3ni0zyzvmltrjywytywy2zi05ytbmmwm1mwqxowysbwxvy2fs",
+  "display_name": "Kris Johnsen",
+  ...
+  "identities": {
+    ...
+  },
+  "attributes": {
+    "properties": {
+      "department": "Operations",
+      "manager": "a528dc1d-0042-484d-81cb-dc58c95d8147",
+      "phone": "+1-206-555-9001",
+      "title": "IT Manager"
+    },
+    "roles": [
+      "acmecorp",
+      "admin",
+      "operations",
+      "user"
+    ],
+    "permissions": []
+  },
+  "applications": {},
+  "metadata": {
+    "created_at": "2021-11-09T11:16:16.289969130Z",
+    "updated_at": "2021-11-09T11:16:16.289969130Z",
+    "deleted_at": null
+  },
+  "deleted": false
+}
+```
+
+Kris has the _role_ of `admin` (among others) and she is a member of the Operations department. Information in the user object is made available to the policies used by the Aserto authorizer at runtime to make a decision as to whether a user has access to a resource or not. Later in this tutorial we’ll see how to reference the user object in our policies.

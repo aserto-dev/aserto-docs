@@ -1,22 +1,17 @@
 ---
-sidebar_label: Bring Your Own IDP
+sidebar_label: Configure Auth0
 ---
 
-# Bring Your Own IDP
+# Configure your Auth0 tenant
 
-Aserto can connect to one or more identity providers as the source of user attributes and roles. So far, we were using the Acmecorp demo identity provider. Next, we’re going to review how to connect Auth0 and Okta as identity providers. Then, we’ll seed your IDP with a set of users different from the ones which exist in the Acmecorp demo IDP.
-
-## Remove the Acmecorp Users
-
-In order to remove the Acmecorp users from your directory, head to the Connections tab and remove the Acmecorp connection.
-
-![remove-acmecorp-idp](/getting-started-acmecorp/remove-acmecorp-idp.png)
-
-# Setup with Auth0
+This version of the PeopleFinder sample uses [Auth0](https://www.auth0.com) as its identity provider.  If you don't have 
+an Auth0 account, create one now.  
 
 You’ll need an M2M application set up in Auth0. To create one, open your Auth0 console, and navigate to “Applications”.
 
 ![auth0-applications](/getting-started-acmecorp/auth0-applications.png)
+
+Create a new Machine-to-Machine application by clicking the "Create Application" button.
 
 The following screen will be displayed:
 
@@ -39,12 +34,12 @@ Here is an example of what the Single Page Application needs to look like in the
 ![auth0-spa-settings](/getting-started-acmecorp/auth0-spa-settings.png)
 
 :::caution note
-The Application Type must be “Single Page Application” and all the URLs (callback URLs, logout URLs, Web Origins, and Origins should be set to http://localhost:3000, https://\*.netlify.app (to cover both local development and the Netlify deployment).
+The Application Type must be “Single Page Application” and all the URLs (callback URLs, logout URLs, Web Origins, and Origins should be set to `http://localhost:3000, https://*.netlify.app` (to cover both local development and the Netlify deployment).
 :::
 
 ## Create an Auth0 API
 
-Create a new API with an Audience name of https://express.sample
+Create a new API called "Peoplefinder API" with an Audience name of https://express.sample
 
 ![auth0-apis](/getting-started-acmecorp/auth0-apis.png)
 
@@ -64,7 +59,7 @@ You can use the `aserto-idp-seed` tool to load demo users into your Auth0 tenant
 brew tap aserto-dev/tap && brew install aserto-idp-seed
 ```
 
-To download the Windows version, or from a zip file, refer to the releases page on [Github]https://github.com/aserto-dev/aserto-idp-seed/releases).
+To download the Windows version, or from a zip file, refer to the releases page on [Github](https://github.com/aserto-dev/aserto-idp-seed/releases).
 
 ### Create a .env file for the Aserto IDP seed tool
 
@@ -91,10 +86,11 @@ aserto-idp-seed seed
 
 Back in [console.aserto.com](https://console.aserto.com), click the “Connections” tab, click “Add Connection” and select Auth0 as the provider.
 
-![add-connection-auth0](/getting-started-acmecorp/add-connection-auth0.png)
+[<img src="/getting-started-acmecorp/add-connection-auth0.png" width="500" />](/getting-started-acmecorp/add-connection-auth0.png)
 
 Complete the form using the domain, client ID and client secret associated with the M2M application settings you created in Auth0. Finally, click “Add connection”. Aserto will pull the users existing in your IDP into the directory. You can now test the application again using the new users seeded into the IDP.
 
-## Deploy PeopleFinder with Auth0 support
+## Next steps
 
-Now that you have created the credentials needed, you’ll have to deploy a different version of the PeopleFinder application which uses Auth0 for authentication. Follow the deployment instructions in [this repo](https://github.com/aserto-demo/peoplefinder) to deploy the application to Netlify.
+Next, we'll extend the users we've just imported from Auth0 with custom attributes that 
+the PeopleFinder application expects to have on the user records.

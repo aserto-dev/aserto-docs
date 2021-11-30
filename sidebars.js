@@ -20,30 +20,33 @@ module.exports = {
             ],
         },
         {
-            'Getting Started (Auth0)': [
-                'getting-started/quickstart',
-                'getting-started/create-account',
-                'getting-started/create-policy',
-                'getting-started/set-up-users',
-                'getting-started/connect-idp',
-                'getting-started/extend-user-attributes',
-                'getting-started/create-auth0-app',
-                'getting-started/deploy-peoplefinder',
-                'getting-started/exploring-peoplefinder',
-                'getting-started/make-policy-change',
-                'getting-started/install-onebox',
-            ],
-        },
-        {
             'Getting Started': [
-                'getting-started-acmecorp/quickstart',
-                'getting-started-acmecorp/create-account',
-                'getting-started-acmecorp/create-policy',
-                'getting-started-acmecorp/setup-aserto',
-                'getting-started-acmecorp/explore-peoplefinder',
-                'getting-started-acmecorp/understanding-policies',
-                'getting-started-acmecorp/modify-the-policy',
-                'getting-started-acmecorp/bring-your-own-idp',
+                {
+                    type: 'category',
+                    label: 'PeopleFinder Quickstart',
+                    collapsed: false,
+                    items: [
+                        'getting-started-acmecorp/quickstart',
+                        'getting-started-acmecorp/create-account',
+                        'getting-started-acmecorp/create-policy',
+                        'getting-started-acmecorp/set-up-users',
+                        'getting-started-acmecorp/deploy-peoplefinder',
+                        'getting-started-acmecorp/explore-peoplefinder',
+                        'getting-started-acmecorp/understanding-policies',
+                        'getting-started-acmecorp/modify-the-policy',
+                    ],
+                },
+                {
+                    type: 'category',
+                    label: 'Bring Your Own IDP (Auth0)',
+                    collapsed: true,
+                    items: [
+                        'getting-started-acmecorp/bring-your-own-idp/bring-your-own-idp',
+                        'getting-started-acmecorp/bring-your-own-idp/set-up-auth0',
+                        'getting-started-acmecorp/bring-your-own-idp/extend-user-attributes',
+                        'getting-started-acmecorp/bring-your-own-idp/deploy-peoplefinder-auth0',
+                    ],
+                },                
                 'getting-started-acmecorp/install-onebox'
             ]
         },

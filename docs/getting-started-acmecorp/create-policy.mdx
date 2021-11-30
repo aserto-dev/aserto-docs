@@ -16,16 +16,11 @@ When you click on “Add a policy”, you'll go through a short workflow to sele
 and name that policy in the Aserto console.
 
 The first step is to select a connection to a source code control system. Since you don't yet have any, you'll
-want to click the "Add connection" button.
+want to select the "Add a new source code connection" item in the dropdown.
 
 [<img src="/connect-scc.png" width="500px" />](/connect-scc.png)
 
-This will take you to the Connections page. Notice that you already have two system connections - one to the Aserto
-Registry, and the other to the (multi-tenant) Aserto Authorizer.
-
-![connections](/connections.png)
-
-Click the "Add a connection" button close to the top right corner. This will bring up a modal for adding a connection
+This will bring up a modal for adding a connection
 to a provider. Note that Aserto supports GitHub as a source code provider, but allows you to connect to it either
 over an OAuth2 flow, or using a Personal Access Token (PAT).
 
@@ -39,8 +34,7 @@ If you are managing an Aserto tenant for an organization, we recommend using a G
 and using a Personal Access Token which has access to your GitHub organization.
 :::
 
-Once you complete GitHub’s OAuth2 consent flow, go back to the Policies page, and click "Add a policy" again, and select
-your newly created connection in the first step.
+Once you complete GitHub’s OAuth2 consent flow, select your newly created connection.
 
 [<img src="/getting-started-acmecorp/select-github-provider.png" width="500" />](/getting-started-acmecorp/select-github-provider.png)
 

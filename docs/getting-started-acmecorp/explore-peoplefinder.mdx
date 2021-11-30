@@ -4,7 +4,7 @@ sidebar_label: Explore PeopleFinder
 
 # Explore PeopleFinder
 
-Click on the Login button and sign in with euang@acmecorp.com - the password is V@rySecr#et321!.
+Click on the Login button and sign in with `euang@acmecorp.com` - the password is `V@rySecr#et321!`.
 
 ![login-screen](/getting-started-acmecorp/login-screen.png)
 
@@ -24,7 +24,7 @@ Once you save, you’ll run into the error:
 
 ![peoplefinder-error](/getting-started-acmecorp/peoplefinder-error.png)
 
-This means that the current user (Euan) with the role of `viewer` is not `allowed` to edit other users. Navigate back to the People directory and open Euan’s user. If you try and edit this user the operation will succeed - later we’ll see how the access policy is defined to achieve this behavior.
+This means that the current user (Euan) with the role of `viewer` is not `allowed` to edit other users. Navigate back to the People directory and open Euan’s user. If you try and edit this user the operation will succeed - later we’ll see how the authorization policy is defined to achieve this behavior.
 Now, use the account switcher (on the top right) and choose Kris. As we saw before, Kris has the role of `admin` and so has stronger editing privileges. When you attempt to edit any user’s phone number as Kris, the operation will be permitted. This is again due to the role definition in the template policy we've set up for this application, which we'll review in the next section.
 
 ## Summary

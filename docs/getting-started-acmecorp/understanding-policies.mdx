@@ -95,7 +95,9 @@ Next we’ll see how we can refer back to this user object as part of our polici
 
 ## The Structure of a Policy
 
-Policies are written in a language called Rego - which is the language used to build policies handled by the OPA engine Aserto uses in its authorizer.
+Policies are written in a language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) - 
+the policy language defined by the [Open Policy Agent](https://www.openpolicyagent.org/) (OPA). 
+Aserto uses OPA as its authorization engine, and therefore adopts Rego as its authorization language.
 
 Let’s examine the first policy:
 
@@ -119,8 +121,9 @@ default enabled = false
 ```
 
 There are three decisions that are set as `false` by default:
-`allowed` - governs whether an operation is allowed at the API level.
-`visible` and `enabled` are used by the React app to determine how to render the UI elements associated with this operation (in this case, whether to show or hide the user list).
+* `allowed` governs whether an operation is allowed at the API level.
+* `visible` and `enabled` are used by the React app to determine how to render the UI elements associated with this operation (in this case, whether to show or hide the user list).
+
 The policy rules that follow define the exception to the default behavior.
 
 ```
@@ -164,7 +167,7 @@ Let’s look at the entire expression again:
 data.roles[user_roles[index]].perms[path].allowed
 ```
 
-For each one of those roles, the policy will access the roles object in the data.json file (seen below), drill down to the `perms` object, and then continue drilling down to the path that defines the permission being evaluated - `peoplefinder.GET.api.users`. Finally the rule accesses the `allowed` property and that will dictate what the final value will be.
+For each one of those roles, the policy will access the `roles` object in the `data.json` file (seen below), drill down to the `perms` object, and then continue drilling down to the path that defines the permission being evaluated - `peoplefinder.GET.api.users`. Finally the rule accesses the `allowed` property and that will dictate what the final value will be.
 
 ```javascript
 {
@@ -238,9 +241,7 @@ The `visible` and `enabled` rules are built similarly, they just access their re
 
 ## Test Policy Behavior in the Aserto Playground
 
-Open the [Aserto playground](https://aserto-playground.netlify.app/). You’ll see the following:
-
-TODO: Update Playground URL
+Open the [Aserto playground](https://aserto.com/playground). You’ll see the following:
 
 ![playground-empty](/getting-started-acmecorp/playground-empty.png)
 
