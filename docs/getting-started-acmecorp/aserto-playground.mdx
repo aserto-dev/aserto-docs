@@ -1,0 +1,81 @@
+---
+sidebar_label: The Aserto Playground
+---
+
+# Test Policy Behavior in the Aserto Playground
+
+Aserto provides a sandboxed environment where you can experiment with permissions, policies, roles and attributes and see how they affect users in your directory. To get started, you can load a template which will include a set of permissions, roles and policies you can immediatly experiment with. Alternatively, you can use it to import any OpenAPI compliant spec. The playground is loaded with the same set of Acmecorp users you added to your directory.
+
+Open the [Aserto playground](https://aserto.com/playground). You’ll see the following:
+
+![playground-empty](/getting-started-acmecorp/playground-empty.png)
+
+In the top right corner you can see the User drop down. Here you can choose which user to inspect - each user is going to have their own roles and attributes that would affect their permissions. Let’s start with the first user on the list - euang@acmecorp.com. After selecting the user in the drop-down, click on “Edit”.
+
+![euan-garden-playground](/getting-started-acmecorp/euan-garden-playground.png)
+
+Here you can see which roles are currently assigned to this user - in this case, this user has been assigned the role of `viewer` - and there are some properties associated with them - their department, their manager and their title. These properties will come in handy later.
+
+Next, we’ll load the peoplefinder-rbac template into the Playground.
+
+![playground-permissions-1](/getting-started-acmecorp/playground-permissions-1.png)
+
+When we click on each of these permissions, the corresponding policy package will be loaded in the details panel. The roles section of this table specifies which roles have access to which route. Reviewing the permissions, we can see for example that all roles can access `GET /api/users`, but only an admin can invoke `DELETE /api/users/:id`.
+
+To see the the results of the evaluation of the policy, we’ll click the “Evaluate” button:
+
+![evaluate-button](/getting-started-acmecorp/evaluate-button.png)
+
+Let’s look at the results:
+
+![playground-evaluated-results](/getting-started-acmecorp/playground-evaluated-results.png)
+
+Modifying the values of items in the roles section updates the roles/data.json file to reflect those changes, so we can experiment and see what happens if we enable or disable roles from particular routes.
+Let’s uncheck “viewer” from the `people.GET.api.users` and see how the change would affect Euan’s access:
+
+![playground-evaluated-results-2](/getting-started-acmecorp/playground-evaluated-results-2.png)
+
+Euan no longer has access since now only people with either an “editor” or “admin” roles can access this route.
+
+We can similarly make modifications to other roles definitions to see how they would affect the final decision for any particular user - given the roles assigned to that user. Take some time to explore the different combinations of role assignments to permissions and users.
+
+Now let’s take a look at a policy: Click on the `people.PUT.api.users.__id` permission to load it into the Policy Detail panel.
+
+![playground-put-policy](/getting-started-acmecorp/playground-put-policy.png)
+
+As mentioned before, this policy essentially states that each of the permissions listed are going to be dependent on the user’s role. We can now make this policy a bit more fine grained, and add the use of _attributes_ to it.
+
+## Attribute based access control
+
+With Aserto, we can very easily extend this RBAC authorization scheme and make use of particular attributes a user may have to make authorization decisions. As we saw before, the users in this example have attributes like “department”, “manager” and “title”. For example: we want to allow people from Euan’s “Sales Engagement Management” department to make changes to user information, regardless of their role.
+
+We’ll open the `people.PUT.api.users.__id` policy and add the following import statement:
+
+```
+import input.user.attributes.properties as props
+```
+
+And the following rule:
+
+```
+allowed {
+	props = attributes.properties
+	props.department == "Sales Engagement Management"
+}
+```
+
+We can have multiple “allowed” clauses and if any of them evaluates to `true` the decision for `allowed` for this package will be `true` as well.
+
+Now click “Evaluate” once more.
+
+We can see that with this modification Euan is now allowed to access the route even though he otherwise doesn’t have the role required to do so - but rather a specific property. This allows us to define a fine-grained authorization model that gives us the freedom to choose from a large number of attributes.
+
+## Save your work
+
+You can save your policy bundle by clicking the download button.
+
+![playground-download](/getting-started-acmecorp/playground-download.png)
+
+## Next Steps
+
+In this section we experimented with the Aserto Playground that let us explore how policies behave under for different users and using different rules in a sandboxed environment. In the next section we'll learn how to modify and deploy our policy, without requiring any modification to the application.
