@@ -46,7 +46,7 @@ module.exports = {
                         'getting-started-acmecorp/bring-your-own-idp/extend-user-attributes',
                         'getting-started-acmecorp/bring-your-own-idp/deploy-peoplefinder-auth0',
                     ],
-                },                
+                },
                 'getting-started-acmecorp/install-onebox'
             ]
         },
@@ -73,6 +73,7 @@ module.exports = {
                 'authorizer-guide/decisiontree',
                 'authorizer-guide/dir',
                 'authorizer-guide/policy',
+                'authorizer-guide/built-ins',
             ],
         },
         {
