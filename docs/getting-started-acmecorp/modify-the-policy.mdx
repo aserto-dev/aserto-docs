@@ -13,19 +13,36 @@ Let’s examine the files:
 1. `data.json` includes all the role definitions used by the authorizer. Any additional data can be included here, and it will be made accessible to policies under the `data` object.
 2. `.manifest` specifies the policy root (in this case, `peoplefinder`) as well as properties in `data.json` that we want to make available. In our example, the root “roles” is referenced since it is the root property in our `data.json` file.
 3. All of the policies are under the `policies` directory.
-4. The policies under the `__id` folder are policies for routes that have an `id` passed to them - e.g. `/api/users/:id`. In the following example, we’ll modify the `__id/put.rego` policy.
+4. The policies under the `__id` folder are policies for routes that have an `id` passed to them - e.g. `/api/users/:id`. In the following example, we’ll modify the `__id/put.rego` and `__id/post.rego` policies.
 5. Note that the naming of the directories here is only a convention to make it easier to understand the structure of the policies, but all `.rego` will be loaded into the authorizer regardless of the folder structure.
 
-Similar to the experiment we ran in the Aserto playground, we’re going to make use of the `attributes` a user has to refine the current `allowed` rule such that only a person from the “Sales Engagement Management” department would be allowed to make modifications to a user’s profile.
+## Using `attributes`
+
+We can make use of the `attributes` a user has to make decisions. For example, let's refine the current `allowed` rule such that a person from the `Operations` department would be allowed to make modifications to a user’s profile.
 
 We’ll add another rule to this policy:
 
 ```
 allowed {
 	props = attributes.properties
-	props.department == "Sales Engagement Management"
+	props.department == "Operations"
 }
 ```
+
+## Using the resource context
+
+In addition to the user's identity, we can make decisions based on the _resource context_ our application can optionally send. The resource context is a key-value map that will be available in the policy as `input.resource`.
+
+In PeopleFinder, we send the selected user's `id` as part of the resource context in addition to the logged in user identity. Let's add a rule that will leverage this and allow a manager in Acmecorp to update their reports' details.
+Add the following rule to the policy:
+
+```
+allowed {
+    dir.is_manager_of(input.user.id, input.resource.id)
+}
+```
+
+The expression `dir.is_manager_of` is part of a set of built-in Rego functions Aserto provides. In this case, it checks the attribute `manager` of the _selected_ user passed as part of the resource context (`input.resource.id`) and determines whether it is equal to the `user.id` of the logged in user.
 
 ## Push to Github
 
@@ -43,13 +60,19 @@ This is the "Policy as Code" workflow - it allows us to make changes to our poli
 
 ## Review the behavior in the application
 
-We now expect Euan - who is a member of the “Sales Engagement Management” department - to be able to make updates to user details. Open the PeopleFinder, and select Euan in the profile switcher.
+We now expect Kris - who is a member of the “Operations” department - to be able to make updates to user details. Open the PeopleFinder, and select Kris in the profile switcher.
 
 Now open the first user (Karin Lamb) and edit her phone number:
 
 ![karin-lamb-edit](/getting-started-acmecorp/karin-lamb-edit.png)
 
-When you hit save _no errors should be shown_, since now this is a permitted operation for people from Euan’s department.
+When you hit save _no errors should be shown_, since now this is a permitted operation for people from Kris’s department.
+
+Next, select the user to April Stewart in the profile switcher, and select Euan Garden from the people directory.
+
+![euan-and-april](/getting-started-acmecorp/euan-and-april.png)
+
+As you can see, April is Euan's manager - and so she is now allowed to update his department and title.
 
 ## Next Steps
 
