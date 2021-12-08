@@ -1,0 +1,71 @@
+---
+sidebar_label: Attribute Based Access Control
+---
+
+# Attribute Based Access Control
+
+In the PeopleFinder Quickstart, we used RBAC (Role Based Access Control) to control access to the PeopleFinder application's endpoints. In this section, we'll explore the concept of Attribute Based Access Control and see how it can provide us with a more granular and dynamic authorization model.
+
+Unlike RBAC, which categorizes users into a distinct set of roles, ABAC allows us to use any number of attributes a user may have to determine if they have access to a particular resource. While roles give us a sense of _what the user's job_ is in an organization, attributes give us a sense of _who the user is_ and what properties are particular to them.
+
+For examples, some of these attributes could be a user's location, their IP address, the type of device they're using, their current department, the project they're working on, etc. Defining rules based on attributes that can change over time gives this authorization model a _dynamic_ quality: the authorization decision will depend on the user attribute's value at runtime. As we'll see in this example, the dynamic behavior we can achieve with ABAC could be used to support a wide variety of use cases that couldn't be satisfied using RBAC alone.
+
+## Creating an Attribute Based Access Control Policy
+
+We're going to create an ABAC policy that will interact with our PeopleFinder application. First, open the Aserto Console and navigate to the **Policies** tab.
+
+Create a new policy based on the `policy-peoplefinder` template. Open the policy once it is created, and open the `peoplefinder.POST.api.users.__id` module.
+
+![console-policy-peoplefinder-post](/getting-started-acmecorp/console-policy-peoplefinder-post.png)
+
+As you can see, this policy is slightly different from the RBAC policy we created before: instead of referring to the `data.json` file and to the roles defined there, it uses the user's _attributes_ to determine whether they are equal to a specific value.
+
+In this case, we check whether the user's `department` attribute is equal to `Operations`. Only users with this attribute would be `allowed` to perform the `POST` operation - which will allows a user to update the title and department of another user. Since title and department can dynamically change in our application, this means that our authorization model will be similarly dynamic.
+
+Let's see this policy in action.
+
+## Redeploy to Netlify
+
+To deploy this policy to Netlify, open your Netlify site's settings and open the Build & deploy tab:
+
+![netlify-site-settings](/getting-started-acmecorp/netlify-site-settings.png)
+
+Then, scroll down to the Environment variables section and click edit variables:
+
+![netlify-environment](/getting-started-acmecorp/netlify-environment.png)
+
+Update the `POLICY_ID` variable to the Policy ID of the policy you just created (to find it, open your policy settings tab in the Aserto console) and save your changes.
+
+Finally, you'll have to trigger a redeploy of the Netlify application. Navigate to the Deploys tab:
+
+![netlify-deploys](/getting-started-acmecorp/netlify-deploys.png)
+
+The click the dropdown "Trigger deploy" and select "Deploy site".
+
+![netlify-deploy-trigger](/getting-started-acmecorp/netlify-deploy-trigger.png)
+
+## Examine the application behavior
+
+Open the PeopleFinder application, and select Euan from the profile switcher. Then, select a user from the People directory.
+
+![euan-as-sales](/getting-started-acmecorp/euan-as-sales.png)
+
+As you can see, right now, Euan can't update the title or department of another user - the Update button is disabled for him.
+
+Next, use the profile switcher and select Kris. As a member of the "Operations" department, Kris is allowed to update other user's title and department. From the People list, select Euan and bring up his user card.
+
+![euan-and-kris-pre-update](/getting-started-acmecorp/euan-and-kris-pre-update.png)
+
+Now, update Euan's _department_ to be "Operations".
+
+![euan-and-kris-mid-update](/getting-started-acmecorp/euan-and-kris-mid-update.png)
+
+and hit save.
+
+We'll use the profile switcher again to select Euan and then select any user from the People directory. With his department updated, Euan can now update any user's title and department.
+
+![euan-as-operations](/getting-started-acmecorp/euan-as-operations.png)
+
+# Summary
+
+In this section we learned how powerful of an authorization model ABAC is, and how it can be used to create a dynamic authorization behavior - based on user attributes. It also lets us define very granular authorization models that can take into account an arbitrary number of attributes.

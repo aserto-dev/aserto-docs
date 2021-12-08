@@ -93,26 +93,36 @@ Aserto caches all user information in the Authorizer, so that we can use the ide
 
 Next we’ll see how we can refer back to this user object as part of our policies.
 
+## Review the policy in the Aserto Console
+
+The Aserto console shows the current loaded policy for the hosted Authorizer instance for your tenant. If you click the `peoplefinder-rbac` policy in the Policies tab, you will see the current set of policy modules.
+
+![console-policy-get](/getting-started-acmecorp/console-policy-get.png)
+
+The PeopleFinder policy follows the Aserto convention of a single policy module for each { method, route } of the API. So PeopleFinder defines a policy for `GET /api/users`, `POST /api/users`, and so on.
+
+The modules are named using the Rego package directive, and follow the convention `policyroot.METHOD.route`.
+
 ## The Structure of a Policy
 
 Policies are written in a language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) -
 the policy language defined by the [Open Policy Agent](https://www.openpolicyagent.org/) (OPA).
 Aserto uses OPA as its authorization engine, and therefore adopts Rego as its authorization language.
 
-Let’s examine the first policy:
+Let’s examine the `peoplefinder.GET.api.users` policy module:
 
 ```
 package peoplefinder.GET.api.users
 ```
 
-The first line of the policy defines the name of the package using the Rego `package` directive. As mentioned before, this name corresponds to the method and route in the application. In this case, the policy with the root `peoplefinder` is applied to a route for `GET /api/users` - which returns a list of all the users shown in the “People” view.
+The first line of the policy defines the name of the package using the Rego `package` directive. This name corresponds to the method and route in the application. In this case, the policy with the root `peoplefinder` is applied to a route for `GET /api/users` - which returns a list of all the users shown in the “People” view.
 
 ```
-import input.user.attributes.roles as user_roles
 import input.policy.path
+import input.user.attributes.roles as user_roles
 ```
 
-Here we use the `import` directive to access the user object which is made available to the policy by Aserto. In this example, we alias `attributes.roles` in the user object as `user_roles` so that later on in the policy we can refer to it directly without specifying the full path. Similarly, we import `input.policy.path` object which will allow us to refer the policy’s path - `people.GET.api.users` - directly.
+Here we use the `import` directive to access the user object which is made available to the policy by Aserto. In this example, we alias `input.policy.path` object which will allow us to refer the policy’s path - `people.GET.api.users` - directly without specifying the full path. Similarly, we import `attributes.roles` in the user object as `user_roles` so that later on in the policy we can refer to it directly.
 
 ```
 default allowed = false
