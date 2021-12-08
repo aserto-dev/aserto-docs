@@ -49,14 +49,6 @@ module.exports = {
                                 'quickstarts/javascript/react/react-and-node-1',
                                 'quickstarts/javascript/react/react-and-node-2'
                             ]
-                        },
-                        {
-                            type: 'category',
-                            label: 'Next.JS',
-                            collapsed: false,
-                            items: [
-                                'quickstarts/javascript/next/next-and-node'
-                            ]
                         }
                     ],
                 },
