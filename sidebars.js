@@ -47,7 +47,6 @@ module.exports = {
                         'getting-started-acmecorp/bring-your-own-idp/deploy-peoplefinder-auth0',
                     ],
                 },
-                'getting-started-acmecorp/getting-started-with-abac',
                 'getting-started-acmecorp/install-onebox'
             ]
         },
