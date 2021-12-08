@@ -4,11 +4,18 @@ sidebar_label: React and Node - Chapter 2
 
 # React and Node.js (Express.js) - Conditional UI Rendering
 
-A common pattern for leveraging authorization in the UI is to conditionally render components based on the user’s access. We will expand our policy to include decisions that will be used by our application to conditionally render as well as disable/enable a couple of buttons.
+A common pattern for leveraging authorization in the UI is to conditionally render components based on the user’s access to a resource. In this tutorial, we'll expand our policy to include decisions that will be used by our application to conditionally render as well as disable/enable a couple of buttons.
 
-We’re going to add a bit more sophistication to our app. Instead of just presenting the message when the user loads, we are going to add a button that, based on the user’s role, will let them access the sensitive resource.
+1. We want to create a section in the application containing a message that will be `visible` _only_ to a user with an `admin` role.
+2. We want to change the behavior of our "Get Sensitive Information" button such that:
+   - The `viewer` will be able to see the button - but they will not be able to click it.
+   - The `editor` will be able to click the button, but the resource will not be accessible to them.
+   - The `admin` will be able to see the button and they will have access to the protected resource.
 
-The `viewer` will be able to see the button - but they will not be able to click it (since the “enabled” decision will be `false` for them). The `editor` will be able to click the button, but the resource will not be accessible to them. And finally, the `admin` will be able to see the button and they will have access to the protected resource.
+Additionaly,
+
+## Update the policy
+
 First, we’ll update our policy to include clauses for `visible` and `enabled`. They will look very similar to the `allowed` clause:
 
 ```
@@ -38,7 +45,46 @@ enabled {
 }
 ```
 
-## Update the Policy
+Next, we'll update the `data.json` file to include the `visible` and `enabled` properties for each role:
+
+```javascript
+{
+  "roles": {
+    "viewer": {
+      "description": "A viewer with no access to sensitive asset",
+      "perms": {
+        "asertodemo.GET.api.protected": {
+          "allowed": false,
+          "enabled": false,
+          "visible": false
+        }
+      }
+    },
+    "editor": {
+      "description": "A editor with access to sensitive asset",
+      "perms": {
+        "asertodemo.GET.api.protected": {
+          "allowed": false,
+          "enabled": true,
+          "visible": false
+        }
+      }
+    },
+    "admin": {
+      "description": "An admin user with access to sensitive asset",
+      "perms": {
+        "asertodemo.GET.api.protected": {
+          "allowed": true,
+          "enabled": true,
+          "visible": true
+        }
+      }
+    }
+  }
+}
+```
+
+## Push the policy
 
 Commit, tag and push the changes you made:
 
@@ -51,13 +97,13 @@ git push --tags
 
 ## Use The Display State Map middleware
 
-Aserto provides a utility called Display State Map that will return the `visible` and `enabled` decisions from the authorizer to the server and finally to the application. To enable support for the Display State Map, first update the Express.js service: add the reference to `displayStateMap` in the object destructuring for the `express-jwt-aserto` dependencies.
+Aserto provides a utility called Display State Map that will return the `visible` and `enabled` decisions from the authorizer to the server and finally to the application. To enable support for the Display State Map, we first need to update the Express.js service: let's add the reference to `displayStateMap` in the object destructuring for the `express-jwt-aserto` dependencies:
 
 ```
 const { displayStateMap, jwtAuthz } = require('express-jwt-aserto');
 ```
 
-Then add the following middleware after the `authzOptions` variable definition:
+Then we'll add the following middleware after the `authzOptions` variable definition:
 
 ```
 app.use(displayStateMap(authzOptions));
@@ -77,7 +123,7 @@ In `index.js` add the following dependency:
 import { AsertoProvider } from '@aserto/aserto-react'
 ```
 
-Wrap the `<App />` component with the `<AsertoProvider>` provider:
+We'll wrap the `<App />` component with the `<AsertoProvider>` provider:
 
 ```javascript
 <React.StrictMode>
@@ -94,7 +140,7 @@ In `App.js`, we’ll add the `userAserto` hook, as well as a stateful object tha
 ```javascript
 function App() {
     const [message, setMessage] = useState(false)
-const [displayState, setDisplayState] = useState({ visible: false, enabled: false })
+    const [displayState, setDisplayState] = useState({ visible: false, enabled: false })
     const auth = useAuth();
     const { init, loading, getDisplayState, error: asertoError } = useAserto();
     ...

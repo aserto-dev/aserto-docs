@@ -8,13 +8,21 @@ sidebar_label: React and Node - Chapter 1
 
 Aserto is a could-native authorization platform that allows you to avoid having to build your own access control solution and instead frees you up to focus on your core user experience. In this tutorial you will learn how to integrate the Aserto SDK in the context of an Express.js API that will interact with a React application.
 
-Before we get started, let’s discuss two of Aserto's major components: the Authorizer and the Control Plane.
+Before we get started, let’s discuss two of Aserto's major components: the **Authorizer** and the **Control Plane**.
 
-The Authorizer is where authorization decisions get made. It is an open source authorization engine which uses Open Policy Agent (OPA) to compute a decision based on policy, user context and resource data. In this tutorial we’re going to use the hosted version of this authorizer.
+**The Authorizer** is where authorization decisions get made. It is an open source authorization engine which uses Open Policy Agent (OPA) to compute a decision based on policy, user context and resource data. In this tutorial we’re going to use the hosted version of this authorizer.
 
-The Control Plane manages the lifecycle of policies, user context, and resource data that are used by the authorizer. The control plane makes it easy to manage these artifacts centrally, and takes care of the details of synchronizing them to the Authorizer instance(s) deployed at the edge.
+**The Control Plane** manages the lifecycle of policies, user context, and resource data that are used by the authorizer. The control plane makes it easy to manage these artifacts centrally, and takes care of the details of synchronizing them to the Authorizer instance(s) deployed at the edge. More specifically, it manages: - Connections to external systems such as identity providers and source control systems - References to registered authorization policies - A user directory built from the identity providers its connected to - A centralized log of aggregated decisions made by the Authorizer.
 
-At the core of Aserto’s authorization model is an authorization policy, which we refer to simply as a Policy. Policies are authored in a textual language called Rego, defined as part of the Open Policy Agent (OPA) project in the Cloud Native Computing Foundation. Policies are treated just like application code or infrastructure-as-code - they are stored and versioned in a git repository. We’re going to define and see the policy in action later in this tutorial.
+### The Policy
+
+At the core of Aserto’s authorization model is an **authorization policy**, which we refer to simply as a Policy. Policies are authored in a textual language called Rego, defined as part of the Open Policy Agent (OPA) project in the Cloud Native Computing Foundation.
+
+We define the access control rules we want to enforce in our policy - as opposed to our application code. This is what's known as the "Policy-as-Code" approach, where authorization logic is decoupled from application logic.
+
+Policies are treated just like application code or infrastructure-as-code - they are stored and versioned in a git repository. We’re going to define and see the policy in action later in this tutorial.
+
+### What to expect
 
 When you’ve completed this tutorial you'll have learned how to:
 
@@ -32,7 +40,9 @@ To get started, you’re going to need:
 2. Aserto account and credentials
 3. Your favorite code editor
 
-## Add Acmecorp Connection
+## Add Users to the Aserto Directory
+
+Since our application deals with user access, we're going to need users in our directory. Aserto lets us add identity providers and automatically syncs the users registered with those identity providers to the Aserto directory and authorizer. In this tutorial we’re going to use the Acmecorp Identity Provider, which simulates an identity providers with hundreds of users, each with their own set of roles and attributes.
 
 Log in to your Aserto account. To add the Acmecorp identity provider, go to the Connections tab, and click “Add connection”.
 
@@ -423,7 +433,7 @@ const sensitiveDataResponse = await fetch(sensitiveInformationURL, {
 
 In this case we'd expect the sensitive information to not be shown.
 
-## Creating a simple Role Based Access Control Authorization Model
+# Creating a Role Based Access Control Authorization Model
 
 Until now, we dealt only with authentication of users in our application. Now, let’s discuss how to set up the _authorization_ model which will enforce some limitation on user access to our protected resource.
 
@@ -523,6 +533,10 @@ git push origin master
 git push --tags
 ```
 
+Open the Aserto console, and navigate to the Policies tab. Then, open the policy "hello-aserto-react" and review the changes. You should see the following:
+
+![console-policy-update-1](/quickstart-react-and-node/console-policy-update-1.png)
+
 ## Update the Express service to use the Aserto middleware
 
 We now need to configure and apply the Aserto middleware. In order to avoid saving any secret credentials in our source code, we'll add the following credentials to our `.env` file. To find these credentials, click on your policy in the Policies tab. Then choose the "Policy settings" tab.
@@ -573,9 +587,10 @@ Before testing the application, stop both the application and the server by hitt
 
 When we log in with the user `krisj@acmecorp.com` who has the role of an `admin` we will still be able to see the "Very sensitive information presented here". If we log out and log in again as `euang@acmecorp.com` we will see the message “No access to sensitive information” - since this user doesn’t have the role of `admin`, the path `/api/protected` will be disallowed.
 
-## Expand the policy
+## Support more roles
 
 So far, we have defined rules that support a single role - `admin`. We’ll now expand our policy to cover more roles by adding a data file to our policy bundle. In addition to policy Rego files, we can add JSON files that the policy can refer to in runtime.
+
 Create a new file and name it `data.json` and add the following contents:
 
 ```javascript
@@ -640,7 +655,7 @@ To allow for the use of `roles` in the `data.json` file, update your `.manifest`
 
 ```
 {
-    "roots": ["asertodemo", "role"]
+    "roots": ["asertodemo", "roles"]
 }
 ```
 
@@ -655,9 +670,7 @@ git push --tags
 
 In the Aserto console, open the Policy Browser and check that the changes you’ve made are reflected.
 
-:::caution note
-TODO: Screenshot
-:::
+![console-policy-update-2](/quickstart-react-and-node/console-policy-update-2.png)
 
 ## Test the application
 
