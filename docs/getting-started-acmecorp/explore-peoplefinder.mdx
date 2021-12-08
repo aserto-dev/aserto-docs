@@ -25,7 +25,14 @@ Once you save, you’ll run into the error:
 ![peoplefinder-error](/getting-started-acmecorp/peoplefinder-error.png)
 
 This means that the current user (Euan) with the role of `viewer` is not `allowed` to edit other users. Navigate back to the People directory and open Euan’s user. If you try and edit this user the operation will succeed - later we’ll see how the authorization policy is defined to achieve this behavior.
-Now, use the account switcher (on the top right) and choose Kris. As we saw before, Kris has the role of `admin` and so has stronger editing privileges. When you attempt to edit any user’s phone number as Kris, the operation will be permitted. This is again due to the role definition in the template policy we've set up for this application, which we'll review in the next section.
+
+In this application, we're using an impersonation trick to reduce the friction of logging off and logging back on. At the top right corner of the screen you'll see a profile switcher:
+
+![profile-switcher](/getting-started-acmecorp/profile-switcher.png)
+
+From the dropdown menu, click on the "Kris Johnsen" profile and the application will simulate logging out from Euan's account and logging in as Kris.
+
+As we saw before, Kris has the role of `admin` and so has stronger editing privileges. When you attempt to edit any user’s phone number as Kris, the operation will be permitted. This is again due to the role definition in the template policy we've set up for this application, which we'll review in the next section.
 
 ## Summary
 
