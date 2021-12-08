@@ -66,6 +66,8 @@ We'll use the profile switcher again to select Euan and then select any user fro
 
 ![euan-as-operations](/getting-started-acmecorp/euan-as-operations.png)
 
+If we were using an RBAC model, we would have had to explicitly give Euan the role of `admin` or `editor` to give him permissions to perform this action. Using the ABAC model we were able to modify the _value_ of an existing attribute (`department`) to grant him this permission _dynamically_.
+
 # Summary
 
-In this section we learned how powerful of an authorization model ABAC is, and how it can be used to create a dynamic authorization behavior - based on user attributes. It also lets us define very granular authorization models that can take into account an arbitrary number of attributes.
+In this section we learned how powerful of an authorization model ABAC is, and how it can be used to create a dynamic authorization behavior - based on user attributes. We saw how it lets us define more granular authorization models that can take into account an arbitrary number of attributes. In some cases, using RBAC will not be enough to address all the complex scenarios present in the application. In those cases, we can rely on ABAC to provide us with a more granular and dynamic authorization model.
