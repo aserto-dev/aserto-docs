@@ -8,7 +8,11 @@ In the PeopleFinder Quickstart, we used RBAC (Role Based Access Control) to cont
 
 Unlike RBAC, which categorizes users into a distinct set of roles, ABAC allows us to use any number of attributes a user may have to determine if they have access to a particular resource. While roles give us a sense of _what the user's job_ is in an organization, attributes give us a sense of _who the user is_ and what properties are particular to them.
 
-For examples, some of these attributes could be a user's location, their IP address, the type of device they're using, their current department, the project they're working on, etc. Defining rules based on attributes that can change over time gives this authorization model a _dynamic_ quality: the authorization decision will depend on the user attribute's value at runtime. As we'll see in this example, the dynamic behavior we can achieve with ABAC could be used to support a wide variety of use cases that couldn't be satisfied using RBAC alone.
+For examples, some of these attributes could be a user's location, their IP address, the type of device they're using, their current department, the project they're working on, etc. Defining rules based on attributes that can change over time gives this authorization model a _dynamic_ quality: the authorization decision will depend on the user's attributes' value at runtime.
+
+With ABAC, we can define fine-grained rules that may include multiple user attributes. For example, we may want to allow a user to access a resource if they are in a member of a specific department while working on a specific project and during a specific time period.
+
+As we'll see in this example, the dynamic behavior we can achieve with ABAC could be used to support a wide variety of use cases that couldn't be satisfied using RBAC alone. That said, we have to use ABAC judiciously, since it can increase the complexity of our authorization model and make it more difficult to maintain.
 
 ## Creating an Attribute Based Access Control Policy
 
@@ -18,11 +22,12 @@ Create a new policy based on the `policy-peoplefinder` template. Open the policy
 
 ![console-policy-peoplefinder-post](/getting-started-acmecorp/console-policy-peoplefinder-post.png)
 
-As you can see, this policy is slightly different from the RBAC policy we created before: instead of referring to the `data.json` file and to the roles defined there, it uses the user's _attributes_ to determine whether they are equal to a specific value.
+As you can see, this policy is slightly different from the RBAC policy we created before: instead of referencing the `data` object (which is based on the definitions in the `data.json` file) and the roles defined there, it uses the user's _attributes_ to determine whether they are equal to a specific value.
 
-In this case, we check whether the user's `department` attribute is equal to `Operations`. Only users with this attribute would be `allowed` to perform the `POST` operation - which will allows a user to update the title and department of another user. Since title and department can dynamically change in our application, this means that our authorization model will be similarly dynamic.
+In this module, we check whether the user's `department` attribute is equal to `Operations`. If the check yields a `true` value, the user will be `allowed` to perform the `POST` operation on the `/api/users/:id` resource - which means they'll be able to update the `title` and `department` attributes of another user.
+This policy will result in a dynamic behavior of the authorization model: any user assigned to the `Operations` department _at runtime_ will now have the permission to make updates to other users as well.
 
-Let's see this policy in action.
+Let's update our PeopleFinder application to point to this new policy to see it in action.
 
 ## Redeploy to Netlify
 

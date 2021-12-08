@@ -4,11 +4,13 @@ sidebar_label: Modify the Policy
 
 # Modify the Policy
 
-So far, we were using a policy created by Aserto. Let's say our product manager has asked us to allow managers to be able to change their reports' title and department. We can do this by _modifying our policy_ and without making _any_ changes to our application code! We'll modify the policy we set up and learn how to update our changes in Aserto.
+So far, we were using a policy template created by Aserto. Now let's see how we can make changes to a policy and see how these changes make their way to the Aserto Authorizer.
+
+Let's say our product manager has asked us to allow managers to be able to change their reports' title and department. You may naturally think that such a change would require a code change in our application. But with Aserto we can do this by _modifying our policy_ and without making _any_ changes to our application code! This is the power of the "Policy-as-Code" approach: it decouples the authorization logic from the application logic.
 
 ## Review the policy in the Aserto Console
 
-Click the `peoplefinder-rbac` policy in the Policies tab again, and this time let's look at the `peoplefinder.POST.api.users.__id` module.
+Click the `peoplefinder-rbac` policy in the Policies tab again, and open the `peoplefinder.POST.api.users.__id` module.
 
 ![console-policy](/getting-started-acmecorp/console-policy.png)
 
@@ -18,7 +20,7 @@ As mentioned before, the naming convention for packages is `policyroot.METHOD.ro
 - `METHOD` is `POST` (signifying an `HTTP POST` method)
 - `route` is `api.users.__id` (signifying the `/api/users/:id route`, with periods instead of slashes for a delimiter, following the Rego EBNF rules)
 
-Click the `peoplefinder.POST.api.users.__id` policy file. This package controls access to the “Update” button at the bottom of a User card, and defines the policy that authorizes users to make changes to department and title attributes.
+This module controls access to the “Update” button at the bottom of a User card, and defines the policy that authorizes users to make changes to department and title attributes.
 
 :::caution note
 Don't confuse the this with the `peoplefinder.POST.api.users` policy, which controls the ability to add new users.
@@ -110,11 +112,11 @@ git tag v0.0.1
 git push --tags
 ```
 
-This is the "Policy as Code" workflow - it allows us to make changes to our policy without having to make any changes or redeploy our application.
-
 Check back to the console and ensure that the new policy is reflected in the Policy browser.
 
 ![console-updated-policy](/getting-started-acmecorp/console-updated-policy.png)
+
+Aserto will automatically update the authorizer with the changes made to policy.
 
 ## Review the behavior in the application
 
