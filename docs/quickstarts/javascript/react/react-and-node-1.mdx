@@ -6,9 +6,9 @@ sidebar_label: React and Node - Chapter 1
 
 ## Overview
 
-Aserto is a could-native authorization platform that allows you to avoid having to build your own access control solution and instead frees you up to focus on your core user experience. In this tutorial you will learn how to integrate the Aserto SDK in the context of an Express.js API, together with a React application.
+Aserto is a could-native authorization platform that allows you to avoid having to build your own access control solution and instead frees you up to focus on your core user experience. In this tutorial you will learn how to integrate the Aserto SDK in the context of an Express.js API that will interact with a React application.
 
-Before we get started, let’s discuss Aserto’s two major components: the Authorizer and the Control Plane.
+Before we get started, let’s discuss two of Aserto's major components: the Authorizer and the Control Plane.
 
 The Authorizer is where authorization decisions get made. It is an open source authorization engine which uses Open Policy Agent (OPA) to compute a decision based on policy, user context and resource data. In this tutorial we’re going to use the hosted version of this authorizer.
 
@@ -81,7 +81,7 @@ You’ll see the following JSON object (shortened here for brevity):
 }
 ```
 
-Users in this identity provider have properties and roles associated with them. In this case, among other roles, Euan has the role of a “viewer”. If you search for the user Kris Johnson and inspect her associated JSON object, you’ll see she has the role of “admin”. Later in this tutorial we will leverage this information to allow the authorizer to make a decision as to which user will have access to a piece of sensitive information. Before we do that, we have to set up our React application as well as the Express.js application.
+Users in this identity provider have properties and roles associated with them. In this case, among other roles, Euan has the role of a “viewer”. If you search the Aserto directory for the user Kris Johnson and inspect her associated JSON object, you’ll see she has the role of “admin”. Later in this tutorial we will leverage these roles to allow the authorizer to make a decision as to which user will have access to a piece of sensitive information. Before we do that, we have to set up our React application as well as the Express.js application.
 
 ## React Application setup
 
@@ -425,7 +425,7 @@ In this case we'd expect the sensitive information to not be shown.
 
 ## Creating a simple Role Based Access Control Authorization Model
 
-Until now, we dealt only with authentication of users in our application. Now, let’s discuss how to set up an authorization model which will enforce some limitation on user access to our protected resource.
+Until now, we dealt only with authentication of users in our application. Now, let’s discuss how to set up the _authorization_ model which will enforce some limitation on user access to our protected resource.
 
 We want to limit access to specific protected resources in our application to users who have particular roles. In this case, if we logged in with `euang@acmecorp.com` - who has the “viewer” role and not the “admin” role, we’d expect him not to have access to our protected resource. If you log in as `euang@acmecorp.com` you’ll see the following:
 
@@ -437,9 +437,25 @@ That's not the behavior we’re looking for - but since we didn't add any way to
 
 Initially, the policy we’ll create for this tutorial will only allow a user with the role of `admin` to view sensitive information, while users without the `admin` role will not be able to access that information.
 
-:::caution note
-TODO
-:::
+In [console.aserto.com](https://console.aserto.com), go to the `Policies` tab and click "Add Policy"
+
+![add-policy](/quickstart-react-and-node/add-policy.png)
+
+If you haven't already added a source code connection, select "Add a new source code connection". You can choose either adding a Github connection using an Oauth2 flow, or add a Github connection using a Github PAT.
+
+![add-scc](/quickstart-react-and-node/add-scc.png)
+
+Once you've added the connection, select the organization you'd like to use for the repository, and select "New (using template)".
+
+Then, from the template dropdown, select "aserto-dev/policy-template". Name repo policy "hello-aserto-react", and click "Create repo".
+
+![add-policy-to-repo](/quickstart-react-and-node/add-policy-to-repo.png)
+
+Aserto will generate a new repository in your Github account the will include the necessary policy files. Head to Github to retrieve the URL for the repository that was just created, and clone it.
+
+```
+git clone git@github.com:<YOUR ORGANIZATION>/hello-aserto-react.git
+```
 
 Now that we have a local copy of the policy, let’s start modifying it:
 
@@ -491,11 +507,13 @@ allowed {
 ```
 
 By default, the `allowed` decision is going to be `false` - this follows the principle of a “closed” system where access is disallowed unless specific conditions are satisfied.
-On runtime, the application will send the JWT associated with the logged in user. The Express.js service will relay the JWT along with the request path as the identity and resource contexts respectively to the authorizer. The `some index` and `...roles[index]` expressions indicate the authorizer will iterate over all the elements in the `roles` array under the `attributes` property in the user object. The authorizer will check if the iterated role is equal to the string `admin`. If it is, the `allowed` decision will be `true`.
+
+At runtime, the application will send the JWT associated with the logged in user. The Express.js service will relay the JWT along with the request path as the identity and resource contexts respectively to the authorizer. The `some index` and `...roles[index]` expressions indicate the authorizer will iterate over all the elements in the `roles` array under the `attributes` property in the user object. The authorizer will check if the iterated role is equal to the string `admin`. If it is, the `allowed` decision will be `true`.
 
 ## Updating the Policy Repository
 
-Now that we’ve modified our policy bundle, we’ll publish our changes: Aserto takes a “policy-as-code” approach to handling policies. That means that we can simply tag and push the changes we’ve made to the policy and the updated policy will be built and published to the authorizer. This allows us to make changes to the policy without having to make changes or redeploy our application.
+Now that we’ve modified our policy bundle, we’ll publish our changes: Aserto applies a GitOps flow to any changes made to the repository we set up. That means that we can simply tag and push the changes we’ve made to the policy and the updated policy will be built and published to the authorizer.
+
 Commit, tag and push the changes you made:
 
 ```
@@ -651,6 +669,6 @@ Success! As expected, this user can access the protected resource.
 
 # Summary
 
-In this chapter, we created a simple React application and a simple Express.js application, using OICD as an identity provider. We then set up an Aserto Policy to limit user access to a protected resource using the identity context passed from the React Application. Finally, we saw how to make changes to the policy without requiring any changes to the application code.
+In this tutorial, we created a simple React application and a simple Express.js application, using OICD as an identity provider. We then set up an Aserto Policy to limit user access to a protected resource using the identity context passed from the React Application. Finally, we saw how to make changes to the policy without requiring any changes to the application code.
 
-In the next chapter, we’ll learn how to conditionally render UI components based on policy decisions.
+In the next tutorial, we’ll learn how to conditionally render UI components based on policy decisions.
