@@ -50,7 +50,7 @@ In addition to the user's role definition, we can make decisions based on the us
 
 To implement the logic of allowing managers update their reports' title and department, we need two pieces of information: the user `id` for the user shown in the user card, and the `id` for the currently logged in user. In PeopleFinder, we send the selected user's `id` as part of the _resource context_ in addition to the logged in user identity. Let's add a rule that will leverage this and allow a manager in Acmecorp to update their reports' details.
 
-Open the file `src/__id/post.rego`, and add the following rules to the policy:
+Open the file `src/__id/post.rego`, and add the following rule to the policy:
 
 ```
 allowed {
