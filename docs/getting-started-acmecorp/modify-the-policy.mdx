@@ -50,12 +50,13 @@ In addition to the user's role definition, we can make decisions based on the us
 
 To implement the logic of allowing managers update their reports' title and department, we need two pieces of information: the user `id` for the user shown in the user card, and the `id` for the currently logged in user. In PeopleFinder, we send the selected user's `id` as part of the _resource context_ in addition to the logged in user identity. Let's add a rule that will leverage this and allow a manager in Acmecorp to update their reports' details.
 
-Open the file `src/__id/post.rego`, and add the following rule to the policy:
+Open the file `src/__id/post.rego`, and add the following rules to the policy:
 
 ```
 allowed {
     dir.is_manager_of(input.user.id, input.resource.id)
 }
+
 ```
 
 :::caution note
@@ -63,6 +64,16 @@ Be sure to edit `src/__id/post.rego` and _not_ `src/post.rego` which controls th
 :::
 
 The expression `dir.is_manager_of` is part of a set of built-in Rego functions Aserto provides (you can find the full list of built-in functions [here](/docs/authorizer-guide/built-ins)). In this case, it checks the attribute `manager` of the _selected_ user passed as part of the resource context (`input.resource.id`) and determines whether it is equal to the `user.id` of the logged in user.
+
+We also need the "Update" button to be `enabled` for managers, so we'll add the following rule to the policy:
+
+```
+enabled {
+    allowed
+}
+```
+
+This rule means that if the `enabled` decision will follow whatever the `allowed` decision is. That means that if _any_ of the `allowed` clauses evaluate to `true`, then the `enabled` decision will also be `true`. Specifically, if the clause we added using the `is_manager_of` built-in evaluates to `true`, then the "Update" button will be `enabled` - regardless of the decisions made by rules based on the logged in user's _role_.
 
 The final state of the Rego file should look like the code listing below:
 
@@ -95,6 +106,10 @@ visible {
 enabled {
 	some index
 	data.roles.roles[attributes.roles[index]].perms[path].enabled
+}
+
+enabled {
+    allowed
 }
 ```
 
