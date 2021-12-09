@@ -47,6 +47,16 @@ module.exports = {
                         'getting-started-acmecorp/bring-your-own-idp/deploy-peoplefinder-auth0',
                     ],
                 },
+                {
+                    type: 'category',
+                    label: 'Getting Started with ABAC',
+                    collapsed: true,
+                    items: [
+                        'getting-started-acmecorp/getting-started-with-abac/overview',
+                        'getting-started-acmecorp/getting-started-with-abac/creating-an-abac-policy',
+                        'getting-started-acmecorp/getting-started-with-abac/update-app-and-review',
+                    ],
+                },
                 'getting-started-acmecorp/install-onebox'
             ]
         },
