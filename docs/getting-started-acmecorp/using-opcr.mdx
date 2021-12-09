@@ -1,0 +1,81 @@
+---
+sidebar_label: Using OPCR
+---
+
+# Using OPCR
+
+Aserto uses the Open Container Registry (OPCR) to store and retrieve policies, and we can use it directly to manage our policies. To interact with OPCR, we’ll need to install the OPCR CLI.
+
+## Install the OPCR CLI
+
+### Homebrew
+
+You can install `policy` via homebrew for macOS or LinuxBrew for Linux:
+
+```
+brew install opcr-io/tap/policy
+```
+
+### Go
+
+You can install `policy` via GO install:
+
+```
+go get -u github.com/opcr-io/policy
+```
+
+## Login to opcr.io
+
+Just like with docker login, the policy CLI requires you to login to an OCIv2-compliant registry. To sign into the opcr.io registry, use the GitHub account you registered with, and a GitHub personal access token (PAT) as your password.
+
+```
+policy login -u <GitHub-account> -p <GitHub-PAT>
+```
+
+## Pull the PeopleFinder image
+
+```
+policy pull aserto-templates/peoplefinder-rbac:0.0.1
+```
+
+Now the image is stored locally, we can make modifications to it.
+
+## Export (unbundle) the image
+
+Create a new folder (for example “peoplefinder-rbac”) and then execute
+
+```
+policy save aserto-templates/peoplefinder-rbac:0.0.1
+```
+
+This produces a bundle.tar.gz file. To unpack it run
+
+```
+tar -xvf bundle.tar.gz
+```
+
+After unpacking the bundle.tar.gz file we can delete it. Now we can see the folder structure of the policy bundle.
+
+If we make changes to the policy and want to have it updated on Aserto, we’ll need to build our image and push it back up to the repository so that our policy is updated in the authorizer.
+
+## Build your image
+
+From within the same folder that includes the `.manifest` file, run the following command:
+
+```
+policy build . -t <your OPCR organization>/peoplefinder-rbac:0.0.1
+```
+
+## Push your Image
+
+To push your image to OPCR, execute the following:
+
+```
+policy push <your OPCR organization>/peoplefinder-rbac:0.0.1
+```
+
+Your image policy image will now be available in the OPCR registry.
+
+# Add a policy from OPCR to your tenant
+
+--TBD

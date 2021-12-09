@@ -1,0 +1,131 @@
+---
+sidebar_label: Modify the Policy
+---
+
+# Modify the Policy
+
+So far, we were using a policy template created by Aserto. Now let's see how we can make changes to a policy and see how these changes make their way to the Aserto Authorizer.
+
+Let's say our product manager has asked us to allow managers to be able to change their reports' title and department. You may naturally think that such a change would require a code change in our application. But with Aserto we can do this by _modifying our policy_ and without making _any_ changes to our application code! This is the power of the "Policy-as-Code" approach: it decouples the authorization logic from the application logic.
+
+## Review the policy in the Aserto Console
+
+Click the `peoplefinder-rbac` policy in the Policies tab again, and open the `peoplefinder.POST.api.users.__id` module.
+
+![console-policy](/getting-started-acmecorp/console-policy.png)
+
+As mentioned before, the naming convention for packages is `policyroot.METHOD.route`. So in this case,
+
+- `policyroot` is `peoplefinder`
+- `METHOD` is `POST` (signifying an `HTTP POST` method)
+- `route` is `api.users.__id` (signifying the `/api/users/:id route`, with periods instead of slashes for a delimiter, following the Rego EBNF rules)
+
+This module controls access to the “Update” button at the bottom of a User card, and defines the policy that authorizes users to make changes to department and title attributes.
+
+:::caution note
+Don't confuse the this with the `peoplefinder.POST.api.users` policy, which controls the ability to add new users.
+:::
+
+## Cloning the policy repository
+
+In the Policy settings tab, click on the `https://github.com/[user]/policy-peoplefinder-rbac]` link which opens a new browser window.
+
+![github-policy](/getting-started-acmecorp/github-policy.png)
+
+Copy the clone URL, open a terminal window, and do a `git clone` on the URL. Open a code editor window in that repository directory. You’ll see all the modules for the PeopleFinder policy.
+
+Let’s examine the files:
+
+![policy-file-list](/getting-started-acmecorp/policy-file-list.png)
+
+1. `data.json` includes all the role definitions used by the authorizer. Any additional data can be included here, and it will be made accessible to policies under the `data` object.
+2. `.manifest` specifies the policy root (in this case, `peoplefinder`) as well as properties in `data.json` that we want to make available. In our example, the root “roles” is referenced since it is the root property in our `data.json` file.
+3. All of the policies are under the `policies` directory.
+4. The policies under the `__id` folder are policies for routes that have an `id` passed to them - e.g. `/api/users/:id`. In the following example, we’ll modify the `__id/post.rego` policy.
+5. Note that the naming of the directories here is only a convention to make it easier to understand the structure of the policies, but all `.rego` will be loaded into the authorizer regardless of the folder structure.
+
+## Adding a new rule
+
+In addition to the user's role definition, we can make decisions based on the user's identity and the _resource context_ our application can optionally send. The resource context is a key-value map that will be available in the policy as `input.resource`.
+
+To implement the logic of allowing managers update their reports' title and department, we need two pieces of information: the user `id` for the user shown in the user card, and the `id` for the currently logged in user. In PeopleFinder, we send the selected user's `id` as part of the _resource context_ in addition to the logged in user identity. Let's add a rule that will leverage this and allow a manager in Acmecorp to update their reports' details.
+
+Open the file `src/__id/post.rego`, and add the following rule to the policy:
+
+```
+allowed {
+    dir.is_manager_of(input.user.id, input.resource.id)
+}
+```
+
+:::caution note
+Be sure to edit `src/__id/post.rego` and _not_ `src/post.rego` which controls the ability to add new users.
+:::
+
+The expression `dir.is_manager_of` is part of a set of built-in Rego functions Aserto provides (you can find the full list of built-in functions [here](/docs/authorizer-guide/built-ins)). In this case, it checks the attribute `manager` of the _selected_ user passed as part of the resource context (`input.resource.id`) and determines whether it is equal to the `user.id` of the logged in user.
+
+The final state of the Rego file should look like the code listing below:
+
+```
+package peoplefinder.POST.api.users.__id
+
+import input.policy.path
+import input.user.attributes
+
+default allowed = false
+
+default visible = false
+
+default enabled = false
+
+allowed {
+	some index
+	data.roles.roles[attributes.roles[index]].perms[path].allowed
+}
+
+allowed {
+    dir.is_manager_of(input.user.id, input.resource.id)
+}
+
+visible {
+	some index
+	data.roles.roles[attributes.roles[index]].perms[path].visible
+}
+
+enabled {
+	some index
+	data.roles.roles[attributes.roles[index]].perms[path].enabled
+}
+```
+
+So now the Update operation is allowed if they have the role of an `admin` or an `editor`, OR if the logged in user is the manager of the employee that they are trying to update.
+
+## Push to Github
+
+To have the policy updated in Aserto, all we have to do is to commit our changes, tag a release and push it to Github. Aserto's CI/CD pipeline will automatically create a new policy bundle and make it available to the authorizer.
+
+```bash
+git add .
+git commit -m "Allowing managers to update their reports' title and department"
+git push
+git tag v0.0.1
+git push --tags
+```
+
+Check back to the console and ensure that the new policy is reflected in the Policy browser.
+
+![console-updated-policy](/getting-started-acmecorp/console-updated-policy.png)
+
+Aserto will automatically update the authorizer with the changes made to policy.
+
+## Review the behavior in the application
+
+When you see the new policy has been loaded by the authorizer, go back to PeopleFinder, and switch context to April Stewart from the top-right user context menu. This will simulate a logout of Euan and a login of his manager, April. Now the Update button is enabled, and April (as Euan's manager) should be able to update Euan's title.
+
+![euan-and-april](/getting-started-acmecorp/euan-and-april.png)
+
+If you change cards (for example, to April's own card), and try to update her title or department, you'll see the error caused by the policy denying the operation, since April is not her own manager.
+
+## Next Steps
+
+Success! You've completed the getting started tutorial, and should now be able to create and update your own policies and use them in your application. You can learn about [how to use your own IDP](/docs/getting-started-acmecorp/bring-your-own-idp/bring-your-own-idp) and [how to use the Aserto OneBox](/docs/getting-started-acmecorp/install-onebox) to set up a local development environment.

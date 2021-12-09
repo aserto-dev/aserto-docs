@@ -1,0 +1,55 @@
+---
+sidebar_label: Create your first policy
+---
+
+# Create a policy
+
+The underpinning of Aserto's authorization model is a [policy](/docs/overview/policy).
+
+Policies are authored, stored, and versioned as code in a `git` repository.
+
+## Add a policy
+
+![Add a policy](/add-a-policy.png)
+
+When you click on “Add a policy”, you'll go through a short workflow to select a git repository for your policy,
+and name that policy in the Aserto console.
+
+The first step is to select a connection to a source code control system. Since you don't yet have any, you'll
+want to select the "Add a new source code connection" item in the dropdown.
+
+[<img src="/connect-scc.png" width="500px" />](/connect-scc.png)
+
+This will bring up a modal for adding a connection
+to a provider. Note that Aserto supports GitHub as a source code provider, but allows you to connect to it either
+over an OAuth2 flow, or using a Personal Access Token (PAT).
+
+<img src="/connect-github.png" width="500px" />
+
+The easiest path is to select "github" as the source code provider, give the connection a name (like `github-<youraccount>`),
+and click "Add connection". To connect using a Personal Access Token (PAT), follow these [instructions](/docs/aserto-console/connections#connecting-github-using-a-pat).
+
+:::note
+If you are managing an Aserto tenant for an organization, we recommend using a GitHub "bot account" to sign in with,
+and using a Personal Access Token which has access to your GitHub organization.
+:::
+
+Once you complete GitHub’s OAuth2 consent flow, select your newly created connection.
+
+[<img src="/getting-started-acmecorp/select-github-provider.png" width="500" />](/getting-started-acmecorp/select-github-provider.png)
+
+Next, you'll be asked to select an organization & repo. Select the “New (using template)” radio button, and select the `policy-peoplefinder-rbac` template.
+
+![peoplefinder-template](/getting-started-acmecorp/peoplefinder-template.png)
+
+:::caution Note
+Your user must have sufficient permissions to create a secret in this GitHub repo (which may be controlled by the organization you choose to create the repo in).
+:::
+
+Name your new repository something like `policy-peoplefinder-rbac`. Finally, name your policy with a descriptive name (e.g. peoplefinder). You’ll use this name later with the CLI.
+
+![name policy](/name-policy.png)
+
+## Next Steps
+
+Congratulations! You now have a clone of the `policy-peoplefinder-rbac` policy template in your GitHub account, hooked up to Aserto. Later, you’re going to modify this policy repository to change the authorization policy of the PeopleFinder application. But first, let's set up demo users in your directory so that we can understand how user information is used in the authorization flow.
