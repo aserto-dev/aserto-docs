@@ -139,7 +139,8 @@ When you see the new policy has been loaded by the authorizer, go back to People
 
 ![euan-and-april](/getting-started-acmecorp/euan-and-april.png)
 
-If you change cards (for example, to April's own card), and try to update her title or department, you'll see the error caused by the policy denying the operation, since April is not her own manager.
+If you change cards (for example, to April's own card), you'll see that the "Update" button will now be disabled. This is because
+April's role is only a `viewer` and not her own manager. Since no `allowed` clauses will evaluate to `true`, the last `enabled` clause will be evaluated to `false`, and the "Update" button will be disabled.
 
 ## Next Steps
 
