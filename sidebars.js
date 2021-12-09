@@ -105,10 +105,13 @@ module.exports = {
             ],
         },
         {
-            'Troubleshooting': [
-                'troubleshooting/cannot-add-existing-policy',
+            Troubleshooting: [
+                'troubleshooting/toc',
+                'troubleshooting/existing-policy-cannot-be-added',
                 'troubleshooting/leaked-secret-keys',
-                'troubleshooting/cannot-remove-github-connection',
+                'troubleshooting/github-connection-cannot-be-removed',
+                'troubleshooting/policy-added-but-shows-error',
+                'troubleshooting/errors-reference',
             ]
         }
     ],
