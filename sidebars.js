@@ -38,6 +38,16 @@ module.exports = {
                 },
                 {
                     type: 'category',
+                    label: 'Explore ABAC Policies',
+                    collapsed: true,
+                    items: [
+                        'getting-started-acmecorp/explore-abac-policies/overview',
+                        'getting-started-acmecorp/explore-abac-policies/creating-an-abac-policy',
+                        'getting-started-acmecorp/explore-abac-policies/update-app-and-review',
+                    ],
+                },
+                {
+                    type: 'category',
                     label: 'Bring Your Own IDP (Auth0)',
                     collapsed: true,
                     items: [
@@ -45,16 +55,6 @@ module.exports = {
                         'getting-started-acmecorp/bring-your-own-idp/set-up-auth0',
                         'getting-started-acmecorp/bring-your-own-idp/extend-user-attributes',
                         'getting-started-acmecorp/bring-your-own-idp/deploy-peoplefinder-auth0',
-                    ],
-                },
-                {
-                    type: 'category',
-                    label: 'Getting Started with ABAC',
-                    collapsed: true,
-                    items: [
-                        'getting-started-acmecorp/getting-started-with-abac/overview',
-                        'getting-started-acmecorp/getting-started-with-abac/creating-an-abac-policy',
-                        'getting-started-acmecorp/getting-started-with-abac/update-app-and-review',
                     ],
                 },
                 'getting-started-acmecorp/install-onebox'
