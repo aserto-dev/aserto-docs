@@ -213,7 +213,7 @@ Roles that do not exist in the `data.json` file will be ignored.
 
 Unlike a `viewer`, an `admin` user trying to access `PUT api/users/:id` will be allowed to do so - that’s the behavior we observed when attempting to edit a user’s phone number as the user “Kris”. Here is the `admin` definition in the `data.json` file:
 
-```
+```json
 {
     "roles": {
         "viewer": {...},

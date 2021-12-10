@@ -38,6 +38,16 @@ module.exports = {
                 },
                 {
                     type: 'category',
+                    label: 'Explore ABAC Policies',
+                    collapsed: true,
+                    items: [
+                        'getting-started-acmecorp/explore-abac-policies/overview',
+                        'getting-started-acmecorp/explore-abac-policies/creating-an-abac-policy',
+                        'getting-started-acmecorp/explore-abac-policies/update-app-and-review',
+                    ],
+                },
+                {
+                    type: 'category',
                     label: 'Bring Your Own IDP (Auth0)',
                     collapsed: true,
                     items: [
