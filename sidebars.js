@@ -133,7 +133,7 @@ module.exports = {
         },
         {
             Troubleshooting: [
-                'troubleshooting/toc',
+                'troubleshooting/overview',
                 'troubleshooting/existing-policy-cannot-be-added',
                 'troubleshooting/leaked-secret-keys',
                 'troubleshooting/github-connection-cannot-be-removed',
@@ -142,5 +142,5 @@ module.exports = {
             ]
         }
     ],
-    
+
 }
