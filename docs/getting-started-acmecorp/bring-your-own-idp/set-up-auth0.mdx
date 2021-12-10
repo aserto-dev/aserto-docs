@@ -1,0 +1,96 @@
+---
+sidebar_label: Configure Auth0
+---
+
+# Configure your Auth0 tenant
+
+This version of the PeopleFinder sample uses [Auth0](https://www.auth0.com) as its identity provider.  If you don't have 
+an Auth0 account, create one now.  
+
+You’ll need an M2M application set up in Auth0. To create one, open your Auth0 console, and navigate to “Applications”.
+
+![auth0-applications](/getting-started-acmecorp/auth0-applications.png)
+
+Create a new Machine-to-Machine application by clicking the "Create Application" button.
+
+The following screen will be displayed:
+
+![auth0-create-m2m](/getting-started-acmecorp/auth0-create-m2m.png)
+
+Name your application “Aserto Management”, select “Machine to Machine Application” and click “Create”.
+
+![auth0-application-permissions](/getting-started-acmecorp/auth0-application-permissions.png)
+
+In the drop down, select “Auth0 Management API”, then check the permissions read:users, update:users and create:users.
+
+Next, we need to create an Auth0 SPA application for PeopleFinder to bind to.
+
+## Create an Auth0 SPA
+
+Create an Auth0 Single-Page Application called PeopleFinder, if you don’t have a SPA set up already that you would like to reuse.
+
+Here is an example of what the Single Page Application needs to look like in the Auth0 management console:
+
+![auth0-spa-settings](/getting-started-acmecorp/auth0-spa-settings.png)
+
+:::caution note
+The Application Type must be “Single Page Application” and all the URLs (callback URLs, logout URLs, Web Origins, and Origins should be set to `http://localhost:3000, https://*.netlify.app` (to cover both local development and the Netlify deployment).
+:::
+
+## Create an Auth0 API
+
+Create a new API called "Peoplefinder API" with an Audience name of https://express.sample
+
+![auth0-apis](/getting-started-acmecorp/auth0-apis.png)
+
+:::note
+In the Auth0 UI, this will be labeled as “Identifier”.
+:::
+
+![auth0-identifier](/getting-started-acmecorp/auth0-identifier.png)
+
+## Seed your Auth0 tenant
+
+### Install the aserto-idp-seed tool
+
+You can use the `aserto-idp-seed` tool to load demo users into your Auth0 tenant (if you don’t have users already). To install the tool on Mac or Linux, execute:
+
+```bash
+brew tap aserto-dev/tap && brew install aserto-idp-seed
+```
+
+To download the Windows version, or from a zip file, refer to the releases page on [Github](https://github.com/aserto-dev/aserto-idp-seed/releases).
+
+### Create a .env file for the Aserto IDP seed tool
+
+Create a new file called .env and give it the following structure:
+
+```
+AUTH0_DOMAIN="mydomain.us.auth0.com"
+AUTH0_CLIENT_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+AUTH0_CLIENT_SECRET="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+TEMPL_CORPORATION="acmecorp"
+TEMPL_EMAIL_DOMAIN="acmecorp.com"
+TEMPL_PASSWORD="V@rySecr#et321!"
+```
+
+The first three values come from the Domain, Client ID, and Client Secret of the Auth0 M2M application.
+The last three values determine the name of the company our test users work at, the domain of email addresses that we will create for these users, and the password for these users. You can leave these values as the same ones above (or change the password to something even more secret :) ).
+Finally, run the tool to seed the test users into your Auth0 tenant:
+
+```
+aserto-idp-seed seed
+```
+
+## Connect Auth0 as an identity provider
+
+Back in [console.aserto.com](https://console.aserto.com), click the “Connections” tab, click “Add Connection” and select Auth0 as the provider.
+
+[<img src="/getting-started-acmecorp/add-connection-auth0.png" width="500" />](/getting-started-acmecorp/add-connection-auth0.png)
+
+Complete the form using the domain, client ID and client secret associated with the M2M application settings you created in Auth0. Finally, click “Add connection”. Aserto will pull the users existing in your IDP into the directory. You can now test the application again using the new users seeded into the IDP.
+
+## Next steps
+
+Next, we'll extend the users we've just imported from Auth0 with custom attributes that 
+the PeopleFinder application expects to have on the user records.

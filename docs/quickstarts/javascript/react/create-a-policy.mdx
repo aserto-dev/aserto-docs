@@ -1,0 +1,111 @@
+---
+sidebar_label: RBAC Authorization Model
+---
+
+# Creating a Role Based Access Control Authorization Model
+
+Until now, we dealt only with authentication of users in our application. Now, let’s discuss how to set up the _authorization_ model which will enforce some limitation on user access to our protected resource.
+
+We want to limit access to specific protected resources in our application to users who have particular roles. In this case, if we logged in with `euang@acmecorp.com` - who has the “viewer” role and not the “admin” role, we’d expect him not to have access to our protected resource. If you log in as `euang@acmecorp.com` you’ll see the following:
+
+![euan-gets-sensitive-information](/quickstart-react-and-node/euan-gets-sensitive-information.png)
+
+That's not the behavior we’re looking for - but since we didn't add any way to authorize users based on their role - this unprivileged user still has access to the protected route. Let's fix that by first creating a simple Aserto policy to allow access only to users with the “admin” role.
+
+## Create an Aserto Policy
+
+Initially, the policy we’ll create for this tutorial will only allow a user with the role of `admin` to view sensitive information, while users without the `admin` role will not be able to access that information.
+
+In [console.aserto.com](https://console.aserto.com), go to the `Policies` tab and click "Add Policy"
+
+![add-policy](/quickstart-react-and-node/add-policy.png)
+
+If you haven't already added a source code connection, select "Add a new source code connection". You can choose either adding a Github connection using an Oauth2 flow, or add a Github connection using a Github PAT.
+
+![add-scc](/quickstart-react-and-node/add-scc.png)
+
+Once you've added the connection, select the organization you'd like to use for the repository, and select "New (using template)".
+
+Then, from the template dropdown, select "aserto-dev/policy-template". Name repo policy "hello-aserto-react", and click "Create repo".
+
+![add-policy-to-repo](/quickstart-react-and-node/add-policy-to-repo.png)
+
+Aserto will generate a new repository in your Github account the will include the necessary policy files. Head to Github to retrieve the URL for the repository that was just created, and clone it.
+
+```
+git clone git@github.com:<YOUR ORGANIZATION>/hello-aserto-react.git
+```
+
+Now that we have a local copy of the policy, let’s start modifying it:
+
+We'll start by updating the `.manifest` file under `src`, which currently will only point to the root of our policy. We'll change it from
+
+```
+{
+    "roots": ["policies"]
+}
+```
+
+To
+
+```
+{
+    "roots": ["asertodemo"]
+}
+```
+
+Rename the file `hello.rego` to `protected.rego`. We'll open the file and change the package name to match the path of our Express API endpoint. The basic structure of the package name is:
+
+```
+[policy-root].[VERB].[path]
+```
+
+Where the path is separated by dots instead of slashes. And so in our case, the Express.js path
+
+```
+app.get('/api/protected'...
+```
+
+Is referenced in the package as:
+
+```
+package asertodemo.GET.api.protected
+```
+
+We're also going to define the policy such that the only `allowed` user is one with an `admin` role. Aserto attaches this `user` object to the `input` object. Below is the finished policy:
+
+```
+package asertodemo.GET.api.protected
+
+default allowed = false
+
+allowed {
+	some index
+	input.user.attributes.roles[index] == "admin"
+}
+```
+
+By default, the `allowed` decision is going to be `false` - this follows the principle of a “closed” system where access is disallowed unless specific conditions are satisfied.
+
+At runtime, the application will send the JWT associated with the logged in user. The Express.js service will relay the JWT along with the request path as the identity and resource contexts respectively to the authorizer. The `some index` and `...roles[index]` expressions indicate the authorizer will iterate over all the elements in the `roles` array under the `attributes` property in the user object. The authorizer will check if the iterated role is equal to the string `admin`. If it is, the `allowed` decision will be `true`.
+
+## Updating the Policy Repository
+
+Now that we’ve modified our policy bundle, we’ll publish our changes: Aserto applies a GitOps flow to any changes made to the repository we set up. That means that we can simply tag and push the changes we’ve made to the policy and the updated policy will be built and published to the authorizer.
+
+Commit, tag and push the changes you made:
+
+```
+git commit -m "updated policy"
+git tag v0.0.1
+git push origin master
+git push --tags
+```
+
+Open the Aserto console, and navigate to the Policies tab. Then, open the policy "hello-aserto-react" and review the changes. You should see the following:
+
+![console-policy-update-1](/quickstart-react-and-node/console-policy-update-1.png)
+
+## Checkpoint
+
+Great! We now have a policy that will only allow users with the `admin` role access our protected resource. In the [next section](use-express-middleware) we'll see how to reference the policy in our Express.js service.

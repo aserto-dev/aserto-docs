@@ -1,18 +1,16 @@
 ---
-sidebar_label: React and Node - Chapter 2
+sidebar_label: Conditional UI Rendering
 ---
 
-# React and Node.js (Express.js) - Conditional UI Rendering
+# Conditional UI Rendering
 
-A common pattern for leveraging authorization in the UI is to conditionally render components based on the user’s access to a resource. In this tutorial, we'll expand our policy to include decisions that will be used by our application to conditionally render as well as disable/enable a couple of buttons.
+A common pattern for leveraging authorization in the UI is to conditionally render components based on the user’s access to a resource. We'll now expand our policy to include decisions that will be used by our application to conditionally render as well as disable/enable a couple of buttons.
 
 1. We want to create a section in the application containing a message that will be `visible` _only_ to a user with an `admin` role.
 2. We want to change the behavior of our "Get Sensitive Information" button such that:
    - The `viewer` will be able to see the button - but they will not be able to click it.
    - The `editor` will be able to click the button, but the resource will not be accessible to them.
    - The `admin` will be able to see the button and they will have access to the protected resource.
-
-Additionaly,
 
 ## Update the policy
 
@@ -250,3 +248,7 @@ Based on our current policy:
 3. The `div` showing the “You have been identified as an `admin`” message will only be visible to users with the `admin` role.
 
 Using the Aserto React SDK with the displayStateMap middleware, we can make use of these decisions - which were previously only exposed to the server - directly in the UI.
+
+# Summary
+
+Congratulations! You've completed the Aserto React.js and Express.js tutorial. You learned how to create an Aserto policy and how to use it with the Aserto Express.js middleware. You also learned how to set up a React application that can authenticate the user, and conditionally render the UI based on the authenticated user's role. Read more about the [React.js SDK](/docs/software-development-kits/javascript/react) and [Express.js SDK](/docs/software-development-kits/javascript/express) to learn about other ways to use them in your own applications.

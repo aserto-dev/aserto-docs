@@ -1,0 +1,154 @@
+---
+sidebar_label: Application setup
+---
+
+# React Application setup
+
+We’re going to build a very bare bones application for this tutorial. We’ll start by creating an application using the create-react-app generator: In your terminal, execute the following command:
+
+```
+npx create-react-app aserto-react-demo
+```
+
+You can now cd aserto-react-demo and start the app by running:
+
+```
+yarn start
+```
+
+The familiar React logo should appear, indicating that the app is ready to go.
+
+## Adding OIDC dependencies
+
+Now that we have a running React application, we'll continue by installing and then importing the required dependency - `oidc-react`
+
+In your terminal, execute the following command:
+
+```
+yarn install oidc-react
+```
+
+The following environment variables are used to point your application to Aserto’s demo IDP, so that you don’t have to set one yourself. Create a file called `.env` and add the following:
+
+```
+REACT_APP_OIDC_DOMAIN=acmecorp.demo.aserto.com
+REACT_APP_OIDC_CLIENT_ID=acmecorp-app
+REACT_APP_OIDC_AUDIENCE=acmecorp-app
+REACT_APP_API_ORIGIN=http://localhost:8080
+```
+
+:::caution note
+Make sure the `.env` file is added to the `.gitignore` file so that it is not checked in.
+:::
+
+Open the file `index.js` and add the dependency:
+
+```javascript
+import { AuthProvider } from "oidc-react";
+```
+
+Add the following configuration object:
+
+```javascript
+const configuration = {
+  authority: `https://${process.env.REACT_APP_OIDC_DOMAIN}/dex`,
+  clientId: process.env.REACT_APP_OIDC_CLIENT_ID,
+  autoSignIn: true,
+  responseType: "id_token",
+  scope: "openid profile email",
+  redirectUri: window.location.origin,
+  audience: process.env.REACT_APP_OIDC_AUDIENCE,
+  onSignIn: () => {
+    window.location.replace(window.location.origin);
+  },
+};
+```
+
+Next, we'll wrap the top level React Application component with the AuthProvider, and pass it the required configuration we created.
+
+```javascript
+ReactDOM.render(
+  <React.StrictMode>
+    <AuthProvider {...configuration}>
+      <App />
+    </AuthProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+```
+
+Next, we’ll build the app itself. Open the `App.js` file, and replace it’s contents with:
+
+```javascript
+import "./App.css";
+import React from "react";
+import { useAuth } from "oidc-react";
+
+function App() {
+  const auth = useAuth();
+  const isAuthenticated = auth.userData?.id_token ? true : false;
+
+  return (
+    <div className="container">
+      <div className="header">
+        <div className="logo-container">
+          <div className="logo"></div>
+          <div className="brand-name"></div>
+        </div>
+      </div>
+
+      <div className="user-controls">
+        {isAuthenticated && (
+          <>
+            <div className="user-info">{auth.userData?.profile?.email}</div>
+            <div className="seperator"></div>
+            <div className="auth-button">
+              <div onClick={() => auth.signOut("/")}>Log Out</div>
+            </div>
+          </>
+        )}
+        {!isAuthenticated && (
+          <div className="auth-button">
+            <div onClick={() => auth.signIn("/")}>Login</div>
+          </div>
+        )}
+      </div>
+
+      <div className="main">
+        {isAuthenticated && (
+          <>
+            <div className="top-main">
+              <div className="welcome-message">
+                Welcome {auth.userData?.profile?.email}!
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+
+## Test the application
+
+Let's test our application by logging in. If it's not already running, start your application by executing:
+
+```
+yarn start
+```
+
+To log in, using the following credentials:
+
+User: euang@acmecorp.com
+Password: V@erySecre#t123!
+
+![acmecorp-login](/quickstart-react-and-node/acmecorp-login.png)
+
+If everything works as expected, the following should be displayed.
+
+![welcome-euan-message](/quickstart-react-and-node/welcome-euan-message.png)
+
+Great! Our application authenticates with the Acmecorp IDP, and so we have our user's identity in hand. Next, [we'll create the Express.js service](service-setup) which will host our protected resource and will communicate with the Aserto hosted authorizer to determine whether or not a logged in user has the permissions to access the protected resource based on the user's identity.
