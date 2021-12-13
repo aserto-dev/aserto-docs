@@ -113,8 +113,27 @@ module.exports = {
                             items: [
                                 'software-development-kits/python/identity-providers',
                                 'software-development-kits/python/authorizers',
-                            ]
-                        }
+                            ],
+                        },
+                    ],
+                },
+                {
+                    type: 'category',
+                    label: 'Go',
+                    collapsed: false,
+                    items: [
+                        'software-development-kits/go/install',
+                        'software-development-kits/go/authorizer',
+                        {
+                            type: 'category',
+                            label: 'Middleware',
+                            collapsed: false,
+                            items: [
+                                'software-development-kits/go/middleware-http',
+                                'software-development-kits/go/middleware-grpc',
+
+                            ],
+                        },
                     ],
                 },
                 'software-development-kits/dotnetcore',
