@@ -41,4 +41,11 @@ export default [
     github: 'https://github.com/aserto-dev/aserto-dotnet',
     docs: '/docs/software-development-kits/dotnetcore',
   },
+  {
+    title: 'Go',
+    icon: 'go.svg',
+    link: 'https://go.dev/',
+    github: 'https://github.com/aserto-dev/aserto-go',
+    docs: '/docs/software-development-kits/go/install',
+  },
 ]
