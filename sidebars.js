@@ -131,5 +131,16 @@ module.exports = {
                 'command-line-interface/onebox',
             ],
         },
+        {
+            Troubleshooting: [
+                'troubleshooting/overview',
+                'troubleshooting/existing-policy-cannot-be-added',
+                'troubleshooting/leaked-secret-keys',
+                'troubleshooting/github-connection-cannot-be-removed',
+                'troubleshooting/policy-added-but-shows-error',
+                'troubleshooting/errors-reference',
+            ]
+        }
     ],
+
 }
