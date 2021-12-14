@@ -1,0 +1,57 @@
+---
+sidebar_label: Errors Reference Table
+---
+
+# Errors Reference Table
+
+| Error  | Error Code         | HTTP Code                 | Message                                                      | Explanation                                                                                     |
+| :----- | :----------------- | :------------------------ | :----------------------------------------------------------- | :---------------------------------------------------------------------------------------------- |
+| E10000 | Internal           | StatusInternalServerError | an unknown error has occurred                                | Unknown error ID. It's returned when the implementation has not returned another AsertoError.   |
+| E10001 | InvalidArgument    | StatusBadRequest          | no tenant id specified                                       | Means no tenant id was found in the current context                                             |
+| E10002 | InvalidArgument    | StatusBadRequest          | invalid tenant id                                            | Means the tenant id is not valid                                                                |
+| E10003 | InvalidArgument    | StatusBadRequest          | invalid tenant name                                          | Means the tenant name doesn't conform to our tenant name rules                                  |
+| E10004 | InvalidArgument    | StatusBadRequest          | invalid provider id                                          | Means the provider ID is invalid                                                                |
+| E10005 | InvalidArgument    | StatusBadRequest          | invalid provider config name                                 | Means the provider config name doesn't exist                                                    |
+| E10006 | Unavailable        | StatusTooEarly            | runtime has not yet loaded                                   | The asked-for runtime is not yet available, but will likely be in the future.                   |
+| E10007 | FailedPrecondition | StatusServiceUnavailable  | connection verification failed                               | Means a connection failed to validate.                                                          |
+| E10008 | Unavailable        | StatusServiceUnavailable  | connection problem                                           | Returned when there's a problem retrieving a connection.                                        |
+| E10009 | Unavailable        | StatusServiceUnavailable  | failed to retrieve github access token                       | Returned when there's a problem getting a github access token.                                  |
+| E10010 | Unavailable        | StatusServiceUnavailable  | there was an error interacting with the source code provider | Returned when there's a problem communicating with an SCC provider such as Github.              |
+| E10011 | NotFound           | StatusNotFound            | connection not found                                         | Means a provided connection ID was not found in the database.                                   |
+| E10012 | NotFound           | StatusNotFound            | account not found                                            | Returned if an account id is not found in the database                                          |
+| E10013 | InvalidArgument    | StatusBadRequest          | invalid account id                                           | Returned if an account id is not valid                                                          |
+| E10014 | NotFound           | StatusNotFound            | policy not found                                             | Returned if a policy id is not found in the database                                            |
+| E10015 | Internal           | StatusInternalServerError | system connection problem                                    | Returned when there's a problem with one of the system connections                              |
+| E10016 | InvalidArgument    | StatusBadRequest          | invalid policy id                                            | Returned if a policy id is invalid                                                              |
+| E10017 | Unavailable        | StatusInternalServerError | connection secret error                                      | Returned when there's a problem with a connection's secret                                      |
+| E10018 | AlreadyExists      | StatusConflict            | invite already exists                                        | Returned when an invite for an email already exists                                             |
+| E10019 | AlreadyExists      | StatusConflict            | invite is expired                                            | Returned when an invitation has expired                                                         |
+| E10020 | AlreadyExists      | StatusConflict            | already a tenant member                                      | Means an existing member of a tenant was invited to join the same tenant                        |
+| E10021 | PermissionDenied   | StatusForbidden           | invite meant for another user                                | Returned if an account tried to accept or decline the invite of another account                 |
+| E10022 | AlreadyExists      | StatusConflict            | repo has already been connected to a policy                  | Returned if an SCC repository has already been referenced in a policy                           |
+| E10023 | Unavailable        | StatusServiceUnavailable  | failed to setup repo secret                                  | Returned if there was a problem setting up a Github secret                                      |
+| E10024 | Unavailable        | StatusServiceUnavailable  | failed to setup user                                         | Returned if there was a problem setting up an Auth0 user                                        |
+| E10025 | InvalidArgument    | StatusBadRequest          | invalid email address                                        | Returned if an invalid email address was used                                                   |
+| E10026 | InvalidArgument    | StatusBadRequest          | invalid auth0 ID                                             | Returned if a string doesn't look like an auth0 ID                                              |
+| E10027 | AlreadyExists      | StatusConflict            | invite has already been accepted                             | Returned when an invitation has been accepted                                                   |
+| E10028 | AlreadyExists      | StatusConflict            | invite has already been declined                             | Returned when an invitation has been declined                                                   |
+| E10029 | AlreadyExists      | StatusConflict            | invite has been canceled                                     | Returned when an invitation has been canceled                                                   |
+| E10030 | InvalidArgument    | StatusBadRequest          | verification failed                                          | Returned when a provider verification call has failed                                           |
+| E10031 | AlreadyExists      | StatusConflict            | already has an account                                       | Means an account already exists for the specified user                                          |
+| E10032 | PermissionDenied   | StatusForbidden           | not allowed                                                  | Returned when a user is not allowed to perform an operation                                     |
+| E10033 | PermissionDenied   | StatusForbidden           | last owner of the tenant                                     | Returned when trying to delete the last owner of a tenant                                       |
+| E10034 | DeadlineExceeded   | StatusRequestTimeout      | timeout after multiple retries                               | Returned when an operation timed out after multiple retries                                     |
+| E10035 | InvalidArgument    | StatusBadRequest          | ID fields have to be strings                                 | Returned when a field is marked as an ID, and it's not a string                                 |
+| E10036 | InvalidArgument    | StatusBadRequest          | invalid ID type                                              | Returned when an ID is not correct                                                              |
+| E10037 | FailedPrecondition | StatusBadRequest          | entity is not empty                                          | Returned when trying to delete an entity that still has dependants                              |
+| E10038 | FailedPrecondition | StatusUnauthorized        | authentication failed                                        | Returned when authentication has failed or is not possible                                      |
+| E10039 | InvalidArgument    | StatusBadRequest          | invalid argument                                             | Returned when a given parameter is incorrect (wrong format, value or type)                      |
+| E10040 | InvalidArgument    | StatusBadRequest          | readonly                                                     | Returned when the caller is trying to update a readonly value                                   |
+| E10041 | InvalidArgument    | StatusConflict            | policy name already exists                                   | Returned when the caller tries to create or update a policy with a name that already exists     |
+| E10042 | InvalidArgument    | StatusConflict            | connection name already exists                               | Returned when the caller tries to create or update a connection with a name that already exists |
+| E10043 | NotFound           | StatusNotFound            | module not found                                             | Returned if a module is not found                                                               |
+| E10044 | NotFound           | StatusNotFound            | user not found                                               | Return if a user is not found                                                                   |
+| E10045 | AlreadyExists      | StatusConflict            | user already exists                                          | Return if a user already exists                                                                 |
+| E10046 | PermissionDenied   | StatusUnauthorized        | authorization failed                                         | Returned when authorization has failed or is not possible                                       |
+| E10047 | InvalidArgument    | StatusBadRequest          | invalid query                                                | Returned when a runtime query has an error                                                      |
+| E10048 | FailedPrecondition | StatusBadRequest          | query failed                                                 | Returned when a runtime query has an error                                                      |
