@@ -242,17 +242,25 @@ Lastly, we’ll update the `main` section of the app again. Replace it with the 
             </button>
           )}
           <div className="message-container">
-            {message && message !== 403 && (
+            {message && message !== 403 && message !== 401 && (
               <>
                 <div className="lottie"></div>
                 <div className="message">{message}</div>
+              </>
+            )}
+            {message && message === 401 && (
+              <>
+                <div className="sad-lottie"></div>
+                <div className="message">
+                  No access to sensitive information (Unauthorized)
+                </div>
               </>
             )}
             {message && message === 403 && (
               <>
                 <div className="sad-lottie"></div>
                 <div className="message">
-                  No access to sensitive information
+                  No access to sensitive information (Forbidden)
                 </div>
               </>
             )}

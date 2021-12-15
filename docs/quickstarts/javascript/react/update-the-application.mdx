@@ -57,7 +57,7 @@ const accessSensitiveInformation = useCallback(async () => {
 
 In this portion of the code we create a callback (which will be triggered by a button). The callback will first get our JWT token from the identity provider, using the `auth` object that is obtained from the `useAuth` hook. Then we perform the call to our service sending the authorization token as part of our request's headers (fetch).
 
-Finally, we parse the JSON response from the server and set the state of the message variable: if the service returns a `403 Forbidden` error, and the message “No access to sensitive information” will be shown. If no error is returned from the service, the user has access to the protected resource and the message will be shown.
+Finally, we parse the JSON response from the server and set the state of the message variable: if the service returns a `403 Forbidden` or a `401 Unauthorized` errors, and the message “No access to sensitive information” will be shown. If no error is returned from the service, the user has access to the protected resource and the message will be shown.
 
 Next we’ll update the `main` section of the app (in the `div` with the className `main`) to include the button that will trigger `accessSensitiveInformation` and an area to show the message. Replace the existing `div` with the class `main` section with the following:
 
@@ -79,17 +79,25 @@ Next we’ll update the `main` section of the app (in the `div` with the classNa
             </button>
           )}
           <div className="message-container">
-            {message && message !== 403 && (
+            {message && message !== 403 && message !== 401 && (
               <>
                 <div className="lottie"></div>
                 <div className="message">{message}</div>
+              </>
+            )}
+            {message && message === 401 && (
+              <>
+                <div className="sad-lottie"></div>
+                <div className="message">
+                  No access to sensitive information (Unauthorized)
+                </div>
               </>
             )}
             {message && message === 403 && (
               <>
                 <div className="sad-lottie"></div>
                 <div className="message">
-                  No access to sensitive information
+                  No access to sensitive information (Forbidden)
                 </div>
               </>
             )}
@@ -125,11 +133,11 @@ First, stop the application by hitting `ctrl+c` in the terminal where you previo
 yarn start:all
 ```
 
-Let's test our application by first logging out, then logging in again with the user `krisj@acmecrop.com` and the password `V@erySecre#t123!`.
+Let's test our application by first logging out, then logging in again with the email `krisj@acmecrop.com` and the password `V@erySecre#t123!`.
 
-If everything works as expected, we should see the email for the account we logged in with, as well as the label "Very sensitive information presented here".
+If everything works as expected, we should see the following:
 
-![krisj-login](/quickstart-react-and-node/krisj-login.png)
+![kris-gets-sensitive-information](/quickstart-react-and-node/kris-gets-sensitive-information.png)
 
 We can further test this by intentionally sending a malformed header and making sure the sensitive information isn't shown. One way to do this is to append so rogue characters to the access token like so:
 
@@ -142,7 +150,9 @@ const sensitiveDataResponse = await fetch(sensitiveInformationURL, {
 });
 ```
 
-In this case we'd expect the sensitive information to not be shown.
+In this case we'd expect the "No access to sensitive information" message to be shown.
+
+![kris-unauthorized](/quickstart-react-and-node/kris-unauthorized.png)
 
 ## Checkpoint
 
