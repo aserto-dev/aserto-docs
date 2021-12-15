@@ -205,7 +205,7 @@ useEffect(() => {
 }, [loading, getDisplayState]);
 ```
 
-This effect will trigger a call to the Display State Map endpoint that is set up on our server, and retrieve the `visible` and `enabled` decisions from the authorizer for the policy defined as our root policy in our `.env` variables - `asertodemo`. More specifically, it'll get the package `asertodemo.GET.api.protected`.
+This effect will trigger a call to the Display State Map endpoint that is set up on our server, and retrieve the `visible` and `enabled` decisions from the authorizer for our policy. Note that we specify the `GET` method and the `/api/protected` path in our call to `getDisplayState` since there could be multiple policies we may to get the display state for - this call will specifically check the policy `asertodemo.GET.api.protected`.
 
 Outside of the effect, we’ll add some error handling - if the Aserto SDK ran into an error, we’ll display it and not render anything else. Add the following right after the effect we just added:
 
