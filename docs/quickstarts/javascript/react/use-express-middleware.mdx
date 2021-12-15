@@ -18,7 +18,7 @@ POLICY_ROOT=asertodemo
 AUTHORIZER_SERVICE_URL=https://authorizer.prod.aserto.com
 ```
 
-Add the following dependency reference in `index.js` (after the `const jwt = require("express-jwt");` line):
+Add the following dependency reference in `service/api.js` (after the `const jwt = require("express-jwt");` line):
 
 ```javascript
 const { jwtAuthz } = require("express-jwt-aserto");

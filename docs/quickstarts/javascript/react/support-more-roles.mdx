@@ -6,7 +6,7 @@ sidebar_label: Support more roles
 
 So far, we have defined rules that support a single role - `admin`. We’ll now expand our policy to cover more roles by adding a data file to our policy bundle. In addition to policy Rego files, we can add JSON files that the policy can refer to in runtime.
 
-Under the `src` folder, create a new file and name it `data.json` and add the following contents:
+We'll open the local copy of the _policy_ we cloned before. Directly under the `src` folder, create a new file and name it `data.json` and add the following contents:
 
 ```javascript
 {
@@ -77,9 +77,10 @@ To allow for the use of `roles` in the `data.json` file, update your `.manifest`
 Commit, tag and push the changes you made:
 
 ```
+git add .
 git commit -m "added data.json file"
+git push
 git tag v0.0.2
-git push origin master
 git push --tags
 ```
 

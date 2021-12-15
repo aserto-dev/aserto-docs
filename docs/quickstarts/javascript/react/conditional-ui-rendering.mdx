@@ -117,13 +117,13 @@ app.use(displayStateMap(authzOptions));
 
 ## Update the Application
 
-Next, we’ll add the Aserto React SDK to our application:
+Next, we’ll add the Aserto React SDK to our application. In the root folder of our application, execute the following command:
 
 ```
 yarn add @aserto/aserto-react
 ```
 
-In `index.js` add the following dependency after the `oidc-react` dependency:
+In `src/index.js` add the following dependency after the `oidc-react` dependency:
 
 ```javascript
 import { AsertoProvider } from "@aserto/aserto-react";
@@ -141,7 +141,7 @@ We'll wrap the `<App />` component with the `<AsertoProvider>` provider:
 </React.StrictMode>
 ```
 
-In `App.js`, we’ll add the `userAserto` hook, as well as a stateful object that will track the result coming back from `getDisplayState`.
+In `App.js`, we’ll add the `useAserto` hook, as well as a stateful object that will track the result coming back from `getDisplayState`.
 Add the `useAserto` hook dependency below the `useAuth` dependency:
 
 ```javascript
@@ -159,10 +159,6 @@ const [message, setMessage] = useState(false);
 And add the following right after it:
 
 ```javascript
-const [displayState, setDisplayState] = useState({
-  visible: false,
-  enabled: false,
-});
 const { init, loading, getDisplayState, error: asertoError } = useAserto();
 ```
 
@@ -194,20 +190,7 @@ useEffect(() => {
 }, [isAuthenticated, auth.userData?.id_token]);
 ```
 
-Next, we’ll add an effect to call `getDisplayState`:
-
-```javascript
-useEffect(() => {
-  if (!loading) {
-    const displayState = getDisplayState("GET", "/api/protected");
-    setDisplayState(displayState);
-  }
-}, [loading, getDisplayState]);
-```
-
-This effect will trigger a call to the Display State Map endpoint that is set up on our server, and retrieve the `visible` and `enabled` decisions from the authorizer for our policy. Note that we specify the `GET` method and the `/api/protected` path in our call to `getDisplayState` since there could be multiple policies we may to get the display state for - this call will specifically check the policy `asertodemo.GET.api.protected`.
-
-Outside of the effect, we’ll add some error handling - if the Aserto SDK ran into an error, we’ll display it and not render anything else. Add the following right after the effect we just added:
+We’ll add some error handling - if the Aserto SDK ran into an error, we’ll display it and not render anything else. Add the following right after the effect we just added:
 
 ```javascript
 if (asertoError) {
@@ -219,6 +202,17 @@ if (asertoError) {
   );
 }
 ```
+
+Next, we’ll add a to call `getDisplayState`:
+
+```javascript
+const displayStateMap =
+  loading || asertoError
+    ? { visible: false, enabled: false }
+    : getDisplayState("GET", "/api/protected");
+```
+
+In case the SDK is not yet loaded or returns an error, the `disaplyStateMap` variable will be set to `{ visible: false, enabled: false }`. If the SDK completed loading properly, it'll issue a call to the Display State Map endpoint that is set up on our server, and retrieve the `visible` and `enabled` decisions from the authorizer for our policy. Note that we specify the `GET` method and the `/api/protected` path in our call to `getDisplayState` since there could be multiple policies we may to get the display state for - this call will specifically check the policy `asertodemo.GET.api.protected`.
 
 Lastly, we’ll update the `main` section of the app again. Replace it with the following:
 
@@ -235,7 +229,7 @@ Lastly, we’ll update the `main` section of the app again. Replace it with the 
           {!message && (
             <button
               className="primary-button"
-              disabled={!displayState.enabled}
+              disabled={!displayStateMap.enabled}
               onClick={() => accessSensitiveInformation()}
             >
               Get Sensitive Resource
@@ -268,7 +262,7 @@ Lastly, we’ll update the `main` section of the app again. Replace it with the 
         </div>
       </div>
       <div className="center-main">
-        {displayState.visible && (
+        {displayStateMap.visible && (
           <div>You have been identified as an `admin`.</div>
         )}
       </div>
