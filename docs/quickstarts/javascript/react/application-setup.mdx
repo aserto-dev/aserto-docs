@@ -4,19 +4,22 @@ sidebar_label: Application setup
 
 # React Application setup
 
-We’re going to build a very bare bones application for this tutorial. We’ll start by creating an application using the create-react-app generator: In your terminal, execute the following command:
+We’re going to build a very bare bones application for this tutorial. We’ll start by creating an application using the `yarn` react-app generator: In your terminal, execute the following command:
 
 ```
-npx create-react-app aserto-react-demo
+yarn create react-app aserto-react-demo
 ```
 
-You can now cd aserto-react-demo and start the app by running:
+You can now `cd` into the newly created folder and start the app:
 
 ```
+cd aserto-react-demo
 yarn start
 ```
 
 The familiar React logo should appear, indicating that the app is ready to go.
+
+![react-atom](/quickstart-react-and-node/react-atom.png)
 
 ## Adding OIDC dependencies
 
@@ -25,7 +28,7 @@ Now that we have a running React application, we'll continue by installing and t
 In your terminal, execute the following command:
 
 ```
-yarn install oidc-react
+yarn add oidc-react
 ```
 
 The following environment variables are used to point your application to Aserto’s demo IDP, so that you don’t have to set one yourself. Create a file called `.env` and add the following:
@@ -77,16 +80,51 @@ ReactDOM.render(
 );
 ```
 
+:::caution note
+When developing locally, make sure your application is running on port 3000 - other ports are not registered with the identify provider and will not work.
+:::
+
+If your application is still running, you should see the following login window:
+
+![login-window](/quickstart-react-and-node/login-window.png)
+
+Use the following user credentials to login:
+
+User: euang@acmecorp.com
+
+Password: V@erySecre#t123!
+
+After logging in, you should see the React logo again.
+
+![react-atom](/quickstart-react-and-node/react-atom.png)
+
+## Add a stylesheet
+
+We've created a stylesheet for this app that you can reference in your `index.html` file in the `public` folder. in the `<head>` section, add the following:
+
+```html
+<link
+  rel="stylesheet"
+  href="https://aserto-remote-css.netlify.app/react-and-node-quickstart.css"
+/>
+```
+
 Next, we’ll build the app itself. Open the `App.js` file, and replace it’s contents with:
 
 ```javascript
-import "./App.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "oidc-react";
 
 function App() {
   const auth = useAuth();
   const isAuthenticated = auth.userData?.id_token ? true : false;
+
+  //If the user logs out, redirect them to the login page
+  useEffect(() => {
+    if (!auth.isLoading && !isAuthenticated) {
+      auth.signIn();
+    }
+  });
 
   return (
     <div className="container">
@@ -140,9 +178,10 @@ Let's test our application by logging in. If it's not already running, start you
 yarn start
 ```
 
-To log in, using the following credentials:
+If you haven't already, log in, using the following credentials:
 
-User: euang@acmecorp.com
+Username: euang@acmecorp.com
+
 Password: V@erySecre#t123!
 
 ![acmecorp-login](/quickstart-react-and-node/acmecorp-login.png)
@@ -150,5 +189,7 @@ Password: V@erySecre#t123!
 If everything works as expected, the following should be displayed.
 
 ![welcome-euan-message](/quickstart-react-and-node/welcome-euan-message.png)
+
+We can make sure that the application's authentication flow works by logging out and then logging back in.
 
 Great! Our application authenticates with the Acmecorp IDP, and so we have our user's identity in hand. Next, [we'll create the Express.js service](service-setup) which will host our protected resource and will communicate with the Aserto hosted authorizer to determine whether or not a logged in user has the permissions to access the protected resource based on the user's identity.

@@ -4,17 +4,17 @@ sidebar_label: RBAC Authorization Model
 
 # Creating a Role Based Access Control Authorization Model
 
-Until now, we dealt only with authentication of users in our application. Now, let’s discuss how to set up the _authorization_ model which will enforce some limitation on user access to our protected resource.
+Until now, we dealt only with **authentication** of users in our application. Now, let’s discuss how to set up the **authorization** model which will enforce some limitation on user access to our protected resource. We want to limit access to the protected resource in our application only to users who have particular _roles_.
 
-We want to limit access to specific protected resources in our application to users who have particular roles. In this case, if we logged in with `euang@acmecorp.com` - who has the “viewer” role and not the “admin” role, we’d expect him not to have access to our protected resource. If you log in as `euang@acmecorp.com` you’ll see the following:
+As we saw before in the Aserto Directory, the user Euan (`euang@acmecorp.com`) has the `viewer` role, and the user Kris (`krisj@acmecorp.com`) has the `admin` role. Right now, if you log in as Euan user you’ll see the following:
 
 ![euan-gets-sensitive-information](/quickstart-react-and-node/euan-gets-sensitive-information.png)
 
-That's not the behavior we’re looking for - but since we didn't add any way to authorize users based on their role - this unprivileged user still has access to the protected route. Let's fix that by first creating a simple Aserto policy to allow access only to users with the “admin” role.
+We want to ensure that if we're logged in as Euan (a `viewer`), the application won't allow access to our protected resource. Since we didn't add any way to authorize users based on their role - all users will have access to the protected resource. Let's fix that by first creating a simple Aserto policy to allow access only to users with the `admin` role. We'll then use this policy in our application.
 
 ## Create an Aserto Policy
 
-Initially, the policy we’ll create for this tutorial will only allow a user with the role of `admin` to view sensitive information, while users without the `admin` role will not be able to access that information.
+Initially, the policy we’ll create for this tutorial will only allow a user with the role of `admin` to access our protected resource, while users without the `admin` role will not be able to access that resource.
 
 In [console.aserto.com](https://console.aserto.com), go to the `Policies` tab and click "Add Policy"
 
@@ -87,11 +87,13 @@ allowed {
 
 By default, the `allowed` decision is going to be `false` - this follows the principle of a “closed” system where access is disallowed unless specific conditions are satisfied.
 
-At runtime, the application will send the JWT associated with the logged in user. The Express.js service will relay the JWT along with the request path as the identity and resource contexts respectively to the authorizer. The `some index` and `...roles[index]` expressions indicate the authorizer will iterate over all the elements in the `roles` array under the `attributes` property in the user object. The authorizer will check if the iterated role is equal to the string `admin`. If it is, the `allowed` decision will be `true`.
+At runtime, the application will send the JWT associated with the logged in user. The Express.js service will relay the JWT along with the request path as the identity and resource contexts respectively to the authorizer.
+
+The `some index` and `...roles[index]` expressions indicate the authorizer will iterate over all the elements in the `roles` array under the `attributes` property in the user object. The authorizer will check if the iterated role is equal to the string `admin`. If it is, the `allowed` decision will evaluate to `true`.
 
 ## Updating the Policy Repository
 
-Now that we’ve modified our policy bundle, we’ll publish our changes: Aserto applies a GitOps flow to any changes made to the repository we set up. That means that we can simply tag and push the changes we’ve made to the policy and the updated policy will be built and published to the authorizer.
+Now that we’ve modified our policy, we’ll publish our changes: Aserto applies a GitOps flow to any changes made to the repository we set up. That means that we can simply tag and push the changes we’ve made to the policy and the updated policy will be built and published to the authorizer.
 
 Commit, tag and push the changes you made:
 

@@ -11,19 +11,20 @@ In order to have our policy govern authorization in our service, we need to conf
 Copy the following values to the `.env` file:
 
 ```
-POLICY_ROOT=asertodemo
 POLICY_ID={Your Policy ID}
 AUTHORIZER_API_KEY={Your Authorizer API Key}
 TENANT_ID={Your tenant ID}
+POLICY_ROOT=asertodemo
+AUTHORIZER_SERVICE_URL=https://authorizer.prod.aserto.com
 ```
 
 Add the following dependency reference in `index.js` (after the `const jwt = require("express-jwt");` line):
 
 ```javascript
-const { displayStateMap, jwtAuthz } = require("express-jwt-aserto");
+const { jwtAuthz } = require("express-jwt-aserto");
 ```
 
-Continue by creating the configuration object for the Aserto middleware:
+Continue by creating the configuration object for the Aserto middleware. Add the following section after the `const app = express();` line:
 
 ```javascript
 const authzOptions = {
@@ -42,7 +43,7 @@ We'll define a function for the Aserto middleware, and pass it the configuration
 const checkAuthz = jwtAuthz(authzOptions);
 ```
 
-Lastly, add the `checkAuthz` middleware to our protected path.
+Lastly, add the `checkAuthz` middleware to our protected route: Add the reference to the `checkAuthz` middleware right after the `checkJwt` middleware reference. You endpoint definition should look like this:
 
 ```javascript
 //Protected API endpoint
@@ -52,13 +53,21 @@ app.get("/api/protected", checkJwt, checkAuthz, function (req, res) {
 });
 ```
 
-The `checkAuthz` middleware is going to pass the request context - which consists of the policy reference (based on the request path), the identity context (based on the JWT token passed) and resource context (based on the request parameters) - to the authorizer, which given the policy will determine what the `allowed` decision would be.
+The `checkAuthz` middleware is going to pass the request context - which consists of the policy reference (based on the request route), the identity context (based on the JWT token passed) and resource context (based on the request parameters) - to the authorizer, which given the policy will determine what the `allowed` decision would be.
 
 ## Test the Application
 
 Before testing the application, stop both the application and the server by hitting `ctrl+c` and run`yarn start:all` again.
 
-When we log in with the user `krisj@acmecorp.com` who has the role of an `admin` we will still be able to see the "Very sensitive information presented here". If we log out and log in again as `euang@acmecorp.com` we will see the message “No access to sensitive information” - since this user doesn’t have the role of `admin`, the path `/api/protected` will be disallowed.
+When we log in with the user `krisj@acmecorp.com` who has the role of an `admin` we will still be able to see the following:
+
+![kris-gets-sensitive-information](/quickstart-react-and-node/kris-gets-sensitive-information.png)
+
+If we log out and log in again as `euang@acmecorp.com` we will see the following:
+
+![euan-gets-no-access](/quickstart-react-and-node/euan-gets-no-access.png)
+
+Euan doesn’t have the role of `admin`, and the route `/api/protected` will be disallowed.
 
 ## Checkpoint
 

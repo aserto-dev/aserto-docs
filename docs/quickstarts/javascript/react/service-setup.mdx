@@ -4,22 +4,22 @@ sidebar_label: Service setup
 
 # Service Setup
 
-To get started, let's create a new folder called service under the React application folder and run:
+To get started, let's create a new folder called `service` under the React application folder. `cd` into the folder and run:
 
 ```
 yarn init -y
-yarn install express express-jwt jwks-rsa cors express-jwt-aserto dotenv npm-run-all
+yarn add express express-jwt jwks-rsa cors express-jwt-aserto dotenv
 ```
 
 To the `.env` file we created previously, we'll add the following:
 
 ```
 JWKS_URI=https://acmecorp.demo.aserto.com/dex/keys
-AUTH_ISSUER=https://acmecorp.demo.aserto.com/dex
-AUTH_AUDIENCE=acmecorp-app
+ISSUER=https://acmecorp.demo.aserto.com/dex
+AUDIENCE=acmecorp-app
 ```
 
-In the `service` folder, Create a file called index.js - that will be our server. To this file, we'll add the following dependencies:
+In the `service` folder, Create a file called `index.js` - that will be our server. To this file, we'll add the following dependencies:
 
 ```javascript
 require("dotenv").config();
@@ -41,7 +41,7 @@ const checkJwt = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: process.env.AUTH0_JWKS_URI,
+    jwksUri: process.env.JWKS_URI,
   }),
 
   // Validate the audience and the issuer
@@ -60,11 +60,13 @@ app.use(cors());
 // Protected API endpoint
 app.get("/api/protected", checkJwt, function (req, res) {
   //send the response
-  res.json({ secretMessage: "Very sensitive information presented here" });
+  res.json({
+    secretMessage: "Here you go, very sensitive information for ya!",
+  });
 });
 
 // Launch the API Server at localhost:8080
 app.listen(8080);
 ```
 
-Awesome! our service is now listening on port 8080 and we have a protected endpoint. In the [next section](update-the-application) we'll test this endpoint by updating our application to send a JWT token.
+Awesome! our service will be listening on port 8080 and we set up a protected endpoint. In the [next section](update-the-application) we'll test this endpoint by updating our application to send a JWT token.
