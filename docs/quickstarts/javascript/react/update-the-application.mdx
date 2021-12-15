@@ -89,7 +89,7 @@ Next we’ll update the `main` section of the app (in the `div` with the classNa
               <>
                 <div className="sad-lottie"></div>
                 <div className="message">
-                  No access to sensitive information (Unauthorized)
+                  No access to sensitive information
                 </div>
               </>
             )}
@@ -97,7 +97,7 @@ Next we’ll update the `main` section of the app (in the `div` with the classNa
               <>
                 <div className="sad-lottie"></div>
                 <div className="message">
-                  No access to sensitive information (Forbidden)
+                  No access to sensitive information
                 </div>
               </>
             )}
@@ -133,11 +133,11 @@ First, stop the application by hitting `ctrl+c` in the terminal where you previo
 yarn start:all
 ```
 
-Let's test our application by first logging out, then logging in again with the email `krisj@acmecrop.com` and the password `V@erySecre#t123!`.
+Let's test our application by first logging out, then logging in again with the email `euan@acmecrop.com` and the password `V@erySecre#t123!`.
 
 If everything works as expected, we should see the following:
 
-![kris-gets-sensitive-information](/quickstart-react-and-node/kris-gets-sensitive-information.png)
+![kris-gets-sensitive-information](/quickstart-react-and-node/euan-gets-sensitive-information.png)
 
 We can further test this by intentionally sending a malformed header and making sure the sensitive information isn't shown. One way to do this is to append so rogue characters to the access token like so:
 
@@ -152,7 +152,7 @@ const sensitiveDataResponse = await fetch(sensitiveInformationURL, {
 
 In this case we'd expect the "No access to sensitive information" message to be shown.
 
-![kris-unauthorized](/quickstart-react-and-node/kris-unauthorized.png)
+![kris-unauthorized](/quickstart-react-and-node/euan-gets-no-access.png)
 
 ## Checkpoint
 

@@ -6,7 +6,7 @@ sidebar_label: Support more roles
 
 So far, we have defined rules that support a single role - `admin`. We’ll now expand our policy to cover more roles by adding a data file to our policy bundle. In addition to policy Rego files, we can add JSON files that the policy can refer to in runtime.
 
-Create a new file and name it `data.json` and add the following contents:
+Under the `src` folder, create a new file and name it `data.json` and add the following contents:
 
 ```javascript
 {
@@ -61,8 +61,8 @@ The Rego rule declared here will:
 
 1. Iterate over all the user roles (using the `some index` expression and the `user_roles[index]` expression)
 2. For each of them, it’ll refer back to the `data.json` file and attempt to find the corresponding entry (e.g., `viewer`, `editor`, `admin` under `roles`
-3. Once found, it’ll attempt to resolve the path `perms.asertodemo.GET.api.protected.allowed` for that “role” and return the value.
-   So, for example, the resolution for the “viewer” role would be `data.json` -> `roles` -> `viewer` -> `perms` -> `asertodemo.GET.api.protected` -> `allowed` -> `false`.
+3. Once found, it’ll attempt to resolve the path `perms['asertodemo.GET.api.protected'].allowed` for that role and return the value.
+   So, for example, the resolution for the `viewer` role would be `data.json` -> `roles` -> `viewer` -> `perms` -> `asertodemo.GET.api.protected` -> `allowed` -> `false`.
 
 ## Update the `.manifest` file
 
