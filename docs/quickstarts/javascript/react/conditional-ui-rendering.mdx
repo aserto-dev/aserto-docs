@@ -206,13 +206,13 @@ if (asertoError) {
 Next, we’ll add a to call `getDisplayState`:
 
 ```javascript
-const displayStateMap =
+const displayState =
   loading || asertoError
     ? { visible: false, enabled: false }
     : getDisplayState("GET", "/api/protected");
 ```
 
-In case the SDK is not yet loaded or returns an error, the `disaplyStateMap` variable will be set to `{ visible: false, enabled: false }`. If the SDK completed loading properly, it'll issue a call to the Display State Map endpoint that is set up on our server, and retrieve the `visible` and `enabled` decisions from the authorizer for our policy. Note that we specify the `GET` method and the `/api/protected` path in our call to `getDisplayState` since there could be multiple policies we may to get the display state for - this call will specifically check the policy `asertodemo.GET.api.protected`.
+In case the SDK is not yet loaded or returns an error, the `displayState` variable will be set to `{ visible: false, enabled: false }`. If the SDK completed loading successfully, the `getDisplayState` functions will retrieve the `visible` and `enabled` decisions for the HTTP method (`GET`) and the path (`/api/protected`).
 
 Lastly, we’ll update the `main` section of the app again. Replace it with the following:
 
@@ -229,7 +229,7 @@ Lastly, we’ll update the `main` section of the app again. Replace it with the 
           {!message && (
             <button
               className="primary-button"
-              disabled={!displayStateMap.enabled}
+              disabled={!displayState.enabled}
               onClick={() => accessSensitiveInformation()}
             >
               Get Sensitive Resource
@@ -262,7 +262,7 @@ Lastly, we’ll update the `main` section of the app again. Replace it with the 
         </div>
       </div>
       <div className="center-main">
-        {displayStateMap.visible && (
+        {displayState.visible && (
           <div>You have been identified as an `admin`.</div>
         )}
       </div>
