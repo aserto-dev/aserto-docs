@@ -212,7 +212,7 @@ const displayState =
     : getDisplayState("GET", "/api/protected");
 ```
 
-In case the SDK is not yet loaded or returns an error, the `displayState` variable will be set to `{ visible: false, enabled: false }`. If the SDK completed loading successfully, the `getDisplayState` functions will retrieve the `visible` and `enabled` decisions for the HTTP method (`GET`) and the path (`/api/protected`).
+In case the SDK is not yet loaded or returns an error, the `displayState` variable will be set to `{ visible: false, enabled: false }`. If the SDK completed loading successfully, the `getDisplayState` function will retrieve the `visible` and `enabled` decisions for the HTTP method (`GET`) and the path (`/api/protected`).
 
 Lastly, we’ll update the `main` section of the app again. Replace it with the following:
 

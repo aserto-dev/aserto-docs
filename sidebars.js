@@ -89,26 +89,19 @@ module.exports = {
       'Quickstarts': [
         {
           type: 'category',
-          label: 'Javascript',
+          label: 'React and Node',
           collapsed: false,
           items: [
-            {
-              type: 'category',
-              label: 'React and Node',
-              collapsed: false,
-              items: [
-                'quickstarts/javascript/react/overview',
-                'quickstarts/javascript/react/adding-users',
-                'quickstarts/javascript/react/application-setup',
-                'quickstarts/javascript/react/service-setup',
-                'quickstarts/javascript/react/update-the-application',
-                'quickstarts/javascript/react/create-a-policy',
-                'quickstarts/javascript/react/use-express-middleware',
-                'quickstarts/javascript/react/support-more-roles',
-                'quickstarts/javascript/react/conditional-ui-rendering',
-              ]
-            }
-          ],
+            'quickstarts/react/overview',
+            'quickstarts/react/adding-users',
+            'quickstarts/react/application-setup',
+            'quickstarts/react/service-setup',
+            'quickstarts/react/update-the-application',
+            'quickstarts/react/create-a-policy',
+            'quickstarts/react/use-express-middleware',
+            'quickstarts/react/support-more-roles',
+            'quickstarts/react/conditional-ui-rendering',
+          ]
         },
       ],
     },
