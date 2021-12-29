@@ -10,22 +10,23 @@ The Aserto Authorizer is loaded with a policy bundle that includes all the asset
 
 In this example, the `data.json` file specifies the roles that are available for all the policies. For each role, it enumerates the module which governs them. Finally, for each module it enumerates the permissions settings that would apply for that role and module combination. Every module corresponds to a method and route in the api, following the convention `policyroot.METHOD.route` (where the route is dot delimited instead of slash delimited). For example:
 
-```javascript
+```json
 {
- "roles": {
-   "roles": {
-     "admin": {...},
-     "editor": {...},
-     "viewer": {
-        "peoplefinder.GET.api.users": {
-           "allowed": true,
-           "enabled": true,
-           "visible": true
-         }
-       },
-       ...
-   }
- }
+  "roles": {
+    "viewer": {
+        "description": "PeopleFinder viewer",
+        "perms": {
+          "peoplefinder.GET.api.users": {
+              "allowed": true,
+              "visible": true,
+              "enabled": true
+          },
+         ...
+        }
+    },
+    "editor": {...},
+    "admin": {...}
+  }
 }
 ```
 
@@ -37,7 +38,7 @@ The policies folder contains all the policies used by the bundle. Policies conta
 
 Aserto caches all user information in the Authorizer, so that we can use the identity context as a key for looking up all the known data about the user in constant time. Here is an example of a user object that is stored in the directory:
 
-```javascript
+```json
 {
   "id": "cirkzmrhzgmzos03mzm1ltqwngqtywy2ni1jnzdjzjezyte1zjgsbwxvy2fs",
   "enabled": true,
@@ -73,12 +74,7 @@ Aserto caches all user information in the Authorizer, so that we can use the ide
       "phone": "+1-804-555-3383",
       "title": "Salesperson"
     },
-    "roles": [
-      "acmecorp",
-      "sales-engagement-management",
-      "user",
-      "viewer"
-    ],
+    "roles": ["acmecorp", "sales-engagement-management", "user", "viewer"],
     "permissions": []
   },
   "applications": {},
@@ -152,23 +148,18 @@ user_roles[index]
 
 This expression will use the `some index` expression to iterate over all the roles a user has in the user object as seen below.
 
-```javascript
+```json
 {
-    "attributes": {
-        "properties": {
-          "department": "Sales Engagement Management",
-          "manager": "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
-          "phone": "+1-804-555-3383",
-          "title": "Salesperson"
-        },
-        "roles": [
-          "acmecorp",
-          "sales-engagement-management",
-          "user",
-          "viewer"
-        ],
-        "permissions": []
-    }
+  "attributes": {
+    "properties": {
+      "department": "Sales Engagement Management",
+      "manager": "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
+      "phone": "+1-804-555-3383",
+      "title": "Salesperson"
+    },
+    "roles": ["acmecorp", "sales-engagement-management", "user", "viewer"],
+    "permissions": []
+  }
 }
 ```
 
@@ -180,28 +171,23 @@ data.roles[user_roles[index]].perms[path].allowed
 
 For each one of those roles, the policy will access the `roles` object in the `data.json` file (seen below), drill down to the `perms` object, and then continue drilling down to the path that defines the permission being evaluated - `peoplefinder.GET.api.users`. Finally the rule accesses the `allowed` property and that will dictate what the final value will be.
 
-```javascript
+```json
 {
- "roles": {
-   "roles": {
-     "admin": {...},
-     "editor": {...},
-     "viewer": {
-        "peoplefinder.GET.api.users": {
-           "allowed": true,
-           "enabled": true,
-           "visible": true
-         },
-         …
-         "peoplefinder.PUT.api.users.__id": {
-            "allowed": false,
-            "visible": true,
-            "enabled": true
-         },
-       },
-       ...
-   }
- }
+  "roles": {
+    "viewer": {
+        "description": "PeopleFinder viewer",
+        "perms": {
+          "peoplefinder.GET.api.users": {
+              "allowed": true,
+              "visible": true,
+              "enabled": true
+          },
+         ...
+        }
+    },
+    "editor": {...},
+    "admin": {...}
+  }
 }
 ```
 
