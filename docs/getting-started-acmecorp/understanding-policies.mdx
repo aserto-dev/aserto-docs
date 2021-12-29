@@ -8,7 +8,7 @@ sidebar_label: Understanding Policies
 
 The Aserto Authorizer is loaded with a policy bundle that includes all the assets needed to make decisions. The bundle includes a `policies` folder, a `data.json` file and a manifest file.
 
-In this example, the `data.json` file specifies the roles that are available for all the policies. For each role, it enumerates the module which governs them. Finally, for each module it enumerates the permissions settings that would apply for that role and module combination. Every module corresponds to a method and route in the api, following the convention `policyroot.METHOD.route` (where the route is dot delimited instead of slash delimited). For example:
+In this example, the `data.json` file specifies the roles that are available for all the policies. For each role, it enumerates the module which governs them. Finally, for each module it enumerates the permissions settings that would apply for that role and module combination. Every module corresponds to a method and route in the API, following the convention `policyroot.METHOD.route` (where the route is dot delimited instead of slash delimited). For example:
 
 ```json
 {
@@ -151,12 +151,7 @@ This expression will use the `some index` expression to iterate over all the rol
 ```json
 {
   "attributes": {
-    "properties": {
-      "department": "Sales Engagement Management",
-      "manager": "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
-      "phone": "+1-804-555-3383",
-      "title": "Salesperson"
-    },
+    "properties": {...},
     "roles": ["acmecorp", "sales-engagement-management", "user", "viewer"],
     "permissions": []
   }
