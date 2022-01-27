@@ -4,44 +4,129 @@ sidebar_label: Managing Policies
 
 # Managing Policies
 
-The underpinning of Aserto's authorization model is a [policy](/docs/overview/policy). 
+The underpinning components of Aserto's authorization model are the [policy](/docs/overview/policy) and the authorizer.
 
-Policies are authored, stored, and versioned as code in a `git` repository.
+**Policies** are authored, stored, and versioned as code in a `git` repository.
+
+An **authorizer** is an instance of the decision engine's runtime associated with a tagged version of a policy (or a tag mask). You can create multiple authorizers, each associated with different versions of a policy.
+
+To create an authorizer instance, you must first create a policy repository. Once the policy repository is set up, you can create an authorizer instance and associate it with a tag (or a tag mask) in the policy repository.
 
 :::note
 Currently, GitHub is the only supported source for policy repositories. More to come!
 :::
 
-## Add a policy 
+## Add a policy repository
 
-![Add a policy](/add-a-policy.png)
+<img src="/add-a-policy-repo.png" width="500px" />
 
-When you click on “Add a policy”, you'll go through a short workflow to select a git repository for your policy, 
-and name that policy in the Aserto console. 
+When you click on “Create a new policy repo", you'll go through a short workflow to select a git repository for your policy, and name that policy repository in the Aserto console.
 
-The first step is to select a connection to a source code control system. If you don't have any yet, follow 
-the instructions to [create one](/docs/aserto-console/connections#connecting-a-source-code-provider).
+Initially, you'll be asked to either use a template or create an empty repository:
 
-[<img src="/select-github-connection.png" width="500" />](/select-github-connection.png)
+<img src="/use-template-options.png" width="500px" />
 
-In the next step, you'll be asked to select an organization & repo. Unless 
-you already have a GitHub repository with the right GitHub Actions for building and pushing a policy image, 
-select the “New (using template)” radio button, and select one of the templates.  
+### Creating a policy repository from a template
 
-![create from template](/create-from-template.png)
+If you choose to create a policy from a template, you'll be asked to select a connection to a source code control system. If you don't have any yet, follow the instructions to [create one](/docs/aserto-console/connections#connecting-a-source-code-provider).
 
-Name your new repository with the prefix `policy-` (for example, `policy-peoplefinder`). This will 
-clone the template to the organization and repository name that you selected. The repository will 
-have the right GitHub Action installed, so that when you tag a commit, a new policy image will 
-automatically be built and pushed to the Aserto Registry. See the [Policy Lifecycle](/docs/overview/policy-lifecycle)
-topic for more information.
+[<img src="/connect-scc.png" width="500px" />](/connect-scc.png)
 
-Finally, name your policy with a descriptive name (e.g. peoplefinder). 
+Next, you'll select the template you want to use, the organization under which the policy repository will be created and the name of the policy repository (as it will be created in the source code provider).
 
-![name policy](/name-policy.png)
+<img src="/select-org-and-repo-peoplefinder-rbac.png" width="500" />
 
-## Remove a policy
+Name your new repository with the prefix `policy-` (for example, `policy-peoplefinder-rbac`). This will clone the template to the organization and repository name that you selected. The repository will have the right GitHub Action installed, so that when you tag a commit, a new policy image will automatically be built and pushed to the Aserto Registry. See the [Policy Lifecycle](/docs/overview/policy-lifecycle) topic for more information.
 
-Simply click the `x` in the top right corner of the policy to remove it. Note that removing a policy 
-from your Aserto tenant doesn't remove the policy repository. To remove the repository from your git 
-provider, use that provider's API or UI. 
+Next, name the policy repository with a descriptive name (e.g. peoplefinder).
+
+<img src="/policy-repo-name.png" width="500" />
+
+Finally, click "Create a new policy repository" to complete the process.
+
+### Creating an empty policy repository
+
+If you choose to create an empty policy repository, you'll see the following:
+
+<img src="/policy-repo-name-empty.png" width="500" />
+
+Choose a descriptive name for your policy repository, and click "Create a new policy repository". You'll see the policy repository list:
+
+<img src="/policies-list-empty.png" width="800" />
+
+Click on the policy you created, and the following view will be shown:
+
+<img src="/policies-link-code-repo.png" width="800" />
+
+Click the "Link a source code repository" button. First, you'll be asked to select your source code provider. If you don't have any yet, follow the instructions to [create one](/docs/aserto-console/connections#connecting-a-source-code-provider).
+
+<img src="/connect-scc.png" width="500px" />
+
+Next, select the source control organization for the repository. You can choose to use an existing repository or to use a template.
+
+<img src="/policy-link-org-and-repo.png" width="500px" />
+
+To complete the process, click "Link a source code repository".
+
+## Policy repository details
+
+Once you have one or more policy repositories created, you'll see the list of all the policy repositories in the organization:
+
+You can click on each policy repository and view its details:
+
+<img src="/getting-started-acmecorp/policy-repo-details.png" width="800" />
+
+Aserto automatically creates four tags for your repository:
+
+1. 0 - The _major_ version of the policy. All **minor and patch** versions under this version will be included in this policy. For example, if you create a 0.1 tag, any authorizer associated with the `0` tag will reflect the latest minor change.
+2. 0.0 - The _minor_ version of the policy. All **patch** versions under this version will be included in this policy. For example, if you create a `0.0.1` tag, any authorizer associated with the `0.0` tag will reflect the latest patch change.
+3. 0.0.0 - The _patch_ version of the policy. This tells the authorizer to use this particular version of the policy - and no other version will be used.
+4. latest - Represents the latest version of the policy. An authorizer associated with this tag will always reflect the latest tag pushed to the repository.
+
+## Add an authorizer
+
+After setting up a policy repository, you can create an authorizer instance. Open the "Authorizer" tab in the Aserto console, and click "Create an instance":
+
+<img src="/authorizer-create-an-instance.png.png" width="500px" />
+
+//TODO:
+
+Click on "Create Instance" to create a new authorizer instance. You'll be prompted to select a policy registry:
+
+[select-policy-registry](/select-policy-registry.png)
+
+Select `aserto-oci-policy-registry` from the dropdown.
+
+//TODO:
+
+<!-- []() -->
+
+Then, you'll be prompted to select a Policy organization. Choose the organization under which you created your repository.
+
+//TODO:
+
+<!-- []() -->
+
+Next, select the policy respository you want to associate with the authorizer.
+
+//TODO:
+
+<!-- []() -->
+
+Select the tag you'd like to associate with the authorizer.
+
+//TODO:
+
+<!-- []() -->
+
+Finally, name your authorizer instance and click "Create an instance".
+
+//TODO:
+
+<!-- []() -->
+
+## Remove a policy repository
+
+In the policy repository list, click the elipse on the right side of the policy repository, and click "Delete repository".
+
+Note that removing a policy from your Aserto tenant doesn't remove the policy repository. To remove the repository from your git provider, use that provider's API or UI.
