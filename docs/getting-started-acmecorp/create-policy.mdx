@@ -2,13 +2,13 @@
 sidebar_label: Create your first policy
 ---
 
-# Create a policy and an authorizer
+# Create a policy and an authorizer instance
 
-The underpinning components of Aserto's authorization model are the [policy](/docs/overview/policy) and the authorizer.
+The underpinning components of Aserto's authorization model are the [policy](/docs/overview/policy) and the [authorizer](/docs/overview/authorizer).
 
 **Policies** are authored, stored, and versioned as code in a `git` repository.
 
-An **authorizer** is an instance of the decision engine's runtime associated with a tagged version of a policy (or a tag mask - more on this later). You can create multiple authorizers, each associated with different versions of a policy.
+An **authorizer instance** is an instance of the decision engine's runtime associated with a tagged version of a policy (or a tag mask - more on this later). You can create multiple authorizer instances, each associated with different versions of a policy.
 
 To get started, we'll create a policy repository and a single authorizer instance that will be a assoicated with it.
 
@@ -18,7 +18,7 @@ After creating your organization, you'll be redirected to the Policies tab, wher
 
 <img src="/add-a-policy-repo.png" width="500px" />
 
-When you click on Create a policy repository”, you'll be able to choose between using a policy template and creating an empty policy repository:
+When you click on "Create a policy repository", you'll be asked to choose between using a policy template and creating an empty policy repository:
 
 <img src="/use-template-options.png" width="500px" />
 
@@ -75,10 +75,10 @@ Click on the policy name to view the details of the policy repository you just s
 
 Aserto automatically creates four tags for your repository:
 
-1. 0 - The _major_ version of the policy. All **minor and patch** versions under this version will be included in this policy. For example, if you create a 0.1 tag, any authorizer associated with the `0` tag will reflect the latest minor change.
-2. 0.0 - The _minor_ version of the policy. All **patch** versions under this version will be included in this policy. For example, if you create a `0.0.1` tag, any authorizer associated with the `0.0` tag will reflect the latest patch change.
+1. 0 - The _major_ version of the policy. All **minor and patch** versions under this version will be included in this policy. For example, if you create a `0.1` tag, any authorizer instance associated with the `0` tag will reflect the latest minor and patch version change.
+2. 0.0 - The _minor_ version of the policy. All **patch** versions under this version will be included in this policy. For example, if you create a `0.0.1` tag, any authorizer instance associated with the `0.0` tag will reflect the latest patch version change.
 3. 0.0.0 - The _patch_ version of the policy. This tells the authorizer to use this particular version of the policy - and no other version will be used.
-4. latest - Represents the latest version of the policy. An authorizer associated with this tag will always reflect the latest tag pushed to the repository.
+4. latest - Represents the latest version of the policy. An authorizer instance associated with this tag will always reflect the latest tag pushed to the repository.
 
 ## Create an Authorizer instance
 
@@ -90,9 +90,11 @@ First, click on the "Authorizer" tab. You'll see the following:
 
 Click on "Create Instance" to create a new authorizer instance. You'll be prompted to select a policy registry:
 
-[select-policy-registry](/select-policy-registry.png)
+//TODO: update
 
-Select `aserto-oci-policy-registry` from the dropdown.
+<img src="/select-policy-registry.png" width="500px" />
+
+Select `aserto-policy-registry` from the dropdown.
 
 //TODO:
 
@@ -112,6 +114,12 @@ From the "Policy repository" dropdown, select "peoplefinder".
 
 From the "Tag list" dropdown, select "latest". This sets up the authorizer instance to always pick up the _latest_ version of the policy. While this is going to be very useful while we are developing the policy - we would probably choose to lock the authorizer instance to a specific tag in a production enviornment.
 
+Finally, name your authorizer instance `peoplefinder` and click "Create an instance".
+
+//TODO:
+
+<!-- []() -->
+
 ## Next Steps
 
-Congratulations! You now have a clone of the `policy-peoplefinder-rbac` policy template in your GitHub account, and an associated Aserto Authorizer instanace. Later, you’re going to modify this policy repository to change the authorization policy of the PeopleFinder application. But first, let's set up demo users in your directory so that we can understand how user information is used in the authorization flow.
+Congratulations! You now have a clone of the `policy-peoplefinder-rbac` policy template in your GitHub account, and an associated authorizer instanace. Later, you'll modify this policy repository to change the authorization policy of the PeopleFinder application. But first, let's set up demo users in your directory so that we can understand how user information is used in the authorization flow.

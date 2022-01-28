@@ -4,11 +4,11 @@ sidebar_label: Managing Policies
 
 # Managing Policies
 
-The underpinning components of Aserto's authorization model are the [policy](/docs/overview/policy) and the authorizer.
+The underpinning components of Aserto's authorization model are the [policy](/docs/overview/policy) and the [authorizer](/docs/overview/authorizer).
 
 **Policies** are authored, stored, and versioned as code in a `git` repository.
 
-An **authorizer** is an instance of the decision engine's runtime associated with a tagged version of a policy (or a tag mask). You can create multiple authorizers, each associated with different versions of a policy.
+An **authorizer** is an instance of the decision engine's runtime associated with a tagged version of a policy (or a tag mask). You can create multiple authorizer instances, each associated with different versions of a policy.
 
 To create an authorizer instance, you must first create a policy repository. Once the policy repository is set up, you can create an authorizer instance and associate it with a tag (or a tag mask) in the policy repository.
 
@@ -78,10 +78,10 @@ You can click on each policy repository and view its details:
 
 Aserto automatically creates four tags for your repository:
 
-1. 0 - The _major_ version of the policy. All **minor and patch** versions under this version will be included in this policy. For example, if you create a 0.1 tag, any authorizer associated with the `0` tag will reflect the latest minor change.
-2. 0.0 - The _minor_ version of the policy. All **patch** versions under this version will be included in this policy. For example, if you create a `0.0.1` tag, any authorizer associated with the `0.0` tag will reflect the latest patch change.
-3. 0.0.0 - The _patch_ version of the policy. This tells the authorizer to use this particular version of the policy - and no other version will be used.
-4. latest - Represents the latest version of the policy. An authorizer associated with this tag will always reflect the latest tag pushed to the repository.
+1. 0 - The _major_ version of the policy. All **minor and patch** versions under this version will be included in this policy. For example, if you create a 0.1 tag, any authorizer instance associated with the `0` tag will reflect the latest minor change.
+2. 0.0 - The _minor_ version of the policy. All **patch** versions under this version will be included in this policy. For example, if you create a `0.0.1` tag, any authorizer instance associated with the `0.0` tag will reflect the latest patch change.
+3. 0.0.0 - The _patch_ version of the policy. This tells the authorizer instance to use this particular version of the policy - and no other version will be used.
+4. latest - Represents the latest version of the policy. An authorizer instance associated with this tag will always reflect the latest tag pushed to the repository.
 
 ## Add an authorizer
 
@@ -95,7 +95,7 @@ Click on "Create Instance" to create a new authorizer instance. You'll be prompt
 
 [select-policy-registry](/select-policy-registry.png)
 
-Select `aserto-oci-policy-registry` from the dropdown.
+Select `aserto-policy-registry` from the dropdown.
 
 //TODO:
 
