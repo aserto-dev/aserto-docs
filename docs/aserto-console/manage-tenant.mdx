@@ -1,66 +1,68 @@
 ---
-sidebar_label: Managing Tenants
+sidebar_label: Managing Organizations
 ---
 
-# Managing Tenants
+# Managing Organizations
 
-As a Tenant Owner, you can invite other members to your tenant, and control the roles and 
-permissions for other members of your tenant.
+:::caution note
+Initially, your account is personal and you cannot invite team members into it. During the free Beta period, you can open a single organization and invite team members into it.
+:::caution note:::
 
-Naturally, Aserto uses an Aserto [authorization policy](https://github.com/aserto-dev/policy-aona) 
-to manage access to the Aserto APIs that expose Aserto's functionality (including through the Console and CLI).
+To invite team members to use Aserto within the same organization, you will have to create an organization (if you haven't already). To do so, open on the Organization drop down and click "Create Organization".
 
-The Aserto roles are described [here](/docs/overview/tenant).
+<img src="/create-organization.png" width="200px" />
 
-## Switching tenants
+Type in your desired organization name and click "Lock it in!". From
 
-On the main navbar, you'll find the Tenant Dropdown. In this dropdown, you'll find all of the tenants 
-that you have access to. To switch a tenant context, simply choose a tenant name from the dropdown:
+As an Organization Owner, you can invite other members to your organization, and control the roles and permissions for other members of your organization.
 
-![tenant dropdown](/tenant-dropdown.png)
+Naturally, Aserto uses an Aserto [authorization policy](https://github.com/aserto-dev/policy-aona) to manage access to the Aserto APIs that expose Aserto's functionality (including through the Console and CLI).
 
-## Managing the current tenant
+The Aserto roles are described [here](/docs/overview/organization).
 
-To manage the currently selected tenant, choose the **Manage tenant** menu item from the dropdown.
+## Switching Organizations
 
-## Inviting a user to a tenant
+On the main navbar, you'll find the Organization Dropdown. In this dropdown, you'll find all of the Organizations that you have access to. To switch an organization context, simply choose an organization name from the dropdown:
 
-![invite member](/invite-member.png)
+![organization dropdown](/organization-dropdown.png)
 
-To invite a new user to a tenant, go to **Manage Tenant** screen, click the **Invite member...** button, and enter their email. If the 
-user exists in the Aserto directory, they will be invited to join the tenant as a Viewer. If they don't 
-yet have an Aserto account, they will be invited to create one and change their password.
+## Managing the current organization
+
+To manage the currently selected organization, choose the **Manage organization** menu item from the dropdown.
+
+## Inviting a user to an organization
+
+To invite a new user to an organization, go to **Manage Organization** screen, click the **Invite member...** button, and enter their email.
+
+<img src="/invite-member-form.png" width="500px" />
+
+If the user exists in the Aserto directory, they will be invited to join the organization as a Viewer. If they don't yet have an Aserto account, they will be invited to create one and change their password.
 
 :::note
-You can set the role for the new user by selecting a value from the dropdown. By default, the user is 
-invited to a tenant as a **Member**. Once a new user has accepted an invitation, a Tenant Owner 
+You can set the role for the new user by selecting a value from the dropdown. By default, the user is invited to an organization as a **Member**. Once a new user has accepted an invitation, an Organization Owner
 can change their role.
 :::
 
 :::caution Note
-If a tenant invitation isn't accepted or declined within a week, that invitation will expire.
+If an organization invitation isn't accepted or declined within a week, that invitation will expire.
 :::
 
 ## Managing invitations
 
-A tenant owner can view the status of invitations, and cancel invitations that are still pending.
+A organization owner can view the status of invitations, and cancel invitations that are still pending.
 
 ![manage invitations](/manage-invitations.png)
 
 ## Change member roles
 
-Once a new member has accepted their invitation to join a tenant, as a tenant owner, you can change 
-the role of that user in the context of this tenant using the role dropdown. 
+Once a new member has accepted their invitation to join an organization, as an organization owner, you can change the role of that user in the context of this organization using the role dropdown.
 
-![manage tenant](/manage-tenant.png)
+<img src="/manage-organization.png" />
 
-## Remove a member from a tenant
+## Remove a member from an organization
 
-As a tenant owner, you can remove a member from a tenant by selecting the **Remove member from tenant** 
-item in the role dropdown.  Also, as a member of a tenant, you can remove yourself from the tenant using 
-the same menu item, unless you're the last remaining owner.
+As an organization owner, you can remove a member from an organization by selecting the **Remove member from organization** item in the role dropdown. Also, as a member of an organization, you can remove yourself from the organization using the same menu item, unless you're the last remaining owner.
 
 :::note
-Every tenant must have at least one owner.
+Every organization must have at least one owner.
 :::
-
