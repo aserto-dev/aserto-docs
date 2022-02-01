@@ -4,8 +4,8 @@ sidebar_label: Sign in
 
 # Aserto account
 
-In order to use the CLI to manage your Aserto artifacts (policies, directory, connections), you 
-need to have an Aserto account. If you don't have one yet, go to the [console](https://console.aserto.com) 
+In order to use the CLI to manage your Aserto artifacts (policies, directory, connections), you
+need to have an Aserto account. If you don't have one yet, go to the [console](https://console.aserto.com)
 and sign up for an account.
 
 :::caution Note
@@ -18,8 +18,8 @@ Aserto is currently in private beta. You need an invitation to create an account
 aserto login
 ```
 
-This command will open a browser window and allow you to authenticate with the Aserto identity provider. 
-Once you have, Aserto will store your access token in your keychain, so that the CLI can cache your 
+This command will open a browser window and allow you to authenticate with the Aserto identity provider.
+Once you have, Aserto will store your access token in your keychain, so that the CLI can cache your
 session.
 
 ## Account information
@@ -28,12 +28,12 @@ session.
 aserto tenant get-account
 ```
 
-This command returns the [tenants](/docs/overview/tenant) the current account is registered with. It also returns 
-the default tenant. 
+This command returns the [organizations](/docs/overview/organization) the current account is registered with. It also returns
+the default tenant.
 
 ## Signing out
 
-To sign out of the CLI, and remove the access token from your operating system's keychain: 
+To sign out of the CLI, and remove the access token from your operating system's keychain:
 
 ```bash
 aserto logout

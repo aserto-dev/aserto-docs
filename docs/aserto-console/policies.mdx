@@ -26,23 +26,23 @@ When you click on “Create a new policy repo", you'll go through a short workfl
 
 Initially, you'll be asked to either use a template or create an empty repository:
 
-<img src="/use-template-options.png" width="500px" />
+<img src="/use-template-options.png" width="700px" />
 
 ### Creating a policy repository from a template
 
 If you choose to create a policy from a template, you'll be asked to select a connection to a source code control system. If you don't have any yet, follow the instructions to [create one](/docs/aserto-console/connections#connecting-a-source-code-provider).
 
-[<img src="/connect-scc.png" width="500px" />](/connect-scc.png)
+[<img src="/connect-scc.png" width="600px" />](/connect-scc.png)
 
 Next, you'll select the template you want to use, the organization under which the policy repository will be created and the name of the policy repository (as it will be created in the source code provider).
 
-<img src="/select-org-and-repo-peoplefinder-rbac.png" width="500" />
+<img src="/select-org-and-repo-peoplefinder-rbac.png" width="600px" />
 
 Name your new repository with the prefix `policy-` (for example, `policy-peoplefinder-rbac`). This will clone the template to the organization and repository name that you selected. The repository will have the right GitHub Action installed, so that when you tag a commit, a new policy image will automatically be built and pushed to the Aserto Registry. See the [Policy Lifecycle](/docs/overview/policy-lifecycle) topic for more information.
 
 Next, name the policy repository with a descriptive name (e.g. peoplefinder).
 
-<img src="/policy-repo-name.png" width="500" />
+<img src="/policy-repo-name.png" width="600px" />
 
 Finally, click "Create a new policy repository" to complete the process.
 
@@ -50,23 +50,23 @@ Finally, click "Create a new policy repository" to complete the process.
 
 If you choose to create an empty policy repository, you'll see the following:
 
-<img src="/policy-repo-name-empty.png" width="500" />
+<img src="/policy-repo-name-empty.png" width="500px" />
 
 Choose a descriptive name for your policy repository, and click "Create a new policy repository". You'll see the policy repository list:
 
-<img src="/policies-list-empty.png" width="800" />
+<img src="/policies-list-empty.png"/>
 
 Click on the policy you created, and the following view will be shown:
 
-<img src="/policies-link-code-repo.png" width="800" />
+<img src="/policy-link-code-repo.png" />
 
 Click the "Link a source code repository" button. First, you'll be asked to select your source code provider. If you don't have any yet, follow the instructions to [create one](/docs/aserto-console/connections#connecting-a-source-code-provider).
 
-<img src="/connect-scc.png" width="500px" />
+<img src="/connect-scc.png" width="600px" />
 
 Next, select the source control organization for the repository. You can choose to use an existing repository or to use a template.
 
-<img src="/policy-link-org-and-repo.png" width="500px" />
+<img src="/policy-link-org-and-repo.png" width="600px" />
 
 To complete the process, click "Link a source code repository".
 
@@ -76,7 +76,7 @@ Once you have one or more policy repositories created, you'll see the list of al
 
 You can click on each policy repository and view its details:
 
-<img src="/getting-started-acmecorp/policy-repo-details.png" width="800" />
+<img src="/getting-started-acmecorp/policy-repo-details.png"/>
 
 Aserto automatically creates four tags for your repository:
 
@@ -89,46 +89,40 @@ Aserto automatically creates four tags for your repository:
 
 After setting up a policy repository, you can create an authorizer instance. Open the "Authorizer" tab in the Aserto console, and click "Create an instance":
 
-<img src="/authorizer-create-an-instance.png.png" width="500px" />
+<img src="/create-instance-button.png" width="170" />
 
-//TODO:
+Next, you'll be prompted to select a policy registry:
 
-Click on "Create Instance" to create a new authorizer instance. You'll be prompted to select a policy registry:
-
-[select-policy-registry](/select-policy-registry.png)
+<img src="/select-policy-registry.png" width="500px" />
 
 Select `aserto-policy-registry` from the dropdown.
 
-//TODO:
-
-<!-- []() -->
-
 Then, you'll be prompted to select a Policy organization. Choose the organization under which you created your repository.
 
-//TODO:
+<img src="/select-policy-organization.png" width="500px" />
 
-<!-- []() -->
+Next, select the policy repository you want to associate with the authorizer.
 
-Next, select the policy respository you want to associate with the authorizer.
-
-//TODO:
-
-<!-- []() -->
+<img src="/select-policy-repository.png" width="500px" />
 
 Select the tag you'd like to associate with the authorizer.
 
-//TODO:
-
-<!-- []() -->
+<img src="/select-policy-tag.png" width="500px" />
 
 Finally, name your authorizer instance and click "Create an instance".
 
-//TODO:
-
-<!-- []() -->
+<img src="/name-authorizer.png" width="500px" />
 
 ## Remove a policy repository
 
-In the policy repository list, click the elipse on the right side of the policy repository, and click "Delete repository".
+In the policy repository list, click the ellipsis on the right side of the policy repository, and click "Delete repository".
+
+<img src="/remove-policy-repository.png" />
 
 Note that removing a policy from your Aserto organization doesn't remove the policy repository. To remove the repository from your git provider, use that provider's API or UI.
+
+## Remove an authorizer instance
+
+In the Authorizer tab, click on the X at the top right of any authorizer instance to remove it.
+
+<img src="/remove-authorizer-instance.png" />

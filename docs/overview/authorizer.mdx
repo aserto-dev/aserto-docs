@@ -4,23 +4,23 @@ sidebar_label: Authorizer
 
 # Authorizer
 
-The Authorizer is an open source authorization engine which uses the 
-[Open Policy Agent](https://www.openpolicyagent.org) (OPA) to 
-compute a [**decision**](/docs/overview/policy#decision) based on a [**policy**](/docs/overview/policy), 
+The Authorizer is an open source authorization engine which uses the
+[Open Policy Agent](https://www.openpolicyagent.org) (OPA) to
+compute a [**decision**](/docs/overview/policy#decision) based on a [**policy**](/docs/overview/policy),
 [**user context**](/docs/overview/policy#user-context), and **data**.
 
-The Authorizer is packaged as a docker image and is meant to be deployed as close as possible 
+The Authorizer is packaged as a docker image and is meant to be deployed as close as possible
 to your application:
 * a sidecar container in the same pod as the application (if you're running in Kubernetes)
 * a service that is deployed in the same subnet as your application (if not)
 
-In addition, when you create an Aserto [tenant](/docs/overview/tenant), an Authorizer instance 
-in Aserto's multi-tenant hosted authorizer service is provisioned for you. For some use cases that are 
+In addition, when you create an Aserto [organization](/docs/overview/organization), an Authorizer instance
+in Aserto's multi-tenant hosted authorizer service is provisioned for you. For some use cases that are
 less sensitive to latency, this hosted Authorizer instance may be sufficient.
 
-Finally, the same container image underpins Aserto's local developer experience, which you can 
-deploy on your local workstation using the Aserto [CLI](/docs/command-line-interface/introduction), and 
-use while developing your application. This helps create a tight development workflow that has no 
+Finally, the same container image underpins Aserto's local developer experience, which you can
+deploy on your local workstation using the Aserto [CLI](/docs/command-line-interface/introduction), and
+use while developing your application. This helps create a tight development workflow that has no
 external dependencies.
 
 ## Concepts

@@ -16,13 +16,13 @@ We want to ensure that if we're logged in as Euan (a `viewer`), the application 
 
 Initially, the policy we’ll create for this tutorial will only allow a user with the role of `admin` to access our protected resource, while users without the `admin` role will not be able to access that resource.
 
-In [console.aserto.com](https://console.aserto.com), go to the `Policies` tab and click "Create a policy repository"
+In [console.aserto.com](https://console.aserto.com), go to the `Policies` tab and the click "Create a policy repository" button.
 
-<img src="/quickstart-react-and-node/add-policy-repo.png" width="500px" />
+<img src="/quickstart-react-and-node/create-new-repo-button.png" width="200px" />
 
 When you click on "Create a policy repository", you'll be able to choose between using a policy template and creating an empty policy repository:
 
-<img src="/use-template-options.png" width="500px" />
+<img src="/use-template-options.png" width="700px" />
 
 Select "Use a template" and click "Continue".
 
@@ -30,15 +30,15 @@ Next, you'll go through a short workflow to select a git repository for your pol
 
 If you haven't already added a source code connection, select "Add a new source code connection". You can choose either adding a GitHub connection using an OAuth2 flow, or add a GitHub connection using a GitHub PAT.
 
-![add-scc](/quickstart-react-and-node/add-scc.png)
+<img src="/quickstart-react-and-node/add-scc.png" width="600px" />
 
 Once you've added the connection, select the organization you'd like to use for the repository. Then, from the template dropdown, select "aserto-dev/policy-template". Name repo "policy-aserto-react", and click "Create repo".
 
-<img src="/quickstart-react-and-node/select-org-and-repo.png" width="500px" />
+<img src="/quickstart-react-and-node/select-org-and-repo.png" width="600px" />
 
 Finally, name your policy repository "aserto-react" and click "Create a new policy repository".
 
-<img src="/quickstart-react-and-node/name-policy.png" width="500px" />
+<img src="/quickstart-react-and-node/name-policy.png" width="600px" />
 
 Aserto will generate a new repository in your GitHub account the will include the necessary policy files. Head to GitHub to retrieve the URL for the repository that was just created, and clone it.
 
@@ -133,7 +133,7 @@ To set up an authorizer runtime instance, head to the Authorizer tab and click t
 Next, you'll be prompted to select a policy registry:
 
 //TODO:
-![select-policy-registry](/select-policy-registry.png)
+<!-- []() -->
 
 Select `aserto-policy-registry` from the dropdown.
 
