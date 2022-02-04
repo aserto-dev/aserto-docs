@@ -89,10 +89,17 @@ module.exports = {
       'Decision Logs Guide': [
         'decision-logs-guide/overview',
         'decision-logs-guide/console',
-        'decision-logs-guide/api',
-        'decision-logs-guide/decision_logs',
-        'decision-logs-guide/users',
-        'decision-logs-guide/query',
+        {
+          type: 'category',
+          label: 'APIs',
+          collapsed: false,
+          items: [
+            'decision-logs-guide/api/overview',
+            'decision-logs-guide/api/decision_logs',
+            'decision-logs-guide/api/users',
+            'decision-logs-guide/api/query'
+          ]
+        },
         'decision-logs-guide/schemas'
       ]
     },
