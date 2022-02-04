@@ -1,0 +1,71 @@
+---
+sidebar_label: users
+---
+
+# decision_logs/users
+
+The `users` API provides a convenient way to retrieve user information that is referenced by decision log storage 
+objects. See [schema](/docs/decision-logs-guide/schemas) for details of what information decison log objects contain.
+
+## URL
+
+`GET .../api/v1/decision_logs/users`
+
+This form returns a list of names of available user storage objects, each of which can be provided to the
+second form of this API to retrieve a secure download location (URL):
+
+`GET .../api/v1/decision_logs/users/{name}`
+
+Where `name` was previously retrieved using the list call. Note that storage object names must be
+URL-encoded before using them to retrieve a download location.
+
+## Example
+
+The list call to retrieve user object names is:
+
+`GET .../api/v1/decision_logs/users`
+
+The response would be similar to:
+
+```json
+{
+  "page":  {
+    "next_token":  "",
+    "result_size":  3,
+    "total_size":  0
+  },
+  "results":  [
+    {
+      "id":  "011a88bc-7df9-4d92-ba1f-2ff319e101e1",
+      "updated_at":  "2022-02-02T18:16:33Z"
+    },
+    {
+      "id":  "01d1e01e-bf53-419a-9762-17270b1a7328",
+      "updated_at":  "2022-02-02T18:16:33Z"
+    },
+    {
+      "id":  "026dc3e3-4406-43c7-9a3e-cba432b0447b",
+      "updated_at":  "2022-02-02T18:16:33Z"
+    }
+  ]
+}
+```
+Note the `updated_at` field, which can be used to avoid retreiving user objects that haven't changed since last
+retrieved.
+
+Passing one of the resulting names to the retrieval call:
+
+`GET .../api/v1/decision_logs/users/011a88bc-7df9-4d92-ba1f-2ff319e101e1`
+
+Yields a response similar to:
+
+```json
+{
+  "user":  {
+    "url":  "https://storage.googleapis.com/..."
+  }
+}
+```
+
+`url` can be used to download the object, which is a JSON file, using standard HTTP tools. The URL is signed
+and valid for 15 minutes.
