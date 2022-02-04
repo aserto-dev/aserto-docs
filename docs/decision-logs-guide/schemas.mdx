@@ -8,14 +8,14 @@ sidebar_label: Schemas
 
 Decision logs storage object are CSV files. Each one contains the following columns:
 * `decision_id`: A unique id for the authorizer call that generated the decision. A call can generate more than one 
-decision, so there can be multiple rows with the same `decision_id` value.
-* `decision_time`: The UTC time when the decison call was executed by an authorizer.
-* `user_id`: The ID of the user in the user context of the authorizer call.
-* `policy_id`:  the ID of the policy that was evaluated by the authorizer call.
-* `path`: The path evaluated in by the authorizer call.
-* `decision`: The name of a decision evaluated by the authorizer call.
-* `outcome`: The outcome, true or false, of the decision.
-* `resource`: The resource context as passed to the authorizer call.
+decision, so there can be multiple rows with the same `decision_id` value
+* `decision_time`: The UTC time when the decison call was executed by an authorizer
+* `user_id`: The ID of the user in the user context of the authorizer call
+* `policy_id`: The ID of the policy that was evaluated by the authorizer call
+* `path`: The policy path evaluated by the authorizer call
+* `decision`: The name of a decision evaluated by the authorizer call
+* `outcome`: The outcome, true or false, of the decision
+* `resource`: The resource context as passed to the authorizer call
 
 ## Query results
 

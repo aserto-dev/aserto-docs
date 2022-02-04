@@ -4,8 +4,8 @@ sidebar_label: users API
 
 # decision_logs/users
 
-The `users` API provides a convinient way to retrieve user information that is referenced by decision log storage 
-objects. See [schema](/docs/decision_logs/schema) for details of what information decison log objects contain.
+The `users` API provides a convenient way to retrieve user information that is referenced by decision log storage 
+objects. See [schema](/docs/decision-logs-guide/schemas) for details of what information decison log objects contain.
 
 ## URL
 
@@ -21,7 +21,7 @@ URL-encoded before using them to retrieve a download location.
 
 ## Example
 
-The list call to retrieve those user object names is:
+The list call to retrieve user object names is:
 
 `GET .../api/v1/decision_logs/users`
 
@@ -53,7 +53,7 @@ The response would be similar to:
 Note the `updated_at` field, which can be used to avoid retreiving user objects that haven't changed since last
 retrieved.
 
-Passing one of the resuling names to the retrieval call:
+Passing one of the resulting names to the retrieval call:
 
 `GET .../api/v1/decision_logs/users/011a88bc-7df9-4d92-ba1f-2ff319e101e1`
 
