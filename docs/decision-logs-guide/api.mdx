@@ -1,0 +1,16 @@
+---
+sidebar_label: API
+---
+
+# APIs
+
+Aserto makes the following API's available for discovering and acquiring decision logs data
+* [`decision_logs/decision_logs`](/docs/decision-logs-guide/decision_logs)
+* [`decision_logs/users`](/docs/decision-logs-guide/users)
+* [`decision_logs/query`](/docs/decision-logs-guide/query)
+
+Each of these API's supports JWT authentication (logged onto Aserto) and an API key. Using the API key creates a
+least-priviledges context, making it suitable for automated tools. Making use of the API key requires the following
+headers:
+- `Aserto-Tenant-ID: <Tenant-ID>`
+- `Authorization: basic <Decision-Logs-API-Key>`

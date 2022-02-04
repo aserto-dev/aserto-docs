@@ -86,6 +86,18 @@ module.exports = {
       ],
     },
     {
+      'Decision Logs Guide': [
+        'decision-logs-guide/overview',
+        'decision-logs-guide/console',
+        'decision-logs-guide/api',
+        'decision-logs-guide/decision_logs',
+        'decision-logs-guide/users',
+        'decision-logs-guide/query',
+        'decision-logs-guide/schemas',
+        'decision-logs-guide/elk'
+      ]
+    },
+    {
       Quickstarts: [
         {
           type: 'category',
@@ -165,6 +177,7 @@ module.exports = {
         'command-line-interface/policies',
         'command-line-interface/connections',
         'command-line-interface/directory',
+        'command-line-interface/decision-logs',
         'command-line-interface/onebox',
       ],
     },
