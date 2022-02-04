@@ -93,8 +93,7 @@ module.exports = {
         'decision-logs-guide/decision_logs',
         'decision-logs-guide/users',
         'decision-logs-guide/query',
-        'decision-logs-guide/schemas',
-        'decision-logs-guide/elk'
+        'decision-logs-guide/schemas'
       ]
     },
     {
