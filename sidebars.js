@@ -103,7 +103,7 @@ module.exports = {
         'decision-logs-guide/schemas',
         {
           type: 'category',
-          label: 'ELK Integration',
+          label: 'Elastic (ELK) Integration',
           collapsed: false,
           items: [
             'decision-logs-guide/elk/configure',
