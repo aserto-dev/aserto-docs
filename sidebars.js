@@ -100,7 +100,8 @@ module.exports = {
             'decision-logs-guide/api/query'
           ]
         },
-        'decision-logs-guide/schemas'
+        'decision-logs-guide/schemas',
+        'decision-logs-guide/elk'
       ]
     },
     {
