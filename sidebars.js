@@ -86,6 +86,25 @@ module.exports = {
       ],
     },
     {
+      'Decision Logs Guide': [
+        'decision-logs-guide/overview',
+        'decision-logs-guide/console',
+        {
+          type: 'category',
+          label: 'APIs',
+          collapsed: false,
+          items: [
+            'decision-logs-guide/api/overview',
+            'decision-logs-guide/api/decision_logs',
+            'decision-logs-guide/api/users',
+            'decision-logs-guide/api/query'
+          ]
+        },
+        'decision-logs-guide/schemas',
+        'decision-logs-guide/elk'
+      ]
+    },
+    {
       Quickstarts: [
         {
           type: 'category',
