@@ -101,7 +101,16 @@ module.exports = {
           ]
         },
         'decision-logs-guide/schemas',
-        'decision-logs-guide/elk'
+        {
+          type: 'category',
+          label: 'ELK Integration',
+          collapsed: false,
+          items: [
+            'decision-logs-guide/elk/configure',
+            'decision-logs-guide/elk/decision_logs_conf',
+            'decision-logs-guide/elk/users_conf'
+          ]
+        }        
       ]
     },
     {
