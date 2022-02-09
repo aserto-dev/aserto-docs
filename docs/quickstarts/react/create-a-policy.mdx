@@ -16,9 +16,12 @@ We want to ensure that if we're logged in as Euan (a `viewer`), the application 
 
 Initially, the policy we’ll create for this tutorial will only allow a user with the role of `admin` to access our protected resource, while users without the `admin` role will not be able to access that resource.
 
-In [console.aserto.com](https://console.aserto.com), go to the `Policies` tab and the click "Create a policy repository" button.
+In [console.aserto.com](https://console.aserto.com), go to the Policies tab and the click "Create a policy repository" button.
 
-<img src="/quickstart-react-and-node/create-new-repo-button.png" width="200px" />
+<img
+  src="/quickstart-react-and-node/create-new-repo-button.png"
+  width="200px"
+/>
 
 When you click on "Create a policy repository", you'll be able to choose between using a policy template and creating an empty policy repository:
 
@@ -105,7 +108,7 @@ The `some index` and `...roles[index]` expressions indicate the authorizer will 
 
 ## Updating the Policy Repository
 
-Now that we’ve modified our policy, we’ll publish our changes: Aserto applies a GitOps flow to any changes made to the repository we set up. That means that we can simply tag and push the changes we’ve made to the policy and the updated policy will be built and published to the authorizer.
+Now that we’ve modified our policy, we’ll publish our changes: Aserto applies a GitOps flow to any changes made to the repository we set up. That means that we can simply tag and push the changes we’ve made to the policy and the updated policy will be built and published to the policy instance.
 
 Commit, tag and push the changes you made:
 
@@ -121,9 +124,9 @@ Open the Aserto console, and navigate to the Registry tab. Then, open the policy
 
 <img src="/quickstart-react-and-node/policy-repo-details.png" />
 
-## Create an authorizer instance
+## Create a policy instance
 
-To set up an authorizer runtime instance, head to the Authorizer tab and click the "Create an instance" button:
+To set up an policy instance, head to the Policies tab and click the "Create an instance" button:
 
 <img
   src="/quickstart-react-and-node/create-instance-button.png"
@@ -132,34 +135,25 @@ To set up an authorizer runtime instance, head to the Authorizer tab and click t
 
 Next, you'll be prompted to select a policy registry:
 
-//TODO:
-<!-- []() -->
+<img src="/select-policy-registry.png" width="500px" />
 
 Select `aserto-policy-registry` from the dropdown.
 
-//TODO:
-
-<!-- []() -->
-
 Next, from the "Select organization" dropdown select your personal (account) organization.
 
-//TODO:
-
-<!-- []() -->
+<img src="/select-policy-organization.png" width="500px" />
 
 From the "Policy repository" dropdown, select "aserto-react".
 
-//TODO:
+<img src="/quickstart-react-and-node/select-policy-repo.png" width="500px" />
 
-<!-- []() -->
+From the "Tag list" dropdown, select "latest". This sets up the policy instance to always pick up the _latest_ version of the policy. While this is going to be very useful while we are developing the policy - we would probably choose to lock the policy instance to a specific tag in a production enviornment.
 
-From the "Tag list" dropdown, select "latest". This sets up the authorizer instance to always pick up the _latest_ version of the policy. While this is going to be very useful while we are developing the policy - we would probably choose to lock the authorizer instance to a specific tag in a production enviornment.
+<img src="/select-tag.png" width="500px" />
 
-Finally, name your authorizer instance `aserto-react` and click "Create an instance".
+Finally, name your policy instance `aserto-react` and click "Create an instance".
 
-//TODO:
-
-<!-- []() -->
+<img src="/quickstart-react-and-node/name-policy-instance.png" width="500px" />
 
 ## Checkpoint
 

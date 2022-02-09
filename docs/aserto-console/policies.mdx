@@ -4,13 +4,13 @@ sidebar_label: Managing Policies
 
 # Managing Policies
 
-The underpinning components of Aserto's authorization model are the [policy](/docs/overview/policy) and the [authorizer](/docs/overview/authorizer).
+The underpinning of Aserto's authorization model is the [policy](/docs/overview/policy).
 
 **Policies** are authored, stored, and versioned as code in a `git` repository.
 
-An **authorizer** is an instance of the decision engine's runtime associated with a tagged version of a policy (or a tag mask). You can create multiple authorizer instances, each associated with different versions of a policy.
+A **policy instance** is an instance of the decision engine's runtime associated with a tagged version of a policy (or a tag mask). You can create multiple policy instances, each associated with different versions of a policy.
 
-To create an authorizer instance, you must first create a policy repository. Once the policy repository is set up, you can create an authorizer instance and associate it with a tag (or a tag mask) in the policy repository.
+To create a policy instance, you must first create a policy repository. Once the policy repository is set up, you can create a policy instance and associate it with a tag (or a tag mask) in the policy repository.
 
 :::note
 Currently, GitHub is the only supported source for policy repositories. More to come!
@@ -54,7 +54,7 @@ If you choose to create an empty policy repository, you'll see the following:
 
 Choose a descriptive name for your policy repository, and click "Create a new policy repository". You'll see the policy repository list:
 
-<img src="/policies-list-empty.png"/>
+<img src="/policies-list-empty.png" />
 
 Click on the policy you created, and the following view will be shown:
 
@@ -76,18 +76,18 @@ Once you have one or more policy repositories created, you'll see the list of al
 
 You can click on each policy repository and view its details:
 
-<img src="/getting-started-acmecorp/policy-repo-details.png"/>
+<img src="/getting-started-acmecorp/policy-repo-details.png" />
 
 Aserto automatically creates four tags for your repository:
 
-1. latest - Represents the latest version of the policy. An authorizer instance associated with this tag will always reflect the latest tag pushed to the repository.
-2. 0.0.0 - The _patch_ version of the policy. This tells the authorizer to use this specific version of the policy.
-3. 0.0 - The _minor_ version of the policy. The latest **patch** version under the minor version will be included in this policy. For example, if you create a `0.0.1` tag, any authorizer instance associated with the `0.0` tag will reflect the latest patch version change.
-4. 0 - The _major_ version of the policy. The latest **minor and patch** versions under the major will be applied. For example, if you create a `0.1` or `0.0.1` tag, any authorizer instance associated with the `0` tag will reflect the latest minor and patch version change.
+1. latest - Represents the latest version of the policy. An policy instance associated with this tag will always reflect the latest tag pushed to the repository.
+2. 0.0.0 - The _patch_ version of the policy. This tells the policy instance to use this specific version of the policy.
+3. 0.0 - The _minor_ version of the policy. The latest **patch** version under the minor version will be included in this policy. For example, if you create a `0.0.1` tag, any policy instance associated with the `0.0` tag will reflect the latest patch version change.
+4. 0 - The _major_ version of the policy. The latest **minor and patch** versions under the major will be applied. For example, if you create a `0.1` or `0.0.1` tag, any policy instance associated with the `0` tag will reflect the latest minor and patch version change.
 
-## Add an authorizer
+## Create a policy instance
 
-After setting up a policy repository, you can create an authorizer instance. Open the "Authorizer" tab in the Aserto console, and click "Create an instance":
+After setting up a policy repository, you can create a policy instance. Open the "Policies" tab in the Aserto console, and click "Create an instance":
 
 <img src="/create-instance-button.png" width="170" />
 
@@ -101,17 +101,17 @@ Then, you'll be prompted to select a Policy organization. Choose the organizatio
 
 <img src="/select-policy-organization.png" width="500px" />
 
-Next, select the policy repository you want to associate with the authorizer.
+Next, select the policy repository you want to associate with the policy instance.
 
 <img src="/select-policy-repository.png" width="500px" />
 
-Select the tag you'd like to associate with the authorizer.
+Select the tag you'd like to associate with the policy instance.
 
 <img src="/select-policy-tag.png" width="500px" />
 
-Finally, name your authorizer instance and click "Create an instance".
+Finally, name your policy instance and click "Create an instance".
 
-<img src="/name-authorizer.png" width="500px" />
+<img src="/name-policy-instance.png" width="500px" />
 
 ## Remove a policy repository
 
@@ -121,8 +121,8 @@ In the policy repository list, click the ellipsis on the right side of the polic
 
 Note that removing a policy from your Aserto organization doesn't remove the policy repository. To remove the repository from your git provider, use that provider's API or UI.
 
-## Remove an authorizer instance
+## Remove a policy instance
 
-In the Authorizer tab, click on the X at the top right of any authorizer instance to remove it.
+In the Policies tab, click on the X at the top right of any policy instance to remove it.
 
-<img src="/remove-authorizer-instance.png" />
+<img src="/remove-policy-instance.png" />

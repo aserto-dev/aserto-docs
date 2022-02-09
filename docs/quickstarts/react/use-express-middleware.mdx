@@ -4,7 +4,7 @@ sidebar_label: Express.js Middleware
 
 # Update the Express service to use the Aserto Express.js middleware
 
-In order to have our policy govern authorization in our service, we need to configure and apply the Aserto Express.js middleware. In order to avoid saving any secret credentials in our source code, we'll add the following credentials to our `.env` file. To find these credentials, click the `aserto-react` instance the Authorizer tab, then choose the "Policy settings" tab.
+In order to have our policy govern authorization in our service, we need to configure and apply the Aserto Express.js middleware. In order to avoid saving any secret credentials in our source code, we'll add the following credentials to our `.env` file. To find these credentials, click the `aserto-react` policy instance the Policies tab, then choose the "Policy settings" tab.
 
 ![policy-settings](/quickstart-react-and-node/policy-settings.png)
 
@@ -21,7 +21,7 @@ AUTHORIZER_SERVICE_URL=https://authorizer.prod.aserto.com
 Add the following dependency reference in `service/api.js` (after the `const jwt = require("express-jwt");` line):
 
 ```javascript
-const { jwtAuthz } = require("express-jwt-aserto");
+const { jwtAuthz } = require('express-jwt-aserto')
 ```
 
 Continue by creating the configuration object for the Aserto middleware. Add the following section after the `const app = express();` line:
@@ -33,24 +33,24 @@ const authzOptions = {
   policyRoot: process.env.POLICY_ROOT,
   authorizerApiKey: process.env.AUTHORIZER_API_KEY,
   tenantId: process.env.TENANT_ID,
-};
+}
 ```
 
 We'll define a function for the Aserto middleware, and pass it the configuration object.
 
 ```javascript
 //Aserto authorizer middleware function
-const checkAuthz = jwtAuthz(authzOptions);
+const checkAuthz = jwtAuthz(authzOptions)
 ```
 
 Lastly, add the `checkAuthz` middleware to our protected route: Add the reference to the `checkAuthz` middleware right after the `checkJwt` middleware reference. You endpoint definition should look like this:
 
 ```javascript
 //Protected API endpoint
-app.get("/api/protected", checkJwt, checkAuthz, function (req, res) {
+app.get('/api/protected', checkJwt, checkAuthz, function (req, res) {
   //send the response
-  res.json({ secret: "Very sensitive information presented here" });
-});
+  res.json({ secret: 'Very sensitive information presented here' })
+})
 ```
 
 The `checkAuthz` middleware is going to pass the request context - which consists of the policy reference (based on the request route), the identity context (based on the JWT token passed) and resource context (based on the request parameters) - to the authorizer, which given the policy will determine what the `allowed` decision would be.
