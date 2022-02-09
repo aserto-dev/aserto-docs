@@ -100,7 +100,17 @@ module.exports = {
             'decision-logs-guide/api/query'
           ]
         },
-        'decision-logs-guide/schemas'
+        'decision-logs-guide/schemas',
+        {
+          type: 'category',
+          label: 'Elastic (ELK) Integration',
+          collapsed: false,
+          items: [
+            'decision-logs-guide/elk/configure',
+            'decision-logs-guide/elk/decision_logs_conf',
+            'decision-logs-guide/elk/users_conf'
+          ]
+        }        
       ]
     },
     {

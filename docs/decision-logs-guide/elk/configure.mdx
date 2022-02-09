@@ -1,0 +1,61 @@
+---
+sidebar_label: Configuration
+---
+
+# Configuration
+
+Ingesting aserto decision logs into an analytics platorm, such as [Kibana](https://www.elastic.co/kibana/) and the rest
+of the [ELK stack](https://www.elastic.co/elastic-stack), is a great way of leveraging the value of Aserto. The steps
+described below can get basic ingestion into ELK configured.
+
+## Preliminary Requirements
+- [The Aserto CLI](/docs/command-line-interface/introduction)
+- A tenant id, which can be found in [policy settings](/docs/aserto-console/view-policies#viewing-policy-settings)
+- A [decision logs api key](/docs/decision-logs-guide/console#decision-logs-api-key)
+- A working Elasticsearch environment
+- [Install Logstash](https://www.elastic.co/guide/en/logstash/current/getting-started-with-logstash.html)
+- A working understanding of Logstash
+
+## Use the Aserto CLI to retrieve data
+Assuming a tenant with a tenant id of `0116e83a-7e21-11ec-ab5b-00c9e2c2068b`, create a directory for the logs. For 
+example `~/path/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b`. Then the command line to retrive new logs
+would be:
+
+```
+aserto --tenant 0116e83a-7e21-11ec-ab5b-00c9e2c2068b decision-logs get \
+--api-key <api-key> --path ~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b 
+```
+
+Where `<api-key>` is the decision logs api key as mentioned above. Also note that this will only retrieve logs that
+aren't already in the specified directory.
+
+Similarly, to retrieve data about users that may be referenced by the decision logs, first create a directory such as
+`~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b/users`. Then the command line to retrieve users would be:
+
+```
+aserto --tenant 0116e83a-7e21-11ec-ab5b-00c9e2c2068b decision-logs get-user \
+--api-key <api-key> ~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b/users
+```
+
+Note that this will only retrieve user objects that aren't already in the specified directory and that have changed 
+since last retrieved.
+
+## Schedule updates
+Schedule the above commands to periodically update the data. For example, assuming a standard `brew` install of
+the Aserto CLI and using [`crontab`](https://linuxhandbook.com/crontab/):
+```
+05,20,35,50 * * * * /home/linuxbrew/.linuxbrew/bin/aserto --tenant 0116e83a-7e21-11ec-ab5b-00c9e2c2068b decision-logs get --api-key <api-key> --path ~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b                                                                 
+00,15,30,45 * * * * /home/linuxbrew/.linuxbrew/bin/aserto --tenant 0116e83a-7e21-11ec-ab5b-00c9e2c2068b decision-logs get-user --api-key <api-key> ~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b/users  
+```
+
+Note that updates to user object are scheduled before updates to decision logs objects. This isn't strictly necessary, 
+but can give better results since decision log data references user data.
+
+## Configure Logstash to ingest into Elasticsearch
+These .conf examples define working Logstash pipelines for decision logs and user data. They follow the examples above;
+the tenant id and paths match. They assume username/password authentication to Elasticsearch with "elastic/password" as
+credentials. Futhermore, these example illustrate one way to combine user information with decision logs as well as 
+how to leverage resource data.
+
+- [decision_logs.conf](/docs/decision-logs-guide/elk/decision_logs_conf)
+- [users.conf](/docs/decision-logs-guide/elk/users_conf)
