@@ -23,19 +23,18 @@ would be:
 
 ```
 aserto --tenant 0116e83a-7e21-11ec-ab5b-00c9e2c2068b decision-logs get \
---api-key c45cf535d129ddfd0a872b9e5168b7467bcd0c6db9d5160e15c39bfe0784b1a7 \
---path ~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b 
+--api-key <api-key> --path ~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b 
 ```
 
-Note that this will only retrieve logs that aren't already in the specified directory.
+Where `<api-key>` is the decision logs api key as mentioned above. Also note that this will only retrieve logs that
+aren't already in the specified directory.
 
 Similarly, to retrieve data about users that may be referenced by the decision logs, first create a directory such as
 `~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b/users`. Then the command line to retrieve users would be:
 
 ```
 aserto --tenant 0116e83a-7e21-11ec-ab5b-00c9e2c2068b decision-logs get-user \
---api-key 877572d643b2a8b6d94e12b461cd4527b2eb1e1a5fa2e9d2be67866642a9ddad \
-~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b/users
+--api-key <api-key> ~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b/users
 ```
 
 Note that this will only retrieve user objects that aren't already in the specified directory and that have changed 
@@ -45,8 +44,8 @@ since last retrieved.
 Schedule the above commands to periodically update the data. For example, assuming a standard `brew` install of
 the Aserto CLI and using [`crontab`](https://linuxhandbook.com/crontab/):
 ```
-05,20,35,50 * * * * /home/linuxbrew/.linuxbrew/bin/aserto --tenant 0116e83a-7e21-11ec-ab5b-00c9e2c2068b decision-logs get --api-key 877572d643b2a8b6d94e12b461cd4527b2eb1e1a5fa2e9d2be67866642a9ddad --path ~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b                                                                 
-00,15,30,45 * * * * /home/linuxbrew/.linuxbrew/bin/aserto --tenant 0116e83a-7e21-11ec-ab5b-00c9e2c2068b decision-logs get-user --api-key 877572d643b2a8b6d94e12b461cd4527b2eb1e1a5fa2e9d2be67866642a9ddad ~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b/users  
+05,20,35,50 * * * * /home/linuxbrew/.linuxbrew/bin/aserto --tenant 0116e83a-7e21-11ec-ab5b-00c9e2c2068b decision-logs get --api-key <api-key> --path ~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b                                                                 
+00,15,30,45 * * * * /home/linuxbrew/.linuxbrew/bin/aserto --tenant 0116e83a-7e21-11ec-ab5b-00c9e2c2068b decision-logs get-user --api-key <api-key> ~/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b/users  
 ```
 
 Note that updates to user object are scheduled before updates to decision logs objects. This isn't strictly necessary, 
