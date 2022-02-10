@@ -20,7 +20,7 @@ described below can get basic ingestion into ELK configured.
 ## Use the Aserto CLI to retrieve data
 
 Assuming a tenant with a tenant id of `0116e83a-7e21-11ec-ab5b-00c9e2c2068b`, create a directory for the logs. For
-example `~/path/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b`. Then the command line to retrive new logs
+example `~/path/files/decision_logs/0116e83a-7e21-11ec-ab5b-00c9e2c2068b`. Then the command line to retrieve new logs
 would be:
 
 ```
@@ -59,7 +59,7 @@ but can give better results since decision log data references user data.
 
 These .conf examples define working Logstash pipelines for decision logs and user data. They follow the examples above;
 the tenant id and paths match. They assume username/password authentication to Elasticsearch with "elastic/password" as
-credentials. Futhermore, these examples illustrate one way to combine user information with decision logs as well as
+credentials. Furthermore, these examples illustrate one way to combine user information with decision logs as well as
 how to leverage resource data.
 
 - [decision_logs.conf](/docs/decision-logs-guide/elk/decision_logs_conf)

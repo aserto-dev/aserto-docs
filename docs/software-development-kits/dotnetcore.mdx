@@ -12,15 +12,18 @@ This package allows ASP.NET applications to use Aserto as the Authorization prov
 
 ## Installation
 
-[Aserto.AspNetCore.Middleware](https://www.nuget.org/packages/Aserto.AspNetCore.Middleware/) is provided as a NuGet package. 
+[Aserto.AspNetCore.Middleware](https://www.nuget.org/packages/Aserto.AspNetCore.Middleware/) is provided as a NuGet package.
 
 It can be installed:
-* Using Package Manager:
+
+- Using Package Manager:
+
 ```powershell
 Install-Package Aserto.AspNetCore.Middleware
 ```
 
- * Using .NET CLI
+- Using .NET CLI
+
 ```cmd
 dotnet add package Aserto.AspNetCore.Middleware
 ```
@@ -28,37 +31,40 @@ dotnet add package Aserto.AspNetCore.Middleware
 ## Configuration
 
 The following configuration settings are required for Aserto.AspNetCore middleware. You can add them to your `appsettings.json`:
+
 ```json
 // appsettings.json
 
 "Aserto": {
     "AuthorizerApiKey": "YOUR_AUTHORIZER_API_KEY",
-    "TenantID": "YOUT_ASERTO_TENANTID",
+    "TenantID": "YOUR_ASERTO_TENANTID",
     "PolicyID": "YOUR_ASERTO_POLICY_ID",
     "PolicyRoot": "YOUR_POLICY_ROOT"
 }
-``` 
+```
+
 These settings can be retrieved from the [Policy Settings](https://console.aserto.com/ui/policies) page of your Aserto account.
 
 The middleware accepts the following optional parameters:
 
-| Parameter name | Default value | Description |
-| -------------- | ------------- | ----------- |
-| Enabled | true | Enables or disables Aserto Authorization. |
-| ServiceUrl | "https://authorizer.prod.aserto.com:8443" | Sets the URL for the authorizer endpoint. |
-| Decision | "allowed" | The decision that will be used by the middleware when creating an authorizer request. |
+| Parameter name | Default value                             | Description                                                                           |
+| -------------- | ----------------------------------------- | ------------------------------------------------------------------------------------- |
+| Enabled        | true                                      | Enables or disables Aserto Authorization.                                             |
+| ServiceUrl     | "https://authorizer.prod.aserto.com:8443" | Sets the URL for the authorizer endpoint.                                             |
+| Decision       | "allowed"                                 | The decision that will be used by the middleware when creating an authorizer request. |
 
 ### Identity
 
 To determine the identity of the user, the middleware checks the following Claim types:
 
-| Name | Description | URI |
-| ---- |------------ |---- |
-| E-Mail Address | The e-mail address of the user | http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress |
-| Name | The unique name of the user | http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name |
+| Name            | Description                          | URI                                                                  |
+| --------------- | ------------------------------------ | -------------------------------------------------------------------- |
+| E-Mail Address  | The e-mail address of the user       | http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress   |
+| Name            | The unique name of the user          | http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name           |
 | Name Identifier | The SAML name identifier of the user | http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier |
 
 These can be overwritten by passing other Claim types to the `AsertoDecisionRequirement`:
+
 ```csharp
 // Startup.cs
 
@@ -83,11 +89,13 @@ public void ConfigureServices(IServiceCollection services)
 ### URL path to policy mapping
 
 By default, when computing the policy path, the middleware:
-* converts all slashes to dots
-* converts any character that is not alpha, digit, dot or underscore to underscore
-* converts uppercase characters in the URL path to lowercases
+
+- converts all slashes to dots
+- converts any character that is not alpha, digit, dot or underscore to underscore
+- converts uppercase characters in the URL path to lowercases
 
 This behavior can be overwritten by providing a custom function to the `PolicyPathMapper` AsertoAuthorization option:
+
 ```csharp
 // Startup.cs
 
@@ -105,15 +113,16 @@ public void ConfigureServices(IServiceCollection services)
       };
    });
 
-   //..  
+   //..
 }
 ```
 
 ## Quickstart: Aserto Authorization on a ASP.NET Core MVC application
 
 **Prerequisites**
-* A connection to an [Identity Provider](/docs/getting-started/connect-idp)
-* An Aserto [authorization policy](/docs/getting-started/create-policy)
+
+- A connection to an [Identity Provider](/docs/getting-started/connect-idp)
+- An Aserto [authorization policy](/docs/getting-started/create-policy)
 
 **Creating and setting up the project**
 
@@ -134,10 +143,12 @@ dotnet new mvc -n QuickstartMVC
 ```
 
 This will create a .NET MVC application that exposes the following endpoints and http methods:
-* `GET` on "/"
-* `GET` on "/Home/Privacy"
+
+- `GET` on "/"
+- `GET` on "/Home/Privacy"
 
 You can run the app using the following command:
+
 ```cmd
 dotnet run --project dotnetmvc/src/QuickstartMVC/QuickstartMVC.csproj
 ```
@@ -148,27 +159,30 @@ This guide assumes that you already have an Auth0 account set up and an Auth0 Re
 :::
 
 For authentication we will use the Cookie and OpenID Connect(OIDC) authentication middleware. For this you need to add the `Microsoft.AspNetCore.Authentication.OpenIdConnect` package to your application. This can be done using NuGet by running the following command in your project directory:
+
 ```cmd
 dotnetmvc\src\QuickstartMVC> dotnet add package Microsoft.AspNetCore.Authentication.OpenIdConnect
 ```
 
 To enable authentication, you will need to update the `ConfigureServices` in your `Startup` class and:
+
 1. Configure Cookie for HTTPS
 2. Make a call to the `AddAuthentication` method and set the:
-    * `DefaultAuthenticateScheme` to `CookieAuthenticationDefaults.AuthenticationScheme` 
-    * `DefaultSignInScheme` to `CookieAuthenticationDefaults.AuthenticationScheme`
-    * `DefaultChallengeScheme` to `CookieAuthenticationDefaults.AuthenticationScheme`
+   - `DefaultAuthenticateScheme` to `CookieAuthenticationDefaults.AuthenticationScheme`
+   - `DefaultSignInScheme` to `CookieAuthenticationDefaults.AuthenticationScheme`
+   - `DefaultChallengeScheme` to `CookieAuthenticationDefaults.AuthenticationScheme`
 3. Add the `CookieExtension`
 4. Configure the OIDC authentication handler by adding a call to `AddOpenIdConnect` and setting the:
-    * `Authority` to the Auth0 Domain
-    * `ClientId` your Auth0 Client ID
-    * `ClientSecret` to your Auth0 Client Secret
-    * `ResponseType` to `OpenIdConnectResponseType.Code`
-    * `ClaimsIssuer` to "Auth0"
+   - `Authority` to the Auth0 Domain
+   - `ClientId` your Auth0 Client ID
+   - `ClientSecret` to your Auth0 Client Secret
+   - `ResponseType` to `OpenIdConnectResponseType.Code`
+   - `ClaimsIssuer` to "Auth0"
 5. Handle the logout redirection
 
 Below you've got a code sample that enables OIDC authentication:
-``` csharp
+
+```csharp
 // Startup.cs
 
 //..
@@ -252,6 +266,7 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 To add the authentication middleware to the middleware pipeline, add a call to the `UseAuthentication` method in your Startup's `Configure` method:
+
 ```csharp
 // Startup.cs
 
@@ -288,7 +303,8 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 //..
 ```
 
-To handle authentication requests, we're going to add a new controller that can manage login and logout requests. This new controller is going to be named *AccountController* and needs to be added under the *Controller* folder:
+To handle authentication requests, we're going to add a new controller that can manage login and logout requests. This new controller is going to be named _AccountController_ and needs to be added under the _Controller_ folder:
+
 ```csharp
 // Controllers/AccountController.cs
 
@@ -324,7 +340,8 @@ public class AccountController : Controller
 }
 ```
 
-Next we're going to add the login and logout buttons to the shared layout. To do this, you need to edit the *Views/Shared/_Layout.cshtml* and add the following lines:
+Next we're going to add the login and logout buttons to the shared layout. To do this, you need to edit the _Views/Shared/\_Layout.cshtml_ and add the following lines:
+
 ```cshtml
 @* Views/Shared/_Layout.cshtml *@
 
@@ -356,13 +373,14 @@ Next we're going to add the login and logout buttons to the shared layout. To do
 ```
 
 :::note
-The callback url(https://localhost:5001/callback) configured in the `ConfigureServices` method of `Startup.cs` needs to be set as an *Allowed Callback URL* in Auth0. Similarly, the logout url(https://localhost:5001/) needs to be set in the *Allowed Logout URLs* list.
+The callback url(https://localhost:5001/callback) configured in the `ConfigureServices` method of `Startup.cs` needs to be set as an _Allowed Callback URL_ in Auth0. Similarly, the logout url(https://localhost:5001/) needs to be set in the _Allowed Logout URLs_ list.
 :::
 
 **Creating policy for QuickstartMVC**
 
 To add authentication to your backend application, first you need to create an Aserto [policy](/docs/overview/policy) that contains the authentication rules for the APIs provided by the application.
 For the `QuickstartMVC` application created earlier, the policy folder structure should look like this:
+
 ```
 .
 ├── Makefile
@@ -384,13 +402,15 @@ For the `QuickstartMVC` application created earlier, the policy folder structure
 ```
 
 Where the `./src/.manifest` file contains our policy roots:
+
 ```json
 {
-    "roots": ["quickstartmvc"]
+  "roots": ["quickstartmvc"]
 }
 ```
 
 And the `./src/quickstartmvc/profile/get.rego` policy file contains rules for the `GET` http method on `/profile` URL path:
+
 ```rego
 package quickstartmvc.GET.home.profile
 
@@ -405,7 +425,8 @@ allowed {
 
 This policy allows access to `/profile` on `GET` only to users that have their identities verified.
 
-On the remaining endpoints we're going to allow anonymous access, so the rest of the **.rego* files will contain:
+On the remaining endpoints we're going to allow anonymous access, so the rest of the \*_.rego_ files will contain:
+
 ```rego
 allowed = true
 ```
@@ -416,11 +437,13 @@ If you've created the policy from the default template, you need to create a tag
 
 **Adding Aserto authorization**
 To enable Aserto authorization, you need to add a dependency to the Aserto dotnet middleware:
+
 ```cmd
 $dotnetmvc/src/QuickstartMVC$ dotnet add package Aserto.AspNetCore.Middleware
 ```
 
 Configure the Authorizer API Key, Tenant ID, Policy root and Policy ID in the `appsettings.json`:
+
 ```json
 "Aserto": {
     "AuthorizerApiKey": "YOUR_AUTHORIZER_API_KEY",
@@ -431,6 +454,7 @@ Configure the Authorizer API Key, Tenant ID, Policy root and Policy ID in the `a
 ```
 
 Configure the Aserto Authorization Service and add an authorization policy in the ConfigureServices method of `Startup.cs`:
+
 ```csharp
 // Startup.cs
 
@@ -463,6 +487,7 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 Add the Authorization middleware to the middleware pipeline by adding a call to the `UseAuthorization` method in your Startup's `Configure` method:
+
 ```csharp
 // Startup.cs
 
@@ -486,7 +511,8 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 //..
 ```
 
-Next you need to create the Profile view that will display the claims of a logged in user. To do this, add a new file `Profile.cshtml` under the *Views/Home/* folder:
+Next you need to create the Profile view that will display the claims of a logged in user. To do this, add a new file `Profile.cshtml` under the _Views/Home/_ folder:
+
 ```cshtml
 @* Views/Home/Profile.cshtml *@
 
@@ -529,7 +555,8 @@ else
 }
 ```
 
-Add a new navigation bar that will call the view in *Views/Shared/_Layout.cshtml*:
+Add a new navigation bar that will call the view in _Views/Shared/\_Layout.cshtml_:
+
 ```cshtml
 @* Views/Shared/_Layout.cshtml *@
 
@@ -560,7 +587,8 @@ Add a new navigation bar that will call the view in *Views/Shared/_Layout.cshtml
 
 ```
 
-And finally, add the `Profile` action in the *HomeController.cs*:
+And finally, add the `Profile` action in the _HomeController.cs_:
+
 ```csharp
 // Controllers/HomeController.cs
 

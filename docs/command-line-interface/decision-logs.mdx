@@ -6,9 +6,9 @@ sidebar_label: Decision Logs
 
 ## Accessing decision logs storage objects through the CLI
 
-Immutable storage objects are created roughly once an hour for each policy for which decision logging is enabled and 
-for which decision activity exists during that time period. The storage consistes of CSV files containing decision log
-events; each one corresponding to a decision performed by some authorizer. Objects for one, more (or all) policies can 
+Immutable storage objects are created roughly once an hour for each policy for which decision logging is enabled and
+for which decision activity exists during that time period. The storage consists of CSV files containing decision log
+events; each one corresponding to a decision performed by some authorizer. Objects for one, more (or all) policies can
 be discovered and then downloaded individually using the Aserto CLI. The CLI also supports bulk downloads.
 
 ### Listing Objects
@@ -19,7 +19,7 @@ aserto decision-logs list [--policies=<policy-id1>,<policy-id2>...<policy-idN>]
 
 ### Fetch a Download URL
 
-For each decision log object name, a download URL can be obtained. The download URL can be used to perform a standard 
+For each decision log object name, a download URL can be obtained. The download URL can be used to perform a standard
 HTTP download.
 
 ```
@@ -73,10 +73,10 @@ metadata on the local versions and remote versions of the objects.
 
 ## Using the decision logs API key
 
-The Aserto CLI decision-logs group of commands can be run without a user logged in, i.e. without first running 
+The Aserto CLI decision-logs group of commands can be run without a user logged in, i.e. without first running
 `aserto login`, and instead using the [decision logs API key](/docs/decision-logs-guide/console#decision-logs-api-key).
 
-To authenticate using the API key use the `--tenant` CLI option and the `--api-key` option of the decision-logs 
+To authenticate using the API key use the `--tenant` CLI option and the `--api-key` option of the decision-logs
 commands. For example:
 
 ```
@@ -85,5 +85,5 @@ aserto --tenant 0116e83a-7e21-11ec-ab5b-00c9e2c2068b decision-logs get \
 --path ~/files/decision-logs
 ```
 
-This command would download all the decision logs for the tenant `0116e83a-7e21-11ec-ab5b-00c9e2c2068b` onto the 
+This command would download all the decision logs for the tenant `0116e83a-7e21-11ec-ab5b-00c9e2c2068b` onto the
 specified path authenticating using the specified API key.

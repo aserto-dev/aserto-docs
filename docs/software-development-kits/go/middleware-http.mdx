@@ -51,7 +51,7 @@ For example, to configure the middleware to identify callers using a JWT in the 
 mw.Identity.JWT().FromHeader("Authorization")
 ```
 
-Or, to read a subject name from a `"username"` context value on the incoming request (presumabely, set by some
+Or, to read a subject name from a `"username"` context value on the incoming request (presumably, set by some
 authentication middleware):
 
 ```go
@@ -61,7 +61,7 @@ mw.Identity.Subject().FromContextValue("username")
 ### Policy Path
 
 If a policy path isn't specified when the middleware is created, it will be inferred from the request URL starting with
-the HTTP method, followed by the URL segments separated by dots (`.`). Path parameters  are prefixed
+the HTTP method, followed by the URL segments separated by dots (`.`). Path parameters are prefixed
 with two underscores (e.g. `GET /users/{id}` becomes `GET.users.__id`).
 
 To add a prefix to the generated path (e.g. `peoplefinder.GET.users.__id`) use:
