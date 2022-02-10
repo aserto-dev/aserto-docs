@@ -4,8 +4,8 @@ sidebar_label: users
 
 # decision_logs/users
 
-The `users` API provides a convenient way to retrieve user information that is referenced by decision log storage 
-objects. See [schema](/docs/decision-logs-guide/schemas) for details of what information decison log objects contain.
+The `users` API provides a convenient way to retrieve user information that is referenced by decision log storage
+objects. See [schema](/docs/decision-logs-guide/schemas) for details of what information decision log objects contain.
 
 ## URL
 
@@ -29,27 +29,28 @@ The response would be similar to:
 
 ```json
 {
-  "page":  {
-    "next_token":  "",
-    "result_size":  3,
-    "total_size":  0
+  "page": {
+    "next_token": "",
+    "result_size": 3,
+    "total_size": 0
   },
-  "results":  [
+  "results": [
     {
-      "id":  "011a88bc-7df9-4d92-ba1f-2ff319e101e1",
-      "updated_at":  "2022-02-02T18:16:33Z"
+      "id": "011a88bc-7df9-4d92-ba1f-2ff319e101e1",
+      "updated_at": "2022-02-02T18:16:33Z"
     },
     {
-      "id":  "01d1e01e-bf53-419a-9762-17270b1a7328",
-      "updated_at":  "2022-02-02T18:16:33Z"
+      "id": "01d1e01e-bf53-419a-9762-17270b1a7328",
+      "updated_at": "2022-02-02T18:16:33Z"
     },
     {
-      "id":  "026dc3e3-4406-43c7-9a3e-cba432b0447b",
-      "updated_at":  "2022-02-02T18:16:33Z"
+      "id": "026dc3e3-4406-43c7-9a3e-cba432b0447b",
+      "updated_at": "2022-02-02T18:16:33Z"
     }
   ]
 }
 ```
+
 Note the `updated_at` field, which can be used to avoid retreiving user objects that haven't changed since last
 retrieved.
 
@@ -61,8 +62,8 @@ Yields a response similar to:
 
 ```json
 {
-  "user":  {
-    "url":  "https://storage.googleapis.com/..."
+  "user": {
+    "url": "https://storage.googleapis.com/..."
   }
 }
 ```
