@@ -4,24 +4,21 @@ sidebar_label: Viewing Policies
 
 # Viewing Policies
 
-Clicking on a policy listed in the Policies view will connect to the hosted Authorizer and 
-provide details on the policy modules in that policy, as well as settings information 
-such as the policy ID and tenant information.
+Clicking on a policy instance in the Policies tab will connect to the hosted Authorizer and provide details on the policy modules associated with that policy instance, as well as settings information such as the policy ID and tenant information.
 
-## Viewing policy files 
+## Viewing policy files
 
-The policy files (also known as modules) that are loaded in the hosted Authorizer can be browsed 
-by selecting the package name that corresponds to the module.
+The policy files (also known as modules) that are loaded in the hosted Authorizer can be browsed by selecting the package name that corresponds to the module.
 
 ![Policy modules](/peoplefinder-post.png)
 
 ## Viewing policy settings
 
-The policy settings contain important information that an application must pass into the Authorizer 
-in order to have it make an authorization decision.  This includes:
-* Policy name: the root of the policy (by convention, the same as the application name)
-* Policy ID: the GUID for this particular policy (required for the [Policy Context](/docs/authorizer-guide/policy-context))
-* Authorizer API key: the API key that goes with this tenant, required to call the hosted Authorizer 
-* Tenant ID: the tenant ID which scopes the Policy ID and Authorizer API key
+The policy settings contain important information that an application must pass into the Authorizer in order to have it make an authorization decision. This includes:
+
+- Policy name: the root of the policy (by convention, the same as the application name)
+- Policy ID: the GUID for this particular policy (required for the [Policy Context](/docs/authorizer-guide/policy-context))
+- Authorizer API key: the API key that goes with this tenant, required to call the hosted Authorizer
+- Tenant ID: the tenant ID which scopes the Policy ID and Authorizer API key
 
 ![Policy settings](/policy-settings.png)

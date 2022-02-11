@@ -5,19 +5,13 @@ sidebar_label: Set up demo users
 # Set up demo users for PeopleFinder
 
 Aserto needs to know about your users in order to make authorization decisions over
-various attributes of these users (including _roles_ and _properties_). In order to do this,
-you'll need to connect Aserto with an identity provider, so that Aserto can import and sync users
-and their attributes.
+various attributes of these users (including _roles_ and _properties_). In order to do this,you'll need to connect Aserto with an identity provider, so that Aserto can import and sync users and their attributes.
 
-The PeopleFinder application operates over users with roles (such as `viewer`, `editor` and `admin`)
-as well as properties (such as `department`, `title` and `manager`). We've created a sample
-identity provider that contains a set of users with the requisite attributes. The users
-all work at a company called **Acmecorp**, and the identity provider is therefore called `acmecorp`.
+The PeopleFinder application operates over users with roles (such as `viewer`, `editor` and `admin`) as well as properties (such as `department`, `title` and `manager`). We've created a sample identity provider that contains a set of users with the requisite attributes. The users all work at a company called **Acmecorp**, and the identity provider is therefore called `acmecorp`.
 
 ## Load the demo Acmecorp Users
 
-We are going to connect the `acmecorp` identity provider to your tenant, which will import
-a set of 272 user records.
+We are going to connect the `acmecorp` identity provider to your tenant, which will import a set of 272 user records.
 
 :::note
 Note: once you are done with this sample, you'll be able to remove these user
@@ -26,11 +20,14 @@ records from your tenant by disconnecting the `acmecorp` identity provider.
 
 Navigate to the “Connections” tab
 
-![connections-tab](/getting-started-acmecorp/connections-tab.png)
+<img src="/getting-started-acmecorp/connections-tab.png" width="500px" />
 
 and click “Add a connection”
 
-![add-connection-button](/getting-started-acmecorp/add-connection-button.png)
+<img
+  src="/getting-started-acmecorp/add-a-connection-button.png"
+  width="170px"
+/>
 
 Next, select the `acmecorp` provider:
 
@@ -40,11 +37,14 @@ Name the provider "acmecorp" and give it a description.
 
 Finally click “Add connection”
 
-![add-connection-button](/getting-started-acmecorp/add-connection-button.png)
+<img
+  src="/getting-started-acmecorp/add-connection-button.png"
+  width="170px"
+/>
 
-When a new connection to an identity provider is added, Aserto automatically imports the users from that identity provider into the Aserto Directory. The users loaded into the directory have different roles and attributes that will help us understand how authorization works. To see them, click on the Users tab:
+When a new connection to an identity provider is added, Aserto automatically imports the users from that identity provider into the Aserto Directory. The users loaded into the directory have different roles and attributes that will help us understand how authorization works. To see them, click on the Directory tab:
 
-![users-tab](/getting-started-acmecorp/users-tab.png)
+<img src="/getting-started-acmecorp/directory-tab.png" width="500px" />
 
 Use the directory filter to find the user “Euan Garden”:
 

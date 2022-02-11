@@ -1,5 +1,5 @@
 ---
-sidebar_label: Express.js 
+sidebar_label: Express.js
 ---
 
 # Node.js / Express.js SDK
@@ -12,7 +12,7 @@ package.
 
 This SDK is open source and can be found on [GitHub](https://github.com/aserto-dev/express-jwt-aserto).
 
-## Overview 
+## Overview
 
 This package provides three capabilities:
 
@@ -104,21 +104,21 @@ Passing in the `resourceMap` parameter into the `jwtAuthz()` function will overr
 
 ## displayStateMap middleware
 
-The `displayStateMap` middleware is how the Express.js SDK exposes the 
-[**display state map**](/docs/authorizer-guide/display-state-map) pattern to front-ends (e.g. the 
+The `displayStateMap` middleware is how the Express.js SDK exposes the
+[**display state map**](/docs/authorizer-guide/display-state-map) pattern to front-ends (e.g. the
 [React SDK](/docs/software-development-kits/javascript/react) and [JavaScript SPA SDK](/docs/software-development-kits/javascript/spa)).
 
 Use the displayStateMap middleware to set up an endpoint that returns the display state map to a caller. The endpoint is named `__displaystatemap` by default, but can be overridden in `options`.
 
 ```javascript
-const { displayStateMap } = require('express-jwt-aserto');
+const { displayStateMap } = require('express-jwt-aserto')
 
 const options = {
   authorizerServiceUrl: 'https://localhost:8383', // required - must pass a valid URL
   policyId: 'policy-id-guid', // required - GUID representing policy ID
-  policyRoot: 'policy' // required - must be a string representing the policy root (the first component of the policy module name)
-};
-app.use(displayStateMap(options));
+  policyRoot: 'policy', // required - must be a string representing the policy root (the first component of the policy module name)
+}
+app.use(displayStateMap(options))
 ```
 
 ### arguments
@@ -204,7 +204,7 @@ The Express request object.
 
 ### packageName argument
 
-By default, `is` will follow the same heuristic behavior as `jwtAuthz` - it will infer the packge name from the policy name, HTTP method, and route path. If provided, the `packageName` argument will override this and specify a policy package to use.
+By default, `is` will follow the same heuristic behavior as `jwtAuthz` - it will infer the package name from the policy name, HTTP method, and route path. If provided, the `packageName` argument will override this and specify a policy package to use.
 
 By convention, Aserto Rego policies are named in the form `policyRoot.METHOD.path`. Following the Node.js idiom, you can also pass it in as `policyRoot/METHOD/path`, and the path can contain the Express parameter syntax.
 
@@ -229,5 +229,3 @@ In order for the `express-jwt-aserto` package to perform the TLS handshake, it n
 Furthermore, when packaging a policy for deployment (e.g. in a Docker container) which uses `express-jwt-aserto` to communicate with an authorizer that has a self-signed TLS certificate, you must copy this CA certificate into the container as part of the Docker build (typically performed in the Dockerfile). When you do that, you'll need to override the `authorizerCertFile` option that is passed into any of the API calls defined above with the location of this cert file.
 
 Alternately, to ignore TLS certificate validation when creating a TLS connection to the authorizer, you can set the `disableTlsValidation` option to `true` and avoid TLS certificate validation. This option is **not recommended for production**.
-
-

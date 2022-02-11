@@ -4,15 +4,71 @@ sidebar_label: Create an ABAC Policy
 
 # Creating an Attribute Based Access Control Policy
 
-We're going to create an ABAC policy that will interact with our PeopleFinder application. First, open the Aserto Console and navigate to the **Policies** tab. Click on the "Add a Policy" button:
+We're going to create an ABAC policy that will interact with our PeopleFinder application.
 
-![add-a-policy](/getting-started-acmecorp/add-a-policy.png)
+## Create the policy repository
 
-Create a new policy based on the `policy-peoplefinder-abac` template, and name it `peoplefinder-abac`.
+First, open the Aserto Console and navigate to the Policies tab. Click on the "Creat a new repository" button:
 
-![policy-from-template](/getting-started-acmecorp/policy-from-template.png)
+<img src="/getting-started-acmecorp/create-new-repo-button.png" width="200px" />
 
-Open the policy once it is created, and open the `peoplefinder.POST.api.users.__id` module.
+Select "Use a template":
+
+<img src="/getting-started-acmecorp/use-template-options.png" width="700px" />
+
+Choose your source code provider:
+
+<img
+  src="/getting-started-acmecorp/select-source-code-provider.png"
+  width="600px"
+/>
+
+Create a new policy based on the `policy-peoplefinder-abac` template, and name the repo `policy-peoplefinder-abac`.
+
+<img
+  src="/getting-started-acmecorp/select-org-and-repo-peoplefinder-abac.png"
+  width="600px"
+/>
+
+Finally, name your policy repository `peoplefinder-abac`, and click "Create a new policy repository":
+
+<img src="/getting-started-acmecorp/policy-repo-name-abac.png" width="600px" />
+
+## Create a policy instance
+
+Navigate to the Policies tab and click "Create a new policy instance":
+
+You'll be prompted to select a policy registry:
+
+![select-policy-registry](/select-policy-registry.png)
+
+Select `aserto-policy-registry` from the dropdown.
+
+<img src="/select-policy-registry.png" width="500px" />
+
+Next, from the "Select organization" dropdown select your personal (account) organization.
+
+<img src="/select-policy-organization.png" width="500px" />
+
+From the "Policy repository" dropdown, select "peoplefinder-abac".
+
+<img
+  src="/getting-started-acmecorp/select-policy-repo-abac.png"
+  width="500px"
+/>
+
+From the "Tag list" dropdown, select "latest".
+
+<img src="/select-tag.png" width="500px" />
+
+Finally, name your instance `peoplefinder-abac` and click "Create an instance".
+
+<img
+  src="/getting-started-acmecorp/name-policy-instance-abac.png"
+  width="500px"
+/>
+
+Open the policy instance once it is created, and open the `peoplefinder.POST.api.users.__id` module.
 
 ![console-policy-peoplefinder-post](/getting-started-acmecorp/console-policy-peoplefinder-post.png)
 

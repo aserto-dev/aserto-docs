@@ -16,23 +16,32 @@ We want to ensure that if we're logged in as Euan (a `viewer`), the application 
 
 Initially, the policy we’ll create for this tutorial will only allow a user with the role of `admin` to access our protected resource, while users without the `admin` role will not be able to access that resource.
 
-In [console.aserto.com](https://console.aserto.com), go to the `Policies` tab and click "Add Policy"
+In [console.aserto.com](https://console.aserto.com), go to the Policies tab and click the "Create a policy repository" button.
 
-![add-policy](/quickstart-react-and-node/add-policy.png)
+<img
+  src="/quickstart-react-and-node/create-new-repo-button.png"
+  width="200px"
+/>
+
+When you click on "Create a policy repository", you'll be able to choose between using a policy template and creating an empty policy repository:
+
+<img src="/use-template-options.png" width="700px" />
+
+Select "Use a template" and click "Continue".
+
+Next, you'll go through a short workflow to select a git repository for your policy, and name that policy in the Aserto console.
 
 If you haven't already added a source code connection, select "Add a new source code connection". You can choose either adding a GitHub connection using an OAuth2 flow, or add a GitHub connection using a GitHub PAT.
 
-![add-scc](/quickstart-react-and-node/add-scc.png)
+<img src="/quickstart-react-and-node/add-scc.png" width="600px" />
 
-Once you've added the connection, select the organization you'd like to use for the repository, and select "New (using template)".
+Once you've added the connection, select the organization you'd like to use for the repository. Then, from the template dropdown, select "aserto-dev/policy-template". Name repo "policy-aserto-react", and click "Create repo".
 
-Then, from the template dropdown, select "aserto-dev/policy-template". Name repo "policy-aserto-react", and click "Create repo".
+<img src="/quickstart-react-and-node/select-org-and-repo.png" width="600px" />
 
-![add-policy-to-repo](/quickstart-react-and-node/add-policy-to-repo.png)
+Finally, name your policy repository "aserto-react" and click "Create a new policy repository".
 
-Finally, name your policy "aserto-react" and click "Add Policy".
-
-![name-policy](/quickstart-react-and-node/name-policy.png)
+<img src="/quickstart-react-and-node/name-policy.png" width="600px" />
 
 Aserto will generate a new repository in your GitHub account the will include the necessary policy files. Head to GitHub to retrieve the URL for the repository that was just created, and clone it.
 
@@ -42,11 +51,12 @@ git clone git@github.com:<YOUR ORGANIZATION>/hello-aserto-react.git
 
 Now that we have a local copy of the policy, let’s start modifying it:
 
-We'll start by updating the `.manifest` file under `src`, which currently will only point to the root of our policy. We'll change it from
+We'll start by updating the `.manifest` file under `src`. We'll change it from
 
 ```
 {
     "roots": ["policies"]
+    ...
 }
 ```
 
@@ -55,6 +65,7 @@ To
 ```
 {
     "roots": ["asertodemo"]
+    ...
 }
 ```
 
@@ -97,7 +108,7 @@ The `some index` and `...roles[index]` expressions indicate the authorizer will 
 
 ## Updating the Policy Repository
 
-Now that we’ve modified our policy, we’ll publish our changes: Aserto applies a GitOps flow to any changes made to the repository we set up. That means that we can simply tag and push the changes we’ve made to the policy and the updated policy will be built and published to the authorizer.
+Now that we’ve modified our policy, we’ll publish our changes: Aserto applies a GitOps flow to any changes made to the repository we set up. That means that we can simply tag and push the changes we’ve made to the policy and the updated policy will be built and published to the policy instance.
 
 Commit, tag and push the changes you made:
 
@@ -109,9 +120,40 @@ git tag v0.0.1
 git push --tags
 ```
 
-Open the Aserto console, and navigate to the Policies tab. Then, open the policy "hello-aserto-react" and review the changes. You should see the following:
+Open the Aserto console, and navigate to the Registry tab. Then, open the policy "hello-aserto-react" and review the changes. You should see the following:
 
-![console-policy-update-1](/quickstart-react-and-node/console-policy-update-1.png)
+<img src="/quickstart-react-and-node/policy-repo-details.png" />
+
+## Create a policy instance
+
+To set up a policy instance, head to the Policies tab and click the "Create an instance" button:
+
+<img
+  src="/quickstart-react-and-node/create-instance-button.png"
+  width="160px"
+/>
+
+Next, you'll be prompted to select a policy registry:
+
+<img src="/select-policy-registry.png" width="500px" />
+
+Select `aserto-policy-registry` from the dropdown.
+
+Next, from the "Select organization" dropdown select your personal (account) organization.
+
+<img src="/select-policy-organization.png" width="500px" />
+
+From the "Policy repository" dropdown, select "aserto-react".
+
+<img src="/quickstart-react-and-node/select-policy-repo.png" width="500px" />
+
+From the "Tag list" dropdown, select "latest". This sets up the policy instance to always pick up the _latest_ version of the policy. While this is going to be very useful while we are developing the policy - we would probably choose to lock the policy instance to a specific tag in a production environment.
+
+<img src="/select-tag.png" width="500px" />
+
+Finally, name your policy instance `aserto-react` and click "Create an instance".
+
+<img src="/quickstart-react-and-node/name-policy-instance.png" width="500px" />
 
 ## Checkpoint
 

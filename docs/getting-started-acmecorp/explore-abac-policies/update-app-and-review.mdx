@@ -1,5 +1,5 @@
 ---
-sidebar_label: Use the ABAC policy 
+sidebar_label: Use the ABAC policy
 ---
 
 # Bind PeopleFinder to the new ABAC policy
@@ -14,9 +14,11 @@ Then, scroll down to the Environment variables section and click edit variables:
 
 ![netlify-environment](/getting-started-acmecorp/netlify-environment.png)
 
-Update the `POLICY_ID` variable to the Policy ID of the policy you just created and save your changes. To find the policy ID, open your policy settings tab in the Aserto console:
+To retrieve the new Policy ID, open the Policies tab in the Aserto console and click the `peoplefinder-abac` instance. Then, click on `Policy Settings`:
 
 ![policy-settings-abac](/getting-started-acmecorp/policy-settings-abac.png)
+
+Update the `POLICY_ID` environment variable in Netlify to the Policy ID of the policy associated with the `peoplefinder-abac` instance.
 
 Finally, you'll have to trigger a redeploy of the Netlify application. Navigate to the Deploys tab:
 
@@ -56,4 +58,4 @@ In this section we learned how powerful of an authorization model ABAC is, and h
 
 ## Next steps
 
-Next, you can explore how to [use your own identity provider](/docs/getting-started-acmecorp/bring-your-own-idp/bring-your-own-idp) instead of our demo Acmecorp IDP. 
+Next, you can explore how to [use your own identity provider](/docs/getting-started-acmecorp/bring-your-own-idp/bring-your-own-idp) instead of our demo Acmecorp IDP.

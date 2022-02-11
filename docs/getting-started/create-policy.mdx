@@ -4,42 +4,42 @@ sidebar_label: Create your first policy
 
 # Create a policy
 
-The underpinning of Aserto's authorization model is a [policy](/docs/overview/policy). 
+The underpinning of Aserto's authorization model is a [policy](/docs/overview/policy).
 
 Policies are authored, stored, and versioned as code in a `git` repository.
 
-## Add a policy 
+## Add a policy
 
 ![Add a policy](/add-a-policy.png)
 
-When you click on “Add a policy”, you'll go through a short workflow to select a git repository for your policy, 
-and name that policy in the Aserto console. 
+When you click on “Add a policy”, you'll go through a short workflow to select a git repository for your policy,
+and name that policy in the Aserto console.
 
-The first step is to select a connection to a source code control system. Since you don't yet have any, you'll 
-want to click the "Add connection" button. 
+The first step is to select a connection to a source code control system. Since you don't yet have any, you'll
+want to click the "Add connection" button.
 
 [<img src="/connect-scc.png" width="500px" />](/connect-scc.png)
 
-This will take you to the Connections page. Notice that you already have two system connections - one to the Aserto 
+This will take you to the Connections page. Notice that you already have two system connections - one to the Aserto
 Registry, and the other to the (multi-tenant) Aserto Authorizer.
 
 ![connections](/connections.png)
 
-Click the "Add a connection" button close to the top right corner. This will bring up a modal for adding a connection 
-to a provider. Note that Aserto supports GitHub as a source code provider, but allows you to connect to it either 
+Click the "Add a connection" button close to the top right corner. This will bring up a modal for adding a connection
+to a provider. Note that Aserto supports GitHub as a source code provider, but allows you to connect to it either
 over an OAuth2 flow, or using a Personal Access Token (PAT).
 
 <img src="/connect-github.png" width="500px" />
 
-The easiest path is to select "github" as the source code provider, give the connection a name (like `github-<youraccount>`), 
+The easiest path is to select "github" as the source code provider, give the connection a name (like `github-<youraccount>`),
 and click "Add connection". To connect using a Personal Access Token (PAT), follow these [instructions](/docs/aserto-console/connections#connecting-github-using-a-pat).
 
 :::note
-If you are managing an Aserto tenant for an organization, we recommend using a GitHub "bot account" to sign in with, 
-and using a Personal Access Token which has access to your GitHub organization. 
+If you are managing an Aserto organization, we recommend using a GitHub "bot account" to sign in with,
+and using a Personal Access Token which has access to your GitHub organization.
 :::
 
-Once you complete GitHub’s OAuth2 consent flow, go back to the Policies page, and click "Add a policy" again, and select 
+Once you complete GitHub’s OAuth2 consent flow, go back to the Policies page, and click "Add a policy" again, and select
 your newly created connection in the first step.
 
 [<img src="/select-github-connection.png" width="500" />](/select-github-connection.png)

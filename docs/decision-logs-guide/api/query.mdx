@@ -1,0 +1,72 @@
+---
+sidebar_label: query
+---
+
+# decision_logs/query
+
+The `query` API returns the last N decisions recorded for a particular policy. In contrast to
+[decision log storage object retrieval](/docs/decision-logs-guide/api/decision_logs), the `query` API returns data that is
+typically no more than a minute old.
+
+## URL
+
+`POST .../api/v1/decision_logs/query`
+
+## Input payload
+
+```json
+{
+  "page": {
+    "size": "[page size]",
+    "token": "[token of page to retrieve, must be empty on the first call]"
+  },
+  "policy_id": "[policy id or empty for all policies]",
+  "top_n": "[last N decisions to retrieve]"
+}
+```
+
+## Example
+
+Given a request that uses the default page size (10):
+
+```json
+{
+  "top_n": 12,
+  "policy_id": "18d6580f-7fb0-11ec-bdd9-01c9e2c2068b"
+}
+```
+
+The response will resemble this:
+
+```json
+{
+  "page":  {
+    "next_token":  "e2a62bd2-2704-48a4-b5e7-86f7885012f9",
+    "result_size":  10,
+    "total_size":  12
+  },
+  "results":  [
+    {
+      "log":  "{\"decision_id\":\"1834b93a-3a15-4f98-b6e2-3b1221ca984c\",\"decision_time\":\"2022-01-31T23:52:03Z\",\"tenant_id\":\"0116e83a-7e21-11ec-ab5b-00c9e2c2068b\",\"user\":{\"id\":\"2bfaa552-d9a5-41e9-a6c3-5be62b4433c8\",\"email\":\"aprils@acmecorp.com\"},\"path\":\"peoplefinder.POST.api.users.__id\",\"decisions\":{\"allowed\":true},\"policy\":{\"id\":\"18d6580f-7fb0-11ec-bdd9-01c9e2c2068b\",\"service\":\"registry.beta.aserto.com\",\"image\":\"peoplefinder/peoplefinder-abac\",\"tag\":\"latest\",\"digest\":\"sha256:dd0c6506d8d20539d46acbebffa03976274d022818dec0337a250df72d205b3a\"},\"resource\":{\"id\":\"dfdadc39-7335-404d-af66-c77cf13a15f8\"}}"
+    },
+    ...
+    {
+      "log":  "{\"decision_id\":\"89ffa41e-8083-49f6-8714-832973ff2040\",\"decision_time\":\"2022-02-03T00:28:00Z\",\"tenant_id\":\"0116e83a-7e21-11ec-ab5b-00c9e2c2068b\",\"user\":{\"id\":\"dfdadc39-7335-404d-af66-c77cf13a15f8\",\"email\":\"euang@acmecorp.com\"},\"path\":\"peoplefinder.PUT.api.users.__id\",\"decisions\":{\"allowed\":true},\"policy\":{\"id\":\"18d6580f-7fb0-11ec-bdd9-01c9e2c2068b\",\"service\":\"registry.beta.aserto.com\",\"image\":\"peoplefinder/peoplefinder-abac\",\"tag\":\"latest\",\"digest\":\"sha256:dd0c6506d8d20539d46acbebffa03976274d022818dec0337a250df72d205b3a\"},\"resource\":{\"id\":\"dfdadc39-7335-404d-af66-c77cf13a15f8\"}}"
+    }
+  ]
+}
+```
+
+`next_token` indicates the remaining results can be retrieved issuing another request with the following payload:
+
+```json
+{
+  "page": {
+      "token": "e2a62bd2-2704-48a4-b5e7-86f7885012f9"
+  }
+  "top_n": 12,
+  "policy_id": "18d6580f-7fb0-11ec-bdd9-01c9e2c2068b"
+}
+```
+
+See [schemas](/docs/decision-logs-guide/schemas) for details of the contents of the logs returned by `query`.

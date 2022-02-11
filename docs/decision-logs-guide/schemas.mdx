@@ -1,0 +1,52 @@
+---
+sidebar_label: Schemas
+---
+
+# Schemas
+
+## Storage Objects
+
+Decision logs storage object are CSV files. Each one contains the following columns:
+
+- `decision_id`: A unique id for the authorizer call that generated the decision. A call can generate more than one
+  decision, so there can be multiple rows with the same `decision_id` value
+- `decision_time`: The UTC time when the decision call was executed by an authorizer
+- `user_id`: The ID of the user in the user context of the authorizer call
+- `policy_id`: The ID of the policy that was evaluated by the authorizer call
+- `path`: The policy path evaluated by the authorizer call
+- `decision`: The name of a decision evaluated by the authorizer call
+- `outcome`: The outcome, true or false, of the decision
+- `resource`: The resource context as passed to the authorizer call
+
+## Query results
+
+Each result of the [query](/docs/decision-logs-guide/query) API is a JSON object encoded as a string; once decoded, it
+has a structure similar to the following example:
+
+```json
+{
+  "decision_id": "f506be2f-97d5-4d3d-93a1-91e7623038af",
+  "decision_time": "2022-02-03T19:05:10Z",
+  "tenant_id": "2e9d3de4-8517-11ec-b068-0054f4025d69",
+  "user": {
+    "id": "01d1e01e-bf53-419a-9762-17270b1a7328",
+    "email": "nunof@acmecorp.com"
+  },
+  "path": "peoplefinder.GET.api.users.__id",
+  "decisions": {
+    "allowed": true,
+    "enabled": true,
+    "visible": true
+  },
+  "policy": {
+    "id": "dcba7cb8-8523-11ec-b00a-0154f4025d69",
+    "service": "registry.prod.aserto.com",
+    "image": "sample/policy-peoplefinder-abac",
+    "tag": "latest",
+    "digest": "sha256:5b5dc2b1211682082f8c57f8bce4a7531f17017babf7b8dc90153f160de9744f"
+  },
+  "resource": {
+    "id": "06ae3442-d45c-4434-bcbc-8fffc563159c"
+  }
+}
+```

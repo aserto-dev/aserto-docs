@@ -10,7 +10,7 @@ Let's say our product manager has asked us to allow managers to be able to chang
 
 ## Review the policy in the Aserto Console
 
-Click the `peoplefinder-rbac` policy in the Policies tab again, and open the `peoplefinder.POST.api.users.__id` module.
+Click the `peoplefinder-rbac` policy instance in the Policies tab again, and open the `peoplefinder.POST.api.users.__id` module.
 
 ![console-policy](/getting-started-acmecorp/console-policy.png)
 
@@ -120,7 +120,7 @@ So now the Update operation is allowed if they have the role of an `admin` or an
 
 ## Push to Github
 
-To have the policy updated in Aserto, all we have to do is to commit our changes, tag a release and push it to Github. Aserto's CI/CD pipeline will automatically create a new policy bundle and make it available to the authorizer.
+To have the policy updated in Aserto, all we have to do is to commit our changes, tag a release and push it to Github. Aserto's CI/CD pipeline will automatically create a new policy bundle and make it available to the policy instance.
 
 ```bash
 git add .
@@ -130,15 +130,15 @@ git tag v0.0.1
 git push --tags
 ```
 
-Check back to the console and ensure that the new policy is reflected in the Policy browser.
+Back in the console, open the Policies tab and click on the `peoplefinder-rbac` instance. Ensure that the new policy is reflected in the Policy browser.
 
 ![console-updated-policy](/getting-started-acmecorp/console-updated-policy.png)
 
-Aserto will automatically update the authorizer with the changes made to policy.
+Since we set the selected tag for this policy instance to `latest`, Aserto will automatically update the it with the changes made to policy.
 
 ## Review the behavior in the application
 
-When you see the new policy has been loaded by the authorizer, go back to PeopleFinder, and switch context to April Stewart from the top-right user context menu. This will simulate a logout of Euan and a login of his manager, April. Now the Update button is enabled, and April (as Euan's manager) should be able to update Euan's title.
+When you see the new policy has been updated in the policy instance, go back to PeopleFinder, and switch context to April Stewart from the top-right user context menu. This will simulate a logout of Euan and a login of his manager, April. Now the Update button is enabled, and April (as Euan's manager) should be able to update Euan's title.
 
 ![euan-and-april](/getting-started-acmecorp/euan-and-april.png)
 

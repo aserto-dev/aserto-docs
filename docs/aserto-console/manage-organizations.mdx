@@ -1,0 +1,68 @@
+---
+sidebar_label: Managing Organizations
+---
+
+# Managing Organizations
+
+:::caution note
+When first signing up to Aserto, you'll be provisioned with a personal account, which doesn't allow inviting other members. During the free Beta period, you can create organizations and invite team members into it.
+:::caution note:::
+
+To invite team members to use Aserto within the same organization, you will have to create an organization (if you haven't already). To do so, open on the Organization dropdown and select "Create Organization".
+
+<img src="/create-organization.png" width="200px" />
+
+Type in your desired organization name and click "Lock it in!".
+
+As an Organization Owner, you can invite other members to your organization, and control the roles and permissions for other members of your organization.
+
+Naturally, Aserto uses an Aserto [authorization policy](https://github.com/aserto-dev/policy-aona) to manage access to the Aserto APIs that expose Aserto's functionality (including through the Console and CLI).
+
+The Aserto roles are described [here](/docs/overview/organization).
+
+## Switching Organizations
+
+On the main navbar, you'll find the Organization Dropdown. In this dropdown, you'll find all of the Organizations that you have access to. To switch an organization context, simply choose an organization name from the dropdown:
+
+![organization dropdown](/organization-dropdown.png)
+
+## Managing the current organization
+
+To manage the currently selected organization, choose the **Manage organization** menu item from the dropdown.
+
+## Inviting a user to an organization
+
+To invite a new user to an organization, go to **Manage Organization** screen, click the **Invite member...** button, and enter their email.
+
+<img src="/invite-member-form.png" width="500px" />
+
+If the user exists in the Aserto directory, they will be invited to join the organization in the role that you select for them (Viewer, Editor, Admin, Owner). If they don't yet have an Aserto account, they will be invited to create one and change their password.
+
+:::note
+You can set the role for the new user by selecting a value from the dropdown. By default, the user is invited to an organization as a **Member**. Once a new user has accepted an invitation, an Organization Owner
+can change their role.
+:::
+
+:::caution Note
+If an organization invitation isn't accepted or declined within a week, that invitation will expire.
+:::
+
+## Managing invitations
+
+A organization owner can view the status of invitations, and cancel invitations that are still pending.
+
+![manage invitations](/manage-invitations.png)
+
+## Change member roles
+
+Once a new member has accepted their invitation to join an organization, as an organization owner, you can change the role of that user in the context of this organization using the role dropdown.
+
+<img src="/manage-organization.png" />
+
+## Remove a member from an organization
+
+As an organization owner, you can remove a member from an organization by selecting the **Remove member from organization** item in the role dropdown. Also, as a member of an organization, you can remove yourself from the organization using the same menu item, unless you're the last remaining owner.
+
+:::note
+Every organization must have at least one owner.
+:::

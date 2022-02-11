@@ -12,7 +12,7 @@ module.exports = {
         'overview/authorizer',
         'overview/policy',
         'overview/control-plane',
-        'overview/tenant',
+        'overview/organization',
         'overview/connections',
         'overview/policy-lifecycle',
         'overview/directory',
@@ -57,8 +57,8 @@ module.exports = {
             'getting-started-acmecorp/bring-your-own-idp/deploy-peoplefinder-auth0',
           ],
         },
-        'getting-started-acmecorp/install-onebox'
-      ]
+        'getting-started-acmecorp/install-onebox',
+      ],
     },
     {
       Console: [
@@ -67,7 +67,7 @@ module.exports = {
         'aserto-console/directory',
         'aserto-console/policies',
         'aserto-console/view-policies',
-        'aserto-console/manage-tenant',
+        'aserto-console/manage-organizations',
       ],
     },
     {
@@ -86,7 +86,35 @@ module.exports = {
       ],
     },
     {
-      'Quickstarts': [
+      'Decision Logs Guide': [
+        'decision-logs-guide/overview',
+        'decision-logs-guide/console',
+        {
+          type: 'category',
+          label: 'APIs',
+          collapsed: false,
+          items: [
+            'decision-logs-guide/api/overview',
+            'decision-logs-guide/api/decision_logs',
+            'decision-logs-guide/api/users',
+            'decision-logs-guide/api/query'
+          ]
+        },
+        'decision-logs-guide/schemas',
+        {
+          type: 'category',
+          label: 'Elastic (ELK) Integration',
+          collapsed: false,
+          items: [
+            'decision-logs-guide/elk/configure',
+            'decision-logs-guide/elk/decision_logs_conf',
+            'decision-logs-guide/elk/users_conf'
+          ]
+        }        
+      ]
+    },
+    {
+      Quickstarts: [
         {
           type: 'category',
           label: 'React and Node',
@@ -101,7 +129,7 @@ module.exports = {
             'quickstarts/react/use-express-middleware',
             'quickstarts/react/support-more-roles',
             'quickstarts/react/conditional-ui-rendering',
-          ]
+          ],
         },
       ],
     },
@@ -150,7 +178,6 @@ module.exports = {
               items: [
                 'software-development-kits/go/middleware-http',
                 'software-development-kits/go/middleware-grpc',
-
               ],
             },
           ],
@@ -166,6 +193,7 @@ module.exports = {
         'command-line-interface/policies',
         'command-line-interface/connections',
         'command-line-interface/directory',
+        'command-line-interface/decision-logs',
         'command-line-interface/onebox',
       ],
     },
@@ -177,8 +205,7 @@ module.exports = {
         'troubleshooting/github-connection-cannot-be-removed',
         'troubleshooting/policy-added-but-shows-error',
         'troubleshooting/errors-reference',
-      ]
-    }
+      ],
+    },
   ],
-
 }
