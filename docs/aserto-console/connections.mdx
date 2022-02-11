@@ -7,13 +7,13 @@ sidebar_label: Managing Connections
 The Aserto Control Plane manages [connections](/docs/overview/connections) to external systems that are
 the source of Aserto artifacts.
 
-Click on the “Connections” Navbar tab to see your connections.
+Click on the “Connections” tab to see your connections.
 
 ![connections](/connections.png)
 
 ## Connection types
 
-The Console currently supports two connection types - Identity Providers and Source Code Control systems. In addition, Aserto manages system connections to the Aserto Registry and to the multi-tenant Aserto Authorizer for each tenant.
+The console currently supports three connection types - Identity Providers, Source Code Control systems, and OCI registries (currently only the [Open Policy Registry](https://www.openpolicyregistry.io/) is supported). In addition, Aserto manages system connections to the Aserto Registry and to the multi-tenant Aserto Authorizer for each tenant.
 
 ## Connecting an Identity Provider
 
@@ -68,6 +68,22 @@ select "github-pat". Name your connection, copy the PAT value and paste it into 
 "GitHub Personal Access Token" field, and click "Add connection".
 
 [<img src="/connect-github-pat.png" width="500px" />](/connect-github-pat.png)
+
+## Connecting to Open Policy Registry
+
+Before adding a connection to the Open Policy Registry (OPCR), you need to [create an OPCR account](https://www.openpolicyregistry.io/docs/opcr/create-account). If you haven't already done so, click [here](https://console.openpolicyregistry.io/) to sign up.
+
+You'll also need to [set up a Github PAT](https://github.com/settings/tokens) in order to connect your Aserto account to OPCR.
+
+Once you've created an OPCR account and a Github PAT, navigate to the "Connections" tab click on the "Add a connection" button and select the `opcr` provider.
+
+[<img src="/add-opcr-connection-select-opcr.png" width="500px" />](/add-opcr-connection-select-opcr.png)
+
+Next, use your Github username and PAT to complete the form, and click "Add connection"
+
+[<img src="/add-opcr-connection-username-password.png" width="500px" />](/add-opcr-connection-username-password.png)
+
+Once you've added the new registry, you'll be able to select it when creating policy instances.
 
 ## Editing or removing a connection
 
