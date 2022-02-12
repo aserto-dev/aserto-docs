@@ -80,7 +80,19 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             {
               to: "docs",
               position: "left",
-              label: "Docs",
+              label: "Documentation",
+            },
+            {
+              to: "https://aserto.com/#the-solution",
+              position: "left",
+              label: "Product",
+              target: "_self",
+            },
+            {
+              to: "https://aserto.com/playground",
+              position: "left",
+              label: "Playground",
+              target: "_self",
             },
             {
               to: "https://aserto.com/blog",
@@ -110,23 +122,10 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
         footer: {
           links: [
             {
-              title: "PRODUCT",
-              items: [
-                {
-                  label: "Benefits",
-                  to: "https://aserto.com/#the-solution",
-                },
-                {
-                  label: "FAQ",
-                  to: "https://aserto.com/faq",
-                },
-              ],
-            },
-            {
               title: "DEVELOPERS",
               items: [
                 {
-                  label: "Docs",
+                  label: "Documentation",
                   to: "docs",
                 },
                 {
@@ -134,12 +133,37 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
                   to: "https://github.com/aserto-dev",
                 },
                 {
-                  label: "Slack",
+                  label: "Community Slack",
                   to: "https://asertocommunity.slack.com/join/shared_invite/zt-p06gin84-xNswWpTGyPDPxCz0LMux3g#/shared-invite/email",
                 },
                 {
-                  label: "Status",
+                  label: "Open Policy Registry",
+                  to: "https://openpolicyregistry.io",
+                },
+                {
+                  label: "Service Status",
                   to: "https://aserto.statuspage.io",
+                },
+              ],
+            },
+            {
+              title: "PRODUCT",
+              items: [
+                {
+                  label: "Benefits",
+                  to: "https://aserto.com/#the-solution",
+                },
+                {
+                  label: "Case Studies",
+                  to: "https://aserto.com/casestudies",
+                },
+                {
+                  label: "Pricing",
+                  to: "https://aserto.com/pricing",
+                },
+                {
+                  label: "FAQ",
+                  to: "https://aserto.com/faq",
                 },
               ],
             },
