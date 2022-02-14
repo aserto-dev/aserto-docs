@@ -4,35 +4,40 @@ sidebar_label: Creating a Policy
 
 # Creating a Policy
 
-:::note
-In order to create a policy, you must first set up a [Github PAT](https://github.com/settings/tokens).
-:::
-
 To create a new policy, use the `policy init` command:
 
 ```
 policy init
 ```
 
-You'll be asked to select a server:
+You'll be asked to select a server. Assuming you've logged in to the Aserto Policy Registry, you'll be able to select from following:
 
 ```
   #  SERVER
   1  opcr.io
+  2  registry.prod.aserto.com
 
 > Select server#:
 ```
 
-Select the `opcr.io` server.
+If you haven't logged in to the Aserto Policy Registry, you'll only see the `opcr` option. After selecting a server you'll be asked to confirm your choice, or otherwise override it with a different value:
 
 ```
-> user  : (rschwabco):
+server: (registry.prod.aserto.com):
 ```
 
-Provide your Github PAT:
+Hitting "Enter" will confirm your choice. Otherwise, provide a different value and hit "Enter".
+
+Next, provide your username in the policy registry you've selected:
 
 ```
-> github secret name: (GITHUB_TOKEN):
+> user  : ([YOUR_USER_NAME]):
+```
+
+Provide the _name_ of the secret containing the Github token you'd like to use (by default, the name should be `GITHUB_TOKEN`)
+
+```
+> github secret name: (GITHUB_TOKEN): GITHUB_TOKEN
 ```
 
 Specify the name of the repository you'll be pushing the policy to:

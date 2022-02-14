@@ -207,7 +207,6 @@ module.exports = {
           label: 'Policy CLI',
           collapsed: true,
           items: [
-            'command-line-interface/policy-cli/open-policy-registry',
             'command-line-interface/policy-cli/download',
             'command-line-interface/policy-cli/login',
             'command-line-interface/policy-cli/init',
@@ -220,6 +219,7 @@ module.exports = {
             'command-line-interface/policy-cli/export',
             'command-line-interface/policy-cli/repl',
             'command-line-interface/policy-cli/sign',
+            'command-line-interface/policy-cli/open-policy-registry',
           ],
         },
       ],
