@@ -1,0 +1,55 @@
+---
+sidebar_label: Register to OPCR
+---
+
+# Register to OPCR
+
+In order to interact with the `policy` CLI, you'll have to create an account for the [Open Container Registry](https://www.openpolicyregistry.io/).
+
+## Create an account
+
+Click the `Sign in` button in the top right of the navbar, or go to [console.openpolicyregistry.io](https://console.openpolicyregistry.io), and create an `opcr.io` account with your GitHub account. This will trigger
+GitHub's OAuth2 flow.
+
+![github-oauth2](/github-oauth.png)
+
+:::note
+Since OPCR uses GitHub as its identity provider, your account will be named after your GitHub account.
+:::
+
+### Organizations
+
+Much like with GitHub or Docker, an organization name provides the first part of a two-part name
+for a policy repository. For example, if your organization is named `foo`, you are able to create
+a repository named `foo/bar`.
+
+### Naming your personal organization
+
+The first time through, you will be asked to name your organization. You can use your GitHub account name, or choose a different organization name that is unused, and passes the account naming conventions (4 or more characters, no profanity).
+
+:::warning
+Choose your organization name carefully - you cannot change it later.
+:::
+
+![register organization](/register-org.png)
+
+:::note
+Currently, only personal organizations are supported. In the future, you'll be able to create
+organizations that have multiple members, similar to GitHub and Docker.
+:::
+
+## Repositories and Images
+
+Repositories live under organizations.
+
+### Policy repositories
+
+A policy repository is identified using a two-part naming scheme: `org-name/repo-name`.
+
+### Policy images
+
+A policy image is identified using a three-part naming scheme: `org-name/repo-name:tag`.
+
+:::note
+Just like with docker images, if the `tag` is omitted, it will default to `:latest`.
+:::

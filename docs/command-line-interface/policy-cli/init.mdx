@@ -1,0 +1,59 @@
+---
+sidebar_label: Creating a Policy
+---
+
+# Creating a Policy
+
+:::note
+In order to create a policy, you must first set up a [Github PAT](https://github.com/settings/tokens).
+:::
+
+To create a new policy, use the `policy init` command:
+
+```
+policy init
+```
+
+You'll be asked to select a server:
+
+```
+  #  SERVER
+  1  opcr.io
+
+> Select server#:
+```
+
+Select the `opcr.io` server.
+
+```
+> user  : (rschwabco):
+```
+
+Provide your Github PAT:
+
+```
+> github secret name: (GITHUB_TOKEN):
+```
+
+Specify the name of the repository you'll be pushing the policy to:
+
+```
+> repo  : (): [YOUR-ORGANIZATION]/[POLICY-NAME]
+```
+
+The following directory structure will be created:
+
+```
+.
+├── .github
+│   ├── config.yaml
+│   └── workflows
+│       └── build-release-policy.yaml
+├── .gitignore
+└── src
+    ├── .manifest
+    └── policies
+        └── hello.rego
+```
+
+Update the content of the policy as needed, then follow the steps to [build](/docs/command-line-interface/policy-cli/build), [tag](/docs/command-line-interface/policy-cli/tag) and [push](/docs/command-line-interface/policy-cli/push) the policy to OPCR.

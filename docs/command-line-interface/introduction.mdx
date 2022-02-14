@@ -2,14 +2,18 @@
 sidebar_label: Introduction
 ---
 
-# The Aserto CLI
+# CLIs
 
-Along with the Aserto Console and the API, the `aserto` CLI is one of the primary ways
-that developers interact with Aserto.
+Along with the Aserto Console and the API, Aserto provides two CLI tools:
 
-The CLI has three main functions:
-* Manage [organization](/docs/overview/organization) artifacts (policies, directory, connections)
-* Interact with an [Authorizer](/docs/overview/authorizer)
-* Manage the local developer experience [OneBox](/docs/command-line-interface/onebox)
+- The `aserto` CLI allows developers interact with Aserto. It has three main functions:
 
-All management operations are done in the context of an Aserto [*organization*](/docs/overview/organization).
+  - Manage [organization](/docs/overview/organization) artifacts (policies, directory, connections)
+  - Interact with an [Authorizer](/docs/overview/authorizer)
+  - Manage the local developer experience [OneBox](/docs/command-line-interface/aserto-cli/onebox)
+
+  All management operations are done in the context of an Aserto [_organization_](/docs/overview/organization).
+
+- The `policy` CLI allows developers interact with policy images. It has two main functions:
+  - Build, sign, and export (unbundle) policy images
+  - Push and pull policy images from the [Open Policy Registry](https://www.openpolicyregistry.io/)

@@ -97,8 +97,8 @@ module.exports = {
             'decision-logs-guide/api/overview',
             'decision-logs-guide/api/decision_logs',
             'decision-logs-guide/api/users',
-            'decision-logs-guide/api/query'
-          ]
+            'decision-logs-guide/api/query',
+          ],
         },
         'decision-logs-guide/schemas',
         {
@@ -108,10 +108,10 @@ module.exports = {
           items: [
             'decision-logs-guide/elk/configure',
             'decision-logs-guide/elk/decision_logs_conf',
-            'decision-logs-guide/elk/users_conf'
-          ]
-        }        
-      ]
+            'decision-logs-guide/elk/users_conf',
+          ],
+        },
+      ],
     },
     {
       Quickstarts: [
@@ -186,15 +186,42 @@ module.exports = {
       ],
     },
     {
-      CLI: [
+      CLIs: [
         'command-line-interface/introduction',
-        'command-line-interface/installation',
-        'command-line-interface/login',
-        'command-line-interface/policies',
-        'command-line-interface/connections',
-        'command-line-interface/directory',
-        'command-line-interface/decision-logs',
-        'command-line-interface/onebox',
+        {
+          type: 'category',
+          label: 'Aserto CLI',
+          collapsed: true,
+          items: [
+            'command-line-interface/aserto-cli/installation',
+            'command-line-interface/aserto-cli/login',
+            'command-line-interface/aserto-cli/policies',
+            'command-line-interface/aserto-cli/connections',
+            'command-line-interface/aserto-cli/directory',
+            'command-line-interface/aserto-cli/decision-logs',
+            'command-line-interface/aserto-cli/onebox',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Policy CLI',
+          collapsed: true,
+          items: [
+            'command-line-interface/policy-cli/open-policy-registry',
+            'command-line-interface/policy-cli/download',
+            'command-line-interface/policy-cli/login',
+            'command-line-interface/policy-cli/init',
+            'command-line-interface/policy-cli/build',
+            'command-line-interface/policy-cli/images',
+            'command-line-interface/policy-cli/tag',
+            'command-line-interface/policy-cli/push',
+            'command-line-interface/policy-cli/pull',
+            'command-line-interface/policy-cli/rm',
+            'command-line-interface/policy-cli/export',
+            'command-line-interface/policy-cli/repl',
+            'command-line-interface/policy-cli/sign',
+          ],
+        },
       ],
     },
     {

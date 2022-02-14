@@ -11,8 +11,9 @@ compute a [**decision**](/docs/overview/policy#decision) based on a [**policy**]
 
 The Authorizer is packaged as a docker image and is meant to be deployed as close as possible
 to your application:
-* a sidecar container in the same pod as the application (if you're running in Kubernetes)
-* a service that is deployed in the same subnet as your application (if not)
+
+- a sidecar container in the same pod as the application (if you're running in Kubernetes)
+- a service that is deployed in the same subnet as your application (if not)
 
 In addition, when you create an Aserto [organization](/docs/overview/organization), an Authorizer instance
 in Aserto's multi-tenant hosted authorizer service is provisioned for you. For some use cases that are
@@ -26,7 +27,8 @@ external dependencies.
 ## Concepts
 
 The main concepts for the Authorizer are:
-* [Policy](/docs/overview/policy): a set of rules for making an authorization decision
-* [Decision](/docs/overview/policy#decision): an output of the policy
-* [User context](/docs/overview/policy#user-context): a set of user *properties*, *roles*, and *scopes* that can be used in a policy to determine the value of decisions
-* data: additional data (often in the form of lookup tables) that is used in determining the value of decisions
+
+- [Policy](/docs/overview/policy): a set of rules for making an authorization decision
+- [Decision](/docs/overview/policy#decision): an output of the policy
+- [User context](/docs/overview/policy#user-context): a set of user _properties_, _roles_, and _scopes_ that can be used in a policy to determine the value of decisions
+- data: additional data (often in the form of lookup tables) that is used in determining the value of decisions
