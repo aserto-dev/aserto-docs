@@ -1,0 +1,47 @@
+---
+sidebar_label: Sign in
+---
+
+# Sign in to a registry
+
+Just like with `docker login`, the `policy` CLI requires you to sign in to an OCIv2-compliant registry.
+
+- To sign in to the Aserto Policy Registry (APCR), you'll have to retrieve your APCR API key. Head to the "Connections" tab, and click on "APCR":
+
+  <img src="/apcr-connection.png" />
+
+  Click the "Copy" icon next to the "API Key" field.
+
+  <img src="/apcr-api-key-copy.png" />
+
+  Then head back to the terminal::
+
+  ```bash
+  policy login -s registry.prod.aserto.com -u <Aserto-Username> -p <APCR-API-Key>
+  ```
+
+- To sign in to the `opcr.io` registry, you'll need to [create an OPCR account](/docs/command-line-interface/policy-cli/open-policy-registry). After setting up an account, use the GitHub account you registered with, and a GitHub personal access token (PAT) as your password.
+
+  :::note
+  You can create a GitHub PAT on this [page](https://github.com/settings/tokens).
+  :::
+
+  ```bash
+  policy login -u <GitHub-account> -p <GitHub-PAT>
+  ```
+
+## Options
+
+`-u <GitHub-account>`: specify the GitHub account as the OPCR user
+
+`-p <GitHub-PAT>`: specify a GitHub personal access token (PAT) as the OPCR password
+
+`-s <registry-hostname>`: specify the registry hostname
+
+`--password-stdin`: read the password from `stdin`
+
+## Example
+
+```bash
+echo $GITHUB_PAT | policy login -u ogazitt --password-stdin
+```
