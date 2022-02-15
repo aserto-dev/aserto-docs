@@ -238,7 +238,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
           additionalLanguages: ['powershell', 'csharp', 'rego'],
         },
         hubspot: {
-          accountId: process.env.REACT_APP_HUBSPOT_ACCOUNT_ID ?? 8658136
+          accountId: process.env.REACT_APP_HUBSPOT_ACCOUNT_ID ?? 21300286
         }
       }),
   }
