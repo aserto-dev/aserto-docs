@@ -36,6 +36,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
           ],
         },
       ],
+      'docusaurus-plugin-hubspot',
     ],
 
     presets: [
@@ -236,6 +237,9 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
           darkTheme: darkCodeTheme,
           additionalLanguages: ['powershell', 'csharp', 'rego'],
         },
+        hubspot: {
+          accountId: process.env.HUBSPOT_ACCOUNT_ID ?? 8658136
+        }
       }),
   }
 );
