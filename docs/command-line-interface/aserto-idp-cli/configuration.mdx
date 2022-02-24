@@ -8,20 +8,24 @@ To configure the CLI plugins, create a YAML file with the following contents (in
 
 ```
 logging:
-  log_level: LEVEL
+  log-level: LEVEL
 plugins:
   auth0:
-    auth0_domain:  DOMAIN
-    auth0_client_id: ID
-    auth0_client_secret: SECRET
+    domain:  DOMAIN
+    client-id: ID
+    client-secret: SECRET
   json:
-    json_from_file: PATH_TO_FILE
-    json_to_file: PATH_TO_OUTPUT_FILE
+    from-file: PATH_TO_FILE
+    to-file: PATH_TO_OUTPUT_FILE
   aserto:
-    aserto_tenant: TENANT
-    aserto_authorizer: AUTHORIZER
-    aserto_api_key: API_KEY
+    tenant: TENANT
+    authorizer: AUTHORIZER
+    api-key: API_KEY
   okta:
-    okta_domain: OKTA_DOMAIN
-    okta_api_token: TOKEN
+    domain: OKTA_DOMAIN
+    api-token: TOKEN
 ```
+
+:::note
+The `authorizer` entry should be the address of your authorizer, appended with the port `8443`. For example, `authorizer.prod.aserto.com:8443`.
+:::
