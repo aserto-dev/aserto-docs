@@ -222,6 +222,17 @@ module.exports = {
             'command-line-interface/policy-cli/open-policy-registry',
           ],
         },
+        {
+          type: 'category',
+          label: 'Aserto IDP CLI',
+          collapsed: true,
+          items: [
+            'command-line-interface/aserto-idp-cli/installation',
+            'command-line-interface/aserto-idp-cli/plugins',
+            'command-line-interface/aserto-idp-cli/configuration',
+            'command-line-interface/aserto-idp-cli/usage',
+          ],
+        },
       ],
     },
     {

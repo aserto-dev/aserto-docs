@@ -1,0 +1,39 @@
+---
+sidebar_label: Usage
+---
+
+# Usage
+
+## Importing user data
+
+To import user data from an IDP to aserto:
+
+```
+aserto-idp exec --from json --to aserto -c PATH_TO_CONFIG
+```
+
+Note that if json or aserto plugins are not on the system, using this command, they will be automatically downloaded. Also if there is a newer version of either one of the plugins used, the following message will be prompted:
+
+```
+A new version '0.0.12' of the plugin 'json' is available
+```
+
+To disable updates checking when using `exec` or `delete` :
+
+```
+aserto-idp exec --from json --to aserto -c PATH_TO_CONFIG --no-update-check
+```
+
+or
+
+```
+aserto-idp exec --from json --to aserto -c PATH_TO_CONFIG -n
+```
+
+## Deleting user data
+
+You can delete a user from aserto knowing its id and using the following:
+
+```
+aserto-idp delete --from aserto USER_ID
+```
