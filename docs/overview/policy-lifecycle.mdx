@@ -6,8 +6,9 @@ sidebar_label: Policy Lifecycle
 
 ## Policy
 
-At the core of Aserto’s authorization model is an authorization policy, which we refer to simply as a **Policy**. Policies are authored in a textual language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/), defined as part of the [Open Policy Agent](https://www.openpolicyagent.org/) (OPA) project in the [Cloud Native Computing Foundation](https://www.cncf.io/). Policies are treated just like application code or
-infrastructure-as-code - they can be stored and versioned either in a git repository or a policy repository (like the Aserto Policy Container Registry or the [Open Policy Registry](https://www.openpolicyregistry.io/)).
+At the core of Aserto’s authorization model is an authorization policy, which we refer to simply as a **Policy**. Policies are authored in a textual language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/), defined as part of the [Open Policy Agent](https://www.openpolicyagent.org/) (OPA) project in the [Cloud Native Computing Foundation](https://www.cncf.io/).
+
+Policies are treated just like application code or infrastructure-as-code - they can be stored as code in a git repository, or as an OCIv2 image in a policy repository (like the Aserto Policy Container Registry or the [Open Policy Registry](https://www.openpolicyregistry.io/)).
 
 ## The policy lifecycle
 
@@ -37,25 +38,29 @@ git tag v0.1.2 && git push --tags
 2. Using the `policy` CLI to tag and push a policy image to a policy registry.
 
 ```bash
-policy build . -t policy/my-policy:v0.1.2
-policy tag policy/my-policy:v0.1.2
+policy build . -t my-org/my-policy:v0.1.2
+policy tag my-org/my-policy:v0.1.2 my-org/my-policy:latest
 ```
-
-:::note
-Currently, the Aserto control plane wires up directly to a git repository that contains policy files, and does not expose the policy image directly. A GitHub **build action** automatically builds a new version of a policy image when the source repository is **tagged** with a new tag:
-:::
 
 ### Publish
 
-You can push a policy image to a **Policy Repository**, which is hosted in a **Policy Registry**, such as `registry.prod.aserto.com`.
+Similar to building a policy, you can publish a policy image in one of two ways:
 
-You can pull a policy image from a Policy Repository just like you pull a docker image.
+1. Pushing a new tag to a policy repository will trigger a Github action which will automatically publish the built policy image to the Aserto Policy Registry.
 
-:::note
-Currently, the Aserto Policy Registry is not exposed using a public API. The GitHub action will build
-a policy image and push it to the Aserto Policy Registry when the repo is tagged. In the future, the Policy
-Registry will support a set of public operations very similar to a Docker registry.
-:::
+2. Using the `policy` CLI to push a policy image to a policy registry.
+
+```bash
+policy push my-org/my-policy:v0.1.2
+```
+
+### Pull
+
+Using the `policy` CLI, you can pull a policy image from a Policy Repository just like you pull a docker image.
+
+```bash
+policy pull my-org/my-policy:v0.1.2
+```
 
 ---
 
@@ -75,20 +80,37 @@ The secret is a JSON object that looks like this:
 
 ### Run
 
-You can run a policy image, which loads it into an **Authorizer** instance.
+To run a policy, you need to create a **policy instance** which is an instance of the decision engine's runtime associated with a tagged version of a policy. You can create multiple policy instances, each associated with a different version of a policy.
 
-:::note
-Currently, Authorizers will automatically load and run the latest policy version stored in the
-Policy Registry. In the future, Authorizers will be able to load run an explicit version of a policy image.
-:::
+To create a policy instance, open the "Policies" tab in the Aserto console, and click "Create an instance":
+
+<img src="/create-instance-button.png" width="170" />
+
+Next, you'll be prompted to select a policy registry:
+
+<img src="/select-policy-registry.png" width="500px" />
+
+Select the policy registry you'd like to use from the dropdown.
+
+Then, you'll be prompted to select a Policy organization. Choose the organization under which you created your repository.
+
+<img src="/select-policy-organization.png" width="500px" />
+
+Next, select the policy repository you want to associate with the policy instance.
+
+<img src="/select-policy-repository.png" width="500px" />
+
+Select the tag you'd like to associate with the policy instance.
+
+<img src="/select-policy-tag.png" width="500px" />
+
+Finally, name your policy instance and click "Create an instance".
+
+<img src="/name-policy-instance.png" width="500px" />
 
 ### Consume
 
-An application that wants to authorize a user's access to a resource based on the policy can call the Authorizer,
-passing it the policy, decision(s), user context, and resource context, and the Authorizer will evaluate the
-policy with the provided inputs and returns the boolean value(s) of the requested decision(s), allowing the
-application to definitively check whether the user has access to the resource based on the given policy.
+An application that wants to authorize a user's access to a resource based on the policy can call the policy instance, passing it the policy, decision(s), user context, and resource context, and the policy instance will evaluate the policy with the provided inputs and returns the boolean value(s) of the requested decision(s), allowing the application to definitively check whether the user has access to the resource based on the given policy.
 
 The [`authz.is`](/docs/authorizer-guide/is) API is the underlying mechanism for an application to call the
-Authorizer to make a decision. The [language SDKs](/docs/software-development-kits/overview) provide higher-level abstractions for interacting
-with the authorizer.
+policy instance to make a decision. The [language SDKs](/docs/software-development-kits/overview) provide higher-level abstractions for interacting with policy instances.
