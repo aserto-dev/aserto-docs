@@ -1,13 +1,16 @@
 ---
 sidebar_label: Directory
+title: Directory
+description: Documentation for the Directory API
 ---
 
 # Directory
 
-The Authorizer makes two APIs available to the calling application for the purpose of 
+The Authorizer makes two APIs available to the calling application for the purpose of
 interacting with the Edge Directory Service:
-* `dir/users`
-* `dir/users/{id}`
+
+- `dir/users`
+- `dir/users/{id}`
 
 Each of these APIs is a `GET` style API.
 
@@ -19,9 +22,9 @@ This will return a list of all users in the system.
 
 ### parameters
 
-* `page.size=<number>`: the number of results to return in a page
-* `page.token=<token>`: a token to use as the beginning of the next page (obtained from a previous call)
-* `fields.mask=<field1>,<field2>`: the set of fields to return (defaults to ALL if unspecified)
+- `page.size=<number>`: the number of results to return in a page
+- `page.token=<token>`: a token to use as the beginning of the next page (obtained from a previous call)
+- `fields.mask=<field1>,<field2>`: the set of fields to return (defaults to ALL if unspecified)
 
 ### results
 
@@ -46,7 +49,7 @@ This will return the details of a user entry in the Edge Directory Service, by i
 
 ### parameters
 
-* `fields.mask=<field1>,<field2>`: the set of fields to return (defaults to ALL if unspecified)
+- `fields.mask=<field1>,<field2>`: the set of fields to return (defaults to ALL if unspecified)
 
 ### results
 
@@ -73,4 +76,3 @@ This will return the details of a user entry in the Edge Directory Service, by i
   }
 }
 ```
-
