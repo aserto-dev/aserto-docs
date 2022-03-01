@@ -1,11 +1,13 @@
 ---
 sidebar_label: query API
+title: query API
+description: The query API
 ---
 
 # authz/query
 
-The `query` API is the most abstract API for interacting with the Authorizer. It allows the caller to 
-send a general query to the Authorizer, along with an input, and returns the output from the 
+The `query` API is the most abstract API for interacting with the Authorizer. It allows the caller to
+send a general query to the Authorizer, along with an input, and returns the output from the
 Authorizer.
 
 ## URL
@@ -19,11 +21,9 @@ Authorizer.
   "identityContext": {
     "identity": "[aserto-user-guid]",
     "type": "IDENTITY_TYPE_*"
-  }, 
+  },
   "policyContext": {
-    "decisions": [
-      "string"
-    ],
+    "decisions": ["string"],
     "id": "string",
     "path": "string"
   },
@@ -49,18 +49,19 @@ The `policyContext` map is documented [here](/docs/authorizer-guide/policy-conte
 
 The `resourceContext` map is documented [here](/docs/authorizer-guide/resource-context).
 
-The `input` parameter is a string that encodes a JSON document, and is mapped into the `input` in the context of 
+The `input` parameter is a string that encodes a JSON document, and is mapped into the `input` in the context of
 evaluating the policy.
 
-The `query` parameter is a rego query that is evaluated over the policy. 
+The `query` parameter is a rego query that is evaluated over the policy.
 
-The `options` map allows the caller to instrument the query, retrieve metrics, set a trace level, and 
+The `options` map allows the caller to instrument the query, retrieve metrics, set a trace level, and
 get a trace summary.
 
 ### Trace levels
 
 The trace levels can be one of the following values:
-* TRACE_LEVEL_OFF
-* TRACE_LEVEL_FULL
-* TRACE_LEVEL_NOTES
-* TRACE_LEVEL_FAIL
+
+- TRACE_LEVEL_OFF
+- TRACE_LEVEL_FULL
+- TRACE_LEVEL_NOTES
+- TRACE_LEVEL_FAIL

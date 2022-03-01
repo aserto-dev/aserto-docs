@@ -1,20 +1,22 @@
 ---
 sidebar_label: Policy Lifecycle
+title: Overview - Policy Lifecycle
+description: The Aserto Policy Lifecycle - an Overview
 ---
 
 # Policy Lifecycle
 
-## Policy 
+## Policy
 
-At the core of Aserto’s authorization model is an authorization policy, which we refer to simply 
+At the core of Aserto’s authorization model is an authorization policy, which we refer to simply
 as a **Policy**. Policies are authored in a textual language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/),
-defined as part of the [Open Policy Agent](https://www.openpolicyagent.org/) (OPA) project in the 
-[Cloud Native Computing Foundation](https://www.cncf.io/). Policies are treated just like application code or 
+defined as part of the [Open Policy Agent](https://www.openpolicyagent.org/) (OPA) project in the
+[Cloud Native Computing Foundation](https://www.cncf.io/). Policies are treated just like application code or
 infrastructure-as-code - they are stored and versioned in a git repository.
 
 ## The policy lifecycle
 
-Policies are **authored** using a text / code editor, **built** into an image, **published** to a repository hosted on 
+Policies are **authored** using a text / code editor, **built** into an image, **published** to a repository hosted on
 a registry, **run** in an Authorizer, and **consumed** by an application.
 
 ![Policy as code](/policy-as-code.png)
@@ -23,17 +25,17 @@ Aserto's control plane helps manage the policy lifecycle.
 
 ### Author
 
-Policies are comprised of a collection of `.rego` files and `.json` files, which provide static data that 
+Policies are comprised of a collection of `.rego` files and `.json` files, which provide static data that
 can be part of the policy.
 
-### Build 
+### Build
 
-The set of source files that comprise a policy are built into a **Policy Image** using a set of tools that 
-are modeled after the `docker` toolset.  You can build and tag a policy just like you build and tag a docker image.
+The set of source files that comprise a policy are built into a **Policy Image** using a set of tools that
+are modeled after the `docker` toolset. You can build and tag a policy just like you build and tag a docker image.
 
 :::note
-Currently, the Aserto control plane wires up directly to a git repository that contains policy files, and 
-does not expose the policy image directly. A GitHub **build action** automatically builds a new version of 
+Currently, the Aserto control plane wires up directly to a git repository that contains policy files, and
+does not expose the policy image directly. A GitHub **build action** automatically builds a new version of
 a policy image when the source repository is **tagged** with a new tag:
 :::
 
@@ -42,15 +44,15 @@ git commit -am 'new policy version'
 git tag v0.1.2 && git push --tags
 ```
 
-### Publish 
+### Publish
 
 You can push a policy image to a **Policy Repository**, which is hosted in a **Policy Registry**, such as `registry.prod.aserto.com`.
 
 You can pull a policy image from a Policy Repository just like you pull a docker image.
 
 :::note
-Currently, the Aserto Policy Registry is not exposed using a public API. The GitHub action will build 
-a policy image and push it to the Aserto Policy Registry when the repo is tagged. In the future, the Policy 
+Currently, the Aserto Policy Registry is not exposed using a public API. The GitHub action will build
+a policy image and push it to the Aserto Policy Registry when the repo is tagged. In the future, the Policy
 Registry will support a set of public operations very similar to a Docker registry.
 :::
 
@@ -72,20 +74,20 @@ The secret is a JSON object that looks like this:
 
 ### Run
 
-You can run a policy image, which loads it into an **Authorizer** instance.  
+You can run a policy image, which loads it into an **Authorizer** instance.
 
 :::note
-Currently, Authorizers will automatically load and run the latest policy version stored in the  
+Currently, Authorizers will automatically load and run the latest policy version stored in the
 Policy Registry. In the future, Authorizers will be able to load run an explicit version of a policy image.
 :::
 
 ### Consume
 
-An application that wants to authorize a user's access to a resource based on the policy can call the Authorizer, 
-passing it the policy, decision(s), user context, and resource context, and the Authorizer will evaluate the 
-policy with the provided inputs and returns the boolean value(s) of the requested decision(s), allowing the 
+An application that wants to authorize a user's access to a resource based on the policy can call the Authorizer,
+passing it the policy, decision(s), user context, and resource context, and the Authorizer will evaluate the
+policy with the provided inputs and returns the boolean value(s) of the requested decision(s), allowing the
 application to definitively check whether the user has access to the resource based on the given policy.
 
-The [`authz.is`](/docs/authorizer-guide/is) API is the underlying mechanism for an application to call the 
+The [`authz.is`](/docs/authorizer-guide/is) API is the underlying mechanism for an application to call the
 Authorizer to make a decision. The [language SDKs](/docs/software-development-kits/overview) provide higher-level abstractions for interacting
 with the authorizer.

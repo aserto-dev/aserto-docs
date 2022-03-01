@@ -1,5 +1,7 @@
 ---
 sidebar_label: Conditional UI Rendering
+title: Quickstart - React and Express.js - Conditional UI Rendering
+description: React and Express.js quickstart - Conditional UI Rendering in the React application
 ---
 
 # Conditional UI Rendering
@@ -100,19 +102,19 @@ Aserto provides a utility called Display State Map that will return the `visible
 Change the line:
 
 ```javascript
-const { jwtAuthz } = require("express-jwt-aserto");
+const { jwtAuthz } = require('express-jwt-aserto')
 ```
 
 to:
 
 ```javascript
-const { displayStateMap, jwtAuthz } = require("express-jwt-aserto");
+const { displayStateMap, jwtAuthz } = require('express-jwt-aserto')
 ```
 
 After the `app.use(cors())` statement, add the following line:
 
 ```javascript
-app.use(displayStateMap(authzOptions));
+app.use(displayStateMap(authzOptions))
 ```
 
 ## Update the Application
@@ -126,7 +128,7 @@ yarn add @aserto/aserto-react
 In `src/index.js` add the following dependency after the `oidc-react` dependency:
 
 ```javascript
-import { AsertoProvider } from "@aserto/aserto-react";
+import { AsertoProvider } from '@aserto/aserto-react'
 ```
 
 We'll wrap the `<App />` component with the `<AsertoProvider>` provider:
@@ -145,21 +147,21 @@ In `App.js`, we’ll add the `useAserto` hook, as well as a stateful object that
 Add the `useAserto` hook dependency below the `useAuth` dependency:
 
 ```javascript
-import { useAserto } from "@aserto/aserto-react";
+import { useAserto } from '@aserto/aserto-react'
 ```
 
 Then, find the code block:
 
 ```javascript
-const auth = useAuth();
-const isAuthenticated = auth.userData?.id_token ? true : false;
-const [message, setMessage] = useState(false);
+const auth = useAuth()
+const isAuthenticated = auth.userData?.id_token ? true : false
+const [message, setMessage] = useState(false)
 ```
 
 And add the following right after it:
 
 ```javascript
-const { init, loading, getDisplayState, error: asertoError } = useAserto();
+const { init, loading, getDisplayState, error: asertoError } = useAserto()
 ```
 
 We’ll add an effect to initialize the Aserto SDK. Add the following after the definition of the `accessSensitiveInformation` callback:
@@ -168,26 +170,26 @@ We’ll add an effect to initialize the Aserto SDK. Add the following after the 
 useEffect(() => {
   async function initAserto() {
     try {
-      const token = auth.userData?.id_token;
+      const token = auth.userData?.id_token
 
       if (token) {
         await init({
-          serviceUrl: "http://localhost:8080",
+          serviceUrl: 'http://localhost:8080',
           accessToken: token,
-          policyRoot: "asertodemo",
+          policyRoot: 'asertodemo',
           throwOnError: false,
-        });
+        })
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
   if (!asertoError && isAuthenticated) {
-    initAserto();
+    initAserto()
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [isAuthenticated, auth.userData?.id_token]);
+}, [isAuthenticated, auth.userData?.id_token])
 ```
 
 We’ll add some error handling - if the Aserto SDK ran into an error, we’ll display it and not render anything else. Add the following right after the effect we just added:
@@ -199,7 +201,7 @@ if (asertoError) {
       <h1>Error encountered</h1>
       <p>{asertoError}</p>
     </div>
-  );
+  )
 }
 ```
 
@@ -209,7 +211,7 @@ Next, we’ll add a to call `getDisplayState`:
 const displayState =
   loading || asertoError
     ? { visible: false, enabled: false }
-    : getDisplayState("GET", "/api/protected");
+    : getDisplayState('GET', '/api/protected')
 ```
 
 In case the SDK is not yet loaded or returns an error, the `displayState` variable will be set to `{ visible: false, enabled: false }`. If the SDK completed loading successfully, the `getDisplayState` function will retrieve the `visible` and `enabled` decisions for the HTTP method (`GET`) and the path (`/api/protected`).

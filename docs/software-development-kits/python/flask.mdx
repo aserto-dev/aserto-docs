@@ -1,5 +1,7 @@
 ---
 sidebar_label: Flask Middleware
+title: Aserto SDKs - Flask middleware - installation and setup
+description: Aserto SDKs - Flask middleware - Installing and using the Flask middleware
 ---
 
 # Flask Middleware
@@ -192,7 +194,7 @@ aserto.register_display_state_map(app, endpoint="custom_display_state_map_path")
 - `endpoint` (_optional_): Overrides the default endpoint name
 - `resource_context_provider` (\_optional): By default, the resource context will be the `POST` body
   of the request.
-  
+
   The `resource_context_provider` option can be used to override the default behavior.
   It must be a callable object which takes no arguments and returns a `dict`. The global `request` object provided
   by `Flask` can be used to access the route's request data if needed.
@@ -209,7 +211,7 @@ aserto.register_display_state_map(app, endpoint="custom_display_state_map_path")
 
 ## `check` function
 
-An alternative to the `authorize` decorator is the `check` function, which provides an explicit 
+An alternative to the `authorize` decorator is the `check` function, which provides an explicit
 mechanism for calling the Aserto authorizer.
 
 Use the `check` function to call the authorizer with a decision, policy, and resource, and get a boolean `True` or `False` response.
@@ -217,6 +219,7 @@ The decision is a named value in the policy: the string `allowed` is used by con
 Examples: `check("allowed")`, `check("enabled")`, `check("visible")`, etc.
 
 ### Example
+
 ```py
 from flask import Flask
 from flask.wrappers import Response

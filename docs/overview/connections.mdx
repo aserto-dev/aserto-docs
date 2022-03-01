@@ -1,45 +1,48 @@
 ---
 sidebar_label: Connections
+title: Overview - Connections
+description: Connections - types of connections and their purposes
 ---
 
 # Connections
 
-The Aserto Control Plane manages connections to external systems that are the source of 
+The Aserto Control Plane manages connections to external systems that are the source of
 Aserto artifacts.
 
 ## System and User connections
 
-There are two types of connections: system connections and user connections. 
+There are two types of connections: system connections and user connections.
 
-A system connection stores the connection between the tenant and other Aserto services, such as the policy registry and 
-the hosted authorizer. 
+A system connection stores the connection between the tenant and other Aserto services, such as the policy registry and
+the hosted authorizer.
 
-A user connection is one that the user has established between Aserto and one of their services. There 
-are two types of user connections currently supported: 
-* **IDP** (identity provider): this is a read-only connection between Aserto and an Identity Provider. Currently, Auth0 and Okta are supported.
-* **SCC** (source code control): this is a connection between Aserto and a source code control system. Currently, only GitHub is supported.
+A user connection is one that the user has established between Aserto and one of their services. There
+are two types of user connections currently supported:
+
+- **IDP** (identity provider): this is a read-only connection between Aserto and an Identity Provider. Currently, Auth0 and Okta are supported.
+- **SCC** (source code control): this is a connection between Aserto and a source code control system. Currently, only GitHub is supported.
 
 ## Providers
 
-A connection is an instance of a provider. Aserto supports a few providers, and this is a 
-key extensibility point for the architecture. 
+A connection is an instance of a provider. Aserto supports a few providers, and this is a
+key extensibility point for the architecture.
 
 ### Provider kinds
 
 Aserto supports a few kinds of providers:
-* IDP: identity providers
-* SCC: source code control systems
-* POLICY_REGISTRY: a policy registry provider
-* AUTHORIZER: an authorizer provider
 
-Every provider is an instance of a provider kind, and has expected semantics based on that provider kind. 
-For example, a SCC provider must support enumerating organizations, repositories, and cloning a 
+- IDP: identity providers
+- SCC: source code control systems
+- POLICY_REGISTRY: a policy registry provider
+- AUTHORIZER: an authorizer provider
+
+Every provider is an instance of a provider kind, and has expected semantics based on that provider kind.
+For example, a SCC provider must support enumerating organizations, repositories, and cloning a
 new repository based on an existing template repository.
 
 ## Creating connections
 
-Connections are created using the Aserto [Console](/docs/aserto-console/connections). Currently, a tenant 
-member can connect a source code control system (e.g. GitHub) as the source of Policy repositories, 
-and an identity provider (e.g. Auth0) as the source of users and user attributes that are managed 
+Connections are created using the Aserto [Console](/docs/aserto-console/connections). Currently, a tenant
+member can connect a source code control system (e.g. GitHub) as the source of Policy repositories,
+and an identity provider (e.g. Auth0) as the source of users and user attributes that are managed
 by the Aserto [directory](/docs/overview/directory).
-

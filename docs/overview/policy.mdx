@@ -1,10 +1,12 @@
 ---
 sidebar_label: Authorization Policy
+title: Overview - Authorization Policy
+description: The Aserto Authorization Policy - an Overview
 ---
 
 # Authorization Policy
 
-An authorization policy (or simply, a **policy**) is expressed in a declarative language called 
+An authorization policy (or simply, a **policy**) is expressed in a declarative language called
 [rego](https://www.openpolicyagent.org/docs/latest/policy-language/).
 
 A policy can include one or more `rego` files, and one or more JSON data files.
@@ -19,20 +21,20 @@ allowed {
 }
 ```
 
-:::note 
-In the rego file above, the `package` name follows the Aserto convention: 
+:::note
+In the rego file above, the `package` name follows the Aserto convention:
 
 `policy-root`.`HTTP method`.`HTTP route`
 :::
 
 ## Decision
 
-A *decision* is an output from the evaluation of a *policy*.  The policy above exports a 
-decision called `allowed`, and sets its value to `true`. 
+A _decision_ is an output from the evaluation of a _policy_. The policy above exports a
+decision called `allowed`, and sets its value to `true`.
 
-The policy below exports the same decision (`allowed`), has a default value of `false` for this 
-decision, and a rule that sets `allowed` to true only if the logged-in users's `department` attribute 
-is equal to `"Sales"`: 
+The policy below exports the same decision (`allowed`), has a default value of `false` for this
+decision, and a rule that sets `allowed` to true only if the logged-in users's `department` attribute
+is equal to `"Sales"`:
 
 ```rego
 package sample.GET.api.orders
@@ -46,10 +48,10 @@ allowed {
 
 ## User context
 
-In the policy above, we were able to use the `department` attribute to help compute the `allowed` 
-decision. This is an example of User context that is used in a policy.  If you hook up your 
-identity providers and/or directories to Aserto, it will automatically synchronize properties from 
+In the policy above, we were able to use the `department` attribute to help compute the `allowed`
+decision. This is an example of User context that is used in a policy. If you hook up your
+identity providers and/or directories to Aserto, it will automatically synchronize properties from
 these sources and make them available to your policies.
 
-In addition, you can create and manage extensions for users in the Aserto directory, on a global or 
+In addition, you can create and manage extensions for users in the Aserto directory, on a global or
 per-application basis.

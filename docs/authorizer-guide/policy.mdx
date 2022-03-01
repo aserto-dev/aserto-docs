@@ -1,14 +1,17 @@
 ---
 sidebar_label: Policy
+title: Policy API
+description: The Policy API
 ---
 
 # Policy
 
-The Authorizer makes three APIs available to the calling application for the purpose of 
+The Authorizer makes three APIs available to the calling application for the purpose of
 interacting with the Policies modules that are loaded in the Authorizer:
-* `policy/policies`
-* `policy/policies/{id}`
-* `policy/modules/{id}`
+
+- `policy/policies`
+- `policy/policies/{id}`
+- `policy/modules/{id}`
 
 Each of these APIs is a `GET` style API.
 
@@ -39,7 +42,7 @@ This will return a list of all the policies loaded in the Authorizer.
 
 `GET .../api/v1/policy/policies/{id}`
 
-This will return the list of policy modules for the policy ID specified, which is extracted from the 
+This will return the list of policy modules for the policy ID specified, which is extracted from the
 results of the `/policy/policies` call.
 
 ### results
@@ -66,7 +69,7 @@ results of the `/policy/policies` call.
 
 `GET .../api/v1/policy/modules/{id}`
 
-This will return the content of the policy module ID specified, which is extracted from the results of 
+This will return the content of the policy module ID specified, which is extracted from the results of
 the `/policy/policies/{id}` call.
 
 ### results
@@ -77,14 +80,7 @@ the `/policy/policies/{id}` call.
     "id": "YXNlcnRvMS9wZW9wbGVmaW5kZXIvdXNlcnMvcG9zdC5yZWdv",
     "name": "peoplefinder.POST.api.users",
     "content": "package peoplefinder.POST.api.users\n\ndefault allowed = false\n\ndefault visible = false\n\ndefault enabled = false\n\nallowed {\n\tu = input.user\n\tu.attributes.properties.department == \"Operations\"\n\tu.attributes.properties.title == \"IT Manager\"\n}\n\nvisible {\n\tallowed\n}\n\nenabled {\n\tallowed\n}\n",
-    "rules": [
-      "allowed",
-      "visible",
-      "enabled",
-      "allowed",
-      "visible",
-      "enabled"
-    ]
+    "rules": ["allowed", "visible", "enabled", "allowed", "visible", "enabled"]
   }
 }
 ```
