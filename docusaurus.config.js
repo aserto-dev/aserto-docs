@@ -30,7 +30,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
         {
           redirects: [
             {
-              to: '/docs',
+              to: '/docs/',
               from: '/'
             },
           ],
