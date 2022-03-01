@@ -30,6 +30,14 @@ or
 aserto-idp exec --from json --to aserto -c PATH_TO_CONFIG -n
 ```
 
+# Creating a dry-run of an IDP import
+
+To generate a JSON file containing all the users that would be imported from your IDP, use the command:
+
+```
+aserto-idp exec --from auth0 --to json -c PATH_TO_CONFIG
+```
+
 ## Deleting user data
 
 You can delete a user from aserto knowing its id and using the following:

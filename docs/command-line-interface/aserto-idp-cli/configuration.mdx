@@ -4,7 +4,7 @@ sidebar_label: Configuration
 
 # Configuration
 
-To configure the CLI plugins, create a YAML file with the following contents (including the information for the plugins you intend to use):
+To configure the CLI plugins, create a new directory in a location of your choice, and within it create a YAML file called `config.yaml` with the following contents (including the information for the plugins you intend to use):
 
 ```
 logging:
@@ -18,9 +18,9 @@ plugins:
     from-file: PATH_TO_FILE
     to-file: PATH_TO_OUTPUT_FILE
   aserto:
-    tenant: TENANT
+    tenant: TENANT_ID
     authorizer: AUTHORIZER
-    api-key: API_KEY
+    api-key: AUTHORIZER_API_KEY
   okta:
     domain: OKTA_DOMAIN
     api-token: TOKEN
