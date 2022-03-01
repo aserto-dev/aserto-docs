@@ -36,13 +36,16 @@ There are two paths for managing the lifecycle of a policy image:
 #### Login
 
 ```bash
-policy login -s <PATH-TO-REGISTRY> -u <USERNAME> -p <PASSWORD>
+policy login -s <PATH-TO-REGISTRY> -u <USERNAME> -p <ACPR_API_KEY>
 ```
 
-To connect to the Aserto container registry, use the path `registry.prod.aserto.com`.
+To connect to the Aserto Container Registry, use the path `registry.prod.aserto.com`.
+The APCR API Key is found in the Connections tab under the "apcr" connection:
+
+<img src="/apcr-api-key-copy.png" />
+
 
 #### Build
-
 To build a policy image, use the `policy build` command. Then, tag your built image by using the `policy tag` command.
 
 ```bash
@@ -82,7 +85,7 @@ git tag v0.1.2 && git push --tags
 Aserto can set up a secret for you when you create a new policy.
 You can also setup this secret yourself, using information from the **Policy Settings** tab in the Aserto Console.
 
-The secret is a JSON object that looks like this:
+The secret should be named `ASERTO_PUSH_KEY` and it should contain a JSON object that looks like this:
 
 ```json
 {
