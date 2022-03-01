@@ -26,8 +26,31 @@ plugins:
     api-token: TOKEN
 ```
 
-:::note
-The `authorizer` entry should be the address of your authorizer, appended with the port `8443`. For example, `authorizer.prod.aserto.com:8443`.
-:::
+## Configuration elements
 
-The possible logging levels values are: `trace`, `debug`, `warning` and `info`
+### General
+log_level: the possible logging level values are: `trace`, `debug`, `warning` and `info`
+
+### Auth0
+
+:::note:::
+These values should come from a machine-to-machine (M2M) application. To learn how to set one up in Auth0, refer to [this](/docs/getting-started-acmecorp/bring-your-own-idp/set-up-auth0) guide.
+:::note
+
+* domain: Auth0 domain
+* client-id: Auth0 client ID for a M2M application
+* client-secret: Auth0 client secret for the same M2M application
+
+### JSON
+
+* from-file: path to the JSON file users will be read from
+* to-file: path to the JSON file users will be written to
+
+### Aserto
+* tenant: the tenant ID for the account or organization
+* authorizer: the address of your authorizer, appended with the port 8443. For example, `authorizer.prod.aserto.com:8443`
+* api-key: the Authorizer API key (you can obtain this from the Authorizer connection in the console)
+
+### Okta
+* domain: the Okta machine-to-machine (M2M) Okta domain
+* api-token: the Okta machine-to-machine (M2M) Client Secret
