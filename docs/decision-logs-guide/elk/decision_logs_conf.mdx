@@ -1,8 +1,11 @@
 ---
 sidebar_label: decision_logs.conf
+title: Configuration file for Elasticsearch - decision logs
+description: Configuration file for Elasticsearch - decision logs
 ---
 
 # decision-logs.conf
+
 ```
 # use the file input to monitor the directory where we are dropping the files
 input {
@@ -26,7 +29,7 @@ filter {
   date {
     match => ["decision_time", "ISO8601"]
   }
-  
+
   # add user information by searching for the user_id field in the users index created
   # by the users.conf pipeline
   elasticsearch {
@@ -48,8 +51,8 @@ filter {
     target => "resource"
   }
 
-  # in this example, the resource is expected to have an 'id' field that references 
-  # a user, here we lookup the resource user id in the users index created by the 
+  # in this example, the resource is expected to have an 'id' field that references
+  # a user, here we lookup the resource user id in the users index created by the
   # users.conf pipeline and add it's email as a field of the new index entry.
   if [resource][id] {
     elasticsearch {

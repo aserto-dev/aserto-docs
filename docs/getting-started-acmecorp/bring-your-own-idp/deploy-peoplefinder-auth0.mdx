@@ -1,5 +1,7 @@
 ---
 sidebar_label: Deploy PeopleFinder
+title: Deploy PeopleFinder
+description: Deploy the PeopleFinder application
 ---
 
 # Deploy PeopleFinder bound to Auth0 as its IDP
@@ -9,7 +11,7 @@ Now that you have created the credentials needed, you’ll have to deploy a diff
 Scroll down to the Deployment section, which has a “Deploy to Netlify” button. Click this button to initiate the deployment to your Netlify account (if you don’t have one, you’ll be prompted to create one - it’s free and awesome!)
 
 [<img src="/peoplefinder-repo.png" width="400"/>](peoplefinder-repo.png)
- 
+
 You should see a screen like the following, which asks you to connect to your GitHub:
 
 ![netlify](/netlify.png)
@@ -18,10 +20,10 @@ Once you complete the OAuth2 flow and authorize Netlify, you’ll be able to con
 
 [<img src="/netlify-form.png" width="400"/>](/netlify-form.png)
 
-Replace the values for “Auth0 domain” and “Auth0 Client ID” with your Auth0 Single-Page Application information. 
+Replace the values for “Auth0 domain” and “Auth0 Client ID” with your Auth0 Single-Page Application information.
 
 :::danger Important note
-Make sure this is the SPA Client ID, not the Client ID for the Machine-to-Machine application we used in the first section.  Also, if you somehow used a value other than `https://express.sample` for your Auth0 API audience, make sure to match up the values in this form.
+Make sure this is the SPA Client ID, not the Client ID for the Machine-to-Machine application we used in the first section. Also, if you somehow used a value other than `https://express.sample` for your Auth0 API audience, make sure to match up the values in this form.
 :::
 
 The last two pieces of information are your Aserto tenant ID and Authorizer API key.
@@ -34,7 +36,7 @@ In the Aserto [console](https://console.aserto.com), click the “Policies” ta
 
 Copy Tenant ID, Authorizer API key, and Policy ID values and paste them into the Netlify form.
 
-Netlify is now hard at work cloning the PeopleFinder sample repo into your GitHub account, and deploying a new site to your Netlify account, setting up a CI/CD experience for that site. 
+Netlify is now hard at work cloning the PeopleFinder sample repo into your GitHub account, and deploying a new site to your Netlify account, setting up a CI/CD experience for that site.
 
 ## Testing the PeopleFinder application
 
@@ -44,5 +46,5 @@ When Netlify is done deploying your site, click on the deployed PeopleFinder URL
 
 ## Next steps
 
-From here, please refer to the [Explore PeopleFinder](/docs/getting-started-acmecorp/explore-peoplefinder) topic to 
+From here, please refer to the [Explore PeopleFinder](/docs/getting-started-acmecorp/explore-peoplefinder) topic to
 explore how PeopleFinder uses Aserto for authorizing its operations.

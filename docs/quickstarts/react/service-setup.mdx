@@ -1,5 +1,7 @@
 ---
 sidebar_label: Service setup
+title: Quickstart - React and Express.js - Service setup
+description: React and Express.js quickstart - Setting up the Express.js Service
 ---
 
 # Service Setup
@@ -22,12 +24,12 @@ AUDIENCE=acmecorp-app
 In the `service` folder, Create a file called `api.js` - that will be our server. To this file, we'll add the following dependencies:
 
 ```javascript
-require("dotenv").config();
-const express = require("express");
-const jwt = require("express-jwt");
-const jwksRsa = require("jwks-rsa");
-const cors = require("cors");
-const app = express();
+require('dotenv').config()
+const express = require('express')
+const jwt = require('express-jwt')
+const jwksRsa = require('jwks-rsa')
+const cors = require('cors')
+const app = express()
 ```
 
 In the next section we define the middleware function which will call our identity provider to verify the validity of the JWT (and also enable CORS): Express.js will pass the call to the `checkJwt` middleware which will determine whether the JWT sent to it is valid or not. If it is not valid, Express.js will return a 403 (Forbidden) response.
@@ -47,26 +49,26 @@ const checkJwt = jwt({
   // Validate the audience and the issuer
   audience: process.env.AUDIENCE,
   issuer: process.env.ISSUER,
-  algorithms: ["RS256"],
-});
+  algorithms: ['RS256'],
+})
 ```
 
 Lastly, we set up a protected route which will use the `checkJwt` middleware:
 
 ```javascript
 // Enable CORS
-app.use(cors());
+app.use(cors())
 
 // Protected API endpoint
-app.get("/api/protected", checkJwt, function (req, res) {
+app.get('/api/protected', checkJwt, function (req, res) {
   //send the response
   res.json({
-    secretMessage: "Here you go, very sensitive information for ya!",
-  });
-});
+    secretMessage: 'Here you go, very sensitive information for ya!',
+  })
+})
 
 // Launch the API Server at localhost:8080
-app.listen(8080);
+app.listen(8080)
 ```
 
 Awesome! our service will be listening on port 8080 and we set up a protected endpoint. In the [next section](update-the-application) we'll test this endpoint by updating our application to send a JWT token.

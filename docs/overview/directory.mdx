@@ -1,43 +1,45 @@
 ---
 sidebar_label: User Directory
+title: Overview - User Directory
+description: The User Directory - an Overview
 ---
 
 # Aserto Directory
 
-The Aserto Directory collects user information from identity providers that the user has 
-[connected](/docs/overview/connections) to the control plane, and makes that user information available 
-to Authorizer instances. 
+The Aserto Directory collects user information from identity providers that the user has
+[connected](/docs/overview/connections) to the control plane, and makes that user information available
+to Authorizer instances.
 
 ## Tenant Directory
 
-Each tenant has an isolated directory that is scoped to that tenant. The tenant directory is shared 
+Each tenant has an isolated directory that is scoped to that tenant. The tenant directory is shared
 across policies.
 
 ## Authorizer Directory (EDS)
 
-Each Authorizer instance has its own clone of the tenant directory, known as the Edge Directory Service (EDS). 
-Authorizers use the EDS for real-time access to user attributes, roles, and scopes, that can be specified 
+Each Authorizer instance has its own clone of the tenant directory, known as the Edge Directory Service (EDS).
+Authorizers use the EDS for real-time access to user attributes, roles, and scopes, that can be specified
 in policies to help make authorization decisions.
 
-Aserto transparently synchronizes changes from the source identity providers (e.g. Auth0) to the tenant 
-directory, and from the tenant directory to each of the Edge Directory Services that live with the 
+Aserto transparently synchronizes changes from the source identity providers (e.g. Auth0) to the tenant
+directory, and from the tenant directory to each of the Edge Directory Services that live with the
 Authorizers.
 
 ## User Context
 
-Policies can reference [user context](/docs/overview/policy#user-context). A calling application can 
+Policies can reference [user context](/docs/overview/policy#user-context). A calling application can
 provide the [identity context](/docs/authorizer-guide/identity-context) which is used to load that user context.
 
-The Authorizer will look up the user identity in its local Edge Directory Service  (EDS). It will then 
+The Authorizer will look up the user identity in its local Edge Directory Service (EDS). It will then
 load the user context and make it available to the Policy as `input.user`.
 
 ## Directory extensions
 
-The Aserto Directory stores a read-only replica of the user data it receives (and merges) from various 
-identity providers. It also allows administrators and applications to extend these user records with 
-custom attributes (**properties**, **roles**, and **scopes**) - both at the user level, as well as 
+The Aserto Directory stores a read-only replica of the user data it receives (and merges) from various
+identity providers. It also allows administrators and applications to extend these user records with
+custom attributes (**properties**, **roles**, and **scopes**) - both at the user level, as well as
 per-application.
 
-These extensions allow an organization to add additional attributes to their users without having to 
-model them in the identity provider. The application-specific extensions allow specific applications to 
+These extensions allow an organization to add additional attributes to their users without having to
+model them in the identity provider. The application-specific extensions allow specific applications to
 add attributes (properties, roles, and scopes) that make sense in the context of those applications.

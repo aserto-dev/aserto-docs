@@ -1,5 +1,7 @@
 ---
 sidebar_label: Update the application
+title: Quickstart - React and Express.js - Update the application
+description: React and Express.js quickstart - Update the application to include a full authentication flow
 ---
 
 # Update the application
@@ -9,13 +11,13 @@ To test this endpoint we're going to have to make sure the React app actually se
 At the top of the file, modify the line :
 
 ```javascript
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react'
 ```
 
 to:
 
 ```javascript
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState } from 'react'
 ```
 
 Then, find the following code block:
@@ -29,30 +31,30 @@ function App() {
 And add the following code right after the definition for the `isAuthenticated` variable:
 
 ```javascript
-const [message, setMessage] = useState(false);
+const [message, setMessage] = useState(false)
 const accessSensitiveInformation = useCallback(async () => {
   try {
     if (!auth.isLoading) {
-      const accessToken = auth.userData?.id_token;
-      const sensitiveInformationURL = `${process.env.REACT_APP_API_ORIGIN}/api/protected`;
+      const accessToken = auth.userData?.id_token
+      const sensitiveInformationURL = `${process.env.REACT_APP_API_ORIGIN}/api/protected`
       const sensitiveDataResponse = await fetch(sensitiveInformationURL, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-      });
+      })
 
       try {
-        const res = await sensitiveDataResponse.json();
-        setMessage(res.secretMessage);
+        const res = await sensitiveDataResponse.json()
+        setMessage(res.secretMessage)
       } catch (e) {
         //In case no access is given, the response will return 403 and not return a JSON response
-        setMessage(sensitiveDataResponse.status);
+        setMessage(sensitiveDataResponse.status)
       }
     }
   } catch (e) {
-    console.log(e.message);
+    console.log(e.message)
   }
-}, [auth.isLoading, auth.userData?.id_token]);
+}, [auth.isLoading, auth.userData?.id_token])
 ```
 
 In this portion of the code we create a callback (which will be triggered by a button). The callback will first get our JWT token from the identity provider, using the `auth` object that is obtained from the `useAuth` hook. Then we perform the call to our service sending the authorization token as part of our request's headers (fetch).

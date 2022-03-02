@@ -1,22 +1,25 @@
 ---
 sidebar_label: OneBox
+title: Local Developer Experience (OneBox)
+description: Using the local developer experience (OneBox) and the Aserto CLI
 ---
 
 # Local developer experience (OneBox)
 
-Aserto's authorizer is available as a docker container that you can run locally. 
+Aserto's authorizer is available as a docker container that you can run locally.
 This "all-in-one" version of the Aserto Authorizer is referred to as the **OneBox**.
 
 The CLI provides a management experience over the OneBox.
 
 :::note
-The OneBox requires `docker` to be installed and running. 
+The OneBox requires `docker` to be installed and running.
 To install Docker on a Mac or Linux system: `brew install --cask docker`
 :::
 
 To get started with the OneBox, you can pull it down using the Aserto CLI.
 
 Sign in to your Aserto account:
+
 ```bash
 aserto login
 ```
@@ -24,24 +27,24 @@ aserto login
 The following command will pull down the latest `aserto-one` docker image.
 
 ```bash
-aserto developer install  
+aserto developer install
 ```
 
-The next command will pull down the configuration for a policy that you've set up in the console, using 
+The next command will pull down the configuration for a policy that you've set up in the console, using
 the name you gave it (in the example below, `peoplefinder`).
 
 ```bash
-aserto developer configure peoplefinder 
+aserto developer configure peoplefinder
 ```
 
 The following command will `docker run` a local container with the `peoplefinder` policy configuration:
 
 ```bash
-aserto developer start peoplefinder 
+aserto developer start peoplefinder
 ```
 
-You can use the next command to open a browser window that shows a local version of the console, to 
-see what policies and users the local authorizer has. It also has a Rego playground and an API explorer 
+You can use the next command to open a browser window that shows a local version of the console, to
+see what policies and users the local authorizer has. It also has a Rego playground and an API explorer
 that allow you to experiment with the Aserto authorization system.
 
 ```bash

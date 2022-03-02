@@ -1,18 +1,21 @@
 ---
 sidebar_label: Policy Context
+title: Policy Context
+description: The Policy Context
 ---
 
 # Policy Context
 
-The `authz.is`, `authz.decisiontree`, and `authz.query` APIs take a Policy Context argument from the calling application. 
+The `authz.is`, `authz.decisiontree`, and `authz.query` APIs take a Policy Context argument from the calling application.
 
-This parameter identifies the policy and decision(s) to evaluate. 
+This parameter identifies the policy and decision(s) to evaluate.
 
 The policy bundle is identified by the policy `id`, the policy within the bundle by the `path` and the `decisions` array denotes one ore more decisions to be made by the authorizer.
 
 ## Setting the Policy Context
 
 `POST .../api/v1/authz/is`
+
 ```json
 {
   "policyContext": {
@@ -25,8 +28,8 @@ The policy bundle is identified by the policy `id`, the policy within the bundle
 }
 ```
 
-The policy context above will evaluate the `allowed` decision for the policy module 
-`sample.GET.api.orders`. 
+The policy context above will evaluate the `allowed` decision for the policy module
+`sample.GET.api.orders`.
 
 For the following Rego package:
 
@@ -56,6 +59,7 @@ Calling `is` with the above payload will return the following response:
 The common usage for `policyContext` in the `decisiontree` API is to identify the policy ID and the policy root.
 
 `POST .../api/v1/authz/decisiontree`
+
 ```json
 {
   "policyContext": {
@@ -69,7 +73,7 @@ The common usage for `policyContext` in the `decisiontree` API is to identify th
 }
 ```
 
-This call will evaluate all paths under the "sample" root, and return the values of the "visible" and "enabled" decisions 
+This call will evaluate all paths under the "sample" root, and return the values of the "visible" and "enabled" decisions
 using the `identityContext` and `resourceContext` that may also be passed in.
 
 ## Policy context for `query`
@@ -78,6 +82,5 @@ The Policy ID can be used to evaluate the query in the context of a particular p
 
 ## Policy context in `input`
 
-The `policyContext` passed in will be available to the policy as `input.policy`. You can write a generic policy 
+The `policyContext` passed in will be available to the policy as `input.policy`. You can write a generic policy
 that can reason about which specific policy it is being evaluated over.
-
