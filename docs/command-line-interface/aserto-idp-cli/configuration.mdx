@@ -1,0 +1,56 @@
+---
+sidebar_label: Configuration
+---
+
+# Configuration
+
+To configure the CLI plugins, create a new directory in a location of your choice, and within it create a YAML file called `config.yaml` with the following contents (including the information for the plugins you intend to use):
+
+```
+logging:
+  log_level: LEVEL
+plugins:
+  auth0:
+    domain: DOMAIN
+    client-id: ID
+    client-secret: SECRET
+  json:
+    from-file: PATH_TO_FILE
+    to-file: PATH_TO_OUTPUT_FILE
+  aserto:
+    tenant: TENANT_ID
+    authorizer: AUTHORIZER
+    api-key: AUTHORIZER_API_KEY
+  okta:
+    domain: OKTA_DOMAIN
+    api-token: TOKEN
+```
+
+## Configuration elements
+
+### General
+log_level: the possible logging level values are: `trace`, `debug`, `warning` and `info`
+
+### Auth0
+
+:::note:::
+These values should come from a machine-to-machine (M2M) application. To learn how to set one up in Auth0, refer to [this](/docs/getting-started-acmecorp/bring-your-own-idp/set-up-auth0) guide.
+:::note
+
+* domain: Auth0 domain
+* client-id: Auth0 client ID for a M2M application
+* client-secret: Auth0 client secret for the same M2M application
+
+### JSON
+
+* from-file: path to the JSON file users will be read from
+* to-file: path to the JSON file users will be written to
+
+### Aserto
+* tenant: the tenant ID for the account or organization
+* authorizer: the address of your authorizer, appended with the port 8443. For example, `authorizer.prod.aserto.com:8443`
+* api-key: the Authorizer API key (you can obtain this from the Authorizer connection in the console)
+
+### Okta
+* domain: the Okta machine-to-machine (M2M) Okta domain
+* api-token: the Okta machine-to-machine (M2M) Client Secret

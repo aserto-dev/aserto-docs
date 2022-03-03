@@ -1,0 +1,96 @@
+---
+sidebar_label: Plugins
+---
+
+# Plugins
+
+The `aserto-idp` CLI includes a collections of plugins, each supporting a different identity provider format.
+
+The plugins will be downloaded on the system in a directory under the following path: `$HOME/.aserto/idpplugins` .
+
+Currently, the available plugins are:
+
+- aserto
+- okta
+- json
+- auth0
+
+The plugins can be downloaded in 2 ways:
+
+- using the `get-plugin` command
+- calling the `exec` or `delete` command with the name of a plugin that is not on the system (this will automatically download the latest version of that plugin).
+
+## Get a plugin
+
+To download the latest version of a plugin:
+
+```
+aserto-idp get-plugin aserto
+```
+
+or
+
+```
+aserto-idp get-plugin aserto:latest
+```
+
+To download a specific version of a plugin:
+
+```
+aserto-idp get-plugin aserto:1.0.1
+```
+
+:::note
+If you don't download the plugins before using the `aserto-idp exec` command, the CLI will automatically download the plugins required to complete the operation.
+:::
+
+## Listing plugins
+
+To see the plugins that are downloaded on the system and their version, the `list-plugins` command can be used.
+
+To list plugins that are currently on the system:
+
+```
+aserto-idp list-plugins
+```
+
+The output will be similar to:
+
+```
+    auth0:v0.0.7
+    json:0.0.11
+    okta:0.0.23
+    aserto:0.0.11
+```
+
+To list plugins and versions that are available remotely and can be downloaded:
+
+```
+aserto-idp list-plugins --remote
+```
+
+The output will be similar to:
+
+```
+Available versions for 'okta'
+*        okta:0.0.23
+         okta:0.0.22
+         okta:0.0.21
+         okta:0.0.20
+
+Available versions for 'json'
+         json:0.0.12
+*        json:0.0.11
+         json:0.0.10
+
+Available versions for 'auth0'
+         auth0:0.0.7
+         auth0:0.0.6
+         auth0:0.0.5
+
+Available versions for 'aserto'
+*        aserto:0.0.11
+         aserto:0.0.10
+```
+
+where `*` symbolize the version that is currently on the system.
