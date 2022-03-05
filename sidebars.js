@@ -95,7 +95,7 @@ module.exports = {
           collapsed: false,
           items: [
             'decision-logs-guide/api/overview',
-            'decision-logs-guide/api/decision_logs',
+            'decision-logs-guide/api/decision-logs',
             'decision-logs-guide/api/users',
             'decision-logs-guide/api/query',
           ],
@@ -107,8 +107,8 @@ module.exports = {
           collapsed: false,
           items: [
             'decision-logs-guide/elk/configure',
-            'decision-logs-guide/elk/decision_logs_conf',
-            'decision-logs-guide/elk/users_conf',
+            'decision-logs-guide/elk/decision-logs-conf',
+            'decision-logs-guide/elk/users-conf',
           ],
         },
       ],
