@@ -84,31 +84,31 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
               label: "Documentation",
             },
             {
-              to: "https://aserto.com/#the-solution",
+              to: "https://www.aserto.com/#the-solution",
               position: "left",
               label: "Product",
               target: "_self",
             },
             {
-              to: "https://aserto.com/playground",
+              to: "https://www.aserto.com/playground",
               position: "left",
               label: "Playground",
               target: "_self",
             },
             {
-              to: "https://aserto.com/blog",
+              to: "https://www.aserto.com/blog",
               label: "Blog",
               position: "left",
               target: "_self",
             },
             {
-              to: "https://aserto.com/about",
+              to: "https://www.aserto.com/about",
               label: "About",
               position: "left",
               target: "_self",
             },
             {
-              to: "https://aserto.com/careers",
+              to: "https://www.aserto.com/careers",
               label: "Careers",
               position: "left",
               target: "_self",
@@ -152,19 +152,19 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
               items: [
                 {
                   label: "Benefits",
-                  to: "https://aserto.com/#the-solution",
+                  to: "https://www.aserto.com/#the-solution",
                 },
                 {
                   label: "Case Studies",
-                  to: "https://aserto.com/casestudies",
+                  to: "https://www.aserto.com/casestudies",
                 },
                 {
                   label: "Pricing",
-                  to: "https://aserto.com/pricing",
+                  to: "https://www.aserto.com/pricing",
                 },
                 {
                   label: "FAQ",
-                  to: "https://aserto.com/faq",
+                  to: "https://www.aserto.com/faq",
                 },
               ],
             },
