@@ -1,0 +1,143 @@
+---
+sidebar_label: Discovery Flow
+title: Satellites - Discovery Flow
+description: Discovery flow of authorizer satellites
+---
+
+# Discovery Flow
+
+When a new satellite is started, the discovery flow will be initiated:
+
+<img src="/discovery-bootstrap.png" />
+
+1. A configuration file (config.yaml) is passed to the authorizer when it is started
+2. The authorizer makes a discovery call to the control plane, passing the policy ID, authorizer API key, and tenant ID.
+3. The authorizer receives a response from the control plane including the configuration that the satellite will need pointing it to the specific policy bundle.
+4. The authorizer validates and merges configuration settings
+5. Finally, the authorizer creates a runtime configuration
+
+## Configuration
+
+You'll need to retrieve the following credentials for the configuration file required for starting the authorizer:
+
+1. The discovery API key is located on the [connections tab](https://console.aserto.com/ui/connections), under system connections. Click on the “discovery” connection to expose the information associated with the connection.
+
+<img src="/discovery-api-key.png" />
+
+2. The tenant and policy identifiers can be retrieved from the Policy Settings page of the policy instance which needs to get assigned to the satellite instance.
+
+<img src="/policy-and-tenant-ids.png" />
+
+These credentials map into the `config.yaml` file which we need to bootstrap the satellite.
+
+```yaml
+---
+logging:
+  prod: true
+  log_level: info
+
+directory_service:
+  path: /app/db/directory.db
+
+api:
+  grpc:
+    connection_timeout_seconds: 2
+    listen_address: '0.0.0.0:8282'
+    certs:
+      tls_key_path: '/app/certs/grpc.key'
+      tls_cert_path: '/app/certs/grpc.crt'
+      tls_ca_cert_path: '/app/certs/grpc-ca.crt'
+  gateway:
+    listen_address: '0.0.0.0:8383'
+    allowed_origins:
+      - https://*.mydomain.com
+    certs:
+      tls_key_path: '/app/certs/gateway.key'
+      tls_cert_path: '/app/certs/gateway.crt'
+      tls_ca_cert_path: '/app/certs/gateway-ca.crt'
+  health:
+    listen_address: '0.0.0.0:8484'
+
+opa:
+  instance_id: <TENANT_ID>
+  graceful_shutdown_period_seconds: 2
+  config:
+    services:
+      aserto-tenant:
+        url: https://tenant.prod.aserto.com/api/v1/tenant/policies
+        credentials:
+          bearer:
+            token: '<DISCOVERY_API_KEY>'
+            scheme: 'basic'
+        headers:
+          Aserto-Tenant-Id: <TENANT_ID>
+    discovery:
+      name: 'opa/discovery'
+      prefix: '<POLICY_ID>'
+
+decision_logger:
+  enabled: false
+```
+
+To validate the correctness of the data used and to inspect what information is exchanged between the satellite and the control plane, the following `curl` command can be used to execute the discovery request:
+
+```sh
+curl --request GET \
+     --url https://tenant.prod.aserto.com/api/v1/tenant/policies/<POLICY_ID>/opa/discovery \
+     --header 'Accept: application/json' \
+     --header 'Content-Type: application/json' \
+     --header 'aserto-tenant-id: <TENANT_ID>' \
+     --header 'authorization: basic <DISCOVERY_API_KEY>'
+```
+
+The expected response should be:
+
+```json
+{
+  "opa": {
+    "discovery": {
+      "bundles": {
+        "<POLICY_ID>": {
+          "persist": false,
+          "polling": {
+            "max_delay_seconds": 120,
+            "min_delay_seconds": 60
+          },
+          "resource": "<POLICY_ID>/bundle.tar.gz",
+          "service": "aserto-bundler",
+          "signing": null,
+          "size_limit_bytes": 0
+        }
+      },
+      "plugins": {
+        "aserto_edge": {
+          "addr": "authorizer.prod.aserto.com:8443",
+          "apikey": "<REDACTED directory API key>",
+          "enabled": false,
+          "insecure": false,
+          "page_size": 100,
+          "sync_interval": 60,
+          "timeout": 10
+        }
+      },
+      "services": {
+        "aserto-bundler": {
+          "credentials": {
+            "bearer": {
+              "token": "<REDACTED> registry download API key"
+            }
+          },
+          "response_header_timeout_seconds": 60,
+          "url": "https://bundler.prod.aserto.com/<TENANT_ID>/"
+        }
+      }
+    }
+  }
+}
+```
+
+When the satellite receives the discovery response, the information received will be replace the OPA element from the bootstrap configuration, resulting in the following configuration.
+
+:::note
+The satellite runtime configuration is ephemeral and does not get persisted to disk.
+:::
