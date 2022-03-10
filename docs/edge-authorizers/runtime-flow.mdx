@@ -1,18 +1,18 @@
 ---
 sidebar_label: Runtime Flow
-title: Runtime flow
-description: Runtime flow of satellite authorizers
+title: Edge Authorizer - Runtime flow
+description: Runtime flow of edge authorizers
 ---
 
 # Runtime Flow
 
-When the satellite has been bootstrapped it will transition to the runtime flow:
+When the edge authorizer has been bootstrapped it will transition to the runtime flow:
 
-<img src="/discovery-page2.png" />
+<img src="/runtime-flow.png" />
 
 In this state, it will spin up two timer-based background tasks: The first is the discovery updates flow, which executes the discovery request described above to retrieve configuration updates. These updates include updates of the policy in case of a new version as well as configuration changes for the plugins, concretely the edge directory plugin. When a new policy version is available, the policy will be downloaded and applied to the authorizer.
 
-A second time-based background task will synchronize the identity data from the central directory to the satellite when the edge directory plugin is enabled. By default, directory synchronization is turned off and can be enabled in the Aserto console.
+A second time-based background task will synchronize the identity data from the central directory to the edge authorizer when the edge directory plugin is enabled. By default, directory synchronization is turned off and can be enabled in the Aserto console.
 
 ## Runtime configuration
 
