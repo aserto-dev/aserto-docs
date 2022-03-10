@@ -26,13 +26,13 @@ A couple of flavors of edge authorizers are available:
 
 ## Running the Edge Authorizer
 
-You can run the edge authorizer `aserto` CLI:
+You can run the onebox authorizer using `aserto` CLI:
 
 ```sh
 aserto developer start <POLICY_INSTANCE_NAME>
 ```
 
-Or by using the `docker` CLI:
+Or by using the `docker` CLI selecting the correct image (`ghcr.io/aserto-dev/authorizer-sidecar:0.4.23` or `ghcr.io/aserto-dev/authorizer-onebox:0.4.23`):
 
 ```sh
 #!/usr/bin/env bash
