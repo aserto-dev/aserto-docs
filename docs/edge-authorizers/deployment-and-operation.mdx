@@ -24,7 +24,15 @@ A couple of flavors of edge authorizers are available:
 | Onebox  | docker pull ghcr.io/aserto-dev/authorizer-onebox:0.4.23  | 0.4.23        |
 | Sidecar | docker pull ghcr.io/aserto-dev/authorizer-sidecar:0.4.23 | 0.4.23        |
 
-## Running the edge authorizer
+## Running the Edge Authorizer
+
+You can run the edge authorizer `aserto` CLI:
+
+```sh
+aserto developer start <POLICY_INSTANCE_NAME>
+```
+
+Or by using the `docker` CLI:
 
 ```sh
 #!/usr/bin/env bash
