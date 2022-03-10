@@ -1,0 +1,54 @@
+---
+sidebar_label: Deployment and Operation
+title: Edge Authorizers - Deployment and Operation
+description: Deployment and Operation of edge authorizers
+---
+
+# Deployment and Operation
+
+Edge authorizers can be deployed in various ways based on the application and target environment needs and requirements. In its most basic form, an authorizer is a Docker container instance, which can be deployed as a standalone service, sidecar, or development workstation.
+
+An edge authorizer always operates in the context of a (single) Aserto organization and is assigned a specific policy to serve. This information is provided to the edge authorizer via a configuration file, which it uses to send a discovery call to the Aserto control plane.
+
+## Edge Authorizer Flavors
+
+A couple of flavors of edge authorizers are available:
+
+- Onebox: a single-tenant, single policy authorizer with a built-in web UI, to be used as a developer workstation.
+- Sidecar: a single-tenant, single policy authorizer without a web UI. The sidecar is the general edge authorizer flavor with a small surface area, which can be used as a sidecar but also as a local service instance.
+
+## Docker images
+
+| Flavor  | Image                                                    | Lates version |
+| ------- | -------------------------------------------------------- | ------------- |
+| Onebox  | docker pull ghcr.io/aserto-dev/authorizer-onebox:0.4.23  | 0.4.23        |
+| Sidecar | docker pull ghcr.io/aserto-dev/authorizer-sidecar:0.4.23 | 0.4.23        |
+
+## Running the Edge Authorizer
+
+You can run the onebox authorizer using `aserto` CLI:
+
+```sh
+aserto developer start <POLICY_INSTANCE_NAME>
+```
+
+Or by using the `docker` CLI selecting the correct image (`ghcr.io/aserto-dev/authorizer-sidecar:0.4.23` or `ghcr.io/aserto-dev/authorizer-onebox:0.4.23`):
+
+```sh
+#!/usr/bin/env bash
+
+docker run \
+-ti \
+--rm \
+--name aserto-one \
+--platform=linux/amd64 \
+-p 8282:8282 \
+-p 8383:8383 \
+-p 8484:8484 \
+-p 8585:8585 \
+-v $PWD/certs:/app/certs:rw \
+-v $PWD/cfg:/app/cfg:ro \
+-v $PWD/eds:/app/db:rw \
+ghcr.io/aserto-dev/authorizer-sidecar:0.4.23 run \
+--config-file /app/cfg/config.yaml
+```

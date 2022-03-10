@@ -86,34 +86,6 @@ module.exports = {
       ],
     },
     {
-      'Decision Logs Guide': [
-        'decision-logs-guide/overview',
-        'decision-logs-guide/console',
-        {
-          type: 'category',
-          label: 'APIs',
-          collapsed: false,
-          items: [
-            'decision-logs-guide/api/overview',
-            'decision-logs-guide/api/decision-logs',
-            'decision-logs-guide/api/users',
-            'decision-logs-guide/api/query',
-          ],
-        },
-        'decision-logs-guide/schemas',
-        {
-          type: 'category',
-          label: 'Elastic (ELK) Integration',
-          collapsed: false,
-          items: [
-            'decision-logs-guide/elk/configure',
-            'decision-logs-guide/elk/decision-logs-conf',
-            'decision-logs-guide/elk/users-conf',
-          ],
-        },
-      ],
-    },
-    {
       Quickstarts: [
         {
           type: 'category',
@@ -233,6 +205,46 @@ module.exports = {
             'command-line-interface/aserto-idp-cli/usage',
           ],
         },
+      ],
+    },
+    {
+      'Decision Logs Guide': [
+        'decision-logs-guide/overview',
+        'decision-logs-guide/console',
+        {
+          type: 'category',
+          label: 'APIs',
+          collapsed: false,
+          items: [
+            'decision-logs-guide/api/overview',
+            'decision-logs-guide/api/decision-logs',
+            'decision-logs-guide/api/users',
+            'decision-logs-guide/api/query',
+          ],
+        },
+        'decision-logs-guide/schemas',
+        {
+          type: 'category',
+          label: 'Elastic (ELK) Integration',
+          collapsed: false,
+          items: [
+            'decision-logs-guide/elk/configure',
+            'decision-logs-guide/elk/decision-logs-conf',
+            'decision-logs-guide/elk/users-conf',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Edge Authorizers',
+      collapsed: true,
+      items: [
+        'edge-authorizers/overview',
+        'edge-authorizers/deployment-and-operation',
+        'edge-authorizers/discovery-flow',
+        'edge-authorizers/runtime-flow',
+        'edge-authorizers/directory-synchronization',
       ],
     },
     {

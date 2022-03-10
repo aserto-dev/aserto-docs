@@ -1,0 +1,17 @@
+---
+sidebar_label: Overview
+title: The Edge Authorizers Architecture - Overview
+description: An overview of the Edge Authorizers architecture
+---
+
+# Edge Authorizers
+
+To provide a highly available, performant, scalable authorization solution for your applications, Aserto utilizes a hub and spoke model. The central hub (otherwise known as the Aserto Control Plane) provides the central capabilities for managing policies, life-cycle management, identity data, and audit logs. The spokes are the autonomous authorizer instances running as close to your application as possible.
+
+<img src="/aserto-edge-authorizers.png" />
+
+Running an authorizer instance close to the application has several advantages in terms of availability, performance, and scalability:
+
+- The authorizer instances operate autonomously. Each instance has its own local instance of the policy image for the application it serves and a local instance of the identity property data, which allows the authorizer to continue operating even when it is disconnected from the central control plane. When reconnected, it will synchronize its state and publish the decision logs.
+- This setup enables scaling the number of authorizer instances to increase throughput and redundancy.
+- Having the authorizer operate close to the application instance minimizes the network latency between the two, which is desirable given the high number of authorization requests that need to be handled.
