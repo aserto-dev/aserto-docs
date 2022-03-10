@@ -80,7 +80,6 @@ module.exports = {
           items: [
             'authorizer-guide/satellite-authorizers/overview',
             'authorizer-guide/satellite-authorizers/deployment-and-operation',
-            'authorizer-guide/satellite-authorizers/satellite-flavors',
             'authorizer-guide/satellite-authorizers/discovery-flow',
             'authorizer-guide/satellite-authorizers/runtime-flow',
             'authorizer-guide/satellite-authorizers/directory-synchronization',

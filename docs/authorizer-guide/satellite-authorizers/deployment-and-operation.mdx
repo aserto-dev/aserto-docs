@@ -10,6 +10,20 @@ Satellites can be deployed in various ways based on the application and target e
 
 A satellite always operates in the context of a (single) Aserto organization and is assigned a specific policy to serve. This information is provided to the satellite via a configuration file, which it uses to send a discovery call to the Aserto control plane.
 
+## Satellite Flavors
+
+A couple of flavors of satellite authorizers are available:
+
+- Onebox: a single-tenant, single policy authorizer with a built-in web UI, to be used as a developer workstation.
+- Sidecar: a single-tenant, single policy authorizer without a web UI. The sidecar is the general satellite flavor with a small surface area, which can be used as a sidecar but also as a local service instance.
+
+## Docker images
+
+| Flavor  | Image                                                    | Lates version |
+| ------- | -------------------------------------------------------- | ------------- |
+| Onebox  | docker pull ghcr.io/aserto-dev/authorizer-onebox:0.4.23  | 0.4.23        |
+| Sidecar | docker pull ghcr.io/aserto-dev/authorizer-sidecar:0.4.23 | 0.4.23        |
+
 ## Running the authorizer
 
 ```sh
