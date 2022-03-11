@@ -22,10 +22,20 @@ The console currently supports three connection types - Identity Providers, Sour
 Aserto needs to connect to one or more identity providers as the source of user attributes and roles.
 
 :::note
-Currently, Aserto supports Auth0 and Okta as an identity provider. More are on the way!
+Currently, Aserto supports **Auth0** and **Okta** as identity providers. More are on the way! 
+
+In addition, the **"acmecorp"** identity provider is a sample IDP that is used throughout the Aserto quickstarts and 
+samples.
 :::
 
-Click on the “Add a connection” button. You will be prompted to enter connection parameters:
+Click on the “Add a connection” button. You will be prompted to enter connection parameters that 
+correspond to the values that the IDP requires. 
+
+### Acmecorp IDP
+For the **acmecorp** sample identity provider, only the name is required.
+
+### Auth0 IDP
+For **Auth0**, you will be asked for more parameters:
 
 [<img src="/connect-auth0.png" width="500px" />](/connect-auth0.png)
 
@@ -36,7 +46,7 @@ The Auth0 application must be a machine-to-machine (M2M) application.
 :::
 
 :::info
-For more detailed instructions, refer to the [Connect IDP](/docs/getting-started/connect-idp) topic in the
+For more detailed instructions, refer to the [Connect IDP](/docs/getting-started-acmecorp/bring-your-own-idp/set-up-auth0) topic in the
 Getting Started documentation.
 :::
 
