@@ -10,14 +10,20 @@ The Aserto Control Plane manages the lifecycle of **policies**, **user context**
 used by the Authorizer. The control plane makes it easy to manage these artifacts centrally, and
 takes care of the details of synchronizing them to the Authorizer instance(s) deployed at the edge.
 
-## Organizations
+## Tenants
 
-An Aserto [Organization](/docs/overview/organization) provides the organizational scoping mechanism for artifacts
-managed by the Aserto Control Plane. You can think of a organization just like a GitHub organization.
+An Aserto tenant provides the scoping and isolation mechanism for artifacts managed by the Aserto Control Plane. There 
+are two types of tenants:
+* **Accounts**: every user has a personal account, where they can create and manage artifacts
+* **Organizations**: users can create an [organization](/docs/overview/organization), invite other users to join, and assign them a role (viewer, member, admin, owner).
+
+:::tip
+You can think of an account just like a GitHub account, and an organization just like a GitHub organization.
+:::
 
 ## Artifacts
 
-The artifacts that are managed per-organization are:
+The artifacts that are managed per-tenant are:
 
 - [Connections](/docs/overview/connections): connections to external systems such as identity providers and source code control systems
 - [Policies](/docs/overview/policy-lifecycle): references to a set of authorization policy repositories
