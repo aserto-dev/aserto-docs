@@ -9,7 +9,7 @@ description: The Authorizer - an Overview
 The Authorizer is an open source authorization engine which uses the
 [Open Policy Agent](https://www.openpolicyagent.org) (OPA) to
 compute a [**decision**](/docs/overview/policy#decision) based on a [**policy**](/docs/overview/policy),
-[**user context**](/docs/overview/policy#user-context), and **data**.
+[**user context**](/docs/overview/policy#user-context), and [**resource context**](/docs/overview/policy#resource-context).
 
 The Authorizer is packaged as a docker image and is meant to be deployed as close as possible
 to your application:
@@ -18,8 +18,9 @@ to your application:
 - a service that is deployed in the same subnet as your application (if not)
 
 In addition, when you create an Aserto [organization](/docs/overview/organization), an Authorizer instance
-in Aserto's multi-tenant hosted authorizer service is provisioned for you. For some use cases that are
-less sensitive to latency, this hosted Authorizer instance may be sufficient.
+in Aserto's multi-tenant hosted authorizer service is provisioned for you. Since the APIs are identical to 
+the sidecar authorizer, using the hosted authorizer is the easiest way to start building applications that 
+use Aserto.
 
 Finally, the same container image underpins Aserto's local developer experience, which you can
 deploy on your local workstation using the Aserto [CLI](/docs/command-line-interface/introduction), and
@@ -32,5 +33,5 @@ The main concepts for the Authorizer are:
 
 - [Policy](/docs/overview/policy): a set of rules for making an authorization decision
 - [Decision](/docs/overview/policy#decision): an output of the policy
-- [User context](/docs/overview/policy#user-context): a set of user _properties_, _roles_, and _scopes_ that can be used in a policy to determine the value of decisions
-- data: additional data (often in the form of lookup tables) that is used in determining the value of decisions
+- [User context](/docs/overview/policy#user-context): a set of user _properties_, _roles_, and _scopes_ that can be used in a policy to determine the outcome of decisions
+- [Resource context](/docs/overview/policy#resource-context): additional resource data (often in the form of lookup tables) that is used in determining the outcome of decisions

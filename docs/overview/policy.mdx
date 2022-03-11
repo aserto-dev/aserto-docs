@@ -55,3 +55,15 @@ these sources and make them available to your policies.
 
 In addition, you can create and manage extensions for users in the Aserto directory, on a global or
 per-application basis.
+
+## Resource context
+
+Policies can also use resource context in their evaluation process. If we added the allowed clause 
+below to our policy, and the caller included a resource context that contains `{ "id": "<the-user-id>" }`, 
+the policy would evaluate `allowed` to `true` if the user id and the resource id match.
+
+```rego
+allowed {
+  input.user.id == input.resource.id
+}
+```
