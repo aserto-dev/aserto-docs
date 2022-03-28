@@ -84,7 +84,7 @@ module.exports = {
         'authorizer-guide/dir',
         'authorizer-guide/policy',
       ],
-    },    
+    },
     {
       Quickstarts: [
         {
