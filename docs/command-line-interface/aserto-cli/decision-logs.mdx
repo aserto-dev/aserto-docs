@@ -73,6 +73,18 @@ aserto decision-logs get-users [--path <destination path>]
 When used this way, the CLI will only download objects that have changed since last downloaded, according to the
 metadata on the local versions and remote versions of the objects.
 
+## Decision stream
+
+The decision stream is a near real-time stream of decison events. Events are typically delivered in under one minute
+and are bufferd for replay. The `decisions` command can be used to plug into the stream and output it to `stdout`.
+
+```
+aserto decisions stream <policy-id> [--since <time in RFC3339 format>]
+```
+
+The CLI will remain open, outputting events to `stdout`. `since` specifies the event time to start streaming from in
+RFC3339 format, for example: `2022-03-21T06:30:00Z`.
+
 ## Using the decision logs API key
 
 The Aserto CLI decision-logs group of commands can be run without a user logged in, i.e. without first running
