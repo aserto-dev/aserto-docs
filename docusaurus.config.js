@@ -89,12 +89,12 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
               label: "Product",
               target: "_self",
             },
-            {
-              to: "https://www.aserto.com/playground",
-              position: "left",
-              label: "Playground",
-              target: "_self",
-            },
+            // {
+            //   to: "https://www.aserto.com/playground",
+            //   position: "left",
+            //   label: "Playground",
+            //   target: "_self",
+            // },
             {
               to: "https://www.aserto.com/blog",
               label: "Blog",
