@@ -1,5 +1,7 @@
 ---
 sidebar_label: decisions
+title: The stream API
+description: Open a stream of decision events
 ---
 
 # decision_logs/decisions
@@ -11,7 +13,7 @@ decision events in near real time; events are typically no more than a minute ol
 
 ### Create a new decision logs WebSocket
 ```javascript
-ws = new WebSocket("wss://.../api/v1/decision_logs/decisions/policy/<policy-id>",
+ws = new WebSocket("wss://decision-logs.prod.aserto.com/api/v1/decision_logs/decisions/policy/<policy-id>",
   [
       "Basic", "<Decision-Logs-API-Key>",
       "TenantID", "<Tenant-ID>"
@@ -38,7 +40,7 @@ The Aserto control plane buffers decision events for usage by the WebSocket stre
 argument can be provided to control the oldest event that delivery should start from.
 
 ```javascript
-ws = new WebSocket("wss://.../api/v1/decision_logs/decisions/policy/<policy-id>?since=<start date-time>",
+ws = new WebSocket("wss://decision-logs.prod.aserto.com/api/v1/decision_logs/decisions/policy/<policy-id>?since=<start date-time>",
   ...)
 ```
 

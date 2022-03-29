@@ -43,7 +43,7 @@ This is safe because, once they exist, decision log objects are final and immuta
 
 ## Other Storage Objects
 
-Aserto’s decision logging system maintains versioned copies of users involved in decisions. These can be accessed using
+Aserto's decision logging system maintains versioned copies of users involved in decisions. These can be accessed using
 the Aserto CLI.
 
 ### Listing User Objects
@@ -75,14 +75,16 @@ metadata on the local versions and remote versions of the objects.
 
 ## Decision stream
 
-The decision stream is a near real-time stream of decison events. Events are typically delivered in under one minute
-and are bufferd for replay. The `decisions` command can be used to plug into the stream and output it to `stdout`.
+The decision stream is a near real-time stream of decison events. The `decisions` command can be used to plug into
+the stream and output it to `stdout`.
 
 ```
 aserto decisions stream <policy-id> [--since <time in RFC3339 format>]
 ```
 
-The CLI will remain open, outputting events to `stdout`. `since` specifies the event time to start streaming from in
+The CLI will remain open, outputting events to `stdout`. Events are typically delivered in under one minute.
+The server buffers recent events and the command, by default, starts by replaying all of the buffered events. To begin from
+a more recent time, use the optional `since` argument. `since` specifies the event time to start streaming from in
 RFC3339 format, for example: `2022-03-21T06:30:00Z`.
 
 ## Using the decision logs API key
