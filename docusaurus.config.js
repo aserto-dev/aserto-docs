@@ -38,13 +38,6 @@ module.exports = {
       },
     ],
     'docusaurus-plugin-hubspot',
-    [
-      '@docusaurus/plugin-google-gtag',
-      {
-        trackingID: 'G-W1SKQQZE1M',
-        anonymizeIP: true,
-      },
-    ],
   ],
 
   presets: [
