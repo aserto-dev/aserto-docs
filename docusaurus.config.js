@@ -13,7 +13,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
     onBrokenMarkdownLinks: "warn",
     favicon: "img/favicon.ico",
     organizationName: "aserto-dev",
-    projectName: "aserto-docs", 
+    projectName: "aserto-docs",
 
     plugins: [
       ['docusaurus2-dotenv',
@@ -63,7 +63,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
     themeConfig:
       /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-      ({    
+      ({
         algolia: {
           apiKey: process.env.REACT_APP_ALGOLIA_API_KEY || '_',
           indexName: process.env.REACT_APP_ALGOLIA_INDEX_NAME || '_',
@@ -221,7 +221,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
                         <img style="margin-left: 24px" src="/icons/linkedin.svg" alt="linkedin" />
                       </a>
                     `,
-                },      
+                },
               ],
             },
           ],
@@ -229,7 +229,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             alt: 'Aserto Logo',
             src: 'Aserto-logo-color-120px.png',
             href: 'https://aserto.com',
-          },    
+          },
           copyright: `Copyright © ${new Date().getFullYear()} Aserto Inc. All rights reserved.`,
         },
         prism: {
@@ -239,6 +239,10 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
         },
         hubspot: {
           accountId: process.env.REACT_APP_HUBSPOT_ACCOUNT_ID ?? 21300286
+        },
+        gtag: {
+          trackindID: process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID,
+          anonymizeIP: true,
         }
       }),
   }
