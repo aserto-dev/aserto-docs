@@ -133,7 +133,7 @@ To list resources in the directory:
 aserto directory list-res
 ```
 
-Organizing resource objects is a design decision based on the use case, the expected update frequency and object size. For example we can shred the demo.json file into four segments: user_roles, role_grants, employee and billing if these need to be updated independently, or if data size and therefor memory footprint would become important.
+Organizing resource objects is a design decision based on the use case, the expected update frequency and object size. For example we can shred the demo.json file into four segments: user_roles, role_grants, employee and billing if these need to be updated independently, or if data size and therefore memory footprint would become important.
 
 Here's an example of a Rego policy that would use the `demo` resource object:
 
