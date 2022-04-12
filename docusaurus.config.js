@@ -38,6 +38,13 @@ module.exports = {
       },
     ],
     'docusaurus-plugin-hubspot',
+    [
+      '@docusaurus/plugin-google-gtag',
+      {
+        trackingID: 'G-W1SKQQZE1M',
+        anonymizeIP: true,
+      },
+    ],
   ],
 
   presets: [
@@ -56,10 +63,6 @@ module.exports = {
         sitemap: {
           changefreq: 'weekly',
           priority: 0.5,
-        },
-        gtag: {
-          trackingID: '3445007273',
-          anonymizeIP: true,
         },
       }),
     ],
