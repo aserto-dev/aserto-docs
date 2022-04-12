@@ -247,5 +247,9 @@ module.exports = {
       hubspot: {
         accountId: process.env.REACT_APP_HUBSPOT_ACCOUNT_ID ?? 21300286,
       },
+      gtag: {
+        trackingID: 'G-W1SKQQZE1M',
+        anonymizeIP: true,
+      },
     }),
 }
