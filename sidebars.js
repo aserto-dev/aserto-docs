@@ -68,7 +68,7 @@ module.exports = {
         'aserto-console/policies',
         'aserto-console/view-policies',
         'aserto-console/manage-organizations',
-        'aserto-console/resetting-getting-started',
+        'aserto-console/enabling-getting-started',
       ],
     },
     {
