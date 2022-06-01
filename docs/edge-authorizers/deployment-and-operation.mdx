@@ -19,10 +19,10 @@ A couple of flavors of edge authorizers are available:
 
 ## Docker images
 
-| Flavor  | Image                                                    | Lates version |
-| ------- | -------------------------------------------------------- | ------------- |
-| Onebox  | docker pull ghcr.io/aserto-dev/authorizer-onebox:0.4.23  | 0.4.23        |
-| Sidecar | docker pull ghcr.io/aserto-dev/authorizer-sidecar:0.4.23 | 0.4.23        |
+| Flavor  | Image
+| ------- | --------------------------------------------------------
+| Onebox  | docker pull ghcr.io/aserto-dev/authorizer-onebox:latest
+| Sidecar | docker pull ghcr.io/aserto-dev/authorizer-sidecar:latest
 
 ## Running the Edge Authorizer
 
@@ -32,7 +32,7 @@ You can run the onebox authorizer using `aserto` CLI:
 aserto developer start <POLICY_INSTANCE_NAME>
 ```
 
-Or by using the `docker` CLI selecting the correct image (`ghcr.io/aserto-dev/authorizer-sidecar:0.4.23` or `ghcr.io/aserto-dev/authorizer-onebox:0.4.23`):
+Or by using the `docker` CLI selecting the correct image (`ghcr.io/aserto-dev/authorizer-sidecar:latest` or `ghcr.io/aserto-dev/authorizer-onebox:latest`):
 
 ```sh
 #!/usr/bin/env bash
@@ -49,6 +49,6 @@ docker run \
 -v $PWD/certs:/app/certs:rw \
 -v $PWD/cfg:/app/cfg:ro \
 -v $PWD/eds:/app/db:rw \
-ghcr.io/aserto-dev/authorizer-sidecar:0.4.23 run \
+ghcr.io/aserto-dev/authorizer-sidecar:latest run \
 --config-file /app/cfg/config.yaml
 ```
