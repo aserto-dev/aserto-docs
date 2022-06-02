@@ -173,6 +173,7 @@ module.exports = {
             'command-line-interface/aserto-cli/directory',
             'command-line-interface/aserto-cli/decision-logs',
             'command-line-interface/aserto-cli/onebox',
+            'command-line-interface/aserto-cli/control-plane',
           ],
         },
         {
@@ -244,6 +245,7 @@ module.exports = {
       items: [
         'edge-authorizers/overview',
         'edge-authorizers/deployment-and-operation',
+        'edge-authorizers/security-and-management',
         'edge-authorizers/discovery-flow',
         'edge-authorizers/runtime-flow',
         'edge-authorizers/directory-synchronization',
