@@ -1,0 +1,32 @@
+---
+sidebar_label: Enabling "Getting Started"
+title: Enabling the "Getting Started" experience
+description: Enabling the Getting Started experience in the Aserto Console
+---
+
+Existing Aserto accounts that were created prior to May 2022 will not have the Getting Started experience enabled by default. To enable it, follow the instructions below:
+
+1. Ensure you are using a personal account, not an organization tenant.
+2. Click the “Images” tab, select “Aserto Public Policy Images” and click on "policy-todo".
+
+  <img src="/aserto-public-policy-images-todo.png" width="600px" />
+
+3. On the image with tagged with the version `1`, Click the ellipsis button on the right side and then click "Clone to another repository".
+
+  <img src="/clone-todo-repo.png" />
+
+4. Ensure the `1` tag is selected, then select the destination registry "Aserto Policy Registry" and your personal account organization. Name the repository "policy-todo" and use the tag `1`.
+
+  <img src="/recreate-todo-policy.png" width="600px"/>
+
+5. In the Policies tab, click "Create an instance", then use the cloned image to create a new instance of `policy-todo`.
+
+  <img src="/recreate-todo-policy-instance.png" width="600px"/>
+
+6. In the Connections tab, click "Add a connection", select the `acmecorp` IDP, and name it `acme-corp`.
+
+  <img src="/add-acmecorp-connection.png" />
+
+7. Refresh your browser. The "Getting Started" tab will now be visible.
+
+  <img src="/getting-started.png" />
