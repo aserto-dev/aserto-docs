@@ -1,0 +1,27 @@
+---
+sidebar_label: Overview
+title: Connections
+description: Connections in the Aserto Console
+---
+
+# Connections
+
+The Aserto Control Plane manages [connections](/docs/overview/connections) to external systems that are
+the source of Aserto artifacts.
+
+Click on the “Connections” tab to see your connections.
+
+![connections](/connections.png)
+
+## Connection types
+
+The console currently supports three connection types:
+1. Identity Providers: [Auth0](/docs/aserto-console/connections/setup-auth0) and [Okta](/docs/aserto-console/connections/setup-okta) (more IDPs will be supported in the future)
+2. Source Code Control systems: [Github](/docs/aserto-console/connections/setup-github) and [Gitlab](/docs/aserto-console/connections/setup-gitlab) (more SCMs will be supported in the future)
+3. [OCI registries](/docs/aserto-console/connections/setup-opcr) (currently only the [Open Policy Registry](https://www.openpolicyregistry.io/) is supported). In addition, Aserto manages system connections to the Aserto Registry and to the multi-tenant Aserto Authorizer for each tenant.
+
+## Editing or removing a connection
+
+Click the "..." handle on the right side of a connection entry, and select "Edit connection info..." or "Remove".
+
+![edit or remove connection](/edit-or-remove-connection.png)

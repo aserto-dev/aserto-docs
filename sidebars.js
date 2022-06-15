@@ -63,8 +63,35 @@ module.exports = {
     {
       Console: [
         'aserto-console/introduction',
-        'aserto-console/connections',
+
         'aserto-console/directory',
+        {
+          type: 'category',
+          label: 'Managing Connections',
+          collapsed: true,
+          items: [
+            'aserto-console/connections/overview',
+            {
+              type: 'category',
+              label: 'Identity Providers',
+              collapsed: true,
+              items: [
+                'aserto-console/connections/setup-auth0',
+                'aserto-console/connections/setup-okta',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Source Code Providers',
+              collapsed: true,
+              items: [
+                'aserto-console/connections/setup-github',
+                'aserto-console/connections/setup-gitlab',
+              ],
+            },
+            'aserto-console/connections/setup-opcr',
+          ],
+        },
         'aserto-console/policies',
         'aserto-console/view-policies',
         'aserto-console/manage-organizations',

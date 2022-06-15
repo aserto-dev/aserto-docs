@@ -1,0 +1,36 @@
+---
+sidebar_label: Okta
+title: Setting up Okta as an Identity Provider
+description: Setting up Okta as an Identity Provider
+---
+
+After creating an Okta account, you'll need to retrieve your Okta domain and create an Okta API token. You can find your Okta domain by clicking your profile on the top right-hand side of the Okta console:
+
+<img src="/okta-dev-details.png" />
+
+Copy the Okta domain and then head to the "API" tab under "Security" on the left hand sidebar:
+
+<img src="/okta-sidebar.png" />
+
+Click the "Tokens" tab:
+
+<img src="/okta-api-tokens-tab.png" />
+
+Click the “Create Token” button. The following dialog will be presented:
+
+<img src="/okta-create-token.png" />
+
+Name the token "Aserto Management" and click "Create Token". You'll then see the following:
+
+<img src="/okta-token-created.png" />
+
+Copy the token value and head to the Aserto console. In the Aserto console, click the Connections tab:
+
+<img src="/connections-tab.png" />
+
+Click on the "Add a connection" button, select the "Okta" provider and complete the form using the values you retrieved from the Okta console.
+
+<img src="/aserto-add-okta-connection.png" />
+
+Finally, click "Add connection". Aserto will now automatically sync your Okta users to the Aserto directory.
+

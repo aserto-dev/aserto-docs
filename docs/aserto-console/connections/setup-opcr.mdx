@@ -1,0 +1,19 @@
+---
+sidebar_label: OPCR
+title: Connecting Open Container Registry to Aserto
+description: Connecting Open Container Registry to Aserto
+---
+
+Before adding a connection to the Open Policy Registry (OPCR), you need to [create an OPCR account](https://www.openpolicyregistry.io/docs/opcr/create-account). If you haven't already done so, click [here](https://console.openpolicyregistry.io/) to sign up.
+
+You'll also need to [set up a Github PAT](https://github.com/settings/tokens) in order to connect your Aserto account to OPCR.
+
+Once you've created an OPCR account and a Github PAT, navigate to the "Connections" tab click on the "Add a connection" button and select the `opcr` provider.
+
+[<img src="/add-opcr-connection-select-opcr.png" width="500px" />](/add-opcr-connection-select-opcr.png)
+
+Next, use your Github username and PAT to complete the form, and click "Add connection"
+
+[<img src="/add-opcr-connection-username-password.png" width="500px" />](/add-opcr-connection-username-password.png)
+
+Once you've added the new registry, you'll be able to select it when creating policy instances.

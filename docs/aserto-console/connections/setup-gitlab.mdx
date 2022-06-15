@@ -1,0 +1,31 @@
+---
+sidebar_label: GitLab
+title: Setting up GitLab as an Source Code Provider
+description: Setting up GitLab as an Source Code Provider
+---
+
+In order to add GitLab as a source-code provider, you first need to create a GitLab Personal Access Token.
+
+Log in to your GitLab account, and navigate to the personal access token page.
+
+<img src="/gitlab-sidebar-access-tokens.png" />
+
+Name your token "Aserto" and assign it with an expiration date. Then, select the "api" scope:
+
+<img src="/gitlab-scopes.png" />
+
+Finally, click "Create personal access token":
+
+<img src="/gitlab-create-personal-access-token-button.png" />
+
+Copy the newly created token, head to the Aserto console, and navigate to the Connections tab.
+
+<img src="/connections-tab.png" />
+
+Click on the "Add a connection" button:
+
+<img src="/add-a-connection-button.png" width="150px"/>
+
+In the dialog, select the "gitlab-pat" provider and name your connection "gitlab-pat". Use the display name "GitLab" and paste the newly created GitLab PAT. Finally, click "Add connection".
+
+<img src="/aserto-add-gitlab-connection.png" />
