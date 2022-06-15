@@ -89,7 +89,15 @@ module.exports = {
                 'aserto-console/connections/setup-gitlab',
               ],
             },
-            'aserto-console/connections/setup-opcr',
+            {
+              type: 'category',
+              label: 'Container Registries',
+              collapsed: true,
+              items: [
+                'aserto-console/connections/setup-opcr',
+                'aserto-console/connections/setup-ghcr',
+              ],
+            },
           ],
         },
         'aserto-console/policies',
