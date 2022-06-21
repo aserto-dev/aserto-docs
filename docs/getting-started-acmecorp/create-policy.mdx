@@ -16,9 +16,13 @@ To get started, we'll create a policy repository and a single policy instance th
 
 ## Add a policy repository
 
-After creating your organization, you'll be redirected to the Registry tab. Click on the "Create a new repository" button.
+After creating your organization, navigate to the Images tab.
 
-<img src="/getting-started-acmecorp/create-new-repo-button.png" width="200px" />
+<img src="/images-tab.png" width="200px" />
+
+Click on the "Create a new image" button.
+
+<img src="/create-new-image.png" width="200px" />
 
 You'll be asked to choose between using a policy template and creating an empty policy repository:
 
@@ -32,11 +36,13 @@ The first step is to select a connection to a source code control system. Since 
 
 [<img src="/connect-scc.png" width="600px" />](/connect-scc.png)
 
-This will bring up a modal for adding a connection to a provider. Note that Aserto supports GitHub as a source code provider, but allows you to connect to it either over an OAuth2 flow, or using a Personal Access Token (PAT).
+This will bring up a modal for adding a connection to a provider. Aserto supports GitHub and GitLab as source code provider.
 
-<img src="/connect-github.png" width="600px" />
+<img src="/add-connection-scc-github.png" width="600px" />
 
-The easiest path is to select "github" as the source code provider, give the connection a name (like `github-<youraccount>`), and click "Add connection". To connect using a Personal Access Token (PAT), follow these [instructions](/docs/aserto-console/connections/setup-github#connecting-github-using-a-pat).
+The easiest path is to select "GitHub (OAuth)" as the source code provider, give the connection a name (like `github-<youraccount>`), and click "Add connection".
+* To connect GitHub using a Personal Access Token (PAT), follow these [instructions](/docs/aserto-console/connections/setup-github#connecting-github-using-a-pat).
+* To connect to GitLab using a Personal Access Token (PAT), follow these [instructions](/docs/aserto-console/connections/setup-gitlab).
 
 :::note
 If you are managing an Aserto tenant for an organization, we recommend using a GitHub "bot account" to sign in with,
@@ -86,6 +92,10 @@ First, click on the "Policies" tab and click the "Create an instance" button:
 
 <img src="/getting-started-acmecorp/create-instance-button.png" width="170" />
 
+Next, you'll be asked to select between creating the policy from a sample image or from your own policy image - choose "...from your own policy image".
+
+<img src="/create-policy-instance-dialog.png" width="500px" />
+
 Next, you'll be prompted to select a policy registry:
 
 <img src="/select-policy-registry.png" width="500px" />
@@ -106,9 +116,9 @@ From the "Tag list" dropdown, select "latest".
 
 This sets up the policy instance to always pick up the _latest_ version of the policy. While this is going to be very useful while we are developing the policy - we would probably choose to lock the policy instance to a specific tag in a production environment.
 
-Finally, name your policy instance `peoplefinder` and click "Create an instance".
+Finally, name your policy instance `peoplefinder` and click "Create policy".
 
-<img src="/name-policy-instance.png" width="500px" />
+<img src="/create-policy-instance.png" width="500px" />
 
 ## Next Steps
 
