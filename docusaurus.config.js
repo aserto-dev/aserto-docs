@@ -69,6 +69,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
           indexName: process.env.REACT_APP_ALGOLIA_INDEX_NAME || '_',
           appId: process.env.REACT_APP_ALGOLIA_APP_ID,
         },
+        image: 'img/aserto-logo.png',
         navbar: {
           style: "dark",
           logo: {
