@@ -12,29 +12,29 @@ We're going to create an ABAC policy that will interact with our PeopleFinder ap
 
 First, open the Aserto Console and navigate to the Policies tab. Click on the "Create a new repository" button:
 
-<img src="/getting-started-acmecorp/create-new-repo-button.png" width="200px" />
+<img src="/getting-started/create-new-repo-button.png" width="200px" />
 
 Select "Use a template":
 
-<img src="/getting-started-acmecorp/use-template-options.png" width="700px" />
+<img src="/getting-started/use-template-options.png" width="700px" />
 
 Choose your source code provider:
 
 <img
-  src="/getting-started-acmecorp/select-source-code-provider.png"
+  src="/getting-started/select-source-code-provider.png"
   width="600px"
 />
 
 Create a new policy based on the `policy-peoplefinder-abac` template, and name the repo `policy-peoplefinder-abac`.
 
 <img
-  src="/getting-started-acmecorp/select-org-and-repo-peoplefinder-abac.png"
+  src="/getting-started/select-org-and-repo-peoplefinder-abac.png"
   width="600px"
 />
 
 Finally, name your policy repository `peoplefinder-abac`, and click "Create a new policy repository":
 
-<img src="/getting-started-acmecorp/policy-repo-name-abac.png" width="600px" />
+<img src="/getting-started/policy-repo-name-abac.png" width="600px" />
 
 ## Create a policy instance
 
@@ -55,7 +55,7 @@ Next, from the "Select organization" dropdown select your personal (account) org
 From the "Policy repository" dropdown, select "peoplefinder-abac".
 
 <img
-  src="/getting-started-acmecorp/select-policy-repo-abac.png"
+  src="/getting-started/select-policy-repo-abac.png"
   width="500px"
 />
 
@@ -66,13 +66,13 @@ From the "Tag list" dropdown, select "latest".
 Finally, name your instance `peoplefinder-abac` and click "Create an instance".
 
 <img
-  src="/getting-started-acmecorp/name-policy-instance-abac.png"
+  src="/getting-started/name-policy-instance-abac.png"
   width="500px"
 />
 
 Open the policy instance once it is created, and open the `peoplefinder.POST.api.users.__id` module.
 
-![console-policy-peoplefinder-post](/getting-started-acmecorp/console-policy-peoplefinder-post.png)
+![console-policy-peoplefinder-post](/getting-started/console-policy-peoplefinder-post.png)
 
 As you can see, this policy is slightly different from the RBAC policy we created before: instead of referencing the `data` object (which is based on the definitions in the `data.json` file) and the roles defined there, it uses the user's _attributes_ to determine whether they are equal to a specific value.
 

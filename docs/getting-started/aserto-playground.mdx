@@ -10,32 +10,32 @@ Aserto provides a sandboxed environment where you can experiment with permission
 
 Open the [Aserto playground](https://www.aserto.com/playground). You’ll see the following:
 
-![playground-empty](/getting-started-acmecorp/playground-empty.png)
+![playground-empty](/getting-started/playground-empty.png)
 
 In the top right corner you can see the User drop down. Here you can choose which user to inspect - each user is going to have their own roles and attributes that would affect their permissions. Let’s start with the first user on the list - euang@acmecorp.com. After selecting the user in the drop-down, click on “Edit”.
 
-![euan-garden-playground](/getting-started-acmecorp/euan-garden-playground.png)
+![euan-garden-playground](/getting-started/euan-garden-playground.png)
 
 Here you can see which roles are currently assigned to this user - in this case, this user has been assigned the role of `viewer` - and there are some properties associated with them - their department, their manager and their title. These properties will come in handy later.
 
 Next, we’ll load the peoplefinder-rbac template into the Playground.
 
-![playground-permissions-1](/getting-started-acmecorp/playground-permissions-1.png)
+![playground-permissions-1](/getting-started/playground-permissions-1.png)
 
 When we click on each of these permissions, the corresponding policy package will be loaded in the details panel. The roles section of this table specifies which roles have access to which route. Reviewing the permissions, we can see for example that all roles can access `GET /api/users`, but only an admin can invoke `DELETE /api/users/:id`.
 
 To see the the results of the evaluation of the policy, we’ll click the “Evaluate” button:
 
-![evaluate-button](/getting-started-acmecorp/evaluate-button.png)
+![evaluate-button](/getting-started/evaluate-button.png)
 
 Let’s look at the results:
 
-![playground-evaluated-results](/getting-started-acmecorp/playground-evaluated-results.png)
+![playground-evaluated-results](/getting-started/playground-evaluated-results.png)
 
 Modifying the values of items in the roles section updates the roles/data.json file to reflect those changes, so we can experiment and see what happens if we enable or disable roles from particular routes.
 Let’s uncheck “viewer” from the `people.GET.api.users` and see how the change would affect Euan’s access:
 
-![playground-evaluated-results-2](/getting-started-acmecorp/playground-evaluated-results-2.png)
+![playground-evaluated-results-2](/getting-started/playground-evaluated-results-2.png)
 
 Euan no longer has access since now only people with either an “editor” or “admin” roles can access this route.
 
@@ -43,7 +43,7 @@ We can similarly make modifications to other roles definitions to see how they w
 
 Now let’s take a look at a policy: Click on the `people.PUT.api.users.__id` permission to load it into the Policy Detail panel.
 
-![playground-put-policy](/getting-started-acmecorp/playground-put-policy.png)
+![playground-put-policy](/getting-started/playground-put-policy.png)
 
 As mentioned before, this policy essentially states that each of the permissions listed are going to be dependent on the user’s role. We can now make this policy a bit more fine grained, and add the use of _attributes_ to it.
 
@@ -76,7 +76,7 @@ We can see that with this modification Euan is now allowed to access the route e
 
 You can save your policy bundle by clicking the download button.
 
-![playground-download](/getting-started-acmecorp/playground-download.png)
+![playground-download](/getting-started/playground-download.png)
 
 ## Next Steps
 

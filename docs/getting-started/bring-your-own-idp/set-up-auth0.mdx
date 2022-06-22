@@ -11,17 +11,17 @@ an Auth0 account, create one now.
 
 You’ll need an M2M application set up in Auth0. To create one, open your Auth0 console, and navigate to “Applications”.
 
-![auth0-applications](/getting-started-acmecorp/auth0-applications.png)
+![auth0-applications](/getting-started/auth0-applications.png)
 
 Create a new Machine-to-Machine application by clicking the "Create Application" button.
 
 The following screen will be displayed:
 
-![auth0-create-m2m](/getting-started-acmecorp/auth0-create-m2m.png)
+![auth0-create-m2m](/getting-started/auth0-create-m2m.png)
 
 Name your application “Aserto Management”, select “Machine to Machine Application” and click “Create”.
 
-![auth0-application-permissions](/getting-started-acmecorp/auth0-application-permissions.png)
+![auth0-application-permissions](/getting-started/auth0-application-permissions.png)
 
 In the drop down, select “Auth0 Management API”, then check the permissions read:users, update:users and create:users.
 
@@ -33,7 +33,7 @@ Create an Auth0 Single-Page Application called PeopleFinder, if you don’t have
 
 Here is an example of what the Single Page Application needs to look like in the Auth0 management console:
 
-![auth0-spa-settings](/getting-started-acmecorp/auth0-spa-settings.png)
+![auth0-spa-settings](/getting-started/auth0-spa-settings.png)
 
 :::caution note
 The Application Type must be “Single Page Application” and all the URLs (callback URLs, logout URLs, Web Origins, and Origins should be set to `http://localhost:3000, https://*.netlify.app` (to cover both local development and the Netlify deployment).
@@ -43,13 +43,13 @@ The Application Type must be “Single Page Application” and all the URLs (cal
 
 Create a new API called "Peoplefinder API" with an Audience name of https://express.sample
 
-![auth0-apis](/getting-started-acmecorp/auth0-apis.png)
+![auth0-apis](/getting-started/auth0-apis.png)
 
 :::note
 In the Auth0 UI, this will be labeled as “Identifier”.
 :::
 
-![auth0-identifier](/getting-started-acmecorp/auth0-identifier.png)
+![auth0-identifier](/getting-started/auth0-identifier.png)
 
 ## Seed your Auth0 tenant
 
@@ -88,7 +88,7 @@ aserto-idp-seed seed
 
 Back in [console.aserto.com](https://console.aserto.com), click the “Connections” tab, click “Add Connection” and select Auth0 as the provider.
 
-[<img src="/getting-started-acmecorp/add-connection-auth0.png" width="500" />](/getting-started-acmecorp/add-connection-auth0.png)
+[<img src="/getting-started/add-connection-auth0.png" width="500" />](/getting-started/add-connection-auth0.png)
 
 Complete the form using the domain, client ID and client secret associated with the M2M application settings you created in Auth0. Finally, click “Add connection”. Aserto will pull the users existing in your IDP into the directory. You can now test the application again using the new users seeded into the IDP.
 
