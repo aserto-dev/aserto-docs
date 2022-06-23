@@ -242,7 +242,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
           accountId: process.env.REACT_APP_HUBSPOT_ACCOUNT_ID ?? 21300286
         },
         gtag: {
-          trackingID: process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID,
+          trackingID: process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID ?? '_',
           anonymizeIP: true,
         }
       }),
