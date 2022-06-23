@@ -5,7 +5,8 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 (
   module.exports = {
-    title: "Aserto Documentation",
+    title: "Aserto Docs",
+    titleDelimiter: " - ",
     tagline: "Welcome to modern authorization.",
     url: "https://docs.aserto.com",
     baseUrl: "/",
@@ -70,6 +71,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
           indexName: process.env.REACT_APP_ALGOLIA_INDEX_NAME || '_',
           appId: process.env.REACT_APP_ALGOLIA_APP_ID,
         },
+        image: 'img/aserto-logo.png',
         navbar: {
           style: "dark",
           logo: {
