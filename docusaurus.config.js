@@ -15,6 +15,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
     favicon: "img/favicon.ico",
     organizationName: "aserto-dev",
     projectName: "aserto-docs",
+    trailingSlash: false,
 
     plugins: [
       ['docusaurus2-dotenv',
@@ -243,7 +244,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
           accountId: process.env.REACT_APP_HUBSPOT_ACCOUNT_ID ?? 21300286
         },
         gtag: {
-          trackingID: process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID,
+          trackingID: process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID ?? '_',
           anonymizeIP: true,
         }
       }),
