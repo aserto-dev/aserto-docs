@@ -8,29 +8,29 @@ description: Explore the PeopleFinder application
 
 Click on the Login button and sign in with `euang@acmecorp.com` - the password is `V@erySecre#t123!`.
 
-![login-screen](/getting-started-acmecorp/login-screen.png)
+![login-screen](/getting-started/login-screen.png)
 
 The users loaded into your directory have attributes like manager and department, which the PeopleFinder application relies on, and are used in the authorization policies.
 
-![users-list](/getting-started-acmecorp/users-list.png)
+![users-list](/getting-started/users-list.png)
 
 The policies used by this app dictate that people with the role of `viewer`, `editor` or `admin` are allowed to access and view the list of all users in the directory. They also govern who may make changes to a user’s contact information. Let’s click on the first user card (Karin Lamb):
 
-![karin-lamb-default](/getting-started-acmecorp/karin-lamb-default.png)
+![karin-lamb-default](/getting-started/karin-lamb-default.png)
 
 Click on “Edit” and try to modify and save the phone number for this user.
 
-![karin-lamb-edit](/getting-started-acmecorp/karin-lamb-edit.png)
+![karin-lamb-edit](/getting-started/karin-lamb-edit.png)
 
 Once you save, you’ll run into the error:
 
-![peoplefinder-error](/getting-started-acmecorp/peoplefinder-error.png)
+![peoplefinder-error](/getting-started/peoplefinder-error.png)
 
 This means that the current user (Euan) with the role of `viewer` is not `allowed` to edit other users. Navigate back to the People directory and open Euan’s user. If you try and edit this user the operation will succeed - later we’ll see how the authorization policy is defined to achieve this behavior.
 
 In this application, we're using an impersonation trick to reduce the friction of logging off and logging back on. At the top right corner of the screen you'll see a profile switcher:
 
-![profile-switcher](/getting-started-acmecorp/profile-switcher.png)
+![profile-switcher](/getting-started/profile-switcher.png)
 
 From the dropdown menu, click on the "Kris Johnsen" profile and the application will simulate logging out from Euan's account and logging in as Kris.
 

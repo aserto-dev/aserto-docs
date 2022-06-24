@@ -10,47 +10,47 @@ description: How to use the ABAC policy you created
 
 In order for the deployed PeopleFinder application to point the new policy, open your Netlify site's settings and open the Build & deploy tab:
 
-![netlify-site-settings](/getting-started-acmecorp/netlify-site-settings.png)
+![netlify-site-settings](/getting-started/netlify-site-settings.png)
 
 Then, scroll down to the Environment variables section and click edit variables:
 
-![netlify-environment](/getting-started-acmecorp/netlify-environment.png)
+![netlify-environment](/getting-started/netlify-environment.png)
 
 To retrieve the new Policy ID, open the Policies tab in the Aserto console and click the `peoplefinder-abac` instance. Then, click on `Policy Settings`:
 
-![policy-settings-abac](/getting-started-acmecorp/policy-settings-abac.png)
+![policy-settings-abac](/getting-started/policy-settings-abac.png)
 
 Update the `POLICY_ID` environment variable in Netlify to the Policy ID of the policy associated with the `peoplefinder-abac` instance.
 
 Finally, you'll have to trigger a redeploy of the Netlify application. Navigate to the Deploys tab:
 
-![netlify-deploys](/getting-started-acmecorp/netlify-deploys.png)
+![netlify-deploys](/getting-started/netlify-deploys.png)
 
 The click the dropdown "Trigger deploy" and select "Deploy site".
 
-![netlify-deploy-trigger](/getting-started-acmecorp/netlify-deploy-trigger.png)
+![netlify-deploy-trigger](/getting-started/netlify-deploy-trigger.png)
 
 ## Examine the application behavior
 
 Open the PeopleFinder application, and select Euan from the profile switcher. Then, select a user from the People directory.
 
-![euan-as-sales](/getting-started-acmecorp/euan-as-sales.png)
+![euan-as-sales](/getting-started/euan-as-sales.png)
 
 As you can see, right now, Euan can't update the title or department of another user - the Update button is disabled for him.
 
 Next, use the profile switcher and select Kris. As a member of the "Operations" department, Kris is allowed to update other user's title and department. From the People list, select Euan and bring up his user card.
 
-![euan-and-kris-pre-update](/getting-started-acmecorp/euan-and-kris-pre-update.png)
+![euan-and-kris-pre-update](/getting-started/euan-and-kris-pre-update.png)
 
 Now, update Euan's _department_ to be "Operations".
 
-![euan-and-kris-mid-update](/getting-started-acmecorp/euan-and-kris-mid-update.png)
+![euan-and-kris-mid-update](/getting-started/euan-and-kris-mid-update.png)
 
 and hit save.
 
 We'll use the profile switcher again to select Euan and then select any user from the People directory. With his department updated, Euan can now update any user's title and department.
 
-![euan-as-operations](/getting-started-acmecorp/euan-as-operations.png)
+![euan-as-operations](/getting-started/euan-as-operations.png)
 
 If we were using an RBAC model, we would have had to explicitly give Euan the role of `admin` or `editor` to give him permissions to perform this action. Using the ABAC model we were able to modify the _value_ of an existing attribute (`department`) to grant him this permission _dynamically_.
 
@@ -60,4 +60,4 @@ In this section we learned how powerful of an authorization model ABAC is, and h
 
 ## Next steps
 
-Next, you can explore how to [use your own identity provider](/docs/getting-started-acmecorp/bring-your-own-idp/bring-your-own-idp) instead of our demo Acmecorp IDP.
+Next, you can explore how to [use your own identity provider](/docs/getting-started/bring-your-own-idp/bring-your-own-idp) instead of our demo Acmecorp IDP.

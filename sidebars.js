@@ -23,17 +23,26 @@ module.exports = {
       'Getting Started': [
         {
           type: 'category',
+          label: 'First Steps',
+          collapsed: false,
+          items: [
+            'getting-started/first-steps/quickstart',
+            'getting-started/first-steps/create-account',
+            'getting-started/first-steps/orientation',
+          ],
+        },
+        {
+          type: 'category',
           label: 'PeopleFinder Quickstart',
           collapsed: false,
           items: [
-            'getting-started-acmecorp/quickstart',
-            'getting-started-acmecorp/create-account',
-            'getting-started-acmecorp/create-policy',
-            'getting-started-acmecorp/set-up-users',
-            'getting-started-acmecorp/deploy-peoplefinder',
-            'getting-started-acmecorp/explore-peoplefinder',
-            'getting-started-acmecorp/understanding-policies',
-            'getting-started-acmecorp/modify-the-policy',
+            'getting-started/peoplefinder/peoplefinder-overview',
+            'getting-started/peoplefinder/create-policy',
+            'getting-started/peoplefinder/set-up-users',
+            'getting-started/peoplefinder/deploy-peoplefinder',
+            'getting-started/peoplefinder/explore-peoplefinder',
+            'getting-started/peoplefinder/understanding-policies',
+            'getting-started/peoplefinder/modify-the-policy',
           ],
         },
         {
@@ -41,9 +50,9 @@ module.exports = {
           label: 'Explore ABAC Policies',
           collapsed: true,
           items: [
-            'getting-started-acmecorp/explore-abac-policies/overview',
-            'getting-started-acmecorp/explore-abac-policies/creating-an-abac-policy',
-            'getting-started-acmecorp/explore-abac-policies/update-app-and-review',
+            'getting-started/explore-abac-policies/overview',
+            'getting-started/explore-abac-policies/creating-an-abac-policy',
+            'getting-started/explore-abac-policies/update-app-and-review',
           ],
         },
         {
@@ -51,13 +60,13 @@ module.exports = {
           label: 'Bring Your Own IDP (Auth0)',
           collapsed: true,
           items: [
-            'getting-started-acmecorp/bring-your-own-idp/bring-your-own-idp',
-            'getting-started-acmecorp/bring-your-own-idp/set-up-auth0',
-            'getting-started-acmecorp/bring-your-own-idp/extend-user-attributes',
-            'getting-started-acmecorp/bring-your-own-idp/deploy-peoplefinder-auth0',
+            'getting-started/bring-your-own-idp/bring-your-own-idp',
+            'getting-started/bring-your-own-idp/set-up-auth0',
+            'getting-started/bring-your-own-idp/extend-user-attributes',
+            'getting-started/bring-your-own-idp/deploy-peoplefinder-auth0',
           ],
         },
-        'getting-started-acmecorp/install-onebox',
+        'getting-started/install-onebox',
       ],
     },
     {
