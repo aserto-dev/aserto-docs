@@ -2,3 +2,83 @@
   from = "/"
   to = "/docs"
   status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/quickstart"
+  to = "/docs/getting-started/first-steps/quickstart"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/create-account"
+  to = "/docs/getting-started/first-steps/create-account"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/create-policy"
+  to = "/docs/getting-started/peoplefinder/create-policy"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/set-up-users"
+  to = "/docs/getting-started/peoplefinder/set-up-users"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/deploy-peoplefinder"
+  to = "/docs/getting-started/peoplefinder/deploy-peoplefinder"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/explore-peoplefinder"
+  to = "/docs/getting-started/peoplefinder/explore-peoplefinder"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/understanding-policies"
+  to = "/docs/getting-started/peoplefinder/understanding-policies"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/modify-the-policy"
+  to = "/docs/getting-started/peoplefinder/modify-the-policy"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/explore-abac-policies/overview"
+  to = "/docs/getting-started/explore-abac-policies/overview"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/explore-abac-policies/creating-an-abac-policy"
+  to = "/docs/getting-started/explore-abac-policies/creating-an-abac-policy"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/explore-abac-policies/update-app-and-review"
+  to = "/docs/getting-started/explore-abac-policies/update-app-and-review"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/bring-your-own-idp/bring-your-own-idp"
+  to = "/docs/getting-started/bring-your-own-idp/bring-your-own-idp"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/bring-your-own-idp/set-up-auth0"
+  to = "/docs/getting-started/bring-your-own-idp/set-up-auth0"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/bring-your-own-idp/extend-user-attributes"
+  to = "/docs/getting-started/bring-your-own-idp/extend-user-attributes"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/bring-your-own-idp/deploy-peoplefinder-auth0"
+  to = "/docs/getting-started/bring-your-own-idp/deploy-peoplefinder-auth0"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started-acmecorp/install-onebox"
+  to = "/docs/getting-started/install-onebox"
+  status = 301
