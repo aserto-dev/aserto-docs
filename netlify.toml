@@ -82,3 +82,153 @@
   from = "/docs/getting-started-acmecorp/install-onebox"
   to = "/docs/getting-started/install-onebox"
   status = 301
+
+[[redirects]]
+  from = "/api-reference/"
+  to = "/docs/api-reference"
+  status = 301
+
+[[redirects]]
+  from = "/aserto-console/connections/"
+  to = "/docs/aserto-console/connections/overview"
+  status = 301
+
+[[redirects]]
+  from = "/aserto-console/directory/"
+  to = "/docs/aserto-console/directory"
+  status = 301
+
+[[redirects]]
+  from = "/aserto-console/policies/"
+  to = "/docs/aserto-console/policies"
+  status = 301
+
+[[redirects]]
+  from = "/aserto-console/view-policies"
+  to = "/docs/aserto-console/view-policies"
+  status = 301
+
+[[redirects]]
+  from = "/authorizer-guide/authz"
+  to = "/docs/authorizer-guide/authz"
+  status = 301
+
+[[redirects]]
+  from = "/authorizer-guide/decisiontree"
+  to = "/docs/authorizer-guide/decisiontree"
+  status = 301
+
+[[redirects]]
+  from = "/authorizer-guide/dir"
+  to = "/docs/authorizer-guide/dir"
+  status = 301
+
+[[redirects]]
+  from = "/authorizer-guide/overview/"
+  to = "/docs/authorizer-guide/overview"
+  status = 301
+
+[[redirects]]
+  from = "/authorizer-guide/policy/"
+  to = "/docs/authorizer-guide/policy-context"
+  status = 301
+
+[[redirects]]
+  from = "/authorizer-guide/query"
+  to = "/docs/authorizer-guide/query"
+  status = 301
+
+[[redirects]]
+  from = "/command-line-interface/connections"
+  to = "/docs/command-line-interface/aserto-cli/connections"
+  status = 301
+
+[[redirects]]
+  from = "/command-line-interface/directory"
+  to = "/docs/command-line-interface/aserto-cli/directory"
+  status = 301
+
+[[redirects]]
+  from = "/command-line-interface/login"
+  to = "/docs/command-line-interface/aserto-cli/login"
+  status = 301
+
+[[redirects]]
+  from = "/docs/aserto-console/manage-tenant/"
+  to = "/docs/aserto-console/manage-organizations"
+  status = 301
+
+[[redirects]]
+  from = "/docs/command-line-interface/connections/"
+  to = "/docs/command-line-interface/aserto-cli/connections"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/connect-idp/"
+  to = "/docs/getting-started/bring-your-own-idp/bring-your-own-idp"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/create-account/"
+  to = "/docs/getting-started/first-steps/create-account"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/create-auth0-app/"
+  to = "/docs/getting-started/bring-your-own-idp/set-up-auth0"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/create-policy/"
+  to = "/docs/getting-started/peoplefinder/create-policy"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/deploy-peoplefinder/"
+  to = "/docs/getting-started/peoplefinder/deploy-peoplefinder"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/exploring-peoplefinder/"
+  to = "/docs/getting-started/peoplefinder/explore-peoplefinder"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/extend-user-attributes/"
+  to = "/docs/getting-started/bring-your-own-idp/extend-user-attributes"
+  status = 301
+
+[[redirects]]
+  from = "/docs/software-development-kits/react"
+  to = "/docs/software-development-kits/javascript/react"
+  status = 301
+
+[[redirects]]
+  from = "/getting-started/make-policy-change"
+  to = "/docs/getting-started/peoplefinder/modify-the-policy"
+  status = 301
+
+[[redirects]]
+  from = "/overview/tenant/"
+  to = "/docs/overview/organization"
+  status = 301
+
+[[redirects]]
+  from = "/software-development-kits/dotnetcore"
+  to = "/docs/software-development-kits/dotnetcore"
+  status = 301
+
+[[redirects]]
+  from = "/software-development-kits/express"
+  to = "/docs/software-development-kits/javascript/express"
+  status = 301
+
+[[redirects]]
+  from = "/software-development-kits/javascript"
+  to = "/docs/software-development-kits/javascript/spa"
+  status = 301
+
+[[redirects]]
+  from = "/software-development-kits/sdks"
+  to = "/docs/software-development-kits/overview"
+  status = 301
