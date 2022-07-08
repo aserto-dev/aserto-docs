@@ -107,6 +107,7 @@ module.exports = {
                 'aserto-console/connections/setup-ghcr',
               ],
             },
+            'aserto-console/connections/setup-edge',
           ],
         },
         'aserto-console/policies',
