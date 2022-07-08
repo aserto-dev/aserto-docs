@@ -7,13 +7,13 @@ description: Using the control plane
 # Control Plane
 
 Aserto [edge authorizers](/docs/edge-authorizers/overview) can connect to the Aserto control plane to receive policy and
-directory updates and commands. Edge authorizers must use client certificates from satellite connections to connect to
-the control plane. 
+directory updates and commands. Edge authorizers must use client certificates from edge authorizer connections to
+connect to the control plane. 
 
 ## Configuration
 
 The Aserto CLI can be used to configure certificates. The `list-connections` sub-command lists a tenant's existing
-satellite connections:
+edge authorizer connections:
 
 ```
 aserto control-plane list-connections
@@ -23,7 +23,7 @@ Each of the listed connections has an `id` field, which can be used to retrieve 
 certificate and private key:
 
 ```
-aserto control-plane client-cert <satellite-connection-id>
+aserto control-plane client-cert <edge-authorizer-connection-id>
 ```
 
 For more details on how to configure the certificate see the [edge
