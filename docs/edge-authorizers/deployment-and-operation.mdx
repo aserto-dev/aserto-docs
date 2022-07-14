@@ -51,8 +51,7 @@ docker run \
 -p 8282:8282 \
 -p 8383:8383 \
 -p 8484:8484 \
--p 8585:8585 \
--v $PWD/certs:/app/certs:rw \
+-v $PWD/certs:/certs:rw \
 -v $PWD/cfg:/app/cfg:ro \
 -v $PWD/eds:/app/db:rw \
 ghcr.io/aserto-dev/authorizer-sidecar:latest run \
