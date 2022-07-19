@@ -48,4 +48,11 @@ export default [
     github: 'https://github.com/aserto-dev/aserto-go',
     docs: '/docs/software-development-kits/go/install',
   },
+  {
+    title: 'Ruby',
+    icon: 'ruby.svg',
+    link: 'https://www.ruby-lang.org/en/',
+    github: 'https://github.com/aserto-dev/aserto-ruby',
+    docs: '/docs/software-development-kits/ruby/middleware',
+  },
 ]
