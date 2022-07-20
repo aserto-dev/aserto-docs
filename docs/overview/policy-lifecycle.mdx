@@ -90,7 +90,7 @@ In order to set up GitHub Actions manually, use the `policy` CLI and run the fol
 policy templates apply github-policy-ci
 ```
 
-Initially you'll have to select the policy repository you'd like to use:
+Initially you'll have to select the policy registry you'd like to use:
 
 ```bash
   #  SERVER
@@ -123,7 +123,7 @@ To complete the setup, head to the Aserto console and retrieve the Aserto Policy
 
 <img src="/apcr-api-key.png" />
 
-Copy the API key, and head to the GitHub repository you just created. In the GitHub repository, click on the "Settings" tab, click on "Secrets" and then select the "Actions" tab. Create a new secret with the same secret name you set (e.g., "TOKEN") and paste the APCR API key as its value.
+Copy the API key, and head to the GitHub repository you just created. In the GitHub repository, click on the "Settings" tab, click on "Secrets" and then select the "Actions" tab. Create a new secret with the same secret name you set (e.g., "ASERTO_PUSH_KEY") and paste the Aserto Policy Registry API key as its value.
 
 <img src="/github-action-secret.png" />
 
