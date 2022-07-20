@@ -202,6 +202,7 @@ module.exports = {
           ],
         },
         'software-development-kits/dotnetcore',
+        'software-development-kits/ruby/middleware',
       ],
     },
     {

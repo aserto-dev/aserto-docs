@@ -3,7 +3,6 @@ sidebar_label: Discovery Flow
 title: Edge Authorizer - Discovery Flow
 description: Discovery flow of edge authorizers
 ---
-
 # Discovery Flow
 
 When a new edge authorizer is started, the discovery flow will be initiated:
@@ -86,8 +85,8 @@ opa:
   graceful_shutdown_period_seconds: 2
   config:
     services:
-      aserto-tenant:
-        url: https://tenant.prod.aserto.com/api/v1/tenant/policies
+      aserto-discovery:
+        url: https://discovery.aserto.com/api/v1/discovery/policies
         credentials:
           bearer:
             token: '<DISCOVERY_API_KEY>'
@@ -108,7 +107,7 @@ To validate the correctness of the data used and to inspect what information is 
 
 ```sh
 curl --request GET \
-     --url https://tenant.prod.aserto.com/api/v1/tenant/policies/<POLICY_ID>/opa/discovery \
+     --url https://discovery.aserto.com/api/v1/discovery/policies/<POLICY_ID>/opa/discovery \
      --header 'Accept: application/json' \
      --header 'Content-Type: application/json' \
      --header 'aserto-tenant-id: <TENANT_ID>' \
@@ -128,8 +127,8 @@ The expected response should be:
             "max_delay_seconds": 120,
             "min_delay_seconds": 60
           },
-          "resource": "<POLICY_ID>/bundle.tar.gz",
-          "service": "aserto-bundler",
+          "resource": "<TENANT>/<POLICY>//blobs/sha256:<DIGEST>",
+          "service": "<CONNECTION-ID>-tenant",
           "signing": null,
           "size_limit_bytes": 0
         }
@@ -146,14 +145,14 @@ The expected response should be:
         }
       },
       "services": {
-        "aserto-bundler": {
+        "<CONNECTION-ID>-tenant": {
           "credentials": {
             "bearer": {
               "token": "<REDACTED> registry download API key"
             }
           },
           "response_header_timeout_seconds": 60,
-          "url": "https://bundler.prod.aserto.com/<TENANT_ID>/"
+          "url": "https://registry.aserto.com/v2/"
         }
       }
     }

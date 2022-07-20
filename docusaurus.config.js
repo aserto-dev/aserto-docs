@@ -238,7 +238,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
         prism: {
           theme: lightCodeTheme,
           darkTheme: darkCodeTheme,
-          additionalLanguages: ['powershell', 'csharp', 'rego'],
+          additionalLanguages: ['powershell', 'csharp', 'rego', 'ruby'],
         },
         hubspot: {
           accountId: process.env.REACT_APP_HUBSPOT_ACCOUNT_ID ?? 21300286
