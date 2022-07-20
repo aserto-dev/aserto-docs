@@ -109,7 +109,7 @@ Next, you'll be asked to provide the _name_ of the GitHub secret that will be us
 ```bash
 > secret name (TOKEN):
 ```
-You can select the default secret name ("TOKEN") or change it to a different name if you so choose. Note that you'll need to use this secret name when you create the secret in your GitHub repository.
+Use the name `ASERTO_PUSH_KEY` (this name is used by the Aserto console as well, and would make it easier to allow the workflow to work with the console if you eventually choose to do so). Note that you'll need to use this secret name when you create the secret in your GitHub repository.
 
 Finally, you'll be asked to provide the GitHub organization and repository you'll be using. For example:
 
@@ -119,7 +119,7 @@ Finally, you'll be asked to provide the GitHub organization and repository you'l
 
 Once completed, the CLI will generate a `.github` folder which will include the workflow file required to build and push policy changes to the Aserto Container Registry whenever a new tag is pushed to the GitHub repository.
 
-To complete the setup, head to the Aserto console and retrieve the APCR API key. Head to the Connections tab, and click on "Aserto Policy Registry".
+To complete the setup, head to the Aserto console and retrieve the Aserto Policy Registry API key. Head to the Connections tab, and click on "Aserto Policy Registry".
 
 <img src="/apcr-api-key.png" />
 
@@ -127,7 +127,7 @@ Copy the API key, and head to the GitHub repository you just created. In the Git
 
 <img src="/github-action-secret.png" />
 
-Click on "Add secret" to save the secret. Your GitHub repository is now ready to push policy changes to the Aserto Container Registry.
+Click on "Add secret" to save the secret. Your GitHub repository is now ready to push policy changes to the Aserto Policy Registry.
 
 ### Run
 
