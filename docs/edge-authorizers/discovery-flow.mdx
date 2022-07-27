@@ -86,7 +86,7 @@ opa:
   config:
     services:
       aserto-discovery:
-        url: https://discovery.aserto.com/api/v1/discovery/policies
+        url: https://discovery.aserto.com/api/v2/discovery
         credentials:
           bearer:
             token: '<DISCOVERY_API_KEY>'
@@ -94,8 +94,8 @@ opa:
         headers:
           Aserto-Tenant-Id: <TENANT_ID>
     discovery:
-      name: 'opa/discovery'
-      prefix: '<POLICY_ID>'
+      name: 'opa'
+      prefix: '<POLICY_NAME>/<INSTANCE_LABEL>'
 
 decision_logger:
   enabled: false
@@ -107,7 +107,7 @@ To validate the correctness of the data used and to inspect what information is 
 
 ```sh
 curl --request GET \
-     --url https://discovery.aserto.com/api/v1/discovery/policies/<POLICY_ID>/opa/discovery \
+     --url https://discovery.aserto.com/api/v2/discovery/<POLICY_NAME>/<INSTANCE_LABEL>/opa \
      --header 'Accept: application/json' \
      --header 'Content-Type: application/json' \
      --header 'aserto-tenant-id: <TENANT_ID>' \
@@ -127,7 +127,7 @@ The expected response should be:
             "max_delay_seconds": 120,
             "min_delay_seconds": 60
           },
-          "resource": "<TENANT>/<POLICY>//blobs/sha256:<DIGEST>",
+          "resource": "<TENANT>/<POLICY_NAME>:<INSTANCE_LABEL>",
           "service": "<CONNECTION-ID>-tenant",
           "signing": null,
           "size_limit_bytes": 0
@@ -152,6 +152,7 @@ The expected response should be:
             }
           },
           "response_header_timeout_seconds": 60,
+          "type":"oci",
           "url": "https://registry.aserto.com/v2/"
         }
       }
