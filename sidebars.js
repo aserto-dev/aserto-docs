@@ -202,7 +202,15 @@ module.exports = {
           ],
         },
         'software-development-kits/dotnetcore',
-        'software-development-kits/ruby/middleware',
+        {
+          type: 'category',
+          label: 'Ruby',
+          collapsed: false,
+          items: [
+            'software-development-kits/ruby/middleware',
+            'software-development-kits/ruby/rails',
+          ],
+        },
       ],
     },
     {
