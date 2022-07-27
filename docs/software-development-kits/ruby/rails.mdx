@@ -1,18 +1,25 @@
 ---
-sidebar_label: Rack Middleware
-title: Aserto SDKs - Ruby middleware - Installation and setup
-description: Aserto SDKs - Ruby middleware - Installing and using the Ruby middleware
+sidebar_label: Ruby on Rails
+title: Aserto SDKs -  Ruby on Rails - Installation and setup
+description: Aserto SDKs -  Ruby on Rails - Installing and using the rails aserto gem
 ---
 
-# Ruby Rack Middleware
+# Aserto Rails
 
-`Aserto::Authorization` is a middleware that allows Ruby applications to use Aserto as the Authorization provider.
+Aserto authorization library for Ruby and Ruby on Rails.
+
+Built on top of [aserto](https://github.com/aserto-dev/aserto-ruby) and [aserto-grpc-authz](https://github.com/aserto-dev/ruby-grpc-authz).
+
+## Prerequisites
+* [Ruby](https://www.ruby-lang.org/en/downloads/) 2.7 or newer.
+* [Rails](https://rubyonrails.org/) 6 or newer.
+* An [Aserto](https://console.aserto.com) account.
 
 ## Installation
 Add to your application Gemfile:
 
 ```ruby
-gem "aserto"
+gem "aserto-rails"
 ```
 
 And then execute:
@@ -21,7 +28,7 @@ bundle install
 ```
 Or install it yourself as:
 ```bash
-gem install aserto
+gem install aserto-rails
 ```
 
 ## Configuration
@@ -37,13 +44,10 @@ The middleware accepts the following optional parameters:
 
 | Parameter name | Default value | Description |
 | -------------- | ------------- | ----------- |
-| enabled | true | Enables or disables Aserto Authorization |
 | service_url | `"authorizer.prod.aserto.com:8443"` | Sets the URL for the authorizer endpoint. |
 | decision | `"allowed"` | The decision that will be used by the middleware when creating an authorizer request. |
 | logger | `STDOUT` | The logger to be used by the middleware. |
 | identity_mapping | `{ type: :none }` | The strategy for retrieveing the identity, possible values: `:jwt, :sub, :none` |
-| disabled_for | `[{}]` | Which path and actions to skip the authorization for. |
-| on_unauthorized | `-> { return [403, {}, ["Forbidden"]] }`| A lambda that is executed when the authorization fails. |
 
 ## Identity
 To determine the identity of the user, the middleware can be configured to use a JWT token or a claim using the `identity_mapping` config.
@@ -110,39 +114,11 @@ Aserto.with_resource_mapper do |request|
   { resource:  request.path_info }
 end
 ```
-
-## Disable authorization for specific paths
-
-The middleware exposes a `disable_for` configuration option that
-accepts an array of hashes with the following keys:
- - path - the path to disable authorization for
- - actions - an array of actions to disable authorization for
-
-### Rails
-You can find the paths and actions using `bundle exec rails routes`
-```bash
-bundle exec rails routes
-
-  Prefix       Verb   URI Pattern               Controller#Action
-
-  api_v1_users GET    /api/users(.:format)      api/v1/users#index {:format=>:json}
-               POST   /api/users(.:format)      api/v1/users#create {:format=>:json}
-  api_v1_user  GET    /api/users/:id(.:format)  api/v1/users#show {:format=>:json}
-```
-```ruby
-# disables get user by id
-config.disabled_for = [
-  {
-    path: '/api/users/:id'
-    actions: [:GET]
-  }
-]
-```
 ## Examples
 
-### Rails
 ```ruby
 # config/initializers/aserto.rb
+require "aserto/rails"
 
 Rails.application.config.middleware.use Aserto::Authorization do |config|
   config.enabled = true
@@ -150,54 +126,53 @@ Rails.application.config.middleware.use Aserto::Authorization do |config|
   config.tenant_id = "my-tenant-id"
   config.authorizer_api_key = Rails.application.credentials.aserto[:authorizer_api_key]
   config.policy_root = "peoplefinder"
-  config.service_url = "authorizer.prod.aserto.com:8443"
+  config.service_url = "authorizer.eng.aserto.com:8443"
   config.decision = "allowed"
   config.logger = Rails.logger
   config.identity_mapping = {
     type: :sub,
     from: :sub
   }
-  config.disabled_for = [
-    {
-      path: "/api/users",
-      actions: %i[GET POST]
-    },
-    {
-      path: "/api/authentication",
-      actions: %i[POST]
-    }
-  ]
-  config.on_unauthorized = lambda do |env|
-    puts env
-    return [403, {}, ["Forbidden"]]
+end
+```
+
+## Controller helpers
+
+The `authorize!` method in the controller will raise an exception if the user is not able to perform the given action.
+
+```ruby
+def show
+  authorize!
+  @post = Post.find(params[:id])
+end
+```
+
+Setting this for every action can be tedious, therefore the `authorize_resource` method is provided to
+automatically authorize all actions in a RESTful style resource controller.
+It will use a before action to load the resource into an instance variable and authorize it for every action.
+
+```ruby
+class PostsController < ApplicationController
+  authorize_resource
+  # authorize_resource only: %i[show]
+  # authorize_resource except: %i[index]
+
+  def show
+    # getting a single post authorized
+  end
+
+  def index
+    # getting all posts is authorized
   end
 end
 ```
 
-### Sinatra
-```ruby
-# server.rb
+## Check Permissions
 
-# aserto middleware
-use Aserto::Authorization do |config|
-  config.enabled = true
-  config.policy_id = "my-policy-id"
-  config.tenant_id = "my-tenant-id"
-  config.authorizer_api_key = ENV['authorizer_api_key']
-  config.policy_root = "peoplefinder"
-  config.service_url = "authorizer.prod.aserto.com:8443"
-  config.decision = "allowed"
-  config.disabled_for = [
-    {
-      path: "/api/users/:id",
-      actions: %i[GET]
-    },
-    {
-      path: "/",
-      actions: %i[GET]
-    }
-  ]
+The current user's permissions can then be checked using the `allowed?`, `visible?` and `enabled?` methods in views and controllers.
 
-end
+```erb
+<% if allowed? :get, "/posts/:id", @post %>
+  <%= link_to "View", @post %>
+<% end %>
 ```
-
