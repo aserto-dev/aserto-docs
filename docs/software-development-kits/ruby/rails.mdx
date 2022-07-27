@@ -32,7 +32,7 @@ gem install aserto-rails
 ```
 
 ## Configuration
-The following configuration settings are required for the authorization middleware:
+The following configuration settings are required for authorization:
  - policy_id
  - tenant_id
  - authorizer_api_key
@@ -40,26 +40,26 @@ The following configuration settings are required for the authorization middlewa
 
 These settings can be retrieved from the [Policy Settings](https://console.aserto.com/ui/policies) page of your Aserto account.
 
-The middleware accepts the following optional parameters:
+Optional parameters:
 
 | Parameter name | Default value | Description |
 | -------------- | ------------- | ----------- |
 | service_url | `"authorizer.prod.aserto.com:8443"` | Sets the URL for the authorizer endpoint. |
-| decision | `"allowed"` | The decision that will be used by the middleware when creating an authorizer request. |
-| logger | `STDOUT` | The logger to be used by the middleware. |
+| decision | `"allowed"` | The decision that will be used when executing an authorizer request. |
+| logger | `STDOUT` | The logger to be used. |
 | identity_mapping | `{ type: :none }` | The strategy for retrieveing the identity, possible values: `:jwt, :sub, :none` |
 
 ## Identity
-To determine the identity of the user, the middleware can be configured to use a JWT token or a claim using the `identity_mapping` config.
+To determine the identity of the user, the gem can be configured to use a JWT token or a claim using the `identity_mapping` config.
 ```ruby
-# configure the middleware to use a JWT token form the `my-auth-header` header.
+# configure the gem to use a JWT token form the `my-auth-header` header.
 config.identity_mapping = {
   type: :jwt,
   from: "my-auth-header",
 }
 ```
 ```ruby
-# configure the middleware to use a claim from the JWT token.
+# configure the gem to use a claim from the JWT token.
 # This will decode the JWT token and extract the `sub` field from payload.
 config.identity_mapping = {
   type: :sub,
@@ -82,7 +82,7 @@ end
 ```
 
 ## URL path to policy mapping
-By default, when computing the policy path, the middleware:
+By default, when computing the policy path:
 * converts all slashes to dots
 * converts any character that is not alpha, digit, dot or underscore to underscore
 * converts uppercase characters in the URL path to lowercases
@@ -102,7 +102,7 @@ end
 ```
 
 ## Resource
-A resource can be any structured data that the authorization policy uses to evaluate decisions. By default, middleware do not include a resource in authorization calls.
+A resource can be any structured data that the authorization policy uses to evaluate decisions. By default, gem do not include a resource in authorization calls.
 
 This behavior can be overwritten by providing a custom function:
 
@@ -120,7 +120,7 @@ end
 # config/initializers/aserto.rb
 require "aserto/rails"
 
-Rails.application.config.middleware.use Aserto::Authorization do |config|
+Aserto.configure do |config|
   config.enabled = true
   config.policy_id = "my-policy-id"
   config.tenant_id = "my-tenant-id"
