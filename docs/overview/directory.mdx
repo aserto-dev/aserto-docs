@@ -10,17 +10,35 @@ The Aserto Directory stores all of the information that is relevant for resolvin
 a permission on a resource. This makes it easy to implement a Relationship-based Access Control (ReBAC)
 authorization model.
 
-The Directory defines three concepts:
-* Subject: a principal (user, machine, group)
-* Object: a resource (organization, team, project, list, document)
-* Relation: a named relationship between a subject and an object (member, viewer, editor, admin, owner)
+## Concepts
+
+The Directory defines four concepts:
+* **Subject**: a principal (e.g. *user*, *machine*, *group*)
+* **Object**: a resource (e.g. *organization*, *team*, *project*, *folder*, *document*)
+* **Relation**: a named relationship between a **Subject** and an **Object** (e.g. *member*, *viewer*, *editor*, *admin*, *owner*), which has a set of **Permissions**
+* **Permission**: a discrete permission in the system, which can be associated with one or more **Relations**
+
+### Example
+
+With these building blocks, it's possible to construct expressions like:
+* *Euan* is a *member* of the *Sales-group* **group**
+* The *Sales-folder* **folder** is a *parent* of the *Sales-plan* **document**
+* The *Sales-group* **group** is a *viewer* of the *Sales-folder* **folder**
+* The *viewer* relation includes the *read* permission
+
+And answer queries like:
+* Does *Euan* have the *read* permission on the *Sales-plan* document?
+
+The Aserto directory is able to evaluate this graph query, traversing through these relationship and determining the outcome.
+
+## Default types
 
 The Directory is pre-configured with a few types:
-* User: a principal (used as a subject)
-* Group: used to model a collection of users (can be used as a subject or object)
-* Identity: an identifier for a User (e.g. email, PID)
-* Application: an object that a User may have a relationship to
-* Resource: a generic resource
+* **User**: a principal (used as a subject)
+* **Group**: used to model a collection of users (can be used as a subject or object)
+* **Identity**: an identifier for a User (e.g. email, PID)
+* **Application**: an object that a User may have a relationship to
+* **Resource**: a generic resource
 
 The following relationship types are also pre-configured:
 

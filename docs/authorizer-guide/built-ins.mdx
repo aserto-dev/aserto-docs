@@ -14,6 +14,7 @@ When providing a user's identity, you can use a GUID, PID or an email associated
 
 ## v1 built-ins
 
+### `dir.identity`
 ```js
 dir.identity(user)
 ```
@@ -21,6 +22,7 @@ Returns the user's Aserto directory `id` by a key.
 
 For example: `dir.identity("euang@acmecorp.com")` will return `dfdadc39-7335-404d-af66-c77cf13a15f8`.
 
+### `dir.is_same_user`
 ```js
 dir.is_same_user(userA, userB)
 ```
@@ -28,6 +30,7 @@ Returns `true` if the identities of userA and userB are the same identity.
 
 For example: `dir.is_same_user("euang@acmecorp.com", "dfdadc39-7335-404d-af66-c77cf13a15f8")` will return `true`.
 
+### `dir.user`
 ```js
 dir.user(user)
 ```
@@ -35,6 +38,7 @@ Returns the user object by the user identity.
 
 For example: `dir.user("dfdadc39-7335-404d-af66-c77cf13a15f8")` will return the user object of for the user `euang@acmecorp.com`.
 
+### `dir.manager_of`
 ```js
 dir.manager_of(user)
 ```
@@ -42,6 +46,7 @@ Returns the user object of the manager of a user, based on the `manager` attribu
 
 For example: `dir.manager_of("euang@acmecorp.com")` will return the user object of `aprils@acmecorp.com`.
 
+### `dir.is_manager_of`
 ```js
 dir.is_manager_of(userA, userB)
 ```
@@ -49,6 +54,7 @@ Returns `true` if userA is a manager of userB, based on the `manager` attribute 
 
 For example: `dir.is_manager_of("aprils@acmecorp.com", "euang@acmecorp.com")` will return `true`.
 
+### `dir.management_chain`
 ```js
 dir.management_chain
 ```
@@ -78,6 +84,7 @@ V2 built-ins provide access to data stored in Aserto's ReBAC directory.
 The parameter passing convention has changed from positional arguments to a JSON map that contains named arguments.
 :::
 
+### `ds.identity`
 ```js
 ds.identity({
   "key": "<value>"
@@ -87,15 +94,72 @@ Looks up a user identity by one of the keys (e.g. email address or PID), and ret
 
 For example: `ds.identity({ "identity": "euang@acmecorp.com" })` will return `dfdadc39-7335-404d-af66-c77cf13a15f8`.
 
+### `ds.object`
 ```js
-ds.object({ 
-  "object_type": "<type>",
-  "object_value": "<value>"
+ds.object({
+  "id": "<id>"
+})
+```
+Returns an object instance looked up by its unique `<id>`.
+
+```js
+ds.object({
+  "type": "<type>",
+  "key": "<value>"
 })
 ```
 Returns an object instance of `<type>`, looked up by the key supplied as `<value>`.
 
-For example: `ds.object({ "object_type": "user", "object_value": "dfdadc39-7335-404d-af66-c77cf13a15f8" })` will 
-return the user object associated with Euan.
+For example: `ds.object({ "type": "identity", "key": "euang@acmecorp.com" })` will return the identity object associated with Euan.
 
- 
+### `ds.relation`
+
+```js
+ds.relation({
+	"sub_type": "<subject-type>",
+	"sub_id": "<subject-id>",
+	"relation": "<relation>",
+	"obj_type": "<object-type>",
+	"obj_id": "<object-id>"
+})
+```
+Returns the relation instance that connects the subject with the object.
+
+### `ds.check_relation`
+
+```js
+ds.check_relation({
+	"sub_id":"<subject-id>",
+	"obj_type": "<object-type>",
+	"relation": "<relation-name>",
+	"obj_id": "<object-id>"
+})
+```
+Returns `true` if the `subject-id` has a `relation-name` relation to the `object-id` of type `object-type`.
+
+### `ds.check_permission`
+
+```js
+ds.check_permission({
+	"sub_id":"<subject-id>",
+	"obj_type": "<object-type>",
+	"permission": "<permission-name>",
+	"obj_id": "<object-id>"
+})
+```
+Returns `true` if the `subject-id` has a `permission-name` granted through one or more relations to the `object-id` of type `object-type`.
+
+### `ds.graph`
+
+```js
+ds.graph({
+	"id": "<object-id>",
+	"sub_type": "",
+	"sub_id": "",
+	"relation": "",
+	"obj_type": "",
+	"obj_id": ""
+})
+```
+Returns the graph of relations and objects that is anchored in `object-id`. All other arguments are optional and restrict the graph returned to specific subjects, objects, or relations. The graph will be traversed up until a maximum depth, to avoid infinite recursion through graph cycles.
+
