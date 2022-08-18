@@ -55,4 +55,14 @@ export default [
     github: 'https://github.com/aserto-dev/aserto-ruby',
     docs: '/docs/software-development-kits/ruby/middleware',
   },
+  {
+    title: 'Ruby on Rails',
+    icon: 'rails.svg',
+    link: 'https://rubyonrails.org/',
+    github: 'https://github.com/aserto-dev/aserto-rails',
+    docs: '/docs/software-development-kits/ruby/rails',
+  },
+
+
+
 ]
