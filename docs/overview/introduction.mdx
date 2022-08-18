@@ -15,12 +15,19 @@ Aserto has two major components:
 * Authorizer: where authorization decisions are made
 * Control Plane: manages all the artifacts that Aserto uses to make authorization decisions
 
+![architecture](/architecture.png)
+
 ## Authorizer
 
 The [Authorizer](/docs/overview/authorizer) is an open source authorization engine which uses the 
 Open Policy Agent (OPA) to compute a **decision** based on a **policy**, **user context**, and **data**. 
 It is most commonly deployed close to your application, to offer the lowest latency and the 
 highest level of availability to your application.
+
+In addition to using OPA as its decision engine, the Authorizer includes an embedded database that 
+caches all the data that's needed for authorization decisions. This data is sourced from the Aserto 
+[Directory](/docs/overview/directory), which is inherits its design from Google's 
+[Zanzibar](https://research.google/pubs/pub48190/) system. 
 
 ## Control Plane
 

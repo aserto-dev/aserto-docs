@@ -130,6 +130,7 @@ module.exports = {
         'authorizer-guide/dir',
         'authorizer-guide/directory-resources',
         'authorizer-guide/policy',
+        'authorizer-guide/built-ins',
       ],
     },
     {
