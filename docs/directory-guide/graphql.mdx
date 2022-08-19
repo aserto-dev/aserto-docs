@@ -1,0 +1,107 @@
+---
+sidebar_label: GraphQL
+title: Directory Guide
+description: How to use the Aserto Directory GraphQL API
+---
+
+# GraphQL
+
+## Headers
+
+Two HTTP headers must be included in all requests to the directory API:
+
+* `Aserto-Tenant-ID` - the tenant ID of the organization being accessed.
+
+  You can find an organization's tenant ID in
+  the Aserto console by selecting "Manage organization" in the in the organization drop-down menu.
+
+* `Authorization` - an API key (`basic <KEY>`) or OAuth2.0 token (`bearer <TOKEN>`).
+
+  API keys can be found under the Aserto Directory connection in the Connections page.
+
+## Pagination
+
+Pagination is supported using the _first_ and _after_ arguments to queries and fields that represent collections.
+
+The query below requests the first 2 objects in the directory.
+
+```graphql title="Query"
+{
+  objects(first: 2) {
+    nodes {
+      id
+      displayName
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+```
+
+```json title="Result"
+{
+  "data": {
+    "objects": {
+      "nodes": [
+        {
+          "id": "011a88bc-7df9-4d92-ba1f-2ff319e101e1",
+          "displayName": "Karin Lamb"
+        },
+        {
+          "id": "01d1e01e-bf53-419a-9762-17270b1a7328",
+          "displayName": "Nuno Farinha"
+        }
+      ],
+      "pageInfo": {
+        "hasNextPage": true,
+        "endCursor": "OC04NzQyLTQ5YWQtOTUyNi05NzA5YzAwYmIwZGUA"
+      }
+    }
+  }
+}
+```
+
+The results consist of two parts:
+
+* `nodes` is a list containing the returned objects.
+* `pageInfo` contains pagination metadata.
+  * `hasNextPage` is `false` if the returned page is the last one, `true` otherwise.
+  * `endCursor` contains a cursor that can be passed to the `after` parameter in order to retrieve the next page.
+
+The following query requests the next object after the two retrieved by the query above:
+
+```graphql title="Query"
+{
+  objects(first: 1, after: "OC04NzQyLTQ5YWQtOTUyNi05NzA5YzAwYmIwZGUA") {
+    nodes {
+      id
+      displayName
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+```
+
+```json title="Result"
+{
+  "data": {
+    "objects": {
+      "nodes": [
+        {
+          "id": "020cd80a-5e19-4ba5-9a4d-68117dfec51c",
+          "displayName": "Lukas Keller"
+        },
+      ],
+      "pageInfo": {
+        "hasNextPage": true,
+        "endCursor": "OC02ZWNjLTQ1ZWQtYjI3OC1kODQ5YWI1ZjdjM2UA"
+      }
+    }
+  }
+}
+```

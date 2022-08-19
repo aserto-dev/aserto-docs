@@ -134,6 +134,11 @@ module.exports = {
       ],
     },
     {
+      'Directory Guide': [
+        'directory-guide/graphql',
+      ],
+    },
+    {
       Quickstarts: [
         {
           type: 'category',
