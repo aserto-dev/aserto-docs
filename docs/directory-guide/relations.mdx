@@ -1,0 +1,275 @@
+---
+sidebar_label: Relations
+title: Directory Guide
+description: Understanding Directory Relations
+---
+
+# Relations
+
+A relation is a labeled association between a source object and a target object.
+
+A relation consists of three items:
+
+* A _source_ object
+* A relation _type_
+* A _target_ object
+
+Relations can therefore be seen as `(source, type, target)` triplets.
+
+
+## Relation Types
+
+Relation types define the kinds of relations that may exists between objects in the directory.
+Relation types can also be associated with _permissions_ describing the kinds of access that a relation's target has on
+the source object.
+
+Each relation type is associated with exactly one object type. Only objects of that type can be used as the source
+when creating relations of that type.
+
+For example, the built-in `group::member` type has `group` as its object type. When adding a `user` to a group,
+the group must be the source object and the user the target. Similarly, when adding a group as a member of another
+group, the containg group is the source and the member group the target.
+
+### Unions
+
+Relations are commonly used to defined _roles_, each with its own set of permissions. It is often the case that more
+privileged roles are defined in terms of more restrictive ones. For example, an "owner" role may have all the
+permissions defined in an "editor" role plus additional permissions reserved only for owners. Similarly, an "editor"
+may be granted all the permissions available to a "reader" plus more.
+
+Unions allow you to created such structures without duplicating relation-permission associations. A relation type has
+a `unions` field, which is a list of other relation types. If relation A has relation B in its unions list then any
+permission associated with relation B is implicitly associated with relation A too.
+
+### Querying Relation Types
+
+The query below retrieves the first 3 relation types in the directory:
+
+```graphql title="Query"
+{
+  relationTypes(first: 3) {
+    nodes {
+      id
+      name
+      displayName
+      objectType {
+        name
+      }
+    }
+  }
+}
+```
+
+```json title="Result"
+{
+  "data": {
+    "relationTypes": {
+      "nodes": [
+        {
+          "id": 90002,
+          "name": "member",
+          "displayName": "group::member",
+          "objectType": {
+            "name": "group"
+          }
+        },
+        {
+          "id": 90001,
+          "name": "identifier",
+          "displayName": "identity::identifier",
+          "objectType": {
+            "name": "identity"
+          }
+        },
+        {
+          "id": 90004,
+          "name": "manager",
+          "displayName": "user::manager",
+          "objectType": {
+            "name": "user"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+## Relation Instances
+
+Because relations are nothing more than `(source, type, target)` triplets, they are immutable. A relation can be created
+or deleted, but cannot be _modified_ in any meaningful way.
+
+
+### Querying Object Relations
+
+To find relations for a given object, first select the object and then use it `relations` connection to find all its
+relations or just the ones you are interested in.
+
+For example, the following query selects a user object by its ID and lists the first 3 relations in which the object
+is the target:
+
+```graphql title="Query"
+{
+  object(selector: {id: "011a88bc-7df9-4d92-ba1f-2ff319e101e1"}) {
+    id
+    displayName
+    relations(side: TARGET, first: 3) {
+      nodes {
+        type {
+          displayName
+        }
+        source {
+          id
+          displayName
+          type {
+            name
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+```json title="Result"
+{
+  "data": {
+    "object": {
+      "id": "011a88bc-7df9-4d92-ba1f-2ff319e101e1",
+      "displayName": "Karin Lamb",
+      "relations": {
+        "nodes": [
+          {
+            "type": {
+              "displayName": "user::manager"
+            },
+            "source": {
+              "id": "2cfdb538-a03d-44b1-a0f2-b7ef32b713a7",
+              "displayName": "Syed Abbas",
+              "type": {
+                "name": "user"
+              }
+            }
+          },
+          {
+            "type": {
+              "displayName": "identity::identifier"
+            },
+            "source": {
+              "id": "ebb4ec7e-5ddc-47aa-b06e-bcdefb04b009",
+              "displayName": "",
+              "type": {
+                "name": "identity"
+              }
+            }
+          },
+          {
+            "type": {
+              "displayName": "group::member"
+            },
+            "source": {
+              "id": "05398496-3389-4285-9697-6b7a4e749996",
+              "displayName": "viewer-group",
+              "type": {
+                "name": "group"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+We can see that the user is the target of a `user::manager` relation from their boss, Syed Abbas. It is also has a
+`identity::identifier` relation to an an identity object, and is a member of the `viewer-group`.
+
+The relations query has additional options that can be used to further narrow the search.
+For example, to only list groups that the user is a member of, we can use:
+
+```graphql title="Query"
+{
+  object(selector: {id: "011a88bc-7df9-4d92-ba1f-2ff319e101e1"}) {
+    id
+    displayName
+    relations(side: TARGET, options: {otherType: {name: "group"}}, first: 10) {
+      nodes {
+        type {
+          displayName
+        }
+        source {
+          id
+          displayName
+        }
+      }
+    }
+  }
+}
+```
+
+```json title="Result"
+{
+  "data": {
+    "object": {
+      "id": "011a88bc-7df9-4d92-ba1f-2ff319e101e1",
+      "displayName": "Karin Lamb",
+      "relations": {
+        "nodes": [
+          {
+            "type": {
+              "displayName": "group::member"
+            },
+            "source": {
+              "id": "05398496-3389-4285-9697-6b7a4e749996",
+              "displayName": "viewer-group",
+              "type": {
+                "name": "group"
+              }
+            }
+          },
+          {
+            "type": {
+              "displayName": "group::member"
+            },
+            "source": {
+              "id": "ba3fc279-4027-45f7-acb1-8cc6baf9084b",
+              "displayName": "acmecorp-group",
+              "type": {
+                "name": "group"
+              }
+            }
+          },
+          {
+            "type": {
+              "displayName": "group::member"
+            },
+            "source": {
+              "id": "bd8dc47b-c1a1-4144-9009-938065969ab4",
+              "displayName": "user-group",
+              "type": {
+                "name": "group"
+              }
+            }
+          },
+          {
+            "type": {
+              "displayName": "group::member"
+            },
+            "source": {
+              "id": "d1c374ff-20dc-42f3-8fc9-9bf784b9d9dd",
+              "displayName": "crm-strategy-group",
+              "type": {
+                "name": "group"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+We can see that Karin is a member of 4 groups named: viewer-group, admecorp-group, user-group, crm-strategy-group.
