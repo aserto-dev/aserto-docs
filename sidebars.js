@@ -134,6 +134,12 @@ module.exports = {
       ],
     },
     {
+      'Directory Guide': [
+        'directory-guide/graphql',
+        'directory-guide/relations',
+      ],
+    },
+    {
       Quickstarts: [
         {
           type: 'category',
