@@ -1,0 +1,33 @@
+---
+id: object-selector
+title: ObjectSelector
+hide_table_of_contents: true
+---
+
+
+Input that uniquely identifies an object.
+
+The fields are mutually exclusive. Exactly one value must be set.
+
+```graphql
+input ObjectSelector {
+  id: ID
+  key: ObjectKey
+}
+```
+
+
+### Fields
+
+#### [`id`](#) ([`ID`](/schema/scalars/id))
+
+The ID of the object to select.
+
+
+#### [`key`](#) ([`ObjectKey`](/schema/inputs/object-key))
+
+The key and type of the object to select.
+
+
+
+

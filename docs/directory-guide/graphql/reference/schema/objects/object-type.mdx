@@ -1,0 +1,78 @@
+---
+id: object-type
+title: ObjectType
+hide_table_of_contents: true
+---
+
+
+ObjectType represents the kinds of objects that can exist in the directory.
+
+```graphql
+type ObjectType {
+  id: TypeID!
+  isSubject: Boolean!
+  name: String!
+  displayName: String!
+  ordinal: Int!
+  status: [Flag!]!
+  lifecycle: Lifecycle!
+  relationTypes(
+  first: Int!
+  after: Cursor
+): RelationTypeConnection!
+}
+```
+
+
+### Fields
+
+#### [`id`](#) ([`TypeID!`](/schema/scalars/type-id))
+
+Unique identifier for the object type.
+
+
+#### [`isSubject`](#) ([`Boolean!`](/schema/scalars/boolean))
+
+Whether the object type represents a subject type.
+
+
+#### [`name`](#) ([`String!`](/schema/scalars/string))
+
+Name of the object type.
+
+
+#### [`displayName`](#) ([`String!`](/schema/scalars/string))
+
+Friendly name of the object type.
+
+
+#### [`ordinal`](#) ([`Int!`](/schema/scalars/int))
+
+Sort order of the object type.
+
+
+#### [`status`](#) ([`[Flag!]!`](/schema/enums/flag))
+
+A of flags that describe the status of the object type.
+
+
+#### [`lifecycle`](#) ([`Lifecycle!`](/schema/objects/lifecycle))
+
+Metadata about the object type's lifecycle.
+
+
+#### [`relationTypes`](#) ([`RelationTypeConnection!`](/schema/objects/relation-type-connection))
+
+The types of relations that can be created with objects of this type.
+- ##### [`first`](#) ([`Int!`](/schema/scalars/int))
+
+
+
+
+- ##### [`after`](#) ([`Cursor`](/schema/scalars/cursor))
+
+
+
+
+
+

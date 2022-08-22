@@ -1,0 +1,43 @@
+---
+id: type-idwhere
+title: TypeIDWhere
+hide_table_of_contents: true
+---
+
+
+A comparison predicate for filtering types on their id field.
+
+```graphql
+input TypeIDWhere {
+  equals: TypeID
+  notEquals: TypeID
+  in: [TypeID!]
+  notIn: [TypeID!]
+}
+```
+
+
+### Fields
+
+#### [`equals`](#) ([`TypeID`](/schema/scalars/type-id))
+
+The type's id is equal to the given id.
+
+
+#### [`notEquals`](#) ([`TypeID`](/schema/scalars/type-id))
+
+The type's id is not equal to the given id.
+
+
+#### [`in`](#) ([`[TypeID!]`](/schema/scalars/type-id))
+
+The type's id is equal to one of the given ids.
+
+
+#### [`notIn`](#) ([`[TypeID!]`](/schema/scalars/type-id))
+
+The type's id is not equal to any of the given ids.
+
+
+
+

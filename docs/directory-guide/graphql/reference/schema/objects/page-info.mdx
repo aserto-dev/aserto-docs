@@ -1,0 +1,31 @@
+---
+id: page-info
+title: PageInfo
+hide_table_of_contents: true
+---
+
+
+PageInfo contains pagination data about a returned page of results.
+
+```graphql
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: Cursor
+}
+```
+
+
+### Fields
+
+#### [`hasNextPage`](#) ([`Boolean!`](/schema/scalars/boolean))
+
+True if there are more pages to fetch, false otherwise.
+
+
+#### [`endCursor`](#) ([`Cursor`](/schema/scalars/cursor))
+
+The cursor to use to fetch the next page.
+
+
+
+

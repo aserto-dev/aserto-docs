@@ -1,0 +1,56 @@
+---
+id: set-object-type-input
+title: SetObjectTypeInput
+hide_table_of_contents: true
+---
+
+
+Input for the setObjectType mutation.
+
+```graphql
+input SetObjectTypeInput {
+  id: TypeID
+  name: String
+  displayName: String
+  isSubject: Boolean
+  ordinal: Int
+  status: [Flag!]
+}
+```
+
+
+### Fields
+
+#### [`id`](#) ([`TypeID`](/schema/scalars/type-id))
+
+ID of an existing object type to update. If set, an object type with the specified ID must already exist.
+
+
+#### [`name`](#) ([`String`](/schema/scalars/string))
+
+Name of the object type. Must be unique.
+
+
+#### [`displayName`](#) ([`String`](/schema/scalars/string))
+
+"
+Friendly display name of the object type.
+
+
+#### [`isSubject`](#) ([`Boolean`](/schema/scalars/boolean))
+
+Whether or not the object type represents a subject (user, group, etc.).
+
+
+#### [`ordinal`](#) ([`Int`](/schema/scalars/int))
+
+Sort order of the object type.
+
+
+#### [`status`](#) ([`[Flag!]`](/schema/enums/flag))
+
+A set of flags that describe the status of the object type.
+
+
+
+

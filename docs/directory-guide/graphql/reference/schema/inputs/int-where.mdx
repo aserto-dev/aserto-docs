@@ -1,0 +1,69 @@
+---
+id: int-where
+title: IntWhere
+hide_table_of_contents: true
+---
+
+
+A comparison predicate for filtering on numeric fields.
+
+At most one field may be specified.
+
+```graphql
+input IntWhere {
+  equals: Int
+  notEquals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lessThan: Int
+  lessThanOrEqual: Int
+  greaterThan: Int
+  greaterThanOrEqual: Int
+}
+```
+
+
+### Fields
+
+#### [`equals`](#) ([`Int`](/schema/scalars/int))
+
+The field being compared is equal to the given value.
+
+
+#### [`notEquals`](#) ([`Int`](/schema/scalars/int))
+
+The field being compared is not equal to the given value.
+
+
+#### [`in`](#) ([`[Int!]`](/schema/scalars/int))
+
+The field being compared is equal to one of the given values..
+
+
+#### [`notIn`](#) ([`[Int!]`](/schema/scalars/int))
+
+The field being compared is not equal to any of the given values.
+
+
+#### [`lessThan`](#) ([`Int`](/schema/scalars/int))
+
+The field being compared is less than the given value.
+
+
+#### [`lessThanOrEqual`](#) ([`Int`](/schema/scalars/int))
+
+The field being compared is less than or equal to the given value.
+
+
+#### [`greaterThan`](#) ([`Int`](/schema/scalars/int))
+
+The field being compared is greater than the given value.
+
+
+#### [`greaterThanOrEqual`](#) ([`Int`](/schema/scalars/int))
+
+The field being compared is greater than or equal to the given value.
+
+
+
+

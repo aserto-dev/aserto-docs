@@ -1,0 +1,87 @@
+---
+id: relation-type
+title: RelationType
+hide_table_of_contents: true
+---
+
+
+A kind of relation that can exist between subjects and resources.
+
+```graphql
+type RelationType {
+  id: TypeID!
+  objectType: ObjectType!
+  name: String!
+  displayName: String!
+  ordinal: Int!
+  status: [Flag!]!
+  unions: [RelationType!]!
+  lifecycle: Lifecycle!
+  permissions(
+  first: Int!
+  after: Cursor
+): PermissionConnection!
+}
+```
+
+
+### Fields
+
+#### [`id`](#) ([`TypeID!`](/schema/scalars/type-id))
+
+Unique identifier of the relation type.
+
+
+#### [`objectType`](#) ([`ObjectType!`](/schema/objects/object-type))
+
+The type of object that can be part of the relation.
+
+
+#### [`name`](#) ([`String!`](/schema/scalars/string))
+
+Unique name for the relation type. Unique for the object type.
+
+
+#### [`displayName`](#) ([`String!`](/schema/scalars/string))
+
+Display name for the relation type.
+
+
+#### [`ordinal`](#) ([`Int!`](/schema/scalars/int))
+
+Sort order of the relation type.
+
+
+#### [`status`](#) ([`[Flag!]!`](/schema/enums/flag))
+
+A set of flags that describe the status of the object type.
+
+
+#### [`unions`](#) ([`[RelationType!]!`](/schema/objects/relation-type))
+
+A list of relation types that are supertypes of this relation type.
+
+This relation type receives all permissions defined in the supertypes.
+Unioned relation types must be defined with the same object type.
+
+
+#### [`lifecycle`](#) ([`Lifecycle!`](/schema/objects/lifecycle))
+
+Metadata about the relation type's lifecycle.
+
+
+#### [`permissions`](#) ([`PermissionConnection!`](/schema/objects/permission-connection))
+
+The permissions that the relation grants to subjects.
+- ##### [`first`](#) ([`Int!`](/schema/scalars/int))
+
+
+
+
+- ##### [`after`](#) ([`Cursor`](/schema/scalars/cursor))
+
+
+
+
+
+

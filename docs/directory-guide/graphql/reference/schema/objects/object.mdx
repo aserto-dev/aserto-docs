@@ -1,0 +1,95 @@
+---
+id: object
+title: Object
+hide_table_of_contents: true
+---
+
+
+Objects are the primary nodes in the directory graph.
+
+They be associated with each other using Relations.
+
+```graphql
+type Object {
+  id: ID!
+  type: ObjectType!
+  key: String!
+  displayName: String!
+  properties: Map!
+  hash: Hash!
+  lifecycle: Lifecycle!
+  relations(
+  side: RelationSide!
+  options: RelationOptions
+  first: Int!
+  after: Cursor
+): RelationConnection!
+}
+```
+
+
+### Fields
+
+#### [`id`](#) ([`ID!`](/schema/scalars/id))
+
+Unique identifier of the object.
+
+
+#### [`type`](#) ([`ObjectType!`](/schema/objects/object-type))
+
+The type of the object.
+
+
+#### [`key`](#) ([`String!`](/schema/scalars/string))
+
+User-defined identifier for the object. Unique within an object type.
+
+
+#### [`displayName`](#) ([`String!`](/schema/scalars/string))
+
+Optional display name for the object.
+
+
+#### [`properties`](#) ([`Map!`](/schema/scalars/map))
+
+A JSON collection of arbitrary properties associated with the object.
+
+
+#### [`hash`](#) ([`Hash!`](/schema/scalars/hash))
+
+A hash value of object's fields.
+
+
+#### [`lifecycle`](#) ([`Lifecycle!`](/schema/objects/lifecycle))
+
+Metadata about the object's life cycle.
+
+
+#### [`relations`](#) ([`RelationConnection!`](/schema/objects/relation-connection))
+
+The relations this object has.
+
+side: The object's side in the relation. "SOURCE" returns relations in which the object is the source, and
+"TARGET" returns relations in which the object is the target.
+- ##### [`side`](#) ([`RelationSide!`](/schema/enums/relation-side))
+
+
+
+
+- ##### [`options`](#) ([`RelationOptions`](/schema/inputs/relation-options))
+
+
+
+
+- ##### [`first`](#) ([`Int!`](/schema/scalars/int))
+
+
+
+
+- ##### [`after`](#) ([`Cursor`](/schema/scalars/cursor))
+
+
+
+
+
+

@@ -1,0 +1,63 @@
+---
+id: string-where
+title: StringWhere
+hide_table_of_contents: true
+---
+
+
+A comparison predicate for filtering on string fields.
+
+At most one field may be specified.
+
+```graphql
+input StringWhere {
+  contains: String
+  startsWith: String
+  endsWith: String
+  equals: String
+  notEquals: String
+  in: [String!]
+  notIn: [String!]
+}
+```
+
+
+### Fields
+
+#### [`contains`](#) ([`String`](/schema/scalars/string))
+
+The field being compared contains the given value as a substring.
+
+
+#### [`startsWith`](#) ([`String`](/schema/scalars/string))
+
+The field being compared contains the given value as a prefix.
+
+
+#### [`endsWith`](#) ([`String`](/schema/scalars/string))
+
+The field being compared contains the given value as a suffix.
+
+
+#### [`equals`](#) ([`String`](/schema/scalars/string))
+
+The field being compared is equal to the given value.
+
+
+#### [`notEquals`](#) ([`String`](/schema/scalars/string))
+
+The field being compared is not equal to the given value.
+
+
+#### [`in`](#) ([`[String!]`](/schema/scalars/string))
+
+The field being compared is equal to one of the given values..
+
+
+#### [`notIn`](#) ([`[String!]`](/schema/scalars/string))
+
+The field being compared is not equal to any of the given values.
+
+
+
+

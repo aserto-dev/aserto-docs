@@ -1,0 +1,37 @@
+---
+id: relation-options
+title: RelationOptions
+hide_table_of_contents: true
+---
+
+
+Options for queriying object relations.
+
+```graphql
+input RelationOptions {
+  other: ObjectSelector
+  otherType: ObjectTypeSelector
+  relationType: RelationTypeSelector
+}
+```
+
+
+### Fields
+
+#### [`other`](#) ([`ObjectSelector`](/schema/inputs/object-selector))
+
+[optional] Only include relations with the specified object ID.
+
+
+#### [`otherType`](#) ([`ObjectTypeSelector`](/schema/inputs/object-type-selector))
+
+[optional] Only include relations with objects of the specified object type.
+
+
+#### [`relationType`](#) ([`RelationTypeSelector`](/schema/inputs/relation-type-selector))
+
+[optional] Only include relations of this type.
+
+
+
+

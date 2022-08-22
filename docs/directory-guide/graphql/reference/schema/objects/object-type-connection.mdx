@@ -1,0 +1,31 @@
+---
+id: object-type-connection
+title: ObjectTypeConnection
+hide_table_of_contents: true
+---
+
+
+A paginated collection of object types.
+
+```graphql
+type ObjectTypeConnection {
+  pageInfo: PageInfo!
+  nodes: [ObjectType!]!
+}
+```
+
+
+### Fields
+
+#### [`pageInfo`](#) ([`PageInfo!`](/schema/objects/page-info))
+
+Pagination information about the returned page.
+
+
+#### [`nodes`](#) ([`[ObjectType!]!`](/schema/objects/object-type))
+
+The collection of object types in the page.
+
+
+
+

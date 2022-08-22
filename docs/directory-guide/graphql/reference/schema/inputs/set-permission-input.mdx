@@ -1,0 +1,37 @@
+---
+id: set-permission-input
+title: SetPermissionInput
+hide_table_of_contents: true
+---
+
+
+Input to the setPermission mutation.
+
+```graphql
+input SetPermissionInput {
+  id: ID
+  permission: String
+  displayName: String
+}
+```
+
+
+### Fields
+
+#### [`id`](#) ([`ID`](/schema/scalars/id))
+
+The ID of an existing permission to update. If provided, a permission with the specified ID must exist.
+
+
+#### [`permission`](#) ([`String`](/schema/scalars/string))
+
+The unique permission value.
+
+
+#### [`displayName`](#) ([`String`](/schema/scalars/string))
+
+Friendly name for the permission.
+
+
+
+

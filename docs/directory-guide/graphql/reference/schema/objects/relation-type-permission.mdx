@@ -1,0 +1,43 @@
+---
+id: relation-type-permission
+title: RelationTypePermission
+hide_table_of_contents: true
+---
+
+
+An association between a relation type and a permission.
+
+```graphql
+type RelationTypePermission {
+  permission: Permission!
+  relationType: RelationType!
+  allowed: Boolean!
+  lifecycle: Lifecycle!
+}
+```
+
+
+### Fields
+
+#### [`permission`](#) ([`Permission!`](/schema/objects/permission))
+
+The permission.
+
+
+#### [`relationType`](#) ([`RelationType!`](/schema/objects/relation-type))
+
+The relation type.
+
+
+#### [`allowed`](#) ([`Boolean!`](/schema/scalars/boolean))
+
+Whether or not the permission is granted or denied.
+
+
+#### [`lifecycle`](#) ([`Lifecycle!`](/schema/objects/lifecycle))
+
+Metadata about the lifecycle of the relation type permission.
+
+
+
+
