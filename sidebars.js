@@ -144,7 +144,7 @@ module.exports = {
           collapsed: false,
           items: [
             'directory-guide/graphql/reference/overview',
-            'directory-guide/graphql/reference/types',
+            'directory-guide/graphql/reference/object-types',
             {
               type: 'category',
               label: 'Reference',
