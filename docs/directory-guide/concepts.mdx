@@ -6,8 +6,8 @@ title: Concepts
 ## Introduction
 
 The Aserto Directory stores information required to make authorization decisions. It is flexible enough to easily
-support different access control strategies including Role-based Access Control (rBAC), Attribute-based Access Control
-(aBAC), and Relationship-based Access Control (ReBAC).
+support different access control strategies including Role-Based Access Control (RBAC), Attribute-Based Access Control
+(ABAC), and Relationship-Based Access Control (ReBAC).
 
 An authorization decision is an answer to the question *"Is subject __S__ allowed to perform action __A__ on resource __R__?"*
 In other words, authorization decisions determine whether a subject (user, group, service, etc.) has a given permission on a resource
@@ -37,12 +37,10 @@ the node __S__ to the node __R__ in which one or more edges have permission __P_
 
 Indeed, the directory API provides methods to query and traverse this graph of objects and relations.
 
+
 ## Types
 
 To help define different kinds of objects and specify the relations that may exist between them, the Aserto Directory
 provides two extensible sets of types:
 * __Object Types__ define the kinds of objects that can be created in the directory.
 * __Relation Types__ define the kinds of relations that can be created between directory objects.
-
-
-

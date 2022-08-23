@@ -1,0 +1,38 @@
+---
+sidebar_label: Scenario
+title: Scenario
+---
+
+This guide walks through an example scenario and demonstrates how the Aserto Directory can be used to implement
+multi-tenant Role-Based Access Control (RBAC).
+
+Consider a simple retail inventory management application. The store consists of multiple departments and different
+employees have can have different kinds of roles within each department. The application distinguishes between three
+roles:
+
+* `viewer`: Grants read-only access to the department information.
+* `member`: In addition to viewer privgileges, members have permission to view all the data, add new products to the
+catalog, and set the number of available units on existing products.
+* `owner`: Owners have all member privileges and can also delete products and manage user roles in the department.
+
+To model the scenario in the Aserto Directory we will create a new _object type_ called `department`. We will also
+create three _relation types_ to represent the `owner`, `member`, and `viewer` roles.
+
+Once the type definitions are in place, we will create a `department` object for each department in the store
+and create relations between users and departments to indicate their role membership.
+
+
+With the directory populated, the application can perform authorization decisions by checking whether a relation
+of the right type exists between a user attempting to act on a department and the department object.
+
+In the following pages we'll walk through the process of implementing this data model using the
+[Aserto Directory API](directory-api-reference/overview).
+
+
+You can follow the guide and run the examples against your directory by using the directory's
+[GraphiQL Playground](https://directory.prod.aserto.com/graph).
+
+:::info
+When calling the directory API, be sure to include the required
+[authentication](/docs/directory-api-reference/overview#authentication) headers in your requests.
+:::
