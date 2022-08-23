@@ -1,28 +1,80 @@
 ---
-sidebar_label: User Directory
-title: Overview - User Directory
-description: The User Directory - an Overview
+sidebar_label: Directory
+title: Overview - Directory
+description: The Aserto Directory - an Overview
 ---
 
-# Aserto Directory
+# Directory
 
-The Aserto Directory collects user information from identity providers that the user has
-[connected](/docs/overview/connections) to the control plane, and makes that user information available
-to Authorizer instances.
+The Aserto Directory stores all of the information that is relevant for resolving whether a user has 
+a permission on a resource. This makes it easy to implement a Relationship-based Access Control (ReBAC)
+authorization model.
 
-## Tenant Directory
+## Concepts
 
-Each tenant has an isolated directory that is scoped to that tenant. The tenant directory is shared
-across policies.
+The Directory defines four concepts:
+* **Subject**: a principal (e.g. *user*, *machine*, *group*)
+* **Object**: a resource (e.g. *organization*, *team*, *project*, *folder*, *document*)
+* **Relation**: a named relationship between a **Subject** and an **Object** (e.g. *member*, *viewer*, *editor*, *admin*, *owner*), which has a set of **Permissions**
+* **Permission**: a discrete permission in the system, which can be associated with one or more **Relations**
+
+### Example
+
+With these building blocks, it's possible to construct expressions like:
+* *Euan* is a *member* of the *Sales-group*
+* *Sales-folder* is a *parent* of the *Sales-plan-document*
+* *Sales-group* is a *viewer* of the *Sales-folder*
+* The *viewer* relation includes the *read* permission
+
+And answer queries like:
+* Does *Euan* have the *read* permission on the *Sales-plan-document* ?
+
+The Aserto directory is able to evaluate this graph query, traversing through these relationship and determining the outcome.
+
+## Default types
+
+The Directory is pre-configured with a few types:
+* **User**: a principal (used as a subject)
+* **Group**: used to model a collection of users (can be used as a subject or object)
+* **Identity**: an identifier for a User (e.g. email, PID)
+* **Application**: an object that a User may have a relationship to
+* **Resource**: a generic resource
+
+The following relationship types are also pre-configured:
+
+
+| Relation type | Subject type | Object type | Description                         |
+|---------------|--------------|-------------|-------------------------------------|
+| Member        | User         | Group       | A user is a member of a group       |
+| Identifier    | User         | Identity    | A user is identified by an identity |
+| User          | User         | Application | A user can have applications        |
+| Manager       | User         | User        | A user has a manager                |
+
+
+The Aserto Directory seeds User instances and Identity instances (and the relationships between them) from 
+any identity providers that has been [connected](/docs/overview/connections) to the control plane.  Some identity 
+providers also allow importing Group objects. All of these imported objects are available to Authorizer instances 
+for making authorization decisions.
+
+## User-defined types
+
+Object types, Subject types, and Relation types are extensible. Aserto makes it easy to create your own types 
+which model your resource hierarchy / domain model. For example, you may have Organizations, which may have Folders. 
+Aserto lets you create these object types in the directory, along with relation types (like Viewer, Editor, Admin, Owner) 
+which model the relationship between these objects and subject types (such as User or Group).
+
+## Directory and Aserto tenants
+
+There is one Aserto Directory per tenant, and the directory contents are shared across Policies.
 
 ## Authorizer Directory (EDS)
 
-Each Authorizer instance has its own clone of the tenant directory, known as the Edge Directory Service (EDS).
-Authorizers use the EDS for real-time access to user attributes, roles, and scopes, that can be specified
-in policies to help make authorization decisions.
+Each Authorizer instance has its own clone of the directory, known as the Edge Directory Service (EDS).
+Authorizers use the EDS for real-time access to anything stored in the directory, including user attributes, 
+groups, roles/relationships, and any other objects. These can be accessed in policies to help make authorization decisions.
 
-Aserto transparently synchronizes changes from the source identity providers (e.g. Auth0) to the tenant
-directory, and from the tenant directory to each of the Edge Directory Services that live with the
+Aserto transparently synchronizes changes from the source identity providers (e.g. Auth0) to the Aserto
+Directory, and from the Directory to each of the Edge Directory Services that live with the
 Authorizers.
 
 ## User Context
@@ -30,16 +82,16 @@ Authorizers.
 Policies can reference [user context](/docs/overview/policy#user-context). A calling application can
 provide the [identity context](/docs/authorizer-guide/identity-context) which is used to load that user context.
 
-The Authorizer will look up the user identity in its local Edge Directory Service (EDS). It will then
-load the user context and make it available to the Policy as `input.user`.
+The Authorizer will resolve the user identity in the Directory. It will then load the user context and make it available to the Policy as `input.user`.
 
-## Directory extensions
+## Extensible properties
 
-The Aserto Directory stores a read-only replica of the user data it receives (and merges) from various
-identity providers. It also allows administrators and applications to extend these user records with
-custom attributes (**properties**, **roles**, and **scopes**) - both at the user level, as well as
-per-application.
+Each object has a JSON property bag that allows storing additional information for that object.
 
-These extensions allow an organization to add additional attributes to their users without having to
-model them in the identity provider. The application-specific extensions allow specific applications to
-add attributes (properties, roles, and scopes) that make sense in the context of those applications.
+For example, the Aserto Directory stores a read-only replica of the user data it receives (and merges) from various
+identity providers. Administrators and application developers can store custom attributes in the JSON property bag without 
+worrying about conflicts with the identity provider.
+
+## Built-ins
+
+Authorization policies can access directory contents via a set of [built-ins](/docs/authorizer-guide/built-ins). 

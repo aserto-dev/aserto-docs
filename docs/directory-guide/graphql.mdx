@@ -1,0 +1,244 @@
+---
+sidebar_label: GraphQL API
+title: Directory Guide
+description: How to use the Aserto Directory GraphQL API
+---
+
+# GraphQL API
+
+## Authentication
+
+Two HTTP headers must be included in all requests to the directory API:
+
+* `Authorization` - an API key (`basic <KEY>`) or OAuth2.0 token (`bearer <TOKEN>`).
+
+  API keys can be found under the Aserto Directory connection in the Connections page.
+
+* `Aserto-Tenant-ID` - the tenant ID of the organization being accessed.
+
+  You can find an organization's tenant ID in
+  the Aserto console by selecting "Manage organization" in the in the organization drop-down menu.
+
+## Pagination
+
+Pagination is supported using the _first_ and _after_ arguments to queries and fields that represent collections.
+
+The query below requests the first 2 objects in the directory.
+
+```graphql title="Query"
+{
+  objects(first: 2) {
+    nodes {
+      id
+      displayName
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+```
+
+```json title="Result"
+{
+  "data": {
+    "objects": {
+      "nodes": [
+        {
+          "id": "011a88bc-7df9-4d92-ba1f-2ff319e101e1",
+          "displayName": "Karin Lamb"
+        },
+        {
+          "id": "01d1e01e-bf53-419a-9762-17270b1a7328",
+          "displayName": "Nuno Farinha"
+        }
+      ],
+      "pageInfo": {
+        "hasNextPage": true,
+        "endCursor": "OC04NzQyLTQ5YWQtOTUyNi05NzA5YzAwYmIwZGUA"
+      }
+    }
+  }
+}
+```
+
+The results consist of two parts:
+
+* `nodes` is a list containing the returned objects.
+* `pageInfo` contains pagination metadata.
+  * `hasNextPage` is `false` if the returned page is the last one, `true` otherwise.
+  * `endCursor` contains a cursor that can be passed to the `after` parameter in order to retrieve the next page.
+
+The following query requests the next object after the two retrieved by the query above:
+
+```graphql title="Query"
+{
+  objects(first: 1, after: "OC04NzQyLTQ5YWQtOTUyNi05NzA5YzAwYmIwZGUA") {
+    nodes {
+      id
+      displayName
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+```
+
+```json title="Result"
+{
+  "data": {
+    "objects": {
+      "nodes": [
+        {
+          "id": "020cd80a-5e19-4ba5-9a4d-68117dfec51c",
+          "displayName": "Lukas Keller"
+        },
+      ],
+      "pageInfo": {
+        "hasNextPage": true,
+        "endCursor": "OC02ZWNjLTQ1ZWQtYjI3OC1kODQ5YWI1ZjdjM2UA"
+      }
+    }
+  }
+}
+```
+
+## Selectors
+
+The API uses selectors as a flexible way to uniquely identify items in the directory.
+
+Most items have an ID that can be used to refer to them in queries, but types also be referred to by name
+(e.g. "user", "group"), or by a combination of key and type.
+
+The following query selects the "user" object type by name and returns some of its attributes:
+
+```graphql title="Query"
+{
+  objectType(selector: {name: "user"}) {
+    id
+    name
+    isSubject
+  }
+}
+```
+
+```json title="Result"
+{
+  "data": {
+    "objectType": {
+      "id": 10001,
+      "name": "user",
+      "isSubject": true
+    }
+  }
+}
+```
+
+The query below selects an identity object by its key and type:
+
+```graphql title="Query"
+{
+  object(selector: {key: {key: "karinl@acmecorp.com", type: {name: "identity"}}}) {
+    id
+    key
+    properties
+  }
+}
+```
+
+```json title="Result"
+{
+  "data": {
+    "object": {
+      "id": "2fa31030-88be-40df-8178-3b8c6306b9e8",
+      "key": "karinl@acmecorp.com",
+      "properties": {
+        "kind": "IDENTITY_KIND_EMAIL",
+        "provider": "local",
+        "verified": true
+      }
+    }
+  }
+}
+```
+
+## Filters
+
+Unlike selectors that are used to pick individual objects, filters let you retrieve all items that match given criteria.
+
+The following query asks for the first 10 group objects whose key contains the substring "management":
+
+```graphql title="Query"
+{
+  objects(
+    first: 10
+    where: {
+      type: {name: {equals: "group"}}
+      key: {contains: "management"}
+  }) {
+    pageInfo {
+      hasNextPage
+    }
+    nodes {
+      id
+      key
+      displayName
+      type {
+        name
+      }
+    }
+  }
+}
+```
+
+```json title="Result"
+{
+  "data": {
+    "objects": {
+      "pageInfo": {
+        "hasNextPage": false
+      }
+      "nodes": [
+        {
+          "id": "1576d5fc-dd60-43e0-a628-a2cd578576af",
+          "key": "sales-engagement-management",
+          "displayName": "sales-engagement-management-group",
+          "type": {
+            "name": "group"
+          }
+        },
+        {
+          "id": "165cf8b8-693b-4f94-a62f-bac8e948a57f",
+          "key": "content-management-consulting",
+          "displayName": "content-management-consulting-group",
+          "type": {
+            "name": "group"
+          }
+        },
+        {
+          "id": "46f41b33-d13f-4dc3-85b8-c6d7346afecd",
+          "key": "project-management",
+          "displayName": "project-management-group",
+          "type": {
+            "name": "group"
+          }
+        },
+        {
+          "id": "d44f0da6-7dc3-44b2-908a-d445e097a4fa",
+          "key": "senior-management",
+          "displayName": "senior-management-group",
+          "type": {
+            "name": "group"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+**Note:** Filters have _AND_ semantics. When multiple fields are given, such as `key` and `type` in the last example,
+  the results only include objects that match _all_ criteria.
