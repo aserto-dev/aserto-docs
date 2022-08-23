@@ -1,0 +1,68 @@
+---
+id: set-object-input
+title: SetObjectInput
+hide_table_of_contents: true
+---
+
+
+Input for the setObject mutation.
+
+If `id` is set, the mutation updates an existing object. In this case `type` is optional and if specfied, must match
+the type of the existing object.
+
+If `id` is not set then `type` and `key` are required. If an object with the same type and key already exists,
+it is updated, otherwise a new object is created.
+
+```graphql
+input SetObjectInput {
+  id: ID
+  type: ObjectTypeSelector!
+  key: String!
+  displayName: String!
+  properties: Map!
+  hash: Hash
+}
+```
+
+
+### Fields
+
+#### [`id`](#) ([`ID`](/docs/directory-api-reference/schema/scalars/id))
+
+ID of an existing object to update. If set, an object with the specified ID must already exist and the mutation
+updates its attributes.
+
+
+#### [`type`](#) ([`ObjectTypeSelector!`](/docs/directory-api-reference/schema/inputs/object-type-selector))
+
+The type of object to create or update. If `id` is set, `type` must match the type of the existing object.
+
+
+#### [`key`](#) ([`String!`](/docs/directory-api-reference/schema/scalars/string))
+
+The key of the object to create or update. If `id` is set, `key` is optional and, if specified, replaces the
+object' existing key.
+
+
+#### [`displayName`](#) ([`String!`](/docs/directory-api-reference/schema/scalars/string))
+
+Optional display name for a new object or new name for an existing object.
+
+
+#### [`properties`](#) ([`Map!`](/docs/directory-api-reference/schema/scalars/map))
+
+Optional set of JSON properties to be set on the object. If the object already exists, its properties are replaced
+by the specified values.
+
+
+#### [`hash`](#) ([`Hash`](/docs/directory-api-reference/schema/scalars/hash))
+
+Optional value of the hash value previously read from the directory.
+
+If a hash value is specified and the object being mutated already exists, the update will be rejected unless the hash
+value matches the existing object's hash value.
+This can be used to ensure that the object being mutated has not been modified since it was read from the directory.
+
+
+
+

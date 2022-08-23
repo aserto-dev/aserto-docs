@@ -1,0 +1,31 @@
+---
+id: relation-connection
+title: RelationConnection
+hide_table_of_contents: true
+---
+
+
+A paginated collection of relations.
+
+```graphql
+type RelationConnection {
+  pageInfo: PageInfo!
+  nodes: [Relation!]!
+}
+```
+
+
+### Fields
+
+#### [`pageInfo`](#) ([`PageInfo!`](/docs/directory-api-reference/schema/objects/page-info))
+
+Pagination information about the returned page.
+
+
+#### [`nodes`](#) ([`[Relation!]!`](/docs/directory-api-reference/schema/objects/relation))
+
+The collection of relations in the page.
+
+
+
+

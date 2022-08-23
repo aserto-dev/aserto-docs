@@ -47,9 +47,9 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
       [ '@edno/docusaurus2-graphql-doc-generator',
         {
           schema: process.env.DIR_REPO + '/pkg/graph/schema/*.graphqls',
-          rootPath: './docs/directory-guide/graphql/reference',
+          rootPath: './docs/directory-api-reference',
           baseUrl: 'schema',
-          linkRoot: '/docs/directory-guide/graphql/reference',
+          linkRoot: '/docs/directory-api-reference/',
           docOptions: {
             pagination: true,
             toc: false,
