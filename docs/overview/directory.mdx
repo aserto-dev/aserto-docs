@@ -1,10 +1,10 @@
 ---
-sidebar_label: Aserto Directory
-title: Overview - Aserto Directory
+sidebar_label: Directory
+title: Overview - Directory
 description: The Aserto Directory - an Overview
 ---
 
-# Aserto Directory
+# Directory
 
 The Aserto Directory stores all of the information that is relevant for resolving whether a user has 
 a permission on a resource. This makes it easy to implement a Relationship-based Access Control (ReBAC)
@@ -21,13 +21,13 @@ The Directory defines four concepts:
 ### Example
 
 With these building blocks, it's possible to construct expressions like:
-* *Euan* is a *member* of the *Sales-group* **group**
-* The *Sales-folder* **folder** is a *parent* of the *Sales-plan* **document**
-* The *Sales-group* **group** is a *viewer* of the *Sales-folder* **folder**
+* *Euan* is a *member* of the *Sales-group*
+* *Sales-folder* is a *parent* of the *Sales-plan-document*
+* *Sales-group* is a *viewer* of the *Sales-folder*
 * The *viewer* relation includes the *read* permission
 
 And answer queries like:
-* Does *Euan* have the *read* permission on the *Sales-plan* document?
+* Does *Euan* have the *read* permission on the *Sales-plan-document* ?
 
 The Aserto directory is able to evaluate this graph query, traversing through these relationship and determining the outcome.
 
@@ -82,8 +82,7 @@ Authorizers.
 Policies can reference [user context](/docs/overview/policy#user-context). A calling application can
 provide the [identity context](/docs/authorizer-guide/identity-context) which is used to load that user context.
 
-The Authorizer will look up the user identity in its local Edge Directory Service (EDS). It will then
-load the user context and make it available to the Policy as `input.user`.
+The Authorizer will resolve the user identity in the Directory. It will then load the user context and make it available to the Policy as `input.user`.
 
 ## Extensible properties
 

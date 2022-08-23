@@ -92,7 +92,7 @@ ds.identity({
 ```
 Looks up a user identity by one of the keys (e.g. email address or PID), and returns the `id` of the user object.
 
-For example: `ds.identity({ "identity": "euang@acmecorp.com" })` will return `dfdadc39-7335-404d-af66-c77cf13a15f8`.
+For example: `ds.identity({ "key": "euang@acmecorp.com" })` will return `dfdadc39-7335-404d-af66-c77cf13a15f8`.
 
 ### `ds.object`
 ```js
@@ -116,11 +116,11 @@ For example: `ds.object({ "type": "identity", "key": "euang@acmecorp.com" })` wi
 
 ```js
 ds.relation({
-	"sub_type": "<subject-type>",
-	"sub_id": "<subject-id>",
-	"relation": "<relation>",
-	"obj_type": "<object-type>",
-	"obj_id": "<object-id>"
+  "sub_type": "<subject-type>",
+  "sub_id": "<subject-id>",
+  "relation": "<relation>",
+  "obj_type": "<object-type>",
+  "obj_id": "<object-id>"
 })
 ```
 Returns the relation instance that connects the subject with the object.
@@ -162,4 +162,3 @@ ds.graph({
 })
 ```
 Returns the graph of relations and objects that is anchored in `object-id`. All other arguments are optional and restrict the graph returned to specific subjects, objects, or relations. The graph will be traversed up until a maximum depth, to avoid infinite recursion through graph cycles.
-
