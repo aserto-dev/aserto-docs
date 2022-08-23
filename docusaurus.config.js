@@ -48,7 +48,8 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
         {
           schema: process.env.DIR_REPO + '/pkg/graph/schema/*.graphqls',
           rootPath: './docs/directory-guide/graphql/reference',
-          baseUrl: 'directory-guide/graphql/reference',
+          baseUrl: 'schema',
+          linkRoot: '/docs/directory-guide/graphql/reference',
           docOptions: {
             pagination: true,
             toc: false,

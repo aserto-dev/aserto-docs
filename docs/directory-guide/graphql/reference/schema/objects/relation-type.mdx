@@ -27,37 +27,37 @@ type RelationType {
 
 ### Fields
 
-#### [`id`](#) ([`TypeID!`](/schema/scalars/type-id))
+#### [`id`](#) ([`TypeID!`](/docs/directory-guide/graphql/reference/schema/scalars/type-id))
 
 Unique identifier of the relation type.
 
 
-#### [`objectType`](#) ([`ObjectType!`](/schema/objects/object-type))
+#### [`objectType`](#) ([`ObjectType!`](/docs/directory-guide/graphql/reference/schema/objects/object-type))
 
 The type of object that can be part of the relation.
 
 
-#### [`name`](#) ([`String!`](/schema/scalars/string))
+#### [`name`](#) ([`String!`](/docs/directory-guide/graphql/reference/schema/scalars/string))
 
 Unique name for the relation type. Unique for the object type.
 
 
-#### [`displayName`](#) ([`String!`](/schema/scalars/string))
+#### [`displayName`](#) ([`String!`](/docs/directory-guide/graphql/reference/schema/scalars/string))
 
 Display name for the relation type.
 
 
-#### [`ordinal`](#) ([`Int!`](/schema/scalars/int))
+#### [`ordinal`](#) ([`Int!`](/docs/directory-guide/graphql/reference/schema/scalars/int))
 
 Sort order of the relation type.
 
 
-#### [`status`](#) ([`[Flag!]!`](/schema/enums/flag))
+#### [`status`](#) ([`[Flag!]!`](/docs/directory-guide/graphql/reference/schema/enums/flag))
 
 A set of flags that describe the status of the object type.
 
 
-#### [`unions`](#) ([`[RelationType!]!`](/schema/objects/relation-type))
+#### [`unions`](#) ([`[RelationType!]!`](/docs/directory-guide/graphql/reference/schema/objects/relation-type))
 
 A list of relation types that are supertypes of this relation type.
 
@@ -65,20 +65,20 @@ This relation type receives all permissions defined in the supertypes.
 Unioned relation types must be defined with the same object type.
 
 
-#### [`lifecycle`](#) ([`Lifecycle!`](/schema/objects/lifecycle))
+#### [`lifecycle`](#) ([`Lifecycle!`](/docs/directory-guide/graphql/reference/schema/objects/lifecycle))
 
 Metadata about the relation type's lifecycle.
 
 
-#### [`permissions`](#) ([`PermissionConnection!`](/schema/objects/permission-connection))
+#### [`permissions`](#) ([`PermissionConnection!`](/docs/directory-guide/graphql/reference/schema/objects/permission-connection))
 
 The permissions that the relation grants to subjects.
-- ##### [`first`](#) ([`Int!`](/schema/scalars/int))
+- ##### [`first`](#) ([`Int!`](/docs/directory-guide/graphql/reference/schema/scalars/int))
 
 
 
 
-- ##### [`after`](#) ([`Cursor`](/schema/scalars/cursor))
+- ##### [`after`](#) ([`Cursor`](/docs/directory-guide/graphql/reference/schema/scalars/cursor))
 
 
 

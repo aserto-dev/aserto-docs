@@ -1,12 +1,10 @@
 ---
 sidebar_label: Relations
-title: Directory Guide
+title: Relations
 description: Understanding Directory Relations
 ---
 
-# Relations
-
-A relation is a labeled association between a source object and a target object.
+A _relation_ is a labeled association between a source object and a target object.
 
 A relation consists of three items:
 
@@ -45,7 +43,11 @@ permission associated with relation B is implicitly associated with relation A t
 
 The query below retrieves the first 3 relation types in the directory:
 
-```graphql title="Query"
+<details>
+  <summary>Query (click to expand)</summary>
+  <div><span/>
+
+```graphql
 {
   relationTypes(first: 3) {
     nodes {
@@ -59,6 +61,8 @@ The query below retrieves the first 3 relation types in the directory:
   }
 }
 ```
+ </div>
+</details>
 
 ```json title="Result"
 {

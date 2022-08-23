@@ -1,0 +1,21 @@
+---
+sidebar_label: Types
+title: Types
+---
+
+The Aserto Directory has a handful of built-in object and relation types but that list can be extended by users
+to cover any authorization strategy they wish to implement.
+
+## Object Types
+Object types represents the kinds of objects that can be created in the directory. Each object in the directory has exactly one type.
+
+### Built-in Object Types
+
+| Object Type     | Subject? | Description                                               |
+|-----------------|----------|-----------------------------------------------------------|
+| __User__        | Yes      | A user that can be granted or denied access to resources. |
+| __Group__       | Yes      | A collection of users and/or other groups.                |
+| __Identity__    | No       | A unique identifier by which a user is known.             |
+| __Application__ | No       | An application that users may interact with.              |
+| __Resource__    | No       | A generic resource.                                       |
+

@@ -4,9 +4,7 @@ title: Overview - Directory
 description: The Aserto Directory - an Overview
 ---
 
-# Directory
-
-The Aserto Directory stores all of the information that is relevant for resolving whether a user has 
+The Aserto Directory stores all of the information that is relevant for resolving whether a user has
 a permission on a resource. This makes it easy to implement a Relationship-based Access Control (ReBAC)
 authorization model.
 
@@ -51,16 +49,16 @@ The following relationship types are also pre-configured:
 | Manager       | User         | User        | A user has a manager                |
 
 
-The Aserto Directory seeds User instances and Identity instances (and the relationships between them) from 
-any identity providers that has been [connected](/docs/overview/connections) to the control plane.  Some identity 
-providers also allow importing Group objects. All of these imported objects are available to Authorizer instances 
+The Aserto Directory seeds User instances and Identity instances (and the relationships between them) from
+any identity providers that has been [connected](/docs/overview/connections) to the control plane.  Some identity
+providers also allow importing Group objects. All of these imported objects are available to Authorizer instances
 for making authorization decisions.
 
 ## User-defined types
 
-Object types, Subject types, and Relation types are extensible. Aserto makes it easy to create your own types 
-which model your resource hierarchy / domain model. For example, you may have Organizations, which may have Folders. 
-Aserto lets you create these object types in the directory, along with relation types (like Viewer, Editor, Admin, Owner) 
+Object types, Subject types, and Relation types are extensible. Aserto makes it easy to create your own types
+which model your resource hierarchy / domain model. For example, you may have Organizations, which may have Folders.
+Aserto lets you create these object types in the directory, along with relation types (like Viewer, Editor, Admin, Owner)
 which model the relationship between these objects and subject types (such as User or Group).
 
 ## Directory and Aserto tenants
@@ -70,7 +68,7 @@ There is one Aserto Directory per tenant, and the directory contents are shared 
 ## Authorizer Directory (EDS)
 
 Each Authorizer instance has its own clone of the directory, known as the Edge Directory Service (EDS).
-Authorizers use the EDS for real-time access to anything stored in the directory, including user attributes, 
+Authorizers use the EDS for real-time access to anything stored in the directory, including user attributes,
 groups, roles/relationships, and any other objects. These can be accessed in policies to help make authorization decisions.
 
 Aserto transparently synchronizes changes from the source identity providers (e.g. Auth0) to the Aserto
@@ -89,9 +87,9 @@ The Authorizer will resolve the user identity in the Directory. It will then loa
 Each object has a JSON property bag that allows storing additional information for that object.
 
 For example, the Aserto Directory stores a read-only replica of the user data it receives (and merges) from various
-identity providers. Administrators and application developers can store custom attributes in the JSON property bag without 
+identity providers. Administrators and application developers can store custom attributes in the JSON property bag without
 worrying about conflicts with the identity provider.
 
 ## Built-ins
 
-Authorization policies can access directory contents via a set of [built-ins](/docs/authorizer-guide/built-ins). 
+Authorization policies can access directory contents via a set of [built-ins](/docs/authorizer-guide/built-ins).

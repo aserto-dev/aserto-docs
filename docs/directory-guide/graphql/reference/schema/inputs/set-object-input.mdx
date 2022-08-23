@@ -27,35 +27,35 @@ input SetObjectInput {
 
 ### Fields
 
-#### [`id`](#) ([`ID`](/schema/scalars/id))
+#### [`id`](#) ([`ID`](/docs/directory-guide/graphql/reference/schema/scalars/id))
 
 ID of an existing object to update. If set, an object with the specified ID must already exist and the mutation
 updates its attributes.
 
 
-#### [`type`](#) ([`ObjectTypeSelector!`](/schema/inputs/object-type-selector))
+#### [`type`](#) ([`ObjectTypeSelector!`](/docs/directory-guide/graphql/reference/schema/inputs/object-type-selector))
 
 The type of object to create or update. If `id` is set, `type` must match the type of the existing object.
 
 
-#### [`key`](#) ([`String!`](/schema/scalars/string))
+#### [`key`](#) ([`String!`](/docs/directory-guide/graphql/reference/schema/scalars/string))
 
 The key of the object to create or update. If `id` is set, `key` is optional and, if specified, replaces the
 object' existing key.
 
 
-#### [`displayName`](#) ([`String!`](/schema/scalars/string))
+#### [`displayName`](#) ([`String!`](/docs/directory-guide/graphql/reference/schema/scalars/string))
 
 Optional display name for a new object or new name for an existing object.
 
 
-#### [`properties`](#) ([`Map!`](/schema/scalars/map))
+#### [`properties`](#) ([`Map!`](/docs/directory-guide/graphql/reference/schema/scalars/map))
 
 Optional set of JSON properties to be set on the object. If the object already exists, its properties are replaced
 by the specified values.
 
 
-#### [`hash`](#) ([`Hash`](/schema/scalars/hash))
+#### [`hash`](#) ([`Hash`](/docs/directory-guide/graphql/reference/schema/scalars/hash))
 
 Optional value of the hash value previously read from the directory.
 

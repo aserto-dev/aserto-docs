@@ -242,3 +242,9 @@ The following query asks for the first 10 group objects whose key contains the s
 
 **Note:** Filters have _AND_ semantics. When multiple fields are given, such as `key` and `type` in the last example,
   the results only include objects that match _all_ criteria.
+
+## Life Cycle Metadata
+
+Most types in the directory retain metadata about key events in their life cycle.
+Life cycle metadata is represented by the [`Lifecycle`](schema/objects/lifecycle) type, and can be retrieved from
+directory items with `lifecycle` property (e.g. [`Object.lifecycle`](schema/objects/object#lifecycle-lifecycle)).
