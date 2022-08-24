@@ -6,19 +6,40 @@ description: The Aserto Directory - an Overview
 
 # Directory
 
-The Aserto Directory stores all of the information that is relevant for resolving whether a user has
-a permission on a resource. This makes it easy to implement a Relationship-based Access Control (ReBAC)
-authorization model.
+The Aserto Directory stores information required to make authorization decisions. It is flexible enough to easily
+support different access control strategies including Role-Based Access Control (RBAC), Attribute-Based Access Control
+(ABAC), and Relationship-Based Access Control (ReBAC).
+
+An authorization decision is an answer to the question *"Is subject __S__ allowed to perform action __A__ on resource __R__?"*
+In other words, authorization decisions determine whether a subject (user, group, service, etc.) has a given permission on a resource
+(document, folder, project, etc.).
+
 
 ## Concepts
 
-The Directory defines four concepts:
-* **Subject**: a principal (e.g. *user*, *machine*, *group*)
-* **Object**: a resource (e.g. *organization*, *team*, *project*, *folder*, *document*)
-* **Relation**: a named relationship between a **Subject** and an **Object** (e.g. *member*, *viewer*, *editor*, *admin*, *owner*), which has a set of **Permissions**
-* **Permission**: a discrete permission in the system, which can be associated with one or more **Relations**
+The Aserto Directory helps to define policies that make authorization decisions through three main concepts:
+* __Object__: Objects represent the participants in authorization decisions. Some objects represent __subjects__&mdash;actors who _perform_
+  actions&mdash;and other may represent __resources__&mdash;the items that subjects can attempt to access in various ways.
 
-### Example
+* __Permission__: A kind of action that subjects may attempt to perform.
+
+* __Relation__: A _labeled_ association between a source object and a target object, which may carry with it a set of
+  _permissions_.
+
+Using these concepts, an authorization decision can be rephrased as *"Does subject __S__ have a relation that carries
+permission __P__ with resource __R__?"* A relation between a subject and a resource can be defined explicitly, or be implied from
+group membership. For example, the subject __S__ may be a _member_ of group __G__, which in turn has a relation that
+carries permission __P__ with the resource __R__.
+
+### Directory as a Graph
+
+It is convenient to think of the Aserto Directory as a graph in which objects are the nodes and relations the edges.
+Under this model, the authorization quesion in the previous section can be rephrased again as *"Is there a path from
+the node __S__ to the node __R__ in which one or more edges have permission __P__?"*
+
+Indeed, the directory API provides methods to query and traverse this graph of objects and relations.
+
+### Examples
 
 With these building blocks, it's possible to construct expressions like:
 * *Euan* is a *member* of the *Sales-group*
@@ -31,24 +52,34 @@ And answer queries like:
 
 The Aserto directory is able to evaluate this graph query, traversing through these relationship and determining the outcome.
 
-## Default types
+## Types
+
+To help define different kinds of objects and specify the relations that may exist between them, the Aserto Directory
+provides two extensible sets of types:
+* __Object Types__ define the kinds of objects that can be created in the directory.
+* __Relation Types__ define the kinds of relations that can be created between directory objects.
+
+
+### Built-in Object Types
 
 The Directory is pre-configured with a few types:
 * **User**: a principal (used as a subject)
-* **Group**: used to model a collection of users (can be used as a subject or object)
+* **Group**: used to model a collection of users and/or other groups (can be used as a subject or object)
 * **Identity**: an identifier for a User (e.g. email, PID)
 * **Application**: an object that a User may have a relationship to
 * **Resource**: a generic resource
 
-The following relationship types are also pre-configured:
+### Built-in Relation Types
+
+The following relation types are also pre-configured:
 
 
-| Relation type | Subject type | Object type | Description                         |
-|---------------|--------------|-------------|-------------------------------------|
-| Member        | User         | Group       | A user is a member of a group       |
-| Identifier    | User         | Identity    | A user is identified by an identity |
-| User          | User         | Application | A user can have applications        |
-| Manager       | User         | User        | A user has a manager                |
+| Relation type | Object type | Description                         |
+|---------------|-------------|-------------------------------------|
+| Member        | Group       | A subject is a member of a group    |
+| Identifier    | Identity    | A user is identified by an identity |
+| User          | Application | A user can have applications        |
+| Manager       | User        | A user has a manager                |
 
 
 The Aserto Directory seeds User instances and Identity instances (and the relationships between them) from
@@ -56,9 +87,9 @@ any identity providers that has been [connected](/docs/overview/connections) to 
 providers also allow importing Group objects. All of these imported objects are available to Authorizer instances
 for making authorization decisions.
 
-## User-defined types
+### User-defined types
 
-Object types, Subject types, and Relation types are extensible. Aserto makes it easy to create your own types
+Object and relation types are extensible. Aserto makes it easy to create your own types
 which model your resource hierarchy / domain model. For example, you may have Organizations, which may have Folders.
 Aserto lets you create these object types in the directory, along with relation types (like Viewer, Editor, Admin, Owner)
 which model the relationship between these objects and subject types (such as User or Group).
