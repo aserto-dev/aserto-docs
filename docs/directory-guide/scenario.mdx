@@ -6,8 +6,8 @@ title: Scenario
 This guide walks through an example scenario and demonstrates how the Aserto Directory can be used to implement
 multi-tenant Role-Based Access Control (RBAC).
 
-Consider a simple retail inventory management application. The store consists of multiple departments and different
-employees have can have different kinds of roles within each department. The application distinguishes between three
+Consider a simple inventory management application. An online store consists of multiple departments and different
+employees can have different kinds of roles within each department. The application distinguishes between three
 roles:
 
 * `viewer`: Grants read-only access to the department information.
@@ -29,6 +29,23 @@ In the following pages we'll walk through the process of implementing this data 
 [Aserto Directory API](directory-api-reference/overview).
 
 
+## Prerequisites
+
+In order to follow this guide and run all the examples you first need to:
+
+1. Have an Aserto account. If you haven't created one yet, head over to [aserto.com](https://www.aserto.com/) and
+   create one now.
+1. Add a connection to the built-in demo identity provider, Citadel:
+    * Log in to the [Aserto Console](https://console.aserto.com/).
+    * Select the "Directory" section in the main navigation bar.
+    * Click the "Connect an identity provider" button to display the "Add a connection" dialog.
+    * From the "Provider" drop-down menu, select "Demo Citadel IDP".
+    * Type "citadel" in the "Name" box and click "Add connection".
+    * Within a few seconds, the "Directory" section will be populated with a few users.
+
+
+## Running Examples
+
 You can follow the guide and run the examples against your directory by using the directory's
 [GraphiQL Playground](https://directory.prod.aserto.com/graph).
 
@@ -36,3 +53,4 @@ You can follow the guide and run the examples against your directory by using th
 When calling the directory API, be sure to include the required
 [authentication](/docs/directory-api-reference/overview#authentication) headers in your requests.
 :::
+

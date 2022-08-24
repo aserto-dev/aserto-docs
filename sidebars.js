@@ -138,6 +138,7 @@ module.exports = {
         'directory-guide/scenario',
         'directory-guide/concepts',
         'directory-guide/types',
+        'directory-guide/objects',
         'directory-guide/relations',
       ],
     },
