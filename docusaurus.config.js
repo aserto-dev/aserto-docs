@@ -42,7 +42,20 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
         {
           trackingID: process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID ?? '_',
           anonymizeIP: true,
-        }
+        },
+      ],
+      [ '@edno/docusaurus2-graphql-doc-generator',
+        {
+          schema: process.env.DIR_REPO + '/pkg/graph/schema/*.graphqls',
+          rootPath: './docs/directory-api-reference',
+          baseUrl: 'schema',
+          linkRoot: '/docs/directory-api-reference/',
+          docOptions: {
+            pagination: true,
+            toc: false,
+            index: true,
+          },
+        },
       ],
       'docusaurus-plugin-hubspot',
     ],
@@ -51,7 +64,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
       [
         "@docusaurus/preset-classic",
         /** @type {import('@docusaurus/preset-classic').Options} */
-        ({
+        {
           docs: {
             sidebarPath: require.resolve("./sidebars.js"),
             editUrl:
@@ -65,7 +78,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             changefreq: 'weekly',
             priority: 0.5,
           }
-        }),
+        },
       ],
     ],
 

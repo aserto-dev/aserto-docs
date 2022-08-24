@@ -1,0 +1,312 @@
+---
+sidebar_label: Types
+title: Defining Types
+---
+
+The first step is to create the types we need to model departments and roles. We will define one _object type_ called
+`department` from which we can later create instances of `department` objects.
+
+We will also define three _relations_ on the `department` object type&mdash;`owner`, `member`, and `viewer`&mdash;one for each of
+the three roles that users can have.
+
+## Object Type
+
+We use the [`setObjectType`](/docs/directory-api-reference/schema/mutations/set-object-type) mutation to create a new
+object type called "department".
+
+```graphql title="Query"
+mutation CreateDepartmentObjectType {
+  setObjectType(type: {
+    name: "department"
+    displayName: "Department"
+    isSubject: false
+    ordinal: 0
+    status: []
+  }) {
+    objectType {
+      id
+      name
+      displayName
+      isSubject
+      ordinal
+      status
+    }
+  }
+}
+```
+
+<details>
+  <summary>Results</summary>
+  <div><span/>
+
+```json
+{
+  "data": {
+    "setObjectType": {
+      "objectType": {
+        "id": 1,
+        "name": "department",
+        "displayName": "Department",
+        "isSubject": false,
+        "ordinal": 0,
+        "status": []
+      }
+    }
+  }
+}
+```
+  </div>
+</details>
+
+The value of the `name` field is used to identify the object type and must be unique among all object types in the directory.
+
+The input fields are described in more detail [here](/docs/directory-api-reference/schema/inputs/set-object-type-input).
+
+### Querying Object Types
+
+To see that the department object types was indeed created, we can enumerate object types using the
+[objectTypes](/docs/directory-api-reference/schema/queries/object-types) query.
+
+The following query retrieves the `id`, `name`, and `displayName` fields of the first 10 object types that are not subject
+_and_ have an no modifier flags in their `status` field:
+
+```graphql title="Query"
+query ListObjectTypes {
+  objectTypes(first: 10, where: {isSubject: false, status: {equals: []}}) {
+    nodes {
+      id
+      name
+      displayName
+    }
+  }
+}
+```
+
+<details>
+  <summary>Results</summary>
+  <div><span/>
+
+```json
+{
+  "data": {
+    "objectTypes": {
+      "nodes": [
+        {
+          "id": 1,
+          "name": "department",
+          "displayName": "Department"
+        },
+        {
+          "id": 10004,
+          "name": "application",
+          "displayName": "Application"
+        },
+        {
+          "id": 10005,
+          "name": "resource",
+          "displayName": "Resource"
+        }
+      ]
+    }
+  }
+}
+```
+  </div>
+</details>
+
+
+## Relation Types
+
+Now that we have created an object type, we can define relations that it can have with other objects.
+
+We define three relations, `viewer`, `member`, and `owner`, to represent the three roles that users can have in a
+department.
+
+### Viewer
+
+We'll start witht the `viewer` relation.
+
+
+```graphql title="Query"
+mutation CreateDepartmentViewerRelationType {
+  setRelationType(type: {
+    objectType: {name: "department"}
+    name: "viewer",
+    displayName: "department::viewer"
+    ordinal: 1,
+    status: []
+    unions: []
+  }) {
+    relationType {
+      id
+      displayName
+    }
+  }
+}
+```
+
+<details>
+  <summary>Results</summary>
+  <div><span/>
+
+```json
+{
+  "data": {
+    "setRelationType": {
+      "relationType": {
+        "id": 2,
+        "displayName": "department::viewer"
+      }
+    }
+  }
+}
+```
+  </div>
+</details>
+
+We specify the object type on which the relation can occur using the `objectType` field. Here we referred to the
+object type by name, but could also refer to it by ID, in which case we would use `{id: 1}` (the ID of our newly
+created department object type is `1`).
+
+The `name` field of relation types needs to be unique among all relation types defined on the same object type.
+
+By convention, the `displayName` of relation types is set to `<object type name>::<relation type name>`.
+
+The input fields are described in more detail
+[here](/docs/directory-api-reference/schema/inputs/set-relation-type-input).
+
+
+### Member and Owner
+
+A single GraphQL request can include multiple queries and mutations. We'll create the `member` and `owner` relation
+types in a single request:
+
+```graphql title="Query"
+mutation CreateDepartmentMemberAndOwnerRelationTypes {
+  member: setRelationType(type: {
+    name: "member",
+    displayName: "department::member"
+    objectType: {name: "department"}
+    ordinal: 1,
+    status: []
+    unions: []
+  }) {
+    relationType {
+      id
+    }
+  }
+
+  owner: setRelationType(type: {
+    name: "owner",
+    displayName: "department::owner"
+    objectType: {name: "department"}
+    ordinal: 1,
+    status: []
+    unions: []
+  }) {
+    relationType {
+      id
+    }
+  }
+}
+```
+
+<details>
+  <summary>Results</summary>
+  <div><span/>
+
+```json
+{
+  "data": {
+    "member": {
+      "relationType": {
+        "id": 3,
+        "displayName": "department::member"
+      }
+    },
+    "owner": {
+      "relationType": {
+        "id": 4,
+        "displayName": "department::owner"
+      }
+    }
+  }
+}
+```
+  </div>
+</details>
+
+:::info
+When sending multiple instances of the same query or mutation in a single request, we need to provide them with
+_aliases_ to distinguish their respective results in the response's `data` object.
+:::
+
+### Querying Relation Types
+
+Let's run a query to see that all three relation types were created as intended.
+
+```graphql title="Query"
+query RelationTypes {
+  relationTypes(first: 3) {
+    nodes {
+      id
+      name
+      displayName
+      objectType {
+        name
+      }
+      ordinal
+    }
+  }
+}
+```
+
+<details>
+  <summary>Results</summary>
+  <div><span/>
+
+```json
+{
+  "data": {
+    "relationTypes": {
+      "nodes": [
+        {
+          "id": 2,
+          "name": "viewer",
+          "displayName": "department::viewer",
+          "objectType": {
+            "name": "department"
+          },
+          "ordinal": 1,
+        },
+        {
+          "id": 3,
+          "name": "member",
+          "displayName": "department::member",
+          "objectType": {
+            "name": "department"
+          },
+          "ordinal": 1,
+        },
+        {
+          "id": 4,
+          "name": "owner",
+          "displayName": "department::owner",
+          "objectType": {
+            "name": "department"
+          },
+          "ordinal": 1,
+        }
+      ]
+    }
+  }
+}
+```
+  </div>
+</details>
+
+:::info
+The three relation types we created appear first because we gave them all a low `ordinal` value (i.e. `1`).
+Types with lower ordinal values are retruned first. When several types have the same ordinal value, as in our case,
+they are sorted by ID.
+:::

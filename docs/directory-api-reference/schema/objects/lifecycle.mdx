@@ -1,0 +1,39 @@
+---
+id: lifecycle
+title: Lifecycle
+hide_table_of_contents: true
+---
+
+
+Metadata about an entity's lifecycle.
+
+```graphql
+type Lifecycle {
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time
+}
+```
+
+
+### Fields
+
+#### [`createdAt`](#) ([`Time!`](/docs/directory-api-reference/schema/scalars/time))
+
+Creation time.
+
+
+#### [`updatedAt`](#) ([`Time!`](/docs/directory-api-reference/schema/scalars/time))
+
+Last update time.
+
+
+#### [`deletedAt`](#) ([`Time`](/docs/directory-api-reference/schema/scalars/time))
+
+Deletion time.
+
+Null if the object is not deleted.
+
+
+
+
