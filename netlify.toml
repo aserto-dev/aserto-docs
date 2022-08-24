@@ -60,7 +60,12 @@
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/bring-your-own-idp/bring-your-own-idp"
-  to = "/docs/getting-started/bring-your-own-idp/bring-your-own-idp"
+  to = "/docs/getting-started/bring-your-own-idp"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/bring-your-own-idp/bring-your-own-idp"
+  to = "/docs/getting-started/bring-your-own-idp"
   status = 301
 
 [[redirects]]
@@ -165,7 +170,7 @@
 
 [[redirects]]
   from = "/docs/getting-started/connect-idp/"
-  to = "/docs/getting-started/bring-your-own-idp/bring-your-own-idp"
+  to = "/docs/getting-started/bring-your-own-idp"
   status = 301
 
 [[redirects]]

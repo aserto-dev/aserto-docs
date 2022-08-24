@@ -38,6 +38,12 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
           ],
         },
       ],
+      ['@docusaurus/plugin-google-gtag',
+        {
+          trackingID: process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID ?? '_',
+          anonymizeIP: true,
+        }
+      ],
       'docusaurus-plugin-hubspot',
     ],
 
@@ -65,11 +71,11 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
     themeConfig:
       /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-      ({
+      {
         algolia: {
           apiKey: process.env.REACT_APP_ALGOLIA_API_KEY || '_',
           indexName: process.env.REACT_APP_ALGOLIA_INDEX_NAME || '_',
-          appId: process.env.REACT_APP_ALGOLIA_APP_ID,
+          appId: process.env.REACT_APP_ALGOLIA_APP_ID || '_',
         },
         image: 'img/aserto-logo.png',
         navbar: {
@@ -243,10 +249,6 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
         hubspot: {
           accountId: process.env.REACT_APP_HUBSPOT_ACCOUNT_ID ?? 21300286
         },
-        gtag: {
-          trackingID: process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID ?? '_',
-          anonymizeIP: true,
-        }
-      }),
+      },
   }
 );
