@@ -9,43 +9,156 @@ description: Built-in Functions that can be used in your policy
 Aserto provides a set of built-in functions that can be used in your policy. These functions make it easier to leverage information found the Aserto directory.
 
 :::note
-When providing a user's identity , you can use a GUID, PID or an email associated with the user.
+When providing a user's identity, you can use a GUID, PID or an email associated with the user.
 :::
 
-- `dir.identity(user)` - returns the user's Aserto directory `id` by a key.
+## v1 built-ins
 
-  For example: `dir.identity("euang@gmail.com")` will return `dfdadc39-7335-404d-af66-c77cf13a15f8`.
+### `dir.identity`
+```js
+dir.identity(user)
+```
+Returns the user's Aserto directory `id` by a key.
 
-- `dir.is_same_user(userA, userB)` - returns `true` if the identities of userA and userB are the same identity.
+For example: `dir.identity("euang@acmecorp.com")` will return `dfdadc39-7335-404d-af66-c77cf13a15f8`.
 
-  For example: `dir.is_same_user("euang@acmecorp.com", "dfdadc39-7335-404d-af66-c77cf13a15f8")` will return `true`.
+### `dir.is_same_user`
+```js
+dir.is_same_user(userA, userB)
+```
+Returns `true` if the identities of userA and userB are the same identity.
 
-- `dir.user(user)` - returns the user object by the user identity.
+For example: `dir.is_same_user("euang@acmecorp.com", "dfdadc39-7335-404d-af66-c77cf13a15f8")` will return `true`.
 
-  For example: `dir.user("dfdadc39-7335-404d-af66-c77cf13a15f8")` will return the user object of for the user `euang@acmecorp.com`.
+### `dir.user`
+```js
+dir.user(user)
+```
+Returns the user object by the user identity.
 
-- `dir.manager_of(user)` - returns the user object of the manager of a user, based on the `manager` attribute of the user specified.
+For example: `dir.user("dfdadc39-7335-404d-af66-c77cf13a15f8")` will return the user object of for the user `euang@acmecorp.com`.
 
-  For example: `dir.manager_of("euang@acmecorp.com")` will return the user object of `aprils@acmecorp.com`.
+### `dir.manager_of`
+```js
+dir.manager_of(user)
+```
+Returns the user object of the manager of a user, based on the `manager` attribute of the user specified.
 
-- `dir.is_manager_of(userA, userB)` - returns `true` if userA is a manager of userB, based on the `manager` attribute of userB and the identity of userA.
+For example: `dir.manager_of("euang@acmecorp.com")` will return the user object of `aprils@acmecorp.com`.
 
-  For example: `dir.is_manager_of("aprils@acmecorp.com", "euang@acmecorp.com")` will return `true`.
+### `dir.is_manager_of`
+```js
+dir.is_manager_of(userA, userB)
+```
+Returns `true` if userA is a manager of userB, based on the `manager` attribute of userB and the identity of userA.
 
-- `dir.management_chain` - returns the management chain of a user as a list of user ids.
+For example: `dir.is_manager_of("aprils@acmecorp.com", "euang@acmecorp.com")` will return `true`.
 
-  For example: `dir.management_chain("euang@acmecorp.com")` will return:
+### `dir.management_chain`
+```js
+dir.management_chain
+```
+Returns the management chain of a user as a list of user ids.
 
-  ```json
-  {
-    "chain": [
-      "dfdadc39-7335-404d-af66-c77cf13a15f8",
-      "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
-      "37b056d8-f63e-412b-b172-63d60d35ea56",
-      "2a43d793-7367-4a3e-8c6e-5ec955a52038",
-      "242f6e15-e469-4e42-9510-0483f6d019c9",
-      "7846c22f-d3d8-4e02-8b62-d055d0284783",
-      "b7de08a6-8417-491b-be62-85945a538f46"
-    ]
-  }
-  ```
+For example: `dir.management_chain("euang@acmecorp.com")` will return:
+
+```json
+{
+  "chain": [
+    "dfdadc39-7335-404d-af66-c77cf13a15f8",
+    "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
+    "37b056d8-f63e-412b-b172-63d60d35ea56",
+    "2a43d793-7367-4a3e-8c6e-5ec955a52038",
+    "242f6e15-e469-4e42-9510-0483f6d019c9",
+    "7846c22f-d3d8-4e02-8b62-d055d0284783",
+    "b7de08a6-8417-491b-be62-85945a538f46"
+  ]
+}
+```
+
+## v2 built-ins
+
+V2 built-ins provide access to data stored in Aserto's ReBAC directory. 
+
+:::note
+The parameter passing convention has changed from positional arguments to a JSON map that contains named arguments.
+:::
+
+### `ds.identity`
+```js
+ds.identity({
+  "key": "<value>"
+})
+```
+Looks up a user identity by one of the keys (e.g. email address or PID), and returns the `id` of the user object.
+
+For example: `ds.identity({ "key": "euang@acmecorp.com" })` will return `dfdadc39-7335-404d-af66-c77cf13a15f8`.
+
+### `ds.object`
+```js
+ds.object({
+  "id": "<id>"
+})
+```
+Returns an object instance looked up by its unique `<id>`.
+
+```js
+ds.object({
+  "type": "<type>",
+  "key": "<value>"
+})
+```
+Returns an object instance of `<type>`, looked up by the key supplied as `<value>`.
+
+For example: `ds.object({ "type": "identity", "key": "euang@acmecorp.com" })` will return the identity object associated with Euan.
+
+### `ds.relation`
+
+```js
+ds.relation({
+  "sub_type": "<subject-type>",
+  "sub_id": "<subject-id>",
+  "relation": "<relation>",
+  "obj_type": "<object-type>",
+  "obj_id": "<object-id>"
+})
+```
+Returns the relation instance that connects the subject with the object.
+
+### `ds.check_relation`
+
+```js
+ds.check_relation({
+	"sub_id":"<subject-id>",
+	"obj_type": "<object-type>",
+	"relation": "<relation-name>",
+	"obj_id": "<object-id>"
+})
+```
+Returns `true` if the `subject-id` has a `relation-name` relation to the `object-id` of type `object-type`.
+
+### `ds.check_permission`
+
+```js
+ds.check_permission({
+	"sub_id":"<subject-id>",
+	"obj_type": "<object-type>",
+	"permission": "<permission-name>",
+	"obj_id": "<object-id>"
+})
+```
+Returns `true` if the `subject-id` has a `permission-name` granted through one or more relations to the `object-id` of type `object-type`.
+
+### `ds.graph`
+
+```js
+ds.graph({
+	"id": "<object-id>",
+	"sub_type": "",
+	"sub_id": "",
+	"relation": "",
+	"obj_type": "",
+	"obj_id": ""
+})
+```
+Returns the graph of relations and objects that is anchored in `object-id`. All other arguments are optional and restrict the graph returned to specific subjects, objects, or relations. The graph will be traversed up until a maximum depth, to avoid infinite recursion through graph cycles.
