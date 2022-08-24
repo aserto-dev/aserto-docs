@@ -11,6 +11,9 @@ A relation consists of three elements:
 
 Relations can therefore be seen as `(source, type, target)` triplets.
 
+The type of the source object in a relation must match the object type specified in the relation type.
+
+
 ## Finding Users
 
 Before we create relations between our departments and users, let's find our users in the directory.
@@ -225,9 +228,12 @@ mutation CreateRickOwnerRelations {
  </div>
 </details>
 
+In the same way we can assign other users to roles in different departments by creating relations of the desired type.
+
 ### Listing Object Relations
 
-We can verify that Rick has the new relations to the correct departments by inspecting his `user` object:
+We can verify that Rick has the new relations to the correct departments by inspecting his `user` object and selecting
+the relations in which it appears as the target object.
 
 ```graphql title="Query"
 query RicksRelations {
