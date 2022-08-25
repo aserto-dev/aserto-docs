@@ -1,0 +1,37 @@
+---
+id: relations-where
+title: RelationsWhere
+hide_table_of_contents: true
+---
+
+
+A comparison predicate for filtering relations.
+
+```graphql
+input RelationsWhere {
+  source: ObjectsWhere
+  target: ObjectsWhere
+  type: RelationTypesWhere
+}
+```
+
+
+### Fields
+
+#### [`source`](#) ([`ObjectsWhere`](/docs/directory-api-reference/schema/inputs/objects-where))
+
+Filter relations by their source object.
+
+
+#### [`target`](#) ([`ObjectsWhere`](/docs/directory-api-reference/schema/inputs/objects-where))
+
+Filter relations by their target object.
+
+
+#### [`type`](#) ([`RelationTypesWhere`](/docs/directory-api-reference/schema/inputs/relation-types-where))
+
+Filter relations by their type.
+
+
+
+

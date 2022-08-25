@@ -5,10 +5,11 @@ hide_table_of_contents: true
 ---
 
 
-List all relation types.
+Find relation types that match the given criteria.
 
 ```graphql
 relationTypes(
+  where: RelationTypesWhere
   first: Int!
   after: Cursor
 ): RelationTypeConnection!
@@ -17,14 +18,19 @@ relationTypes(
 
 ### Arguments
 
+#### [`where`](#) ([`RelationTypesWhere`](/docs/directory-api-reference/schema/inputs/relation-types-where))
+
+[Optional] Filtering criteria.
+
+
 #### [`first`](#) ([`Int!`](/docs/directory-api-reference/schema/scalars/int))
 
-
+[Required] The maximum number of relation types to return.
 
 
 #### [`after`](#) ([`Cursor`](/docs/directory-api-reference/schema/scalars/cursor))
 
-
+[Optional] Pagination cursor for forward pagination.
 
 
 ### Type

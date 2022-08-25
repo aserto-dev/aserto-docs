@@ -1,0 +1,44 @@
+---
+id: relations
+title: relations
+hide_table_of_contents: true
+---
+
+
+Find relations that match the given criteria.
+
+```graphql
+relations(
+  where: RelationsWhere
+  first: Int!
+  after: Cursor
+): RelationConnection!
+```
+
+
+### Arguments
+
+#### [`where`](#) ([`RelationsWhere`](/docs/directory-api-reference/schema/inputs/relations-where))
+
+[Optional] Filtering criteria.
+
+
+#### [`first`](#) ([`Int!`](/docs/directory-api-reference/schema/scalars/int))
+
+[Required] The maximum number of relations to return.
+
+
+#### [`after`](#) ([`Cursor`](/docs/directory-api-reference/schema/scalars/cursor))
+
+[Optional] Pagination cursor for forward pagination.
+
+
+### Type
+
+#### [`RelationConnection`](/docs/directory-api-reference/schema/objects/relation-connection)
+
+A paginated collection of relations.
+
+
+
+

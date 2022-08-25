@@ -53,7 +53,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
           docOptions: {
             pagination: true,
             toc: false,
-            index: true,
+            index: false,
           },
         },
       ],

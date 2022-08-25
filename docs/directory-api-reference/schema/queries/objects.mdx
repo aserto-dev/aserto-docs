@@ -5,12 +5,11 @@ hide_table_of_contents: true
 ---
 
 
-List objects, optionally with filters.
+Find objects that match the given criteria.
 
 ```graphql
 objects(
   where: ObjectsWhere
-  type: ObjectTypeSelector
   first: Int!
   after: Cursor
 ): ObjectConnection!
@@ -21,22 +20,17 @@ objects(
 
 #### [`where`](#) ([`ObjectsWhere`](/docs/directory-api-reference/schema/inputs/objects-where))
 
-
-
-
-#### [`type`](#) ([`ObjectTypeSelector`](/docs/directory-api-reference/schema/inputs/object-type-selector))
-
-
+[Optional] Filtering criteria.
 
 
 #### [`first`](#) ([`Int!`](/docs/directory-api-reference/schema/scalars/int))
 
-
+[Required] The maximum number of objects to return.
 
 
 #### [`after`](#) ([`Cursor`](/docs/directory-api-reference/schema/scalars/cursor))
 
-
+[Optional] Pagination cursor for forward pagination.
 
 
 ### Type
