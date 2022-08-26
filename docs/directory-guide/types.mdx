@@ -11,7 +11,7 @@ the three roles that users can have.
 
 ## Object Type
 
-We use the [`setObjectType`](/docs/directory-api-reference/schema/mutations/set-object-type) mutation to create a new
+We use the [`setObjectType`](/docs/directory-api-reference/schema/object-types/mutations/set-object-type) mutation to create a new
 object type called "department".
 
 ```graphql title="Query"
@@ -60,12 +60,12 @@ mutation CreateDepartmentObjectType {
 
 The value of the `name` field is used to identify the object type and must be unique among all object types in the directory.
 
-The input fields are described in more detail [here](/docs/directory-api-reference/schema/inputs/set-object-type-input).
+The input fields are described in more detail [here](/docs/directory-api-reference/schema/object-types/inputs/set-object-type-input).
 
 ### Querying Object Types
 
 To see that the department object types was indeed created, we can enumerate object types using the
-[objectTypes](/docs/directory-api-reference/schema/queries/object-types) query.
+[objectTypes](/docs/directory-api-reference/schema/object-types/queries/object-types) query.
 
 The following query retrieves the `id`, `name`, and `displayName` fields of the first 10 object types that are not subject
 _and_ have an no modifier flags in their `status` field:
@@ -173,7 +173,7 @@ The `name` field of relation types needs to be unique among all relation types d
 By convention, the `displayName` of relation types is set to `<object type name>::<relation type name>`.
 
 The input fields are described in more detail
-[here](/docs/directory-api-reference/schema/inputs/set-relation-type-input).
+[here](/docs/directory-api-reference/schema/relation-types/inputs/set-relation-type-input).
 
 
 ### Member and Owner

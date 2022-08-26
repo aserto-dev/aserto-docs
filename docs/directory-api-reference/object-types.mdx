@@ -5,11 +5,11 @@ title: Object Types
 
 ## Schema
 
-The [`ObjectType`](schema/objects/object-type) type represent directory object types.
+The [`ObjectType`](schema/object-types/objects/object-type) type represent directory object types.
 
 ## Listing Object Types
 
-Use the [`objectTypes`](schema/queries/object-types) query to search for object types.
+Use the [`objectTypes`](schema/object-types/queries/object-types) query to search for object types.
 
 ### List All
 
@@ -95,7 +95,7 @@ The following query is used to [paginate](overview#pagination) over all object t
 
 ### Filtering
 
-The [`objectTypes`](schema/queries/object-types) query can also be used to [filter](overview#filters) object types by
+The [`objectTypes`](schema/object-types/queries/object-types) query can also be used to [filter](overview#filters) object types by
 providing `where` criteria. The following query selects object types that are subjects and their name contains the
 substring `"user"`:
 
@@ -155,7 +155,7 @@ substring `"user"`:
 
 ## Creating and Modifying Object Types
 
-The [setObjetType](schema/mutations/set-object-type) mutations is used to create new object types or modify existing
+The [setObjetType](schema/object-types/mutations/set-object-type) mutations is used to create new object types or modify existing
 ones.
 
 
@@ -223,11 +223,11 @@ set in the `status` field.
 
 ### Modify
 
-All object type fields can be modified after creation except for the ID. The same [setObjetType](schema/mutations/set-object-type)
+All object type fields can be modified after creation except for the ID. The same [setObjetType](schema/object-types/mutations/set-object-type)
 mutation used above to create a new object type is also used to modify existing ones.
 
 To modify the name of the new type to `"organization"` we need to refer to the type by its ID.
-Since an object type is uniquely identified by its name, the `id` field in [setObjetType](schema/mutations/set-object-type)
+Since an object type is uniquely identified by its name, the `id` field in [setObjetType](schema/object-types/mutations/set-object-type)
 is only required when changing an object type's `name`.
 
 ```graphql
