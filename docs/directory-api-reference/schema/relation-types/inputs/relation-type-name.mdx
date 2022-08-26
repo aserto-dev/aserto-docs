@@ -1,0 +1,33 @@
+---
+id: relation-type-name
+title: RelationTypeName
+hide_table_of_contents: true
+---
+
+
+A RelationTypeName identifies a relation type by the combination of its name and associated object type.
+
+Both fields are required.
+
+```graphql
+input RelationTypeName {
+  name: String!
+  objectType: ObjectTypeSelector!
+}
+```
+
+
+### Fields
+
+#### [`name`](#) ([`String!`](/docs/directory-api-reference/schema/common/scalars/string))
+
+Name of the relation type.
+
+
+#### [`objectType`](#) ([`ObjectTypeSelector!`](/docs/directory-api-reference/schema/object-types/inputs/object-type-selector))
+
+The type of object that can be part of the relation.
+
+
+
+

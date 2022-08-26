@@ -1,0 +1,60 @@
+---
+id: permission
+title: Permission
+hide_table_of_contents: true
+---
+
+
+An action that can be performed on a resource.
+
+```graphql
+type Permission {
+  id: ID!
+  permission: String!
+  displayName: String
+  lifecycle: Lifecycle!
+  relationTypes(
+  first: Int!
+  after: Cursor
+): RelationTypeConnection!
+}
+```
+
+
+### Fields
+
+#### [`id`](#) ([`ID!`](/docs/directory-api-reference/schema/common/scalars/id))
+
+Unique identifier for the permission.
+
+
+#### [`permission`](#) ([`String!`](/docs/directory-api-reference/schema/common/scalars/string))
+
+Unique user-defined value representing the permission.
+
+
+#### [`displayName`](#) ([`String`](/docs/directory-api-reference/schema/common/scalars/string))
+
+An optional name for the permission
+
+
+#### [`lifecycle`](#) ([`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle))
+
+Metadata about the permission's lifecycle.
+
+
+#### [`relationTypes`](#) ([`RelationTypeConnection!`](/docs/directory-api-reference/schema/relation-types/objects/relation-type-connection))
+
+The relation types that include this permission.
+- ##### [`first`](#) ([`Int!`](/docs/directory-api-reference/schema/common/scalars/int))
+
+
+
+
+- ##### [`after`](#) ([`Cursor`](/docs/directory-api-reference/schema/common/scalars/cursor))
+
+
+
+
+
+

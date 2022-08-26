@@ -1,0 +1,78 @@
+---
+id: object-type
+title: ObjectType
+hide_table_of_contents: true
+---
+
+
+ObjectType represents the kinds of objects that can exist in the directory.
+
+```graphql
+type ObjectType {
+  id: TypeID!
+  isSubject: Boolean!
+  name: String!
+  displayName: String!
+  ordinal: Int!
+  status: [Flag!]!
+  lifecycle: Lifecycle!
+  relationTypes(
+  first: Int!
+  after: Cursor
+): RelationTypeConnection!
+}
+```
+
+
+### Fields
+
+#### [`id`](#) ([`TypeID!`](/docs/directory-api-reference/schema/common/scalars/type-id))
+
+Unique identifier for the object type.
+
+
+#### [`isSubject`](#) ([`Boolean!`](/docs/directory-api-reference/schema/common/scalars/boolean))
+
+Whether the object type represents a subject type.
+
+
+#### [`name`](#) ([`String!`](/docs/directory-api-reference/schema/common/scalars/string))
+
+Name of the object type.
+
+
+#### [`displayName`](#) ([`String!`](/docs/directory-api-reference/schema/common/scalars/string))
+
+Friendly name of the object type.
+
+
+#### [`ordinal`](#) ([`Int!`](/docs/directory-api-reference/schema/common/scalars/int))
+
+Sort order of the object type.
+
+
+#### [`status`](#) ([`[Flag!]!`](/docs/directory-api-reference/schema/common/enums/flag))
+
+A of flags that describe the status of the object type.
+
+
+#### [`lifecycle`](#) ([`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle))
+
+Metadata about the object type's lifecycle.
+
+
+#### [`relationTypes`](#) ([`RelationTypeConnection!`](/docs/directory-api-reference/schema/relation-types/objects/relation-type-connection))
+
+The types of relations that can be created with objects of this type.
+- ##### [`first`](#) ([`Int!`](/docs/directory-api-reference/schema/common/scalars/int))
+
+
+
+
+- ##### [`after`](#) ([`Cursor`](/docs/directory-api-reference/schema/common/scalars/cursor))
+
+
+
+
+
+

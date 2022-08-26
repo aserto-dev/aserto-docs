@@ -1,0 +1,44 @@
+---
+id: object-types
+title: objectTypes
+hide_table_of_contents: true
+---
+
+
+Find object types that match the given criteria.
+
+```graphql
+objectTypes(
+  where: ObjectTypesWhere
+  first: Int!
+  after: Cursor
+): ObjectTypeConnection!
+```
+
+
+### Arguments
+
+#### [`where`](#) ([`ObjectTypesWhere`](/docs/directory-api-reference/schema/object-types/inputs/object-types-where))
+
+[Optional] Filtering criteria.
+
+
+#### [`first`](#) ([`Int!`](/docs/directory-api-reference/schema/common/scalars/int))
+
+[Required] The maximum number of object types to return.
+
+
+#### [`after`](#) ([`Cursor`](/docs/directory-api-reference/schema/common/scalars/cursor))
+
+[Optional] Pagination cursor for forward pagination.
+
+
+### Type
+
+#### [`ObjectTypeConnection`](/docs/directory-api-reference/schema/object-types/objects/object-type-connection)
+
+A paginated collection of object types.
+
+
+
+

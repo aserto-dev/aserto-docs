@@ -1,0 +1,37 @@
+---
+id: objects-where
+title: ObjectsWhere
+hide_table_of_contents: true
+---
+
+
+A comparison predicate for filtering objects.
+
+```graphql
+input ObjectsWhere {
+  type: ObjectTypesWhere
+  key: StringWhere
+  displayName: StringWhere
+}
+```
+
+
+### Fields
+
+#### [`type`](#) ([`ObjectTypesWhere`](/docs/directory-api-reference/schema/object-types/inputs/object-types-where))
+
+Filter objects by their type.
+
+
+#### [`key`](#) ([`StringWhere`](/docs/directory-api-reference/schema/common/inputs/string-where))
+
+Filter relations by key.
+
+
+#### [`displayName`](#) ([`StringWhere`](/docs/directory-api-reference/schema/common/inputs/string-where))
+
+Filter relations by display name.
+
+
+
+

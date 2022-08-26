@@ -1,0 +1,44 @@
+---
+id: objects
+title: objects
+hide_table_of_contents: true
+---
+
+
+Find objects that match the given criteria.
+
+```graphql
+objects(
+  where: ObjectsWhere
+  first: Int!
+  after: Cursor
+): ObjectConnection!
+```
+
+
+### Arguments
+
+#### [`where`](#) ([`ObjectsWhere`](/docs/directory-api-reference/schema/objects/inputs/objects-where))
+
+[Optional] Filtering criteria.
+
+
+#### [`first`](#) ([`Int!`](/docs/directory-api-reference/schema/common/scalars/int))
+
+[Required] The maximum number of objects to return.
+
+
+#### [`after`](#) ([`Cursor`](/docs/directory-api-reference/schema/common/scalars/cursor))
+
+[Optional] Pagination cursor for forward pagination.
+
+
+### Type
+
+#### [`ObjectConnection`](/docs/directory-api-reference/schema/objects/objects/object-connection)
+
+
+
+
+
+

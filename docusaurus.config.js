@@ -50,6 +50,11 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
           rootPath: './docs/directory-api-reference',
           baseUrl: 'schema',
           linkRoot: '/docs/directory-api-reference/',
+          groupByDirective: {
+            directive: 'doc',
+            field: 'category',
+            fallback: 'Common',
+          },
           docOptions: {
             pagination: true,
             toc: false,
@@ -70,6 +75,9 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             editUrl:
               "https://github.com/aserto-dev/aserto-docs/edit/main/",
             routeBasePath: "docs",
+            exclude: [
+              "docs/directory-api-reference/schema/directives/*"
+            ],
           },
           theme: {
             customCss: require.resolve("./src/css/custom.css"),

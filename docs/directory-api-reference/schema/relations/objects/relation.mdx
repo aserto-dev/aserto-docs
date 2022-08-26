@@ -1,0 +1,43 @@
+---
+id: relation
+title: Relation
+hide_table_of_contents: true
+---
+
+
+A relation between a source object and a target object.
+
+```graphql
+type Relation {
+  source: Object!
+  target: Object!
+  type: RelationType!
+  lifecycle: Lifecycle!
+}
+```
+
+
+### Fields
+
+#### [`source`](#) ([`Object!`](/docs/directory-api-reference/schema/objects/objects/object))
+
+The source of the relation.
+
+
+#### [`target`](#) ([`Object!`](/docs/directory-api-reference/schema/objects/objects/object))
+
+The target of the relation.
+
+
+#### [`type`](#) ([`RelationType!`](/docs/directory-api-reference/schema/relation-types/objects/relation-type))
+
+The type of relation.
+
+
+#### [`lifecycle`](#) ([`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle))
+
+Metadata about the relation type's lifecycle.
+
+
+
+

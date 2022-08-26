@@ -1,0 +1,65 @@
+---
+id: set-relation-type-input
+title: SetRelationTypeInput
+hide_table_of_contents: true
+---
+
+
+Input for the setRelationType mutation.
+
+```graphql
+input SetRelationTypeInput {
+  id: TypeID
+  name: String
+  objectType: ObjectTypeSelector
+  displayName: String
+  ordinal: Int
+  status: [Flag!]
+  unions: [RelationTypeSelector!]
+}
+```
+
+
+### Fields
+
+#### [`id`](#) ([`TypeID`](/docs/directory-api-reference/schema/common/scalars/type-id))
+
+ID of an existing relation type to update. If set, a relation type with the specified ID must already exist.
+
+
+#### [`name`](#) ([`String`](/docs/directory-api-reference/schema/common/scalars/string))
+
+Name of the relation type.
+
+
+#### [`objectType`](#) ([`ObjectTypeSelector`](/docs/directory-api-reference/schema/object-types/inputs/object-type-selector))
+
+The type of object that can be the source of the relation. If `id` is set the `objectType` is optional and if
+specified, must match the object type defined on the existing relation type.
+
+
+#### [`displayName`](#) ([`String`](/docs/directory-api-reference/schema/common/scalars/string))
+
+Display name of the relation type.
+
+
+#### [`ordinal`](#) ([`Int`](/docs/directory-api-reference/schema/common/scalars/int))
+
+Sort ordinal of the relation type.
+
+
+#### [`status`](#) ([`[Flag!]`](/docs/directory-api-reference/schema/common/enums/flag))
+
+A set of flags that describe the status of the relation type.
+
+
+#### [`unions`](#) ([`[RelationTypeSelector!]`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector))
+
+A list of relation types that are supertypes of this relation type.
+
+This relation type receives all permissions defined in the supertypes.
+Unioned relation types must be defined with the same object type.
+
+
+
+
