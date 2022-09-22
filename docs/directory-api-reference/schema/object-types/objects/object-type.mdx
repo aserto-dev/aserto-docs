@@ -15,6 +15,7 @@ type ObjectType {
   displayName: String!
   ordinal: Int!
   status: [Flag!]!
+  hash: Hash!
   lifecycle: Lifecycle!
   relationTypes(
   first: Int!
@@ -54,6 +55,11 @@ Sort order of the object type.
 #### [`status`](#) ([`[Flag!]!`](/docs/directory-api-reference/schema/common/enums/flag))
 
 A of flags that describe the status of the object type.
+
+
+#### [`hash`](#) ([`Hash!`](/docs/directory-api-reference/schema/common/scalars/hash))
+
+A hash value of object type's fields.
 
 
 #### [`lifecycle`](#) ([`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle))

@@ -12,6 +12,7 @@ type Permission {
   id: ID!
   permission: String!
   displayName: String
+  hash: Hash!
   lifecycle: Lifecycle!
   relationTypes(
   first: Int!
@@ -36,6 +37,11 @@ Unique user-defined value representing the permission.
 #### [`displayName`](#) ([`String`](/docs/directory-api-reference/schema/common/scalars/string))
 
 An optional name for the permission
+
+
+#### [`hash`](#) ([`Hash!`](/docs/directory-api-reference/schema/common/scalars/hash))
+
+A hash value of permission's fields.
 
 
 #### [`lifecycle`](#) ([`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle))

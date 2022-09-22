@@ -12,6 +12,7 @@ type Relation {
   source: Object!
   target: Object!
   type: RelationType!
+  hash: Hash
   lifecycle: Lifecycle!
 }
 ```
@@ -32,6 +33,15 @@ The target of the relation.
 #### [`type`](#) ([`RelationType!`](/docs/directory-api-reference/schema/relation-types/objects/relation-type))
 
 The type of relation.
+
+
+#### [`hash`](#) ([`Hash`](/docs/directory-api-reference/schema/common/scalars/hash))
+
+Optional value of the hash value previously read from the directory.
+
+If a hash value is specified and the relation being mutated already exists, the update will be rejected unless the hash
+value matches the existing relation's hash value.
+This can be used to ensure that the relation being mutated has not been modified since it was read from the directory.
 
 
 #### [`lifecycle`](#) ([`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle))

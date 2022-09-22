@@ -12,6 +12,7 @@ input SetPermissionInput {
   id: ID
   permission: String
   displayName: String
+  hash: Hash
 }
 ```
 
@@ -31,6 +32,15 @@ The unique permission value.
 #### [`displayName`](#) ([`String`](/docs/directory-api-reference/schema/common/scalars/string))
 
 Friendly name for the permission.
+
+
+#### [`hash`](#) ([`Hash`](/docs/directory-api-reference/schema/common/scalars/hash))
+
+Optional value of the hash value previously read from the directory.
+
+If a hash value is specified and the permission being mutated already exists, the update will be rejected unless the hash
+value matches the existing permissions's hash value.
+This can be used to ensure that the permission being mutated has not been modified since it was read from the directory.
 
 
 

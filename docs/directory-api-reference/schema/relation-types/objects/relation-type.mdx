@@ -16,6 +16,7 @@ type RelationType {
   ordinal: Int!
   status: [Flag!]!
   unions: [RelationType!]!
+  hash: Hash!
   lifecycle: Lifecycle!
   permissions(
   first: Int!
@@ -63,6 +64,11 @@ A list of relation types that are supertypes of this relation type.
 
 This relation type receives all permissions defined in the supertypes.
 Unioned relation types must be defined with the same object type.
+
+
+#### [`hash`](#) ([`Hash!`](/docs/directory-api-reference/schema/common/scalars/hash))
+
+A hash value of relation type's fields.
 
 
 #### [`lifecycle`](#) ([`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle))

@@ -17,10 +17,11 @@ the object type and `name` is the new name.
 input SetObjectTypeInput {
   id: TypeID
   name: String!
-  displayName: String!
-  isSubject: Boolean!
-  ordinal: Int!
-  status: [Flag!]!
+  displayName: String
+  isSubject: Boolean
+  ordinal: Int
+  status: [Flag!]
+  hash: Hash
 }
 ```
 
@@ -37,24 +38,33 @@ ID of an existing object type to update. If set, an object type with the specifi
 Name of the object type. Must be unique among all object types in the directory.
 
 
-#### [`displayName`](#) ([`String!`](/docs/directory-api-reference/schema/common/scalars/string))
+#### [`displayName`](#) ([`String`](/docs/directory-api-reference/schema/common/scalars/string))
 
 Friendly display name of the object type. This is how the object type appears in the Aserto console.
 
 
-#### [`isSubject`](#) ([`Boolean!`](/docs/directory-api-reference/schema/common/scalars/boolean))
+#### [`isSubject`](#) ([`Boolean`](/docs/directory-api-reference/schema/common/scalars/boolean))
 
 Whether or not the object type represents a subject (user, group, etc.).
 
 
-#### [`ordinal`](#) ([`Int!`](/docs/directory-api-reference/schema/common/scalars/int))
+#### [`ordinal`](#) ([`Int`](/docs/directory-api-reference/schema/common/scalars/int))
 
 Sort order of the object type. Lower ordinals appear first when enumerating object types.
 
 
-#### [`status`](#) ([`[Flag!]!`](/docs/directory-api-reference/schema/common/enums/flag))
+#### [`status`](#) ([`[Flag!]`](/docs/directory-api-reference/schema/common/enums/flag))
 
 A set of modifier flags that can be applied to the object type. It should be left empty (`[]`) in most cases.
+
+
+#### [`hash`](#) ([`Hash`](/docs/directory-api-reference/schema/common/scalars/hash))
+
+Optional value of the hash value previously read from the directory.
+
+If a hash value is specified and the object type being mutated already exists, the update will be rejected unless the hash
+value matches the existing object type's hash value.
+This can be used to ensure that the object type being mutated has not been modified since it was read from the directory.
 
 
 
