@@ -1,0 +1,32 @@
+---
+id: relation-type
+title: relationType
+hide_table_of_contents: true
+---
+
+
+Select a single relation type.
+
+```graphql
+relationType(
+  selector: RelationTypeSelector!
+): RelationType!
+```
+
+
+### Arguments
+
+#### [`selector`](#) ([`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector))
+
+[Required] Selection criteria. Relation types can be selected based on their `id` or the combination of `name` and `objectType`.
+
+
+### Type
+
+#### [`RelationType`](/docs/directory-api-reference/schema/relation-types/objects/relation-type)
+
+A kind of relation that can exist between subjects and resources.
+
+
+
+

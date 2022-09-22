@@ -1,0 +1,31 @@
+---
+id: permission-connection
+title: PermissionConnection
+hide_table_of_contents: true
+---
+
+
+A paginated collection of Permission instances.
+
+```graphql
+type PermissionConnection {
+  pageInfo: PageInfo!
+  nodes: [Permission!]!
+}
+```
+
+
+### Fields
+
+#### [`pageInfo`](#) ([`PageInfo!`](/docs/directory-api-reference/schema/common/objects/page-info))
+
+Pagination information about the returned page.
+
+
+#### [`nodes`](#) ([`[Permission!]!`](/docs/directory-api-reference/schema/permissions/objects/permission))
+
+The collection of permissions in the page.
+
+
+
+

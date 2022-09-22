@@ -112,11 +112,11 @@ Similar to the `name` field of the object and realtion types we created in the [
 of an object is used to identify it within other objects of the same type. Objects can be uniquely identified either by
 their `id` or the combination of their `key` and `type`.
 
-See [SetObjectInput](/docs/directory-api-reference/schema/inputs/set-object-input) for more details on the input fields.
+See [SetObjectInput](/docs/directory-api-reference/schema/objects/inputs/set-object-input) for more details on the input fields.
 
 ## Querying Objects
 
-We use the [objects](/docs/directory-api-reference/schema/queries/objects) query to find the department objects we
+We use the [objects](/docs/directory-api-reference/schema/objects/queries/objects) query to find the department objects we
 just created.
 
 ```graphql title="Query"
@@ -175,5 +175,5 @@ query DepartmentObjects {
   </div>
 </details>
 
-We used the `where` parameter in the [objects](/docs/directory-api-reference/schema/queries/objects) query to only
+We used the `where` parameter in the [objects](/docs/directory-api-reference/schema/objects/queries/objects) query to only
 select objects with a type named "department".

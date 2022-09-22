@@ -1,0 +1,95 @@
+---
+id: object
+title: Object
+hide_table_of_contents: true
+---
+
+
+Objects are the primary nodes in the directory graph.
+
+They be associated with each other using Relations.
+
+```graphql
+type Object {
+  id: ID!
+  type: ObjectType!
+  key: String!
+  displayName: String!
+  properties: Map!
+  hash: Hash!
+  lifecycle: Lifecycle!
+  relations(
+  side: RelationSide!
+  options: RelationOptions
+  first: Int!
+  after: Cursor
+): RelationConnection!
+}
+```
+
+
+### Fields
+
+#### [`id`](#) ([`ID!`](/docs/directory-api-reference/schema/common/scalars/id))
+
+Unique identifier of the object.
+
+
+#### [`type`](#) ([`ObjectType!`](/docs/directory-api-reference/schema/object-types/objects/object-type))
+
+The type of the object.
+
+
+#### [`key`](#) ([`String!`](/docs/directory-api-reference/schema/common/scalars/string))
+
+User-defined identifier for the object. Unique within an object type.
+
+
+#### [`displayName`](#) ([`String!`](/docs/directory-api-reference/schema/common/scalars/string))
+
+Optional display name for the object.
+
+
+#### [`properties`](#) ([`Map!`](/docs/directory-api-reference/schema/common/scalars/map))
+
+A JSON collection of arbitrary properties associated with the object.
+
+
+#### [`hash`](#) ([`Hash!`](/docs/directory-api-reference/schema/common/scalars/hash))
+
+A hash value of object's fields.
+
+
+#### [`lifecycle`](#) ([`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle))
+
+Metadata about the object's life cycle.
+
+
+#### [`relations`](#) ([`RelationConnection!`](/docs/directory-api-reference/schema/relations/objects/relation-connection))
+
+The relations this object has.
+
+side: The object's side in the relation. "SOURCE" returns relations in which the object is the source, and
+"TARGET" returns relations in which the object is the target.
+- ##### [`side`](#) ([`RelationSide!`](/docs/directory-api-reference/schema/objects/enums/relation-side))
+
+
+
+
+- ##### [`options`](#) ([`RelationOptions`](/docs/directory-api-reference/schema/objects/inputs/relation-options))
+
+
+
+
+- ##### [`first`](#) ([`Int!`](/docs/directory-api-reference/schema/common/scalars/int))
+
+
+
+
+- ##### [`after`](#) ([`Cursor`](/docs/directory-api-reference/schema/common/scalars/cursor))
+
+
+
+
+
+

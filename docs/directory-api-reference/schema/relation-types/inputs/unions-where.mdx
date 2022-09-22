@@ -1,0 +1,31 @@
+---
+id: unions-where
+title: UnionsWhere
+hide_table_of_contents: true
+---
+
+
+A comparison predicate for filtering relation type unions.
+
+```graphql
+input UnionsWhere {
+  contains: [RelationTypeSelector]
+  notContains: [RelationTypeSelector]
+}
+```
+
+
+### Fields
+
+#### [`contains`](#) ([`[RelationTypeSelector]`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector))
+
+Matches relation types that include all given relation types in their `unions` field.
+
+
+#### [`notContains`](#) ([`[RelationTypeSelector]`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector))
+
+Matches relation types that do not include any of the given relation types in their `unions` field.
+
+
+
+

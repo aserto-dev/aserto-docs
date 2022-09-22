@@ -1,0 +1,44 @@
+---
+id: relation-types
+title: relationTypes
+hide_table_of_contents: true
+---
+
+
+Find relation types that match the given criteria.
+
+```graphql
+relationTypes(
+  where: RelationTypesWhere
+  first: Int!
+  after: Cursor
+): RelationTypeConnection!
+```
+
+
+### Arguments
+
+#### [`where`](#) ([`RelationTypesWhere`](/docs/directory-api-reference/schema/relation-types/inputs/relation-types-where))
+
+[Optional] Filtering criteria.
+
+
+#### [`first`](#) ([`Int!`](/docs/directory-api-reference/schema/common/scalars/int))
+
+[Required] The maximum number of relation types to return.
+
+
+#### [`after`](#) ([`Cursor`](/docs/directory-api-reference/schema/common/scalars/cursor))
+
+[Optional] Pagination cursor for forward pagination.
+
+
+### Type
+
+#### [`RelationTypeConnection`](/docs/directory-api-reference/schema/relation-types/objects/relation-type-connection)
+
+A paginated collection of relation types.
+
+
+
+
