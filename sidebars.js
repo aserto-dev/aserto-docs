@@ -290,16 +290,7 @@ module.exports = {
           ],
         },
         'decision-logs-guide/schemas',
-        {
-          type: 'category',
-          label: 'Elastic (ELK) Integration',
-          collapsed: false,
-          items: [
-            'decision-logs-guide/elk/configure',
-            'decision-logs-guide/elk/decision-logs-conf',
-            'decision-logs-guide/elk/users-conf',
-          ],
-        },
+        'decision-logs-guide/elk'
       ],
     },
     {
