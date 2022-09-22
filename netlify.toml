@@ -237,3 +237,18 @@
   from = "/software-development-kits/sdks"
   to = "/docs/software-development-kits/overview"
   status = 301
+
+[[redirects]]
+  from = "/docs/decision-logs-guide/elk/configure"
+  to = "/docs/decision-logs-guide/elk"
+  status = 301
+
+[[redirects]]
+  from = "/docs/decision-logs-guide/elk/decision-logs-conf"
+  to = "/docs/decision-logs-guide/elk"
+  status = 301
+
+[[redirects]]
+  from = "/docs/decision-logs-guide/elk/users-conf"
+  to = "/docs/decision-logs-guide/elk"
+  status = 301
