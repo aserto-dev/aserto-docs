@@ -301,9 +301,10 @@ module.exports = {
         'edge-authorizers/overview',
         'edge-authorizers/deployment-and-operation',
         'edge-authorizers/security-and-management',
+        `edge-authorizers/decision-logs`,
         'edge-authorizers/discovery-flow',
         'edge-authorizers/runtime-flow',
-        'edge-authorizers/directory-synchronization',
+        'edge-authorizers/directory-synchronization'
       ],
     },
     {
