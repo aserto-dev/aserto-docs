@@ -1,0 +1,68 @@
+---
+sidebar_label: Adding Relations
+title: Adding Relations
+description: Adding relations between subjects and objects 
+---
+
+# Adding Relations
+
+Now that we have our Organization object type, the Viewer, Editor, and Owner relation types, and the associated permissions, we can assign users into the various relations.
+
+Let's assign Rick the "owner" relation to the Citadel organization, and the "viewer" relation to the Smith organization.
+
+Click the Organizations label in the Objects sidebar tab, and click the "Citadel" organization.
+
+Click the "outgoing relations" tab to view the three relation types. Click the "owner" relation type - there aren't yet users that are assigned the "owner" relation.
+
+![citadel-relations](/citadel-relations.png)
+
+## Add relation instances
+
+Click the "Add a relation" button to assign Rick to the "owner" relation type on the "Citadel" organization.
+
+![add-rick-to-citadel](/add-rick-to-citadel.png)
+
+Then click the "editor" relation type, and the "Add a relation" button to assign Morty to the "editor" relation type on the "Citadel" organization.
+
+## Checking relations or permissions
+
+When creating a policy, we can use these object types, relation types, and permissions to check whether a user has a relation or a permission on an object.
+
+To allow the operation if the current user has the "owner" relation to the "citadel" organization, we can use the following policy:
+
+```rego
+allowed {
+  ds.check_relation({
+    "object": {
+      "key": "citadel",
+      "type": "organization"
+    },
+    "relation": {
+      "name": "owner",
+      "object_type": "organization"
+    },
+    "subject": {
+      "id": input.user.id
+    }
+  })
+}
+```
+
+To allow the operation if the current user has the "view" permission on the "citadel" organization (regardless of which relation grants them this permission), we can use this policy:
+
+```rego
+allowed {
+  ds.check_permission({
+    "object": {
+      "key": "citadel",
+      "type": "organization"
+    },
+    "permission": {
+      "name": "view",
+    },
+    "subject": {
+      "id": input.user.id
+    }
+  })
+}
+```

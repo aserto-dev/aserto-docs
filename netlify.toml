@@ -252,3 +252,8 @@
   from = "/docs/decision-logs-guide/elk/users-conf"
   to = "/docs/decision-logs-guide/elk"
   status = 301
+
+[[redirects]]
+  from = "/docs/aserto-console/directory"
+  to = "/docs/aserto-console/directory/overview"
+  status = 301

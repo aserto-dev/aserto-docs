@@ -1,0 +1,39 @@
+---
+sidebar_label: Creating Permissions
+title: Creating Permissions
+description: Creating permissions for relation types
+---
+
+# Permissions
+
+A relation type can optionally include named permissions. This provides a layer of indirection, which allows a relation (commonly referred to as a "role") to aggregate a set of permissions. 
+
+Note that the relationship between relations and permissions is "many to many".
+
+Aserto supports checking whether a user has a relationship to an object (e.g. an organization). It also supports checking whether a user has a permission on an object. This check returns "true" if ANY of the relations that the user has to this object contains the specified permission.
+
+For example, the "owner", "editor", and "viewer" relations that we created for the "organization" object type can all contain the "read" permission. If a user has any of these relations to a particular organization instance, then they have the "read" permission.
+
+## Create permissions
+
+Let's create four permissions: "create", "delete", "edit", and "view". We can then associate each of these permissions with one or more relations.
+
+Click the Permissions tab in the directory sidebar, and the Organization label. We don't yet have any permissions defined. 
+
+![org-empty-permissions](/org-empty-permissions.png)
+
+Click the "Add" button to add the four permissions.
+
+![org-create-permission](/org-create-permission.png)
+
+We should now have four permissions:
+
+![org-four-permissions](/org-four-permissions.png)
+
+## Assign permissions to relations
+
+In order to associate a permission to one or more relation types, simply click the permission checkbox. Let's associate the "view" permission with all three relations; the "edit" permission with the "editor" and "owner" relation; and the "create" and "delete" permissions with the "owner" relation.
+
+![org-assign-permissions](/org-assign-permissions.png)
+
+Next, let's grant users access to the organizations we created.

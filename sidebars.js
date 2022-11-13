@@ -72,8 +72,20 @@ module.exports = {
     {
       Console: [
         'aserto-console/introduction',
-
-        'aserto-console/directory',
+        {
+          type: 'category',
+          label: 'Managing the Directory',
+          collapsed: true,
+          items: [
+            'aserto-console/directory/overview',
+            'aserto-console/directory/navigate-relation',
+            'aserto-console/directory/add-group',
+            'aserto-console/directory/create-object-type',
+            'aserto-console/directory/create-relation-type',
+            'aserto-console/directory/create-permission',
+            'aserto-console/directory/add-relation',
+          ]
+        },
         {
           type: 'category',
           label: 'Managing Connections',
