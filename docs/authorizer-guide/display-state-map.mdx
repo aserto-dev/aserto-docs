@@ -12,7 +12,7 @@ the front-end typically wants to avoid displaying UI elements that allow users t
 
 Aserto addresses this problem by defining the **display state map** pattern. An authorization policy
 defines [decisions](/docs/overview/policy#decision) called `visible` and `enabled`, which take on `true` / `false`
-values when evaluated against the roles and attributes of the logged-in user. We refer to the following
+values when evaluated against the roles and properties of the logged-in user. We refer to the following
 type of JSON map as a **display state**:
 
 ```json
@@ -20,7 +20,7 @@ type of JSON map as a **display state**:
 ```
 
 Aserto's [`decisiontree`](/docs/authorizer-guide/decisiontree) API makes it possible to compute these _display states_
-for **every route or permission in your application** based on the roles and attributes of the logged-in
+for **every route or permission in your application** based on the roles and properties of the logged-in
 user. We call this map of maps a **display state map** and it looks like this:
 
 ```json

@@ -79,7 +79,7 @@ the `/policy/policies/{id}` call.
   "module": {
     "id": "YXNlcnRvMS9wZW9wbGVmaW5kZXIvdXNlcnMvcG9zdC5yZWdv",
     "name": "peoplefinder.POST.api.users",
-    "content": "package peoplefinder.POST.api.users\n\ndefault allowed = false\n\ndefault visible = false\n\ndefault enabled = false\n\nallowed {\n\tu = input.user\n\tu.attributes.properties.department == \"Operations\"\n\tu.attributes.properties.title == \"IT Manager\"\n}\n\nvisible {\n\tallowed\n}\n\nenabled {\n\tallowed\n}\n",
+    "content": "package peoplefinder.POST.api.users\n\ndefault allowed = false\n\ndefault visible = false\n\ndefault enabled = false\n\nallowed {\n\tu = input.user\n\tu.properties.department == \"Operations\"\n\tu.properties.title == \"IT Manager\"\n}\n\nvisible {\n\tallowed\n}\n\nenabled {\n\tallowed\n}\n",
     "rules": ["allowed", "visible", "enabled", "allowed", "visible", "enabled"]
   }
 }

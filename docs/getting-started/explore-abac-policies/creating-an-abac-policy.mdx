@@ -74,9 +74,9 @@ Open the policy instance once it is created, and open the `peoplefinder.POST.api
 
 ![console-policy-peoplefinder-post](/getting-started/console-policy-peoplefinder-post.png)
 
-As you can see, this policy is slightly different from the RBAC policy we created before: instead of referencing the `data` object (which is based on the definitions in the `data.json` file) and the roles defined there, it uses the user's _attributes_ to determine whether they are equal to a specific value.
+As you can see, this policy is slightly different from the RBAC policy we created before: instead of referencing the `data` object (which is based on the definitions in the `data.json` file) and the roles defined there, it uses the user's _properties_ to determine whether they are equal to a specific value.
 
-In this module, we check whether the user's `department` attribute is equal to `Operations`. If the check yields a `true` value, the user will be `allowed` to perform the `POST` operation on the `/api/users/:id` resource - which means they'll be able to update the `title` and `department` attributes of another user.
+In this module, we check whether the user's `department` property is equal to `Operations`. If the check yields a `true` value, the user will be `allowed` to perform the `POST` operation on the `/api/users/:id` resource - which means they'll be able to update the `title` and `department` property of another user.
 
 This policy will result in a dynamic behavior of the authorization model: any user assigned to the `Operations` department _at runtime_ will now have the permission to make updates to other users as well.
 
