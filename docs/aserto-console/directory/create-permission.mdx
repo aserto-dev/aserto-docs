@@ -6,13 +6,13 @@ description: Creating permissions for relation types
 
 # Permissions
 
-A relation type can optionally include named permissions. This provides a layer of indirection, which allows a relation (commonly referred to as a "role") to aggregate a set of permissions. 
+A relation type can optionally include named permissions. This provides a layer of indirection, which allows a relation type (commonly referred to as a "role") to aggregate a set of permissions. 
 
-Note that the relationship between relations and permissions is "many to many".
+Note that the relationship between relation types and permissions is "many to many" - meaning, a permission can be referenced by more than one relation type.
 
 Aserto supports checking whether a user has a relationship to an object (e.g. an organization). It also supports checking whether a user has a permission on an object. This check returns "true" if ANY of the relations that the user has to this object contains the specified permission.
 
-For example, the "owner", "editor", and "viewer" relations that we created for the "organization" object type can all contain the "read" permission. If a user has any of these relations to a particular organization instance, then they have the "read" permission.
+For example, the "owner", "editor", and "viewer" relation types that we created for the "organization" object type can all contain the "read" permission. If a user has a relation of any of these relation types to a particular organization instance, then they have the "read" permission.
 
 ## Create permissions
 
