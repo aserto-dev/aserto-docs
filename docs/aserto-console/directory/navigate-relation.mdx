@@ -1,0 +1,31 @@
+---
+sidebar_label: Navigating Relations
+title: Navigating Relations
+description: Navigating relationships between objects and subjects
+---
+
+# Navigating Relations
+
+Each object may have named relationships to other objects. For example, Users have a "member" relationship to Group objects.
+
+If you're viewing the "Rick Sanchez" User, you can view and navigate these relationships.
+
+## Viewing incoming relations
+
+Incoming relations are relationships where the target is the current object. For example, if you're looking at a User, there will be a "member" relation. 
+
+For example, if you're viewing Rick Sanchez, clicking on the "member" link will show every group which contains Rick as a member. In the Citadel identity provider, Rick is a member of four groups: "admin-group", "squanch-group", "grandpa-group", and "evil-genius-group".
+
+![incoming relations](/incoming-relations.png)
+
+## Navigating relations
+
+Click the "admin-group" to navigate to that object. 
+
+## Relationships are bi-directional
+
+Every relationship can be navigated both ways. To view the Users that are the target of the "member" relation for the "admin-group", click the "Outgoing Relations" tab for the "admin-group" object, and click Rick Sanchez (who is the only admin in this dataset).
+
+![outgoing relations](/outgoing-relations.png)
+
+Next, we will learn how to add object instances.
