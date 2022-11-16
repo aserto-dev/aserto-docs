@@ -22,7 +22,7 @@ As mentioned before, the naming convention for packages is `policyroot.METHOD.ro
 - `METHOD` is `POST` (signifying an `HTTP POST` method)
 - `route` is `api.users.__id` (signifying the `/api/users/:id route`, with periods instead of slashes for a delimiter, following the Rego EBNF rules)
 
-This module controls access to the “Update” button at the bottom of a User card, and defines the policy that authorizes users to make changes to department and title attributes.
+This module controls access to the “Update” button at the bottom of a User card, and defines the policy that authorizes users to make changes to department and title properties.
 
 :::caution note
 Don't confuse the this with the `peoplefinder.POST.api.users` policy, which controls the ability to add new users.
@@ -94,7 +94,7 @@ The final state of the Rego file should look like the code listing below:
 package peoplefinder.POST.api.users.__id
 
 import input.policy.path
-import input.user.attributes
+import input.user.properties
 
 default allowed = false
 
@@ -104,7 +104,7 @@ default enabled = false
 
 allowed {
 	some index
-	data.roles[attributes.roles[index]].perms[path].allowed
+	data.roles[properties.roles[index]].perms[path].allowed
 }
 
 allowed {
@@ -113,12 +113,12 @@ allowed {
 
 visible {
 	some index
-	data.roles[attributes.roles[index]].perms[path].visible
+	data.roles[properties.roles[index]].perms[path].visible
 }
 
 enabled {
 	some index
-	data.roles[attributes.roles[index]].perms[path].enabled
+	data.roles[properties.roles[index]].perms[path].enabled
 }
 
 enabled {

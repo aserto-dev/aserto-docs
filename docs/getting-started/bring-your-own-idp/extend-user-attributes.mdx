@@ -1,21 +1,21 @@
 ---
-sidebar_label: Extend user attributes
-title: Extend user attributes
-description: Extending user attributes for PeopleFinder users
+sidebar_label: Extend user properties
+title: Extend user properties
+description: Extending user properties for PeopleFinder users
 ---
 
-# Add extended attributes for PeopleFinder users
+# Add extended properties for PeopleFinder users
 
-PeopleFinder expects to operate over users with extended attributes like department, title, manager.
+PeopleFinder expects to operate over users with extended properties like department, title, manager.
 
-These extended attributes can come from the identity provider, or can be stored as user extensions
+These extended properties can come from the identity provider, or can be stored as user extensions
 in the Aserto directory. This second option is more flexible, since it doesn't require an application
 to have write access to a customer's identity provider in order to store properties, roles, or permissions.
 
 The PeopleFinder sample demonstrates this use case. It utilizes three properties that aren't stored
 in the identity provider: **department**, **title**, and **manager**.
 
-We're going to use the Aserto CLI to add these extended attributes to each of the users that Aserto
+We're going to use the Aserto CLI to add these extended properties to each of the users that Aserto
 imported from the identity provider (Auth0) in the last step.
 
 ## Install the Aserto CLI
@@ -80,13 +80,13 @@ we loaded into Auth0 in the [Set up test users](/docs/getting-started/bring-your
 curl https://raw.githubusercontent.com/aserto-dev/aserto-cli/main/assets/peoplefinder.json >peoplefinder.json
 ```
 
-Use the Aserto CLI to upload extended attributes for every user we created in Auth0:
+Use the Aserto CLI to upload extended properties for every user we created in Auth0:
 
 ```bash
 aserto directory load-user-ext --provider=json --file=peoplefinder.json
 ```
 
-Verify that the users now have extended attributes:
+Verify that the users now have extended properties:
 
 ```bash
 aserto directory get-user-props karinl@acmecorp.com

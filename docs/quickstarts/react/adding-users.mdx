@@ -6,7 +6,7 @@ description: React and Express.js quickstart - How to add Users to the Aserto Di
 
 # Add Users to the Aserto Directory
 
-Since our application deals with user access, we're going to need users in our directory. Aserto lets us add identity providers and automatically syncs the users registered with those identity providers to the Aserto directory and authorizer. In this tutorial we’re going to use the Acmecorp Identity Provider, which simulates an identity provider with hundreds of users, each with their own set of roles and attributes.
+Since our application deals with user access, we're going to need users in our directory. Aserto lets us add identity providers and automatically syncs the users registered with those identity providers to the Aserto directory and authorizer. In this tutorial we’re going to use the Acmecorp Identity Provider, which simulates an identity provider with hundreds of users, each with their own set of properties.
 
 Log in to your Aserto account. To add the Acmecorp identity provider, go to the Connections tab, and click “Add connection”.
 
@@ -29,23 +29,17 @@ Click on the "Directory" tab. The users you’ll see have been imported from the
 
 You’ll see the following JSON object (shortened here for brevity):
 
-```
+```json
 {
   "id": "cirkzmrhzgmzos03mzm1ltqwngqtywy2ni1jnzdjzjezyte1zjgsbwxvy2fs",
-  "enabled": true,
-  "display_name": "Euan Garden",
+  "displayName": "Euan Garden",
   "email": "euang@acmecorp.com",
   ...
-  "identities": {
-    ...
-  },
-  "attributes": {
-    "properties": {
-      "department": "Sales Engagement Management",
-      "manager": "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
-      "phone": "+1-804-555-3383",
-      "title": "Salesperson"
-    },
+  "properties": {
+    "department": "Sales Engagement Management",
+    "manager": "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
+    "phone": "+1-804-555-3383",
+    "title": "Salesperson"
     "roles": [
       "acmecorp",
       "sales-engagement-management",

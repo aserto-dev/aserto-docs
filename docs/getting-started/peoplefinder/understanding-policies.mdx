@@ -44,42 +44,16 @@ Aserto caches all user information in the Authorizer, so that we can use the ide
 {
   "id": "cirkzmrhzgmzos03mzm1ltqwngqtywy2ni1jnzdjzjezyte1zjgsbwxvy2fs",
   "enabled": true,
-  "display_name": "Euan Garden",
+  "displayName": "Euan Garden",
   "email": "euang@acmecorp.com",
   "picture": "https://github.com/aserto-demo/contoso-ad-sample/raw/main/UserImages/Euan%20Garden.jpg",
-  "identities": {
-    "+1-804-555-3383": {
-      "kind": "IDENTITY_KIND_PHONE",
-      "provider": "",
-      "verified": false
-    },
-    "CiRkZmRhZGMzOS03MzM1LTQwNGQtYWY2Ni1jNzdjZjEzYTE1ZjgSBWxvY2Fs": {
-      "kind": "IDENTITY_KIND_PID",
-      "provider": "local",
-      "verified": true
-    },
-    "euang": {
-      "kind": "IDENTITY_KIND_USERNAME",
-      "provider": "",
-      "verified": false
-    },
-    "euang@acmecorp.com": {
-      "kind": "IDENTITY_KIND_EMAIL",
-      "provider": "local",
-      "verified": true
-    }
-  },
-  "attributes": {
-    "properties": {
-      "department": "Sales Engagement Management",
-      "manager": "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
-      "phone": "+1-804-555-3383",
-      "title": "Salesperson"
-    },
+  "properties": {
+    "department": "Sales Engagement Management",
+    "manager": "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
+    "phone": "+1-804-555-3383",
+    "title": "Salesperson"
     "roles": ["acmecorp", "sales-engagement-management", "user", "viewer"],
-    "permissions": []
   },
-  "applications": {},
   "metadata": {
     "created_at": "2021-11-08T21:16:13.883383606Z",
     "updated_at": "2021-11-08T21:16:13.883383606Z",
@@ -117,10 +91,10 @@ The first line of the policy defines the name of the package using the Rego `pac
 
 ```
 import input.policy.path
-import input.user.attributes.roles as user_roles
+import input.user.properties.roles as user_roles
 ```
 
-Here we use the `import` directive to access the user object which is made available to the policy by Aserto. In this example, we alias `input.policy.path` object which will allow us to refer the policy’s path - `people.GET.api.users` - directly without specifying the full path. Similarly, we import `attributes.roles` in the user object as `user_roles` so that later on in the policy we can refer to it directly.
+Here we use the `import` directive to access the user object which is made available to the policy by Aserto. In this example, we alias `input.policy.path` object which will allow us to refer the policy’s path - `peoplefinder.GET.api.users` - directly without specifying the full path. Similarly, we import `input.user.properties.roles` in the user object as `user_roles` so that later on in the policy we can refer to it directly.
 
 ```
 default allowed = false
@@ -152,10 +126,8 @@ This expression will use the `some index` expression to iterate over all the rol
 
 ```json
 {
-  "attributes": {
-    "properties": {...},
+  "properties": {
     "roles": ["acmecorp", "sales-engagement-management", "user", "viewer"],
-    "permissions": []
   }
 }
 ```
@@ -172,15 +144,15 @@ For each one of those roles, the policy will access the `roles` object in the `d
 {
   "roles": {
     "viewer": {
-        "description": "PeopleFinder viewer",
-        "perms": {
-          "peoplefinder.GET.api.users": {
-              "allowed": true,
-              "visible": true,
-              "enabled": true
-          },
-         ...
-        }
+      "description": "PeopleFinder viewer",
+      "perms": {
+        "peoplefinder.GET.api.users": {
+            "allowed": true,
+            "visible": true,
+            "enabled": true
+        },
+        ...
+      }
     },
     "editor": {...},
     "admin": {...}
@@ -198,22 +170,22 @@ Unlike a `viewer`, an `admin` user trying to access `PUT api/users/:id` will be 
 
 ```json
 {
-    "roles": {
-        "viewer": {...},
-        "editor": {...},
-        "admin": {
-            "description": "PeopleFinder administrator",
-            "perms": {
-               ...
-                "peoplefinder.PUT.api.users.__id": {
-                    "allowed": true,
-                    "visible": true,
-                    "enabled": true
-                },
-               ...
-            }
-        }
+  "roles": {
+    "viewer": {...},
+    "editor": {...},
+    "admin": {
+      "description": "PeopleFinder administrator",
+      "perms": {
+        ...
+        "peoplefinder.PUT.api.users.__id": {
+          "allowed": true,
+          "visible": true,
+          "enabled": true
+        },
+        ...
+      }
     }
+  }
 }
 ```
 

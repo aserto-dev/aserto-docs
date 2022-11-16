@@ -98,7 +98,7 @@ default allowed = false
 
 allowed {
 	some index
-	input.user.attributes.roles[index] == "admin"
+	input.user.properties.roles[index] == "admin"
 }
 ```
 
@@ -106,7 +106,7 @@ By default, the `allowed` decision is going to be `false` - this follows the pri
 
 At runtime, the application will send the JWT associated with the logged in user. The Express.js service will relay the JWT along with the request path as the identity and resource contexts respectively to the authorizer.
 
-The `some index` and `...roles[index]` expressions indicate the authorizer will iterate over all the elements in the `roles` array under the `attributes` property in the user object. The authorizer will check if the iterated role is equal to the string `admin`. If it is, the `allowed` decision will evaluate to `true`.
+The `some index` and `...roles[index]` expressions indicate the authorizer will iterate over all the elements in the `roles` array under the `properties` in the user object. The authorizer will check if the iterated role is equal to the string `admin`. If it is, the `allowed` decision will evaluate to `true`.
 
 ## Updating the Policy Repository
 

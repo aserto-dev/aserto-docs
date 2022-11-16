@@ -101,7 +101,7 @@ There is one Aserto Directory per tenant, and the directory contents are shared 
 ## Authorizer Directory (EDS)
 
 Each Authorizer instance has its own clone of the directory, known as the Edge Directory Service (EDS).
-Authorizers use the EDS for real-time access to anything stored in the directory, including user attributes,
+Authorizers use the EDS for real-time access to anything stored in the directory, including user properties,
 groups, roles/relationships, and any other objects. These can be accessed in policies to help make authorization decisions.
 
 Aserto transparently synchronizes changes from the source identity providers (e.g. Auth0) to the Aserto
@@ -120,7 +120,7 @@ The Authorizer will resolve the user identity in the Directory. It will then loa
 Each object has a JSON property bag that allows storing additional information for that object.
 
 For example, the Aserto Directory stores a read-only replica of the user data it receives (and merges) from various
-identity providers. Administrators and application developers can store custom attributes in the JSON property bag without
+identity providers. Administrators and application developers can store custom properties in the JSON property bag without
 worrying about conflicts with the identity provider.
 
 ## Built-ins
