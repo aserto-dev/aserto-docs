@@ -16,11 +16,7 @@ Then, scroll down to the Environment variables section and click edit variables:
 
 ![netlify-environment](/getting-started/netlify-environment.png)
 
-To retrieve the new Policy ID, open the Policies tab in the Aserto console and click the `peoplefinder-abac` instance. Then, click on `Policy Settings`:
-
-![policy-settings-abac](/getting-started/policy-settings-abac.png)
-
-Update the `POLICY_ID` environment variable in Netlify to the Policy ID of the policy associated with the `peoplefinder-abac` instance.
+Update the `POLICY_INSTANCE_NAME` and `POLICY_INSTANCE_LABEL` environment variables in Netlify to `peoplefinder-abac`.
 
 Finally, you'll have to trigger a redeploy of the Netlify application. Navigate to the Deploys tab:
 

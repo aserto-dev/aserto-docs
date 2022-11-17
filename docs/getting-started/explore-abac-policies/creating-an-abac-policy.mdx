@@ -38,30 +38,35 @@ Finally, name your policy repository `peoplefinder-abac`, and click "Create a ne
 
 ## Create a policy instance
 
-Navigate to the Policies tab and click "Create a new policy instance":
+After creating a policy repository, we'll create a _policy instance_ that will be associated the repository.
 
-You'll be prompted to select a policy registry:
+First, click on the "Policies" tab and click the "Create an instance" button:
 
-![select-policy-registry](/select-policy-registry.png)
+<img src="/getting-started/create-instance-button.png" width="170" />
 
-Select "Aserto Policy Registry" from the dropdown.
+Next, you'll be asked to select between creating the policy from a sample image or from your own policy image - choose "...from your own policy image".
+
+<img src="/create-policy-instance-dialog.png" width="500px" />
+
+Next, you'll be prompted to select a policy registry:
 
 <img src="/select-policy-registry.png" width="500px" />
+
+Select "Aserto Policy Registry" from the dropdown.
 
 Next, from the "Select organization" dropdown select your personal (account) organization.
 
 <img src="/select-policy-organization.png" width="500px" />
 
-From the "Policy repository" dropdown, select "peoplefinder-abac".
+From the "Policy repository" dropdown, select "peoplefinder".
 
-<img
-  src="/getting-started/select-policy-repo-abac.png"
-  width="500px"
-/>
+<img src="/select-policy-repository.png" width="500px" />
 
 From the "Tag list" dropdown, select "latest".
 
-<img src="/select-tag.png" width="500px" />
+<img src="/select-policy-tag.png" width="500px" />
+
+This sets up the policy instance to always pick up the _latest_ version of the policy. While this is going to be very useful while we are developing the policy - we would probably choose to lock the policy instance to a specific tag in a production environment.
 
 Finally, name your instance `peoplefinder-abac` and click "Create an instance".
 
