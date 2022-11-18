@@ -9,14 +9,31 @@ A comparison predicate for filtering relations.
 
 ```graphql
 input RelationsWhere {
+  object: ObjectsWhere
+  subject: ObjectsWhere
+  type: RelationTypesWhere
   source: ObjectsWhere
   target: ObjectsWhere
-  type: RelationTypesWhere
 }
 ```
 
 
 ### Fields
+
+#### [`object`](#) ([`ObjectsWhere`](/docs/directory-api-reference/schema/objects/inputs/objects-where))
+
+Filter relations by their object.
+
+
+#### [`subject`](#) ([`ObjectsWhere`](/docs/directory-api-reference/schema/objects/inputs/objects-where))
+
+Filter relations by their subject.
+
+
+#### [`type`](#) ([`RelationTypesWhere`](/docs/directory-api-reference/schema/relation-types/inputs/relation-types-where))
+
+Filter relations by their type.
+
 
 #### [`source`](#) ([`ObjectsWhere`](/docs/directory-api-reference/schema/objects/inputs/objects-where))
 
@@ -26,11 +43,6 @@ Filter relations by their source object.
 #### [`target`](#) ([`ObjectsWhere`](/docs/directory-api-reference/schema/objects/inputs/objects-where))
 
 Filter relations by their target object.
-
-
-#### [`type`](#) ([`RelationTypesWhere`](/docs/directory-api-reference/schema/relation-types/inputs/relation-types-where))
-
-Filter relations by their type.
 
 
 

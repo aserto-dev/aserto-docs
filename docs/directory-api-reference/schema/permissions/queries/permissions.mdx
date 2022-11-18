@@ -9,6 +9,7 @@ Enumerate permissions.
 
 ```graphql
 permissions(
+  where: PermissionsWhere
   first: Int!
   after: Cursor
 ): PermissionConnection!
@@ -16,6 +17,11 @@ permissions(
 
 
 ### Arguments
+
+#### [`where`](#) ([`PermissionsWhere`](/docs/directory-api-reference/schema/permissions/inputs/permissions-where))
+
+[Optional] Filtering criteria.
+
 
 #### [`first`](#) ([`Int!`](/docs/directory-api-reference/schema/common/scalars/int))
 

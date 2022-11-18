@@ -1,0 +1,25 @@
+---
+id: authz
+title: authz
+hide_table_of_contents: true
+---
+
+
+A directive that specifies access-control requirements for queries and mutations.
+
+```graphql
+directive @authz(
+  permission: String!
+)
+```
+
+
+### Arguments
+
+#### [`permission`](#) ([`String!`](/docs/directory-api-reference/schema/common/scalars/string))
+
+The permission required to access the element.
+
+
+
+

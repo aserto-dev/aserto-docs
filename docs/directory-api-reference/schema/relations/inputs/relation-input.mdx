@@ -9,18 +9,20 @@ Input to the setRelation mutation.
 
 ```graphql
 input RelationInput {
-  source: ObjectSelector!
+  object: ObjectSelector
   relationType: RelationTypeSelector!
-  target: ObjectSelector!
+  subject: ObjectSelector
+  source: ObjectSelector
+  target: ObjectSelector
 }
 ```
 
 
 ### Fields
 
-#### [`source`](#) ([`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
+#### [`object`](#) ([`ObjectSelector`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
 
-The source object.
+The relation's object.
 
 
 #### [`relationType`](#) ([`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector))
@@ -28,7 +30,17 @@ The source object.
 The relation type.
 
 
-#### [`target`](#) ([`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
+#### [`subject`](#) ([`ObjectSelector`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
+
+The relation's subject.
+
+
+#### [`source`](#) ([`ObjectSelector`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
+
+The source object.
+
+
+#### [`target`](#) ([`ObjectSelector`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
 
 The target object.
 
