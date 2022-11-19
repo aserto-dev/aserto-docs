@@ -1,0 +1,44 @@
+---
+id: check-relation
+title: check_relation
+hide_table_of_contents: true
+---
+
+
+Checks if a subject has a given relation to an object.
+
+```graphql
+check_relation(
+  subject: ObjectSelector!
+  relation: RelationTypeSelector!
+  object: ObjectSelector!
+): CheckRelationResult!
+```
+
+
+### Arguments
+
+#### [`subject`](#) ([`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
+
+[Required] The subject of the relation.
+
+
+#### [`relation`](#) ([`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector))
+
+[Required] The relation type.
+
+
+#### [`object`](#) ([`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
+
+[Required] The object of the relation.
+
+
+### Type
+
+#### [`CheckRelationResult`](/docs/directory-api-reference/schema/relations/objects/check-relation-result)
+
+Result of the check_relation query.
+
+
+
+

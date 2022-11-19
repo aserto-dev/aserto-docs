@@ -1,0 +1,44 @@
+---
+id: check-permission
+title: check_permission
+hide_table_of_contents: true
+---
+
+
+Checks if a subject has a given permission on an object.
+
+```graphql
+check_permission(
+  subject: ObjectSelector!
+  permission: PermissionSelector!
+  object: ObjectSelector!
+): CheckPermissionResult!
+```
+
+
+### Arguments
+
+#### [`subject`](#) ([`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
+
+[Required] The subject to check the permission for.
+
+
+#### [`permission`](#) ([`PermissionSelector!`](/docs/directory-api-reference/schema/permissions/inputs/permission-selector))
+
+[Required] The permission to check.
+
+
+#### [`object`](#) ([`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
+
+[Required] The object to check the permission on.
+
+
+### Type
+
+#### [`CheckPermissionResult`](/docs/directory-api-reference/schema/permissions/objects/check-permission-result)
+
+Result of the check_permission query.
+
+
+
+

@@ -9,25 +9,27 @@ A relation between a source object and a target object.
 
 ```graphql
 type Relation {
-  source: Object!
-  target: Object!
+  object: Object!
+  subject: Object!
   type: RelationType!
   hash: Hash
   lifecycle: Lifecycle!
+  source: Object!
+  target: Object!
 }
 ```
 
 
 ### Fields
 
-#### [`source`](#) ([`Object!`](/docs/directory-api-reference/schema/objects/objects/object))
+#### [`object`](#) ([`Object!`](/docs/directory-api-reference/schema/objects/objects/object))
 
-The source of the relation.
+The object that the relation is from.
 
 
-#### [`target`](#) ([`Object!`](/docs/directory-api-reference/schema/objects/objects/object))
+#### [`subject`](#) ([`Object!`](/docs/directory-api-reference/schema/objects/objects/object))
 
-The target of the relation.
+The object that the relation is to.
 
 
 #### [`type`](#) ([`RelationType!`](/docs/directory-api-reference/schema/relation-types/objects/relation-type))
@@ -47,6 +49,16 @@ This can be used to ensure that the relation being mutated has not been modified
 #### [`lifecycle`](#) ([`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle))
 
 Metadata about the relation type's lifecycle.
+
+
+#### [`source`](#) ([`Object!`](/docs/directory-api-reference/schema/objects/objects/object))
+
+The source of the relation.
+
+
+#### [`target`](#) ([`Object!`](/docs/directory-api-reference/schema/objects/objects/object))
+
+The target of the relation.
 
 
 
