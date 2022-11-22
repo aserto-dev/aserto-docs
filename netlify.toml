@@ -60,27 +60,47 @@
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/bring-your-own-idp/bring-your-own-idp"
-  to = "/docs/getting-started/bring-your-own-idp"
+  to = "/docs/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/bring-your-own-idp/bring-your-own-idp"
-  to = "/docs/getting-started/bring-your-own-idp"
+  to = "/docs/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/bring-your-own-idp/set-up-auth0"
-  to = "/docs/getting-started/bring-your-own-idp/set-up-auth0"
+  to = "/docs/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/bring-your-own-idp/extend-user-attributes"
-  to = "/docs/getting-started/bring-your-own-idp/extend-user-attributes"
+  to = "/docs/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/bring-your-own-idp/deploy-peoplefinder-auth0"
-  to = "/docs/getting-started/bring-your-own-idp/deploy-peoplefinder-auth0"
+  to = "/docs/aserto-console/connections/setup-auth0"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/bring-your-own-idp"
+  to = "/docs/aserto-console/connections/setup-auth0"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/bring-your-own-idp/set-up-auth0"
+  to = "/docs/aserto-console/connections/setup-auth0"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/bring-your-own-idp/extend-user-attributes"
+  to = "/docs/aserto-console/connections/setup-auth0"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/bring-your-own-idp/deploy-peoplefinder-auth0"
+  to = "/docs/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
