@@ -15,7 +15,7 @@ module.exports = {
         'overview/organization',
         'overview/connections',
         'overview/policy-lifecycle',
-        {type: 'doc', label: 'Aserto Directory', id: 'overview/directory'},
+        { type: 'doc', label: 'Aserto Directory', id: 'overview/directory' },
         'overview/decision-logs',
       ],
     },
@@ -55,17 +55,6 @@ module.exports = {
             'getting-started/explore-abac-policies/update-app-and-review',
           ],
         },
-        {
-          type: 'category',
-          label: 'Bring Your Own IDP (Auth0)',
-          collapsed: true,
-          items: [
-            'getting-started/bring-your-own-idp/bring-your-own-idp',
-            'getting-started/bring-your-own-idp/set-up-auth0',
-            'getting-started/bring-your-own-idp/extend-user-attributes',
-            'getting-started/bring-your-own-idp/deploy-peoplefinder-auth0',
-          ],
-        },
         'getting-started/install-onebox',
       ],
     },
@@ -84,7 +73,7 @@ module.exports = {
             'aserto-console/directory/create-relation-type',
             'aserto-console/directory/create-permission',
             'aserto-console/directory/add-relation',
-          ]
+          ],
         },
         {
           type: 'category',
@@ -302,7 +291,7 @@ module.exports = {
           ],
         },
         'decision-logs-guide/schemas',
-        'decision-logs-guide/elk'
+        'decision-logs-guide/elk',
       ],
     },
     {
@@ -316,7 +305,7 @@ module.exports = {
         `edge-authorizers/decision-logs`,
         'edge-authorizers/discovery-flow',
         'edge-authorizers/runtime-flow',
-        'edge-authorizers/directory-synchronization'
+        'edge-authorizers/directory-synchronization',
       ],
     },
     {
