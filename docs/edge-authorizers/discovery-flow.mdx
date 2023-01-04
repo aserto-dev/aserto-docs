@@ -86,7 +86,7 @@ opa:
   config:
     services:
       aserto-discovery:
-        url: https://discovery.aserto.com/api/v1/discovery/policies
+        url: https://discovery.prod.aserto.com/api/v1/discovery/policies
         credentials:
           bearer:
             token: '<DISCOVERY_API_KEY>'
@@ -107,7 +107,7 @@ To validate the correctness of the data used and to inspect what information is 
 
 ```sh
 curl --request GET \
-     --url https://discovery.aserto.com/api/v1/discovery/policies/<POLICY_ID>/opa/discovery \
+     --url https://discovery.prod.aserto.com/api/v1/discovery/policies/<POLICY_ID>/opa/discovery \
      --header 'Accept: application/json' \
      --header 'Content-Type: application/json' \
      --header 'aserto-tenant-id: <TENANT_ID>' \
