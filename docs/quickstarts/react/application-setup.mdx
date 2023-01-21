@@ -71,7 +71,7 @@ const configuration = {
 
 Next, we'll wrap the top level React Application component with the AuthProvider, and pass it the required configuration we created.
 
-```javascript
+```jsx
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider {...configuration}>
@@ -113,7 +113,7 @@ We've created a stylesheet for this app that you can reference in your `index.ht
 
 Next, we’ll build the app itself. Open the `App.js` file, and replace it’s contents with:
 
-```javascript
+```jsx
 import React, { useEffect } from 'react'
 import { useAuth } from 'oidc-react'
 

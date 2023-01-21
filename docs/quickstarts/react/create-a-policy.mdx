@@ -18,14 +18,14 @@ We want to ensure that if we're logged in as Euan (a `viewer`), the application 
 
 Initially, the policy we’ll create for this tutorial will only allow a user with the role of `admin` to access our protected resource, while users without the `admin` role will not be able to access that resource.
 
-In [console.aserto.com](https://console.aserto.com), go to the Policies tab and click the "Create a policy repository" button.
+In [console.aserto.com](https://console.aserto.com), go to the Images tab and click the "Create a new image" button.
 
 <img
   src="/quickstart-react-and-node/create-new-repo-button.png"
   width="200px"
 />
 
-When you click on "Create a policy repository", you'll be able to choose between using a policy template and creating an empty policy repository:
+When you click on "Create a new image", you'll be able to choose between using a policy template and creating an empty policy repository:
 
 <img src="/use-template-options.png" width="700px" />
 
@@ -48,7 +48,7 @@ Finally, name your policy repository "aserto-react" and click "Create a new poli
 Aserto will generate a new repository in your GitHub account the will include the necessary policy files. Head to GitHub to retrieve the URL for the repository that was just created, and clone it.
 
 ```
-git clone git@github.com:<YOUR ORGANIZATION>/hello-aserto-react.git
+git clone git@github.com:<YOUR ORGANIZATION>/policy-aserto-react.git
 ```
 
 Now that we have a local copy of the policy, let’s start modifying it:

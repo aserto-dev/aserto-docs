@@ -63,7 +63,7 @@ Finally, we parse the JSON response from the server and set the state of the mes
 
 Next we’ll update the `main` section of the app (in the `div` with the className `main`) to include the button that will trigger `accessSensitiveInformation` and an area to show the message. Replace the existing `div` with the class `main` section with the following:
 
-```javascript
+```jsx
 <div className="main">
   {isAuthenticated && (
     <>
@@ -121,7 +121,7 @@ yarn add npm-run-all
 
 Then, update the `package.json` in the root folder, and add the following to the `scripts` section:
 
-```
+```json
 "scripts": {
    ...
    "start:server": "node service/api.js",
@@ -143,7 +143,7 @@ If everything works as expected, we should see the following:
 
 We can further test this by intentionally sending a malformed header and making sure the sensitive information isn't shown. One way to do this is to append so rogue characters to the access token like so:
 
-```
+```javascript
 ...
 const sensitiveDataResponse = await fetch(sensitiveInformationURL, {
    headers: {

@@ -89,26 +89,27 @@ Next, we'll update the `data.json` file to include the `visible` and `enabled` p
 Commit, tag and push the changes you made:
 
 ```
+git add .
 git commit -m "updated policy to include visible and enabled clauses"
 git tag v0.0.3
-git push origin master
+git push
 git push --tags
 ```
 
 ## Use The Display State Map middleware
 
-Aserto provides a utility called Display State Map that will return the `visible` and `enabled` decisions from the authorizer to the server and finally to the application. To enable support for the Display State Map, we first need to update the Express.js service: let's add the reference to `displayStateMap` in the object destructuring for the `express-jwt-aserto` dependencies:
+Aserto provides a utility called Display State Map that will return the `visible` and `enabled` decisions from the authorizer to the server and finally to the application. To enable support for the Display State Map, we first need to update the Express.js service: let's add the reference to `displayStateMap` in the object destructuring for the `@aserto/aserto-node` dependencies:
 
 Change the line:
 
 ```javascript
-const { jwtAuthz } = require('express-jwt-aserto')
+const { jwtAuthz } = require('@aserto/aserto-node')
 ```
 
 to:
 
 ```javascript
-const { displayStateMap, jwtAuthz } = require('express-jwt-aserto')
+const { displayStateMap, jwtAuthz } = require('@aserto/aserto-node')
 ```
 
 After the `app.use(cors())` statement, add the following line:
@@ -133,7 +134,7 @@ import { AsertoProvider } from '@aserto/aserto-react'
 
 We'll wrap the `<App />` component with the `<AsertoProvider>` provider:
 
-```javascript
+```jsx
 <React.StrictMode>
   <AuthProvider {...configuration}>
     <AsertoProvider>
@@ -194,7 +195,7 @@ useEffect(() => {
 
 We’ll add some error handling - if the Aserto SDK ran into an error, we’ll display it and not render anything else. Add the following right after the effect we just added:
 
-```javascript
+```jsx
 if (asertoError) {
   return (
     <div>
@@ -218,7 +219,7 @@ In case the SDK is not yet loaded or returns an error, the `displayState` variab
 
 Lastly, we’ll update the `main` section of the app again. Replace it with the following:
 
-```javascript
+```jsx
 <div className="main">
   {loading && <div className="loading">Loading...</div>}
   {!loading && isAuthenticated && (
@@ -280,6 +281,9 @@ Based on our current policy:
 3. The `div` showing the “You have been identified as an `admin`” message will only be visible to users with the `admin` role.
 
 Using the Aserto React SDK with the displayStateMap middleware, we can make use of these decisions - which were previously only exposed to the server - directly in the UI.
+
+With the new changes to the policy, we can now test the differences between a user with the role of `editor` (like `dianet@acmecorp.com`) and `admin` (like `krisj@acmecorp.com`) to make sure that Diane can click the button, but only Kris can see the sensitive message. Both have the `V@erySecre#t123!` password.
+
 
 # Summary
 
