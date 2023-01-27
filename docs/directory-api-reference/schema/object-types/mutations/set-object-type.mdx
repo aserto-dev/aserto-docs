@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Create a new object type or update an existing one.
 
 ```graphql
@@ -16,16 +24,16 @@ setObjectType(
 
 ### Arguments
 
-#### [`type`](#) ([`SetObjectTypeInput!`](/docs/directory-api-reference/schema/object-types/inputs/set-object-type-input))
-
-
-
+#### [<code style={{ fontWeight: 'normal' }}>setObjectType.<b>type</b></code>](#)<Bullet />[`SetObjectTypeInput!`](/docs/directory-api-reference/schema/object-types/inputs/set-object-type-input) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="object-types"/>
+> 
+> 
 
 ### Type
 
-#### [`SetObjectTypeResult`](/docs/directory-api-reference/schema/object-types/objects/set-object-type-result)
+#### [`SetObjectTypeResult`](/docs/directory-api-reference/schema/object-types/objects/set-object-type-result) <Badge class="secondary" text="object"/> <Badge class="secondary" text="object-types"/>
+> Result of the setObjectType mutation.
+> 
 
-Result of the setObjectType mutation.
 
 
 

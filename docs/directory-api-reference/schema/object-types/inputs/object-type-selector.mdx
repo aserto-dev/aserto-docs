@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Input that uniquely identifies a object type.
 
 The fields are mutually exclusive. Exactly one value must be set.
@@ -19,15 +27,19 @@ input ObjectTypeSelector {
 
 ### Fields
 
-#### [`id`](#) ([`TypeID`](/docs/directory-api-reference/schema/common/scalars/type-id))
+#### [<code style={{ fontWeight: 'normal' }}>ObjectTypeSelector.<b>id</b></code>](#)<Bullet />[`TypeID`](/docs/directory-api-reference/schema/common/scalars/type-id) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The selected object type's ID.
+> 
 
-The selected object type's ID.
+#### [<code style={{ fontWeight: 'normal' }}>ObjectTypeSelector.<b>name</b></code>](#)<Bullet />[`String`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The selected object type's name.
+> 
 
 
-#### [`name`](#) ([`String`](/docs/directory-api-reference/schema/common/scalars/string))
 
-The selected object type's name.
+### Member of
 
+[`deleteObjectType`](/docs/directory-api-reference/schema/object-types/mutations/delete-object-type)  <Badge class="secondary" text="mutation"/><Bullet />[`ObjectKey`](/docs/directory-api-reference/schema/objects/inputs/object-key)  <Badge class="secondary" text="input"/><Bullet />[`objectType`](/docs/directory-api-reference/schema/object-types/queries/object-type)  <Badge class="secondary" text="query"/><Bullet />[`RelationOptions`](/docs/directory-api-reference/schema/objects/inputs/relation-options)  <Badge class="secondary" text="input"/><Bullet />[`RelationTypeName`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-name)  <Badge class="secondary" text="input"/><Bullet />[`SetObjectInput`](/docs/directory-api-reference/schema/objects/inputs/set-object-input)  <Badge class="secondary" text="input"/><Bullet />[`SetRelationTypeInput`](/docs/directory-api-reference/schema/relation-types/inputs/set-relation-type-input)  <Badge class="secondary" text="input"/>
 
 
 

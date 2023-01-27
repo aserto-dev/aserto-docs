@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Delete an existing object and all its relations.
 
 ```graphql
@@ -16,16 +24,16 @@ deleteObject(
 
 ### Arguments
 
-#### [`selector`](#) ([`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
-
-
-
+#### [<code style={{ fontWeight: 'normal' }}>deleteObject.<b>selector</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+> 
+> 
 
 ### Type
 
-#### [`DeleteObjectResult`](/docs/directory-api-reference/schema/objects/objects/delete-object-result)
+#### [`DeleteObjectResult`](/docs/directory-api-reference/schema/objects/objects/delete-object-result) <Badge class="secondary" text="object"/> <Badge class="secondary" text="objects"/>
+> Result of the deleteObject mutation.
+> 
 
-Result of the deleteObject mutation.
 
 
 

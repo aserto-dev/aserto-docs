@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Create a new relation.
 
 ```graphql
@@ -16,16 +24,16 @@ setRelation(
 
 ### Arguments
 
-#### [`relation`](#) ([`RelationInput!`](/docs/directory-api-reference/schema/relations/inputs/relation-input))
-
-
-
+#### [<code style={{ fontWeight: 'normal' }}>setRelation.<b>relation</b></code>](#)<Bullet />[`RelationInput!`](/docs/directory-api-reference/schema/relations/inputs/relation-input) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relations"/>
+> 
+> 
 
 ### Type
 
-#### [`SetRelationResult`](/docs/directory-api-reference/schema/relations/objects/set-relation-result)
+#### [`SetRelationResult`](/docs/directory-api-reference/schema/relations/objects/set-relation-result) <Badge class="secondary" text="object"/> <Badge class="secondary" text="relations"/>
+> Result of the setRelation mutation.
+> 
 
-Result of the setRelation mutation.
 
 
 

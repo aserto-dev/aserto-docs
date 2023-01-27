@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 A pagination cursor.
 
 Cursors are returned within PageInfo objects in responses to paginated queries.
@@ -15,6 +23,12 @@ more results after a specific point.
 scalar Cursor
 ```
 
+
+
+
+### Member of
+
+[`objects`](/docs/directory-api-reference/schema/objects/queries/objects)  <Badge class="secondary" text="query"/><Bullet />[`objectTypes`](/docs/directory-api-reference/schema/object-types/queries/object-types)  <Badge class="secondary" text="query"/><Bullet />[`PageInfo`](/docs/directory-api-reference/schema/common/objects/page-info)  <Badge class="secondary" text="object"/><Bullet />[`permissions`](/docs/directory-api-reference/schema/permissions/queries/permissions)  <Badge class="secondary" text="query"/><Bullet />[`relations`](/docs/directory-api-reference/schema/relations/queries/relations)  <Badge class="secondary" text="query"/><Bullet />[`relationTypes`](/docs/directory-api-reference/schema/relation-types/queries/relation-types)  <Badge class="secondary" text="query"/>
 
 
 

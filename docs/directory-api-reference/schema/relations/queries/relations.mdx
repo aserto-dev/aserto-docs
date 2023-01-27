@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Find relations that match the given criteria.
 
 ```graphql
@@ -18,26 +26,24 @@ relations(
 
 ### Arguments
 
-#### [`where`](#) ([`RelationsWhere`](/docs/directory-api-reference/schema/relations/inputs/relations-where))
+#### [<code style={{ fontWeight: 'normal' }}>relations.<b>where</b></code>](#)<Bullet />[`RelationsWhere`](/docs/directory-api-reference/schema/relations/inputs/relations-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="relations"/>
+> [Optional] Filtering criteria.
+> 
 
-[Optional] Filtering criteria.
+#### [<code style={{ fontWeight: 'normal' }}>relations.<b>first</b></code>](#)<Bullet />[`Int!`](/docs/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> [Required] The maximum number of relations to return.
+> 
 
-
-#### [`first`](#) ([`Int!`](/docs/directory-api-reference/schema/common/scalars/int))
-
-[Required] The maximum number of relations to return.
-
-
-#### [`after`](#) ([`Cursor`](/docs/directory-api-reference/schema/common/scalars/cursor))
-
-[Optional] Pagination cursor for forward pagination.
-
+#### [<code style={{ fontWeight: 'normal' }}>relations.<b>after</b></code>](#)<Bullet />[`Cursor`](/docs/directory-api-reference/schema/common/scalars/cursor) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> [Optional] Pagination cursor for forward pagination.
+> 
 
 ### Type
 
-#### [`RelationConnection`](/docs/directory-api-reference/schema/relations/objects/relation-connection)
+#### [`RelationConnection`](/docs/directory-api-reference/schema/relations/objects/relation-connection) <Badge class="secondary" text="object"/> <Badge class="secondary" text="relations"/>
+> A paginated collection of relations.
+> 
 
-A paginated collection of relations.
 
 
 

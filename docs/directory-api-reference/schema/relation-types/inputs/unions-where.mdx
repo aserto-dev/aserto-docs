@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 A comparison predicate for filtering relation type unions.
 
 ```graphql
@@ -17,15 +25,19 @@ input UnionsWhere {
 
 ### Fields
 
-#### [`contains`](#) ([`[RelationTypeSelector]`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector))
+#### [<code style={{ fontWeight: 'normal' }}>UnionsWhere.<b>contains</b></code>](#)<Bullet />[`[RelationTypeSelector]`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="list"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
+> Matches relation types that include all given relation types in their `unions` field.
+> 
 
-Matches relation types that include all given relation types in their `unions` field.
+#### [<code style={{ fontWeight: 'normal' }}>UnionsWhere.<b>notContains</b></code>](#)<Bullet />[`[RelationTypeSelector]`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="list"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
+> Matches relation types that do not include any of the given relation types in their `unions` field.
+> 
 
 
-#### [`notContains`](#) ([`[RelationTypeSelector]`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector))
 
-Matches relation types that do not include any of the given relation types in their `unions` field.
+### Member of
 
+[`RelationTypesWhere`](/docs/directory-api-reference/schema/relation-types/inputs/relation-types-where)  <Badge class="secondary" text="input"/>
 
 
 

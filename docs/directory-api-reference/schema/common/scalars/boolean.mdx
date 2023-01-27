@@ -5,12 +5,26 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 The `Boolean` scalar type represents `true` or `false`.
 
 ```graphql
 scalar Boolean
 ```
 
+
+
+
+### Member of
+
+[`CheckPermissionResult`](/docs/directory-api-reference/schema/permissions/objects/check-permission-result)  <Badge class="secondary" text="object"/><Bullet />[`CheckRelationResult`](/docs/directory-api-reference/schema/relations/objects/check-relation-result)  <Badge class="secondary" text="object"/><Bullet />[`DeleteObjectResult`](/docs/directory-api-reference/schema/objects/objects/delete-object-result)  <Badge class="secondary" text="object"/><Bullet />[`DeleteObjectTypeResult`](/docs/directory-api-reference/schema/object-types/objects/delete-object-type-result)  <Badge class="secondary" text="object"/><Bullet />[`DeletePermissionResult`](/docs/directory-api-reference/schema/permissions/objects/delete-permission-result)  <Badge class="secondary" text="object"/><Bullet />[`DeleteRelationResult`](/docs/directory-api-reference/schema/relations/objects/delete-relation-result)  <Badge class="secondary" text="object"/><Bullet />[`DeleteRelationTypePermissionResult`](/docs/directory-api-reference/schema/permissions/objects/delete-relation-type-permission-result)  <Badge class="secondary" text="object"/><Bullet />[`DeleteRelationTypeResult`](/docs/directory-api-reference/schema/relations-types/objects/delete-relation-type-result)  <Badge class="secondary" text="object"/><Bullet />[`include`](/docs/directory-api-reference/schema/common/directives/include)  <Badge class="secondary" text="directive"/><Bullet />[`ObjectType`](/docs/directory-api-reference/schema/object-types/objects/object-type)  <Badge class="secondary" text="object"/><Bullet />[`ObjectTypesWhere`](/docs/directory-api-reference/schema/object-types/inputs/object-types-where)  <Badge class="secondary" text="input"/><Bullet />[`PageInfo`](/docs/directory-api-reference/schema/common/objects/page-info)  <Badge class="secondary" text="object"/><Bullet />[`RelationTypePermission`](/docs/directory-api-reference/schema/permissions/objects/relation-type-permission)  <Badge class="secondary" text="object"/><Bullet />[`SetObjectTypeInput`](/docs/directory-api-reference/schema/object-types/inputs/set-object-type-input)  <Badge class="secondary" text="input"/><Bullet />[`SetRelationTypePermissionInput`](/docs/directory-api-reference/schema/permissions/inputs/set-relation-type-permission-input)  <Badge class="secondary" text="input"/><Bullet />[`SetRelationTypePermissionResult`](/docs/directory-api-reference/schema/permissions/objects/set-relation-type-permission-result)  <Badge class="secondary" text="object"/><Bullet />[`skip`](/docs/directory-api-reference/schema/common/directives/skip)  <Badge class="secondary" text="directive"/>
 
 
 

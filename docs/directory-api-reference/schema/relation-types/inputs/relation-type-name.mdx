@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 A RelationTypeName identifies a relation type by the combination of its name and associated object type.
 
 Both fields are required.
@@ -19,15 +27,19 @@ input RelationTypeName {
 
 ### Fields
 
-#### [`name`](#) ([`String!`](/docs/directory-api-reference/schema/common/scalars/string))
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypeName.<b>name</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Name of the relation type.
+> 
 
-Name of the relation type.
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypeName.<b>objectType</b></code>](#)<Bullet />[`ObjectTypeSelector!`](/docs/directory-api-reference/schema/object-types/inputs/object-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="object-types"/>
+> The type of object that can be part of the relation.
+> 
 
 
-#### [`objectType`](#) ([`ObjectTypeSelector!`](/docs/directory-api-reference/schema/object-types/inputs/object-type-selector))
 
-The type of object that can be part of the relation.
+### Member of
 
+[`RelationTypeSelector`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector)  <Badge class="secondary" text="input"/>
 
 
 

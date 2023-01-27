@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Checks if a subject has a given relation to an object.
 
 ```graphql
@@ -18,26 +26,24 @@ check_relation(
 
 ### Arguments
 
-#### [`subject`](#) ([`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
+#### [<code style={{ fontWeight: 'normal' }}>check_relation.<b>subject</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+> [Required] The subject of the relation.
+> 
 
-[Required] The subject of the relation.
+#### [<code style={{ fontWeight: 'normal' }}>check_relation.<b>relation</b></code>](#)<Bullet />[`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
+> [Required] The relation type.
+> 
 
-
-#### [`relation`](#) ([`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector))
-
-[Required] The relation type.
-
-
-#### [`object`](#) ([`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector))
-
-[Required] The object of the relation.
-
+#### [<code style={{ fontWeight: 'normal' }}>check_relation.<b>object</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+> [Required] The object of the relation.
+> 
 
 ### Type
 
-#### [`CheckRelationResult`](/docs/directory-api-reference/schema/relations/objects/check-relation-result)
+#### [`CheckRelationResult`](/docs/directory-api-reference/schema/relations/objects/check-relation-result) <Badge class="secondary" text="object"/> <Badge class="secondary" text="relations"/>
+> Result of the check_relation query.
+> 
 
-Result of the check_relation query.
 
 
 

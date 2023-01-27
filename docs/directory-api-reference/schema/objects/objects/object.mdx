@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Objects are the primary nodes in the directory graph.
 
 They be associated with each other using Relations.
@@ -30,66 +38,64 @@ type Object {
 
 ### Fields
 
-#### [`id`](#) ([`ID!`](/docs/directory-api-reference/schema/common/scalars/id))
+#### [<code style={{ fontWeight: 'normal' }}>Object.<b>id</b></code>](#)<Bullet />[`ID!`](/docs/directory-api-reference/schema/common/scalars/id) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Unique identifier of the object.
+> 
 
-Unique identifier of the object.
+#### [<code style={{ fontWeight: 'normal' }}>Object.<b>type</b></code>](#)<Bullet />[`ObjectType!`](/docs/directory-api-reference/schema/object-types/objects/object-type) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="object-types"/>
+> The type of the object.
+> 
 
+#### [<code style={{ fontWeight: 'normal' }}>Object.<b>key</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> User-defined identifier for the object. Unique within an object type.
+> 
 
-#### [`type`](#) ([`ObjectType!`](/docs/directory-api-reference/schema/object-types/objects/object-type))
+#### [<code style={{ fontWeight: 'normal' }}>Object.<b>displayName</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Optional display name for the object.
+> 
 
-The type of the object.
+#### [<code style={{ fontWeight: 'normal' }}>Object.<b>properties</b></code>](#)<Bullet />[`Map!`](/docs/directory-api-reference/schema/common/scalars/map) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> A JSON collection of arbitrary properties associated with the object.
+> 
 
+#### [<code style={{ fontWeight: 'normal' }}>Object.<b>hash</b></code>](#)<Bullet />[`Hash!`](/docs/directory-api-reference/schema/common/scalars/hash) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> A hash value of object's fields.
+> 
 
-#### [`key`](#) ([`String!`](/docs/directory-api-reference/schema/common/scalars/string))
+#### [<code style={{ fontWeight: 'normal' }}>Object.<b>lifecycle</b></code>](#)<Bullet />[`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="common"/>
+> Metadata about the object's life cycle.
+> 
 
-User-defined identifier for the object. Unique within an object type.
-
-
-#### [`displayName`](#) ([`String!`](/docs/directory-api-reference/schema/common/scalars/string))
-
-Optional display name for the object.
-
-
-#### [`properties`](#) ([`Map!`](/docs/directory-api-reference/schema/common/scalars/map))
-
-A JSON collection of arbitrary properties associated with the object.
-
-
-#### [`hash`](#) ([`Hash!`](/docs/directory-api-reference/schema/common/scalars/hash))
-
-A hash value of object's fields.
-
-
-#### [`lifecycle`](#) ([`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle))
-
-Metadata about the object's life cycle.
-
-
-#### [`relations`](#) ([`RelationConnection!`](/docs/directory-api-reference/schema/relations/objects/relation-connection))
-
-The relations this object has.
+#### [<code style={{ fontWeight: 'normal' }}>Object.<b>relations</b></code>](#)<Bullet />[`RelationConnection!`](/docs/directory-api-reference/schema/relations/objects/relation-connection) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="relations"/>
+> The relations this object has.
 
 side: The object's side in the relation. "OBJECT" returns relations in which the object is the object, and
 "SUBJECT" returns relations in which the object is the subject.
-- ##### [`side`](#) ([`RelationSide!`](/docs/directory-api-reference/schema/objects/enums/relation-side))
+> ##### [<code style={{ fontWeight: 'normal' }}>Object.relations.<b>side</b></code>](#)<Bullet />[`RelationSide!`](/docs/directory-api-reference/schema/objects/enums/relation-side) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="enum"/> <Badge class="secondary" text="objects"/>
+> 
+> 
+
+##### [<code style={{ fontWeight: 'normal' }}>Object.relations.<b>options</b></code>](#)<Bullet />[`RelationOptions`](/docs/directory-api-reference/schema/objects/inputs/relation-options) <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+> 
+> 
+
+##### [<code style={{ fontWeight: 'normal' }}>Object.relations.<b>first</b></code>](#)<Bullet />[`Int!`](/docs/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> 
+> 
+
+##### [<code style={{ fontWeight: 'normal' }}>Object.relations.<b>after</b></code>](#)<Bullet />[`Cursor`](/docs/directory-api-reference/schema/common/scalars/cursor) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> 
+> 
 
 
 
+### Returned by
 
-- ##### [`options`](#) ([`RelationOptions`](/docs/directory-api-reference/schema/objects/inputs/relation-options))
+[`object`](/docs/directory-api-reference/schema/objects/queries/object)  <Badge class="secondary" text="query"/>
 
+### Member of
 
-
-
-- ##### [`first`](#) ([`Int!`](/docs/directory-api-reference/schema/common/scalars/int))
-
-
-
-
-- ##### [`after`](#) ([`Cursor`](/docs/directory-api-reference/schema/common/scalars/cursor))
-
-
-
+[`ObjectConnection`](/docs/directory-api-reference/schema/objects/objects/object-connection)  <Badge class="secondary" text="object"/><Bullet />[`Relation`](/docs/directory-api-reference/schema/relations/objects/relation)  <Badge class="secondary" text="object"/><Bullet />[`SetObjectResult`](/docs/directory-api-reference/schema/objects/objects/set-object-result)  <Badge class="secondary" text="object"/>
 
 
 

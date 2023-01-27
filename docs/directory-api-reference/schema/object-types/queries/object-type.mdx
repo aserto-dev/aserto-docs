@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Select a single object type.
 
 ```graphql
@@ -16,16 +24,16 @@ objectType(
 
 ### Arguments
 
-#### [`selector`](#) ([`ObjectTypeSelector!`](/docs/directory-api-reference/schema/object-types/inputs/object-type-selector))
-
-[Required] Selection criteria. Object types can be selected based on their `id` or `name` field.
-
+#### [<code style={{ fontWeight: 'normal' }}>objectType.<b>selector</b></code>](#)<Bullet />[`ObjectTypeSelector!`](/docs/directory-api-reference/schema/object-types/inputs/object-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="object-types"/>
+> [Required] Selection criteria. Object types can be selected based on their `id` or `name` field.
+> 
 
 ### Type
 
-#### [`ObjectType`](/docs/directory-api-reference/schema/object-types/objects/object-type)
+#### [`ObjectType`](/docs/directory-api-reference/schema/object-types/objects/object-type) <Badge class="secondary" text="object"/> <Badge class="secondary" text="object-types"/>
+> ObjectType represents the kinds of objects that can exist in the directory.
+> 
 
-ObjectType represents the kinds of objects that can exist in the directory.
 
 
 

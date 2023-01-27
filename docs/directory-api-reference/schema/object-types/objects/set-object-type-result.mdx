@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Result of the setObjectType mutation.
 
 ```graphql
@@ -16,10 +24,15 @@ type SetObjectTypeResult {
 
 ### Fields
 
-#### [`objectType`](#) ([`ObjectType!`](/docs/directory-api-reference/schema/object-types/objects/object-type))
+#### [<code style={{ fontWeight: 'normal' }}>SetObjectTypeResult.<b>objectType</b></code>](#)<Bullet />[`ObjectType!`](/docs/directory-api-reference/schema/object-types/objects/object-type) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="object-types"/>
+> The object type that was created or updated.
+> 
 
-The object type that was created or updated.
 
+
+### Returned by
+
+[`setObjectType`](/docs/directory-api-reference/schema/object-types/mutations/set-object-type)  <Badge class="secondary" text="mutation"/>
 
 
 

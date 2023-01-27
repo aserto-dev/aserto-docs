@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Delete a permission from a relation type.
 
 ```graphql
@@ -17,21 +25,20 @@ deleteRelationTypePermission(
 
 ### Arguments
 
-#### [`relationType`](#) ([`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector))
+#### [<code style={{ fontWeight: 'normal' }}>deleteRelationTypePermission.<b>relationType</b></code>](#)<Bullet />[`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
+> 
+> 
 
-
-
-
-#### [`permission`](#) ([`PermissionSelector!`](/docs/directory-api-reference/schema/permissions/inputs/permission-selector))
-
-
-
+#### [<code style={{ fontWeight: 'normal' }}>deleteRelationTypePermission.<b>permission</b></code>](#)<Bullet />[`PermissionSelector!`](/docs/directory-api-reference/schema/permissions/inputs/permission-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="permissions"/>
+> 
+> 
 
 ### Type
 
-#### [`DeleteRelationTypePermissionResult`](/docs/directory-api-reference/schema/permissions/objects/delete-relation-type-permission-result)
+#### [`DeleteRelationTypePermissionResult`](/docs/directory-api-reference/schema/permissions/objects/delete-relation-type-permission-result) <Badge class="secondary" text="object"/> <Badge class="secondary" text="permissions"/>
+> Result of the DeleteRelationTypePermission mutation.
+> 
 
-Result of the DeleteRelationTypePermission mutation.
 
 
 
