@@ -5,13 +5,19 @@ title: Relations
 
 A relation consists of three elements:
 
-* A _source_ object
+* An _object_
 * A _relation type_
-* A _target_ object
+* A _subject_
 
-Relations can therefore be seen as `(source, type, target)` triplets.
+If we think of directory objects as vertices in a graph, a realtion can be thought of as a labeled, directed edge
+from an object to a subject.
 
-The type of the source object in a relation must match the object type specified in the relation type.
+A relation can therefore be seen as a `(object, type, subject)` triplet that defines the graph edge
+`object --type--> subject`.
+
+Each relation type specifies the type of object on which it can occur. In this tutorial, we created a `department`
+object type with `viewer`, `member`, and `owner` relation types. We can add a user as a member of a department by
+creating a relation of type `member` between the department object and the user (i.e. `department --member--> user`).
 
 
 ## Finding Users
@@ -28,6 +34,7 @@ query ListUsers {
   objects(first: 10, where: {type: {name: {equals: "user"}}}) {
     nodes {
       id
+      key
       displayName
     }
   }
@@ -79,12 +86,12 @@ The following request creates all three of Rick's `owner` relations:
 ```graphql title="Query"
 mutation CreateRickOwnerRelations {
   spaceships: setRelation(relation: {
-    source: {key: {key: "spaceships", type: {name: "department"}}}
+    object: {key: {key: "spaceships", type: {name: "department"}}}
     relationType: {name: {name: "owner", objectType: {name: "department"}}}
-    target: {id: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d"}
+    subject: {id: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d"}
   }) {
     relation {
-      source {
+      object {
         displayName
         type {
           name
@@ -93,7 +100,7 @@ mutation CreateRickOwnerRelations {
       type {
         displayName
       }
-      target {
+      subject {
         displayName
         type {
           name
@@ -103,12 +110,12 @@ mutation CreateRickOwnerRelations {
   }
 
   teleporters: setRelation(relation: {
-    source: {key: {key: "teleporters", type: {name: "department"}}}
+    object: {key: {key: "teleporters", type: {name: "department"}}}
     relationType: {name: {name: "owner", objectType: {name: "department"}}}
-    target: {id: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d"}
+    subject: {id: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d"}
   }) {
     relation {
-      source {
+      object {
         displayName
         type {
           name
@@ -117,7 +124,7 @@ mutation CreateRickOwnerRelations {
       type {
         displayName
       }
-      target {
+      subject {
         displayName
         type {
           name
@@ -127,12 +134,12 @@ mutation CreateRickOwnerRelations {
   }
 
   lasers: setRelation(relation: {
-    source: {key: {key: "lasers", type: {name: "department"}}}
+    object: {key: {key: "lasers", type: {name: "department"}}}
     relationType: {name: {name: "owner", objectType: {name: "department"}}}
-    target: {id: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d"}
+    subject: {id: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d"}
   }) {
     relation {
-      source {
+      object {
         displayName
         type {
           name
@@ -141,7 +148,7 @@ mutation CreateRickOwnerRelations {
       type {
         displayName
       }
-      target {
+      subject {
         displayName
         type {
           name
@@ -161,7 +168,7 @@ mutation CreateRickOwnerRelations {
   "data": {
     "spaceships": {
       "relation": {
-        "source": {
+        "object": {
           "displayName": "Spaceships",
           "type": {
             "name": "department"
@@ -170,7 +177,7 @@ mutation CreateRickOwnerRelations {
         "type": {
           "displayName": "department::owner"
         },
-        "target": {
+        "subject": {
           "displayName": "Rick Sanchez",
           "type": {
             "name": "user"
@@ -180,7 +187,7 @@ mutation CreateRickOwnerRelations {
     },
     "teleporters": {
       "relation": {
-        "source": {
+        "object": {
           "displayName": "Teleporters",
           "type": {
             "name": "department"
@@ -189,7 +196,7 @@ mutation CreateRickOwnerRelations {
         "type": {
           "displayName": "department::owner"
         },
-        "target": {
+        "subject": {
           "displayName": "Rick Sanchez",
           "type": {
             "name": "user"
@@ -199,7 +206,7 @@ mutation CreateRickOwnerRelations {
     },
     "lasers": {
       "relation": {
-        "source": {
+        "object": {
           "displayName": "Lasers",
           "type": {
             "name": "department"
@@ -208,7 +215,7 @@ mutation CreateRickOwnerRelations {
         "type": {
           "displayName": "department::owner"
         },
-        "target": {
+        "subject": {
           "displayName": "Rick Sanchez",
           "type": {
             "name": "user"
@@ -227,18 +234,22 @@ In the same way we can assign other users to roles in different departments by c
 ### Listing Object Relations
 
 We can verify that Rick has the new relations to the correct departments by inspecting his `user` object and selecting
-the relations in which it appears as the target object.
+the relations in which it appears as the subject and the object is of type `department`.
 
 ```graphql title="Query"
 query RicksRelations {
   object(selector: {id: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d"}) {
     displayName
-    relations(side: TARGET, first: 3) {
+    relations(
+      side: SUBJECT,
+      options: {otherType: {name: "department"}},
+      first: 3
+    ) {
       nodes {
         type {
           displayName
         }
-        source {
+        subject {
           type {
             displayName
           }
@@ -265,7 +276,7 @@ query RicksRelations {
             "type": {
               "displayName": "department::owner"
             },
-            "source": {
+            "subject": {
               "type": {
                 "displayName": "Department"
               },
@@ -276,7 +287,7 @@ query RicksRelations {
             "type": {
               "displayName": "department::owner"
             },
-            "source": {
+            "subject": {
               "type": {
                 "displayName": "Department"
               },
@@ -287,7 +298,7 @@ query RicksRelations {
             "type": {
               "displayName": "department::owner"
             },
-            "source": {
+            "subject": {
               "type": {
                 "displayName": "Department"
               },
