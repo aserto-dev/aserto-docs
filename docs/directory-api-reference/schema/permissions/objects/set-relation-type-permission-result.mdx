@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Result of the setRelationTypePermission mutation.
 
 ```graphql
@@ -18,20 +26,23 @@ type SetRelationTypePermissionResult {
 
 ### Fields
 
-#### [`relationType`](#) ([`RelationType!`](/docs/directory-api-reference/schema/relation-types/objects/relation-type))
+#### [<code style={{ fontWeight: 'normal' }}>SetRelationTypePermissionResult.<b>relationType</b></code>](#)<Bullet />[`RelationType!`](/docs/directory-api-reference/schema/relation-types/objects/relation-type) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="relation-types"/>
+> The relation type with the updated permission.
+> 
 
-The relation type with the updated permission.
+#### [<code style={{ fontWeight: 'normal' }}>SetRelationTypePermissionResult.<b>permission</b></code>](#)<Bullet />[`Permission!`](/docs/directory-api-reference/schema/permissions/objects/permission) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="permissions"/>
+> The permission associated with the relation type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>SetRelationTypePermissionResult.<b>allowed</b></code>](#)<Bullet />[`Boolean!`](/docs/directory-api-reference/schema/common/scalars/boolean) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Whether or not the permission is granted or denied.
+> 
 
 
-#### [`permission`](#) ([`Permission!`](/docs/directory-api-reference/schema/permissions/objects/permission))
 
-The permission associated with the relation type.
+### Returned by
 
-
-#### [`allowed`](#) ([`Boolean!`](/docs/directory-api-reference/schema/common/scalars/boolean))
-
-Whether or not the permission is granted or denied.
-
+[`setRelationTypePermission`](/docs/directory-api-reference/schema/permissions/mutations/set-relation-type-permission)  <Badge class="secondary" text="mutation"/>
 
 
 

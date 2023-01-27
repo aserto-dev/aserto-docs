@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Result of a DeleteObjectType mutation.
 
 ```graphql
@@ -16,10 +24,15 @@ type DeleteObjectTypeResult {
 
 ### Fields
 
-#### [`deleted`](#) ([`Boolean!`](/docs/directory-api-reference/schema/common/scalars/boolean))
+#### [<code style={{ fontWeight: 'normal' }}>DeleteObjectTypeResult.<b>deleted</b></code>](#)<Bullet />[`Boolean!`](/docs/directory-api-reference/schema/common/scalars/boolean) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> True if the object type was deleted. False if it was not found.
+> 
 
-True if the object type was deleted. False if it was not found.
 
+
+### Returned by
+
+[`deleteObjectType`](/docs/directory-api-reference/schema/object-types/mutations/delete-object-type)  <Badge class="secondary" text="mutation"/>
 
 
 

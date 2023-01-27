@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Result of the setPermission mutation.
 
 ```graphql
@@ -16,10 +24,15 @@ type SetPermissionResult {
 
 ### Fields
 
-#### [`permission`](#) ([`Permission!`](/docs/directory-api-reference/schema/permissions/objects/permission))
+#### [<code style={{ fontWeight: 'normal' }}>SetPermissionResult.<b>permission</b></code>](#)<Bullet />[`Permission!`](/docs/directory-api-reference/schema/permissions/objects/permission) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="permissions"/>
+> The created permission.
+> 
 
-The created permission.
 
+
+### Returned by
+
+[`setPermission`](/docs/directory-api-reference/schema/permissions/mutations/set-permission)  <Badge class="secondary" text="mutation"/>
 
 
 

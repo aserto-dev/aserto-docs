@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Select a single relation type.
 
 ```graphql
@@ -16,16 +24,16 @@ relationType(
 
 ### Arguments
 
-#### [`selector`](#) ([`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector))
-
-[Required] Selection criteria. Relation types can be selected based on their `id` or the combination of `name` and `objectType`.
-
+#### [<code style={{ fontWeight: 'normal' }}>relationType.<b>selector</b></code>](#)<Bullet />[`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
+> [Required] Selection criteria. Relation types can be selected based on their `id` or the combination of `name` and `objectType`.
+> 
 
 ### Type
 
-#### [`RelationType`](/docs/directory-api-reference/schema/relation-types/objects/relation-type)
+#### [`RelationType`](/docs/directory-api-reference/schema/relation-types/objects/relation-type) <Badge class="secondary" text="object"/> <Badge class="secondary" text="relation-types"/>
+> A kind of relation that can exist between subjects and resources.
+> 
 
-A kind of relation that can exist between subjects and resources.
 
 
 

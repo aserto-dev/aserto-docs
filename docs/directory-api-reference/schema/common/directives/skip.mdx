@@ -5,20 +5,32 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Directs the executor to skip this field or fragment when the `if` argument is true.
 
 ```graphql
 directive @skip(
   if: Boolean!
-)
+) on 
+  | FIELD
+  | FRAGMENT_SPREAD
+  | INLINE_FRAGMENT
 ```
 
 
 ### Arguments
 
-#### [`if`](#) ([`Boolean!`](/docs/directory-api-reference/schema/common/scalars/boolean))
+#### [<code style={{ fontWeight: 'normal' }}>skip.<b>if</b></code>](#)<Bullet />[`Boolean!`](/docs/directory-api-reference/schema/common/scalars/boolean) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Skipped when true.
+> 
 
-Skipped when true.
 
 
 

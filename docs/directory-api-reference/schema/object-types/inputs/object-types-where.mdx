@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 A comparison predicate for filtering object types.
 
 All fields are optional. Only object types that match all given fields are included.
@@ -23,35 +31,35 @@ input ObjectTypesWhere {
 
 ### Fields
 
-#### [`id`](#) ([`TypeIDWhere`](/docs/directory-api-reference/schema/common/inputs/type-idwhere))
+#### [<code style={{ fontWeight: 'normal' }}>ObjectTypesWhere.<b>id</b></code>](#)<Bullet />[`TypeIDWhere`](/docs/directory-api-reference/schema/common/inputs/type-idwhere) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter object types by id.
+> 
 
-Filter object types by id.
+#### [<code style={{ fontWeight: 'normal' }}>ObjectTypesWhere.<b>isSubject</b></code>](#)<Bullet />[`Boolean`](/docs/directory-api-reference/schema/common/scalars/boolean) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> If true, only include subject types. If false, only include non-subject types.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectTypesWhere.<b>name</b></code>](#)<Bullet />[`StringWhere`](/docs/directory-api-reference/schema/common/inputs/string-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter types by name.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectTypesWhere.<b>displayName</b></code>](#)<Bullet />[`StringWhere`](/docs/directory-api-reference/schema/common/inputs/string-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter types by display name.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectTypesWhere.<b>ordinal</b></code>](#)<Bullet />[`IntWhere`](/docs/directory-api-reference/schema/common/inputs/int-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter types by sort order.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectTypesWhere.<b>status</b></code>](#)<Bullet />[`FlagsWhere`](/docs/directory-api-reference/schema/common/inputs/flags-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter types by their status flags.
+> 
 
 
-#### [`isSubject`](#) ([`Boolean`](/docs/directory-api-reference/schema/common/scalars/boolean))
 
-If true, only include subject types. If false, only include non-subject types.
+### Member of
 
-
-#### [`name`](#) ([`StringWhere`](/docs/directory-api-reference/schema/common/inputs/string-where))
-
-Filter types by name.
-
-
-#### [`displayName`](#) ([`StringWhere`](/docs/directory-api-reference/schema/common/inputs/string-where))
-
-Filter types by display name.
-
-
-#### [`ordinal`](#) ([`IntWhere`](/docs/directory-api-reference/schema/common/inputs/int-where))
-
-Filter types by sort order.
-
-
-#### [`status`](#) ([`FlagsWhere`](/docs/directory-api-reference/schema/common/inputs/flags-where))
-
-Filter types by their status flags.
-
+[`ObjectsWhere`](/docs/directory-api-reference/schema/objects/inputs/objects-where)  <Badge class="secondary" text="input"/><Bullet />[`objectTypes`](/docs/directory-api-reference/schema/object-types/queries/object-types)  <Badge class="secondary" text="query"/><Bullet />[`RelationTypesWhere`](/docs/directory-api-reference/schema/relation-types/inputs/relation-types-where)  <Badge class="secondary" text="input"/>
 
 
 

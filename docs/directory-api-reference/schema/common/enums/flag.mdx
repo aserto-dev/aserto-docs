@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Modifier flags that can be set of object and relation types.
 
 ```graphql
@@ -19,25 +27,27 @@ enum Flag {
 
 ### Values
 
-#### [`HIDDEN`](#)
+#### [<code style={{ fontWeight: 'normal' }}>Flag.<b>HIDDEN</b></code>](#) 
+> Hidden types are not displayed in the Aserto Console.
+> 
 
-Hidden types are not displayed in the Aserto Console.
+#### [<code style={{ fontWeight: 'normal' }}>Flag.<b>READONLY</b></code>](#) 
+> Read-only types are not editable in the Aserto Console.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Flag.<b>SYSTEM</b></code>](#) 
+> Mask a type as internal.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Flag.<b>SHADOW</b></code>](#) 
+> Shadow objects share the same key with objects of another type.
+> 
 
 
-#### [`READONLY`](#)
 
-Read-only types are not editable in the Aserto Console.
+### Member of
 
-
-#### [`SYSTEM`](#)
-
-Mask a type as internal.
-
-
-#### [`SHADOW`](#)
-
-Shadow objects share the same key with objects of another type.
-
+[`FlagsWhere`](/docs/directory-api-reference/schema/common/inputs/flags-where)  <Badge class="secondary" text="input"/><Bullet />[`ObjectType`](/docs/directory-api-reference/schema/object-types/objects/object-type)  <Badge class="secondary" text="object"/><Bullet />[`RelationType`](/docs/directory-api-reference/schema/relation-types/objects/relation-type)  <Badge class="secondary" text="object"/><Bullet />[`SetObjectTypeInput`](/docs/directory-api-reference/schema/object-types/inputs/set-object-type-input)  <Badge class="secondary" text="input"/><Bullet />[`SetRelationTypeInput`](/docs/directory-api-reference/schema/relation-types/inputs/set-relation-type-input)  <Badge class="secondary" text="input"/>
 
 
 

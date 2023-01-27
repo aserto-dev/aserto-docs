@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 An association between a relation type and a permission.
 
 ```graphql
@@ -19,25 +27,27 @@ type RelationTypePermission {
 
 ### Fields
 
-#### [`permission`](#) ([`Permission!`](/docs/directory-api-reference/schema/permissions/objects/permission))
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypePermission.<b>permission</b></code>](#)<Bullet />[`Permission!`](/docs/directory-api-reference/schema/permissions/objects/permission) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="permissions"/>
+> The permission.
+> 
 
-The permission.
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypePermission.<b>relationType</b></code>](#)<Bullet />[`RelationType!`](/docs/directory-api-reference/schema/relation-types/objects/relation-type) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="relation-types"/>
+> The relation type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypePermission.<b>allowed</b></code>](#)<Bullet />[`Boolean!`](/docs/directory-api-reference/schema/common/scalars/boolean) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Whether or not the permission is granted or denied.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypePermission.<b>lifecycle</b></code>](#)<Bullet />[`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="common"/>
+> Metadata about the lifecycle of the relation type permission.
+> 
 
 
-#### [`relationType`](#) ([`RelationType!`](/docs/directory-api-reference/schema/relation-types/objects/relation-type))
 
-The relation type.
+### Member of
 
-
-#### [`allowed`](#) ([`Boolean!`](/docs/directory-api-reference/schema/common/scalars/boolean))
-
-Whether or not the permission is granted or denied.
-
-
-#### [`lifecycle`](#) ([`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle))
-
-Metadata about the lifecycle of the relation type permission.
-
+[`RelationTypePermissionConnection`](/docs/directory-api-reference/schema/permissions/objects/relation-type-permission-connection)  <Badge class="secondary" text="object"/>
 
 
 

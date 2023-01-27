@@ -5,6 +5,14 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 Metadata about an entity's lifecycle.
 
 ```graphql
@@ -18,22 +26,25 @@ type Lifecycle {
 
 ### Fields
 
-#### [`createdAt`](#) ([`Time!`](/docs/directory-api-reference/schema/common/scalars/time))
+#### [<code style={{ fontWeight: 'normal' }}>Lifecycle.<b>createdAt</b></code>](#)<Bullet />[`Time!`](/docs/directory-api-reference/schema/common/scalars/time) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Creation time.
+> 
 
-Creation time.
+#### [<code style={{ fontWeight: 'normal' }}>Lifecycle.<b>updatedAt</b></code>](#)<Bullet />[`Time!`](/docs/directory-api-reference/schema/common/scalars/time) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Last update time.
+> 
 
-
-#### [`updatedAt`](#) ([`Time!`](/docs/directory-api-reference/schema/common/scalars/time))
-
-Last update time.
-
-
-#### [`deletedAt`](#) ([`Time`](/docs/directory-api-reference/schema/common/scalars/time))
-
-Deletion time.
+#### [<code style={{ fontWeight: 'normal' }}>Lifecycle.<b>deletedAt</b></code>](#)<Bullet />[`Time`](/docs/directory-api-reference/schema/common/scalars/time) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Deletion time.
 
 Null if the object is not deleted.
+> 
 
+
+
+### Member of
+
+[`Object`](/docs/directory-api-reference/schema/objects/objects/object)  <Badge class="secondary" text="object"/><Bullet />[`ObjectType`](/docs/directory-api-reference/schema/object-types/objects/object-type)  <Badge class="secondary" text="object"/><Bullet />[`Permission`](/docs/directory-api-reference/schema/permissions/objects/permission)  <Badge class="secondary" text="object"/><Bullet />[`Relation`](/docs/directory-api-reference/schema/relations/objects/relation)  <Badge class="secondary" text="object"/><Bullet />[`RelationType`](/docs/directory-api-reference/schema/relation-types/objects/relation-type)  <Badge class="secondary" text="object"/><Bullet />[`RelationTypePermission`](/docs/directory-api-reference/schema/permissions/objects/relation-type-permission)  <Badge class="secondary" text="object"/>
 
 
 

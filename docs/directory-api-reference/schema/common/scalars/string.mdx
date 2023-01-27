@@ -5,12 +5,26 @@ hide_table_of_contents: true
 ---
 
 
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 
 ```graphql
 scalar String
 ```
 
+
+
+
+### Member of
+
+[`authz`](/docs/directory-api-reference/schema/common/directives/authz)  <Badge class="secondary" text="directive"/><Bullet />[`deprecated`](/docs/directory-api-reference/schema/common/directives/deprecated)  <Badge class="secondary" text="directive"/><Bullet />[`doc`](/docs/directory-api-reference/schema/common/directives/doc)  <Badge class="secondary" text="directive"/><Bullet />[`Object`](/docs/directory-api-reference/schema/objects/objects/object)  <Badge class="secondary" text="object"/><Bullet />[`ObjectKey`](/docs/directory-api-reference/schema/objects/inputs/object-key)  <Badge class="secondary" text="input"/><Bullet />[`ObjectType`](/docs/directory-api-reference/schema/object-types/objects/object-type)  <Badge class="secondary" text="object"/><Bullet />[`ObjectTypeSelector`](/docs/directory-api-reference/schema/object-types/inputs/object-type-selector)  <Badge class="secondary" text="input"/><Bullet />[`Permission`](/docs/directory-api-reference/schema/permissions/objects/permission)  <Badge class="secondary" text="object"/><Bullet />[`PermissionSelector`](/docs/directory-api-reference/schema/permissions/inputs/permission-selector)  <Badge class="secondary" text="input"/><Bullet />[`RelationType`](/docs/directory-api-reference/schema/relation-types/objects/relation-type)  <Badge class="secondary" text="object"/><Bullet />[`RelationTypeName`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-name)  <Badge class="secondary" text="input"/><Bullet />[`SetObjectInput`](/docs/directory-api-reference/schema/objects/inputs/set-object-input)  <Badge class="secondary" text="input"/><Bullet />[`SetObjectTypeInput`](/docs/directory-api-reference/schema/object-types/inputs/set-object-type-input)  <Badge class="secondary" text="input"/><Bullet />[`SetPermissionInput`](/docs/directory-api-reference/schema/permissions/inputs/set-permission-input)  <Badge class="secondary" text="input"/><Bullet />[`SetRelationTypeInput`](/docs/directory-api-reference/schema/relation-types/inputs/set-relation-type-input)  <Badge class="secondary" text="input"/><Bullet />[`specifiedBy`](/docs/directory-api-reference/schema/common/directives/specified-by)  <Badge class="secondary" text="directive"/><Bullet />[`StringWhere`](/docs/directory-api-reference/schema/common/inputs/string-where)  <Badge class="secondary" text="input"/>
 
 
 
