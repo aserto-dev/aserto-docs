@@ -6,6 +6,10 @@ description: Connecting GitHub Container Registry to Aserto
 
 You'll need to [set up a Github PAT](https://github.com/settings/tokens) in order to connect your Aserto account to GHCR.
 
+:::caution Note
+Ensure that the selected scopes include at least `repo`, `read:org`, and `write:packages`, so that the Aserto Console has access to the required repository permissions. To be able to delete policy repositores, also provide the `delete:packages` scope.
+:::
+
 Navigate to the "Connections" tab:
 
 <img src='/connections-tab.png' />
@@ -14,8 +18,8 @@ Click on the "Add a connection" button:
 
 <img src='/add-a-connection-button.png' width="150px"/>
 
-Select the `Github Container Registry (PAT)` provider, name the connection "ghcr" and then use your GitHub PAT to complete the form. Finally, click "Add connection"
+Select the `Github Container Registry (PAT)` provider, name the connection "ghcr" and then use your GitHub PAT to complete the form. Finally, click "Add connection".
 
 <img src='/add-ghcr-connection.png' />
 
-Once you've added the new registry, you'll be able to select it when creating policy instances.
+Once you've added the new registry, you'll be able to select it when creating policy repositories and images.
