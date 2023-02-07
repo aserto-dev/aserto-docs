@@ -17,19 +17,27 @@ Create a new Machine-to-Machine application by clicking the "Create Application"
 
 In the following screen, name the application "Aserto - Management" and select "Machine to Machine Applications".
 
+:::caution Note
+The application type MUST be "Machine to Machine Applications".
+:::
+
 <img src="/auth0-m2m-dialog.png" width="800px"/>
 
 Next, select the Auth0 Management API and enable the `read:users` permission.
 
 <img src="/auth0-m2m-scopes.png" width="800px"/>
 
-## Connect Auth0 to Aserto
+:::note
+If you'd like to use the `aserto-idp` CLI tool to import users into Auth0, you'll also need to select the permissions `read:connections` and `create:users`. If you'd also like to delete users using the `aserto-idp` CLI you'll need the `delete:users` permission as well.
+:::
 
-Note: If you'd like to use the `aserto-idp` CLI tool to import users into Auth0, you'll also need to select the permissions `read:connections` and `create:users`. If you'd also like to delete users using the `aserto-idp` CLI you'll need the `delete:users` permission as well.
+## Connect Auth0 to Aserto
 
 From the settings tab, retrieve the Domain, Client ID and Client Secret used by this application. We will use them shortly when we add Auth0 to Aserto.
 
 <img src="/auth0-creds.png" width="800px"/>
+
+### Create an Auth0 connection
 
 Next, connect Auth0 to Aserto as an identity provider. Head to the Aserto console and open the Connections tab.
 
