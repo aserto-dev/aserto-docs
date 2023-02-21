@@ -119,7 +119,7 @@ module.exports = {
             label: 'Documentation',
           },
           {
-            to: 'https://www.aserto.com/#the-solution',
+            to: 'https://www.aserto.com/benefits',
             position: 'left',
             label: 'Product',
             target: '_self',
