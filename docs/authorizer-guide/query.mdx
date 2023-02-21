@@ -12,7 +12,7 @@ Authorizer.
 
 ## URL
 
-`POST .../api/v1/authz/query`
+`POST .../api/v2/authz/query`
 
 ## Input payload
 
@@ -24,8 +24,11 @@ Authorizer.
   },
   "policyContext": {
     "decisions": ["string"],
-    "id": "string",
     "path": "string"
+  },
+  "policyInstance": {
+    "name": "[policy-name]",
+    "instanceLabel": "[instance-label]"
   },
   "resourceContext": {
     "additionalProp1": "string",
@@ -47,12 +50,18 @@ The `identityContext` map is documented [here](/docs/authorizer-guide/identity-c
 
 The `policyContext` map is documented [here](/docs/authorizer-guide/policy-context).
 
+The `policyInstance` map is documented [here](/docs/authorizer-guide/policy-instance).
+
 The `resourceContext` map is documented [here](/docs/authorizer-guide/resource-context).
 
 The `input` parameter is a string that encodes a JSON document, and is mapped into the `input` in the context of
 evaluating the policy.
 
-The `query` parameter is a rego query that is evaluated over the policy.
+The `query` parameter is a rego query that is evaluated over the policy. Example queries:
+
+* `x = input`: bind the `input` to the `x` variable
+* `y = data`: bind the `data` to the `y` variable
+* `z = ds.object({ "id": input.user.id })`: bind the results of loading the user object associated with the user identified by `input.user.id` to the `z` variable
 
 The `options` map allows the caller to instrument the query, retrieve metrics, set a trace level, and
 get a trace summary.
@@ -65,3 +74,7 @@ The trace levels can be one of the following values:
 - TRACE_LEVEL_FULL
 - TRACE_LEVEL_NOTES
 - TRACE_LEVEL_FAIL
+
+## Upgrading from v1
+
+To upgrade from the v1 API, see this [topic](/docs/authorizer-guide/upgrading-from-v1.mdx).

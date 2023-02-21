@@ -12,73 +12,9 @@ Aserto provides a set of built-in functions that can be used in your policy. The
 When providing a user's identity, you can use a GUID, PID or an email associated with the user.
 :::
 
-## v1 built-ins
-
-### `dir.identity`
-```js
-dir.identity(user)
-```
-Returns the user's Aserto directory `id` by a key.
-
-For example: `dir.identity("euang@acmecorp.com")` will return `dfdadc39-7335-404d-af66-c77cf13a15f8`.
-
-### `dir.is_same_user`
-```js
-dir.is_same_user(userA, userB)
-```
-Returns `true` if the identities of userA and userB are the same identity.
-
-For example: `dir.is_same_user("euang@acmecorp.com", "dfdadc39-7335-404d-af66-c77cf13a15f8")` will return `true`.
-
-### `dir.user`
-```js
-dir.user(user)
-```
-Returns the user object by the user identity.
-
-For example: `dir.user("dfdadc39-7335-404d-af66-c77cf13a15f8")` will return the user object of for the user `euang@acmecorp.com`.
-
-### `dir.manager_of`
-```js
-dir.manager_of(user)
-```
-Returns the user object of the manager of a user, based on the `manager` attribute of the user specified.
-
-For example: `dir.manager_of("euang@acmecorp.com")` will return the user object of `aprils@acmecorp.com`.
-
-### `dir.is_manager_of`
-```js
-dir.is_manager_of(userA, userB)
-```
-Returns `true` if userA is a manager of userB, based on the `manager` attribute of userB and the identity of userA.
-
-For example: `dir.is_manager_of("aprils@acmecorp.com", "euang@acmecorp.com")` will return `true`.
-
-### `dir.management_chain`
-```js
-dir.management_chain
-```
-Returns the management chain of a user as a list of user ids.
-
-For example: `dir.management_chain("euang@acmecorp.com")` will return:
-
-```json
-{
-  "chain": [
-    "dfdadc39-7335-404d-af66-c77cf13a15f8",
-    "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
-    "37b056d8-f63e-412b-b172-63d60d35ea56",
-    "2a43d793-7367-4a3e-8c6e-5ec955a52038",
-    "242f6e15-e469-4e42-9510-0483f6d019c9",
-    "7846c22f-d3d8-4e02-8b62-d055d0284783",
-    "b7de08a6-8417-491b-be62-85945a538f46"
-  ]
-}
-```
-
 ## v2 built-ins
 
-V2 built-ins provide access to data stored in Aserto's ReBAC directory. 
+The v2 built-ins provide access to data stored in Aserto's ReBAC directory. 
 
 :::note
 The parameter passing convention has changed from positional arguments to a JSON map that contains named arguments.
@@ -187,3 +123,67 @@ ds.graph({
 })
 ```
 Returns the graph of relations and objects that is anchored in `object-id`. All other arguments are optional and restrict the graph returned to specific subjects, objects, or relations. The graph will be traversed up until a maximum depth, to avoid infinite recursion through graph cycles.
+
+## Deprecated v1 built-ins
+
+### `dir.identity`
+```js
+dir.identity(user)
+```
+Returns the user's Aserto directory `id` by a key.
+
+For example: `dir.identity("euang@acmecorp.com")` will return `dfdadc39-7335-404d-af66-c77cf13a15f8`.
+
+### `dir.is_same_user`
+```js
+dir.is_same_user(userA, userB)
+```
+Returns `true` if the identities of userA and userB are the same identity.
+
+For example: `dir.is_same_user("euang@acmecorp.com", "dfdadc39-7335-404d-af66-c77cf13a15f8")` will return `true`.
+
+### `dir.user`
+```js
+dir.user(user)
+```
+Returns the user object by the user identity.
+
+For example: `dir.user("dfdadc39-7335-404d-af66-c77cf13a15f8")` will return the user object of for the user `euang@acmecorp.com`.
+
+### `dir.manager_of`
+```js
+dir.manager_of(user)
+```
+Returns the user object of the manager of a user, based on the `manager` attribute of the user specified.
+
+For example: `dir.manager_of("euang@acmecorp.com")` will return the user object of `aprils@acmecorp.com`.
+
+### `dir.is_manager_of`
+```js
+dir.is_manager_of(userA, userB)
+```
+Returns `true` if userA is a manager of userB, based on the `manager` attribute of userB and the identity of userA.
+
+For example: `dir.is_manager_of("aprils@acmecorp.com", "euang@acmecorp.com")` will return `true`.
+
+### `dir.management_chain`
+```js
+dir.management_chain
+```
+Returns the management chain of a user as a list of user ids.
+
+For example: `dir.management_chain("euang@acmecorp.com")` will return:
+
+```json
+{
+  "chain": [
+    "dfdadc39-7335-404d-af66-c77cf13a15f8",
+    "2bfaa552-d9a5-41e9-a6c3-5be62b4433c8",
+    "37b056d8-f63e-412b-b172-63d60d35ea56",
+    "2a43d793-7367-4a3e-8c6e-5ec955a52038",
+    "242f6e15-e469-4e42-9510-0483f6d019c9",
+    "7846c22f-d3d8-4e02-8b62-d055d0284783",
+    "b7de08a6-8417-491b-be62-85945a538f46"
+  ]
+}
+```
