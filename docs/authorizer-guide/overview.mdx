@@ -31,10 +31,14 @@ in the Aserto Console.
 
 ## Authorizer API categories
 
-The Authorizer provides the following APIs to calling applications:
+The Authorizer provides the following API categories to calling applications:
 
 - [Authorization](/docs/authorizer-guide/authz) (`authz`)
-- [Directory](/docs/authorizer-guide/dir) (`dir`)
-- Information (`info`)
 - [Policy](/docs/authorizer-guide/policy) (`policy`)
-- System (`sys`)
+- Information (`info`)
+
+:::note
+The v1 [Directory](/docs/authorizer-guide/dir) (`dir`) namespace is now deprecated in favor of the v2 Directory [graphQL APIs](/docs/directory-guide/scenario.mdx).
+
+The v1 System (`sys`) namespace is now removed from v2.
+:::

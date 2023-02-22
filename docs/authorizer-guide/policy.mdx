@@ -9,6 +9,85 @@ description: The Policy API
 The Authorizer makes three APIs available to the calling application for the purpose of
 interacting with the Policies modules that are loaded in the Authorizer:
 
+- `policies`
+- `policies/{id}`
+
+Each of these APIs is a `GET` style API.
+
+## policies
+
+`GET .../api/v2/policies?field_mask=<field1>,<field2>`
+
+This will return a list of all the policies loaded in the Authorizer runtime.
+
+### parameters
+
+`field_mask=<field1>,<field2>`: the set of fields to return (defaults to ALL if unspecified)
+
+Available fields:
+* `id`: the id of the policy module (which can be passed into the `policies/{id}` API)
+* `raw`: the raw text of the Rego module
+* `package_path`: the path of the package
+* `ast`: the parsed abstract syntax tree of the package
+
+### results
+
+The results contain all the policy modules, with the specified fields. If no `field_mask` fields are specified, all fields are returned.
+
+```json
+{
+  "result": [
+    {
+      "id": "todo/tmp/opa/oci/github/workspace/content/src/policies/todoApp.PUT.todos.__id.rego",
+      "raw": "package todoApp.PUT.todos.__id\n\nimport future.keywords.in\nimport input.resource\nimport input.user\n\ndefault allowed = false\n\nallowed {\n\tuser.properties.roles[_] == \"editor\"\n\tuser.key == resource.ownerID\n}\n\nallowed {\n\tuser.properties.roles[_] == \"evil_genius\"\n}\n",
+      "package_path": "data.todoApp.PUT.todos.__id",
+      "ast": {
+        ...
+      }
+    },
+    {
+      ...
+    }
+  ]
+}
+```
+
+## policies/{id}
+
+`GET .../api/v2/policies/{id}?field_mask=<field1>,<field2>`
+
+This will return the details for a particular policy module identified by `{id}`, which can be obtained from the `/api/v2/policies` call.
+
+### parameters
+
+`field_mask=<field1>,<field2>`: the set of fields to return (defaults to ALL if unspecified)
+
+The fields are the same as the ones for the `/api/v2/policies` call.
+
+### results
+
+```json
+{
+  "result": {
+    "id": "todo/tmp/opa/oci/github/workspace/content/src/policies/todoApp.PUT.todos.__id.rego",
+    "raw": "package todoApp.PUT.todos.__id\n\nimport future.keywords.in\nimport input.resource\nimport input.user\n\ndefault allowed = false\n\nallowed {\n\tuser.properties.roles[_] == \"editor\"\n\tuser.key == resource.ownerID\n}\n\nallowed {\n\tuser.properties.roles[_] == \"evil_genius\"\n}\n",
+    "package_path": "data.todoApp.PUT.todos.__id",
+    "ast": {
+      ...
+    }
+  }
+}
+```
+
+# Deprecated v1 APIs
+
+:::danger Note
+These APIs are no longer supported. The are documented here for users who still need to update to the v2 APIs, and want to understand the differences.
+:::
+
+The Authorizer makes three APIs available to the calling application for the purpose of
+interacting with the Policies modules that are loaded in the Authorizer:
+
 - `policy/policies`
 - `policy/policies/{id}`
 - `policy/modules/{id}`

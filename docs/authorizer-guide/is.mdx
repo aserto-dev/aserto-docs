@@ -13,6 +13,100 @@ context for making the decision(s).
 
 ## URL
 
+`POST .../api/v2/authz/is`
+
+## Input payload
+
+```json
+{
+  "identityContext": {
+    "identity": "[aserto-user-guid]",
+    "type": "IDENTITY_TYPE_*"
+  },
+  "policyContext": {
+    "decisions": ["string"],
+    "path": "string"
+  },
+  "policyInstance": {
+    "name": "[policy-name]",
+    "instanceLabel": "[instance-label]"
+  },
+  "resourceContext": {
+    "additionalProp1": "string",
+    "additionalProp2": "string",
+    "additionalProp3": "string"
+  }
+}
+```
+
+The `identityContext` map is documented [here](/docs/authorizer-guide/identity-context).
+
+The `policyContext` map is documented [here](/docs/authorizer-guide/policy-context).
+
+The `policyInstance` map is documented [here](/docs/authorizer-guide/policy-instance).
+
+The `resourceContext` map is documented [here](/docs/authorizer-guide/resource-context).
+
+## Example
+
+Given the following policy:
+
+```rego
+package sample
+
+allowed {
+  input.user.id == input.resource.id
+}
+```
+
+And given the following payload passed to the `is` call:
+
+```json
+{
+  "identityContext": {
+    "identity": "011a88bc-7df9-4d92-ba1f-2ff319e101e1",
+    "type": "IDENTITY_TYPE_SUB"
+  },
+  "policyContext": {
+    "decisions": ["allowed"],
+    "path": "sample"
+  },
+  "policyInstance": {
+    "name": "[policy-name]",
+    "instanceLabel": "[instance-label]"
+  },
+  "resourceContext": {
+    "id": "011a88bc-7df9-4d92-ba1f-2ff319e101e1"
+  }
+}
+```
+
+The `allowed` decision will be evaluated to `true`, and the resulting payload will be returned:
+
+```json
+{
+  "decisions": [
+    {
+      "decision": "allowed",
+      "is": true
+    }
+  ]
+}
+```
+
+## Upgrading from v1
+
+To upgrade from the v1 Policy Context, see this [topic](/docs/authorizer-guide/upgrading-from-v1.mdx).
+
+# Deprecated v1 authz/is API
+
+The `is` API is the primary API for determining whether a user is authorized to perform an action
+on a resource. The inputs to the `is` API are the user context, the set of decisions that the calling
+application wants to evaluate, the policy module used to make the decision(s), and the (optional) resource
+context for making the decision(s).
+
+## URL
+
 `POST .../api/v1/authz/is`
 
 ## Input payload

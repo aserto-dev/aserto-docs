@@ -1,0 +1,62 @@
+---
+sidebar_label: Upgrading from v1
+title: Upgrading from v1 APIs
+description: Upgrading from the v1 authorizer APIs
+---
+
+# Upgrading from v1 to v2 authorizer APIs
+
+## URLs
+
+The URL prefixes for the `is`, `decisiontree`, and `query` APIs have changed from `v1` to `v2`. Specifically:
+
+* `is`: `.../api/v1/authz/is` --> `.../api/v2/authz/is`
+* `decisiontree`: `.../api/v1/authz/decisiontree` --> `.../api/v2/authz/decisiontree`
+* `query`: `.../api/v1/authz/query` --> `.../api/v2/authz/query`
+
+## Policy Context and Policy Instance
+
+The v1 Policy Context referenced the policy ID in the `"id"` field. The policy 
+identification has now moved to the [Policy Instance](/docs/authorizer-guide/policy-instance.mdx).
+
+To update a v1 Policy Context to v2, remove the `"id"` field in `"policyContext"`, and add a `"policyInstance"` which looks like this:
+
+```json
+{
+  "policyInstance": {
+    "name": "[policy-name]",
+    "instanceLabel": "[instance-label]"
+  }
+}
+```
+
+Before:
+
+```json
+{
+  "policyContext": {
+    "decisions": [
+      "allowed"
+    ],
+    "id": "[policy-id]",
+    "path": "sample.GET.api.orders"
+  }, ...
+}
+```
+
+After:
+
+```json
+{
+  "policyContext": {
+    "decisions": [
+      "allowed"
+    ],
+    "path": "sample.GET.api.orders"
+  }, 
+  "policyInstance": {
+    "name": "[policy-name]",
+    "instanceLabel": "[instance-label]"
+  }, ...
+}
+```

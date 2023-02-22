@@ -128,8 +128,6 @@ module.exports = {
         'authorizer-guide/query',
         'authorizer-guide/display-state-map',
         'authorizer-guide/decisiontree',
-        'authorizer-guide/dir',
-        'authorizer-guide/directory-resources',
         'authorizer-guide/policy',
         'authorizer-guide/built-ins',
       ],
