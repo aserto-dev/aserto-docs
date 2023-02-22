@@ -119,7 +119,7 @@ module.exports = {
             label: 'Documentation',
           },
           {
-            to: 'https://www.aserto.com/#the-solution',
+            to: 'https://www.aserto.com/benefits',
             position: 'left',
             label: 'Product',
             target: '_self',
@@ -173,8 +173,8 @@ module.exports = {
                 to: 'https://asertocommunity.slack.com/join/shared_invite/zt-p06gin84-xNswWpTGyPDPxCz0LMux3g#/shared-invite/email',
               },
               {
-                label: 'Open Policy Registry',
-                to: 'https://openpolicyregistry.io',
+                label: 'Open Policy Containers',
+                to: 'https://openpolicycontainers.com',
               },
               {
                 label: 'Service Status',
@@ -186,12 +186,16 @@ module.exports = {
             title: 'PRODUCT',
             items: [
               {
+                label: 'Features',
+                to: 'https://www.aserto.com/features',
+              },
+              {
                 label: 'Benefits',
-                to: 'https://www.aserto.com/#the-solution',
+                to: 'https://www.aserto.com/benefits',
               },
               {
                 label: 'Case Studies',
-                to: 'https://www.aserto.com/casestudies',
+                to: 'https://www.aserto.com/customers',
               },
               {
                 label: 'Pricing',
@@ -224,7 +228,7 @@ module.exports = {
               },
               {
                 label: 'Contact us',
-                to: 'mailto:info@aserto.com',
+                to: 'https://www.aserto.com/contact',
               },
             ],
           },
@@ -249,11 +253,11 @@ module.exports = {
                       <a href="https://twitter.com/aserto_com" target="_blank" rel="noreferrer noopener" aria-label="Twitter">
                         <img src="/icons/twitter.svg" alt="twitter" />
                       </a>
-                      <a href="https://aserto.medium.com" target="_blank" rel="noreferrer noopener" aria-label="Medium">
-                        <img style="margin-left: 24px" src="/icons/community.svg" alt="medium" />
-                      </a>
                       <a href="https://www.linkedin.com/company/aserto-com" target="_blank" rel="noreferrer noopener" aria-label="Twitter">
                         <img style="margin-left: 24px" src="/icons/linkedin.svg" alt="linkedin" />
+                      </a>
+                      <a href="https://www.aserto.com/slack" target="_blank" rel="noreferrer noopener" aria-label="Slack">
+                        <img style="margin-left: 24px" src="/icons/slack.svg" alt="Slack" />
                       </a>
                     `,
               },
