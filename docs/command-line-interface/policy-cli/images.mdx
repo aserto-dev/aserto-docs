@@ -16,6 +16,8 @@ policy images
 
 `-r, --remote`: list images stored in a remote registry
 
+`-o, --organization`: specify remote organization (must be specified for remote listing)
+
 `-e, --show-empty`: show policies with no images
 
 ## Example
@@ -23,13 +25,13 @@ policy images
 ```bash
 $ policy images
 
-|        REPOSITORY        |  TAG  | SIZE  |  CREATED AT  |
-|--------------------------|-------|-------|--------------|
-| omrigazitt1/peoplefinder | 1.0.0 | 555 B | 1 minute ago |
+|          REPOSITORY          |  TAG  | SIZE  |  CREATED AT  |
+|------------------------------|-------|-------|--------------|
+| ogazitt/peoplefinder         | 1.0.0 | 555 B | 1 minute ago |
 
-$ policy images --remote
+$ policy images --remote -o ogazitt
 
-|        REPOSITORY        |  TAG  |
-|--------------------------|-------|
-| omrigazitt1/peoplefinder | 1.0.0 |
+|          REPOSITORY          |  TAG  | 
+|------------------------------|-------|
+| ogazitt/peoplefinder         | 1.0.0 | 
 ```

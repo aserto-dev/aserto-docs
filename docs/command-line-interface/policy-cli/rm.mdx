@@ -9,7 +9,7 @@ description: How to remove policy images using the policy CLI
 To remove a tagged image:
 
 ```bash
-policy rm <organization-name>/<repository-name>:<tag>
+policy rm [<registry>/]<organization-name>/<repository-name>:<tag>
 ```
 
 ## Options
@@ -23,8 +23,8 @@ policy rm <organization-name>/<repository-name>:<tag>
 ## Example
 
 ```bash
-$ policy rm omrigazitt1/peoplefinder:1.0.0
+$ policy rm ogazitt/peoplefinder:1.0.0
 
 Removed reference.
-reference: omrigazitt1/peoplefinder:1.0.0
+reference: ogazitt/peoplefinder:1.0.0
 ```

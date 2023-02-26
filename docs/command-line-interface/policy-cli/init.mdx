@@ -6,61 +6,109 @@ description: How to create a policy using the policy CLI
 
 # Creating a Policy
 
-To create a new policy, use the `policy init` command:
+Policies are authored in a declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/). You can get started quickly by using a template.
 
-```
-policy init
-```
+## Templates
 
-You'll be asked to select a server. Assuming you've logged in to the Aserto Policy Registry, you'll be able to select from following:
+To list the available templates, use the `policy templates list` command:
 
-```
-  #  SERVER
-  1  opcr.io
-  2  registry.prod.aserto.com
+```bash
+policy templates list
 
-> Select server#:
-```
+Fetching templates .
 
-If you haven't logged in to the Aserto Policy Registry, you'll only see the `opcr` option. After selecting a server you'll be asked to confirm your choice, or otherwise override it with a different value:
-
-```
-server: (registry.prod.aserto.com):
+  NAME             KIND    DESCRIPTION
+  github           cicd    GitHub policy CI/CD template.
+  gitlab           cicd    GitLab policy CI/CD template.
+  policy-template  policy  Minimal policy template.
 ```
 
-Hitting "Enter" will confirm your choice. Otherwise, provide a different value and hit "Enter".
+## Applying a policy template
 
-Next, provide your username in the policy registry you've selected:
+To create a new policy, use the `policy templates apply` command:
 
-```
-> user  : ([YOUR_USER_NAME]):
-```
+```bash
+policy templates apply policy-template
 
-Provide the _name_ of the secret containing the Github token you'd like to use (by default, the name should be `GITHUB_TOKEN`)
+Processing template 'policy-template' .
 
-```
-> github secret name: (GITHUB_TOKEN): GITHUB_TOKEN
-```
+Generating files
 
-Specify the name of the repository you'll be pushing the policy to:
-
-```
-> repo  : (): [YOUR-ORGANIZATION]/[POLICY-NAME]
+The template 'policy-template' was created successfully.
 ```
 
-The following directory structure will be created:
+This will generate a minimal "hello world" policy.
 
-```
+```bash
+tree .
 .
-├── .github
-│   ├── config.yaml
-│   └── workflows
-│       └── build-release-policy.yaml
-├── .gitignore
+├── README.md
 └── src
-    ├── .manifest
     └── policies
-        └── hello.rego
+        └── hello-rego.rego
+
+2 directories, 2 files
 ```
 
-Update the content of the policy as needed, then follow the steps to [build](/docs/command-line-interface/policy-cli/build), [tag](/docs/command-line-interface/policy-cli/tag) and [push](/docs/command-line-interface/policy-cli/push) the policy to OPCR.
+You can create a git repository for these files by using `git init`.
+
+## Adding a CI template
+
+To add GitHub or GitLab CI to the repository, apply a CI template. Note that the defaults are supplied if you've already done a `policy login` to log in to a registry, and made it your default policy registry.
+
+```bash
+policy templates apply github
+
+Processing template 'github' .
+
+  #  SERVER
+  1  registry.prod.aserto.com
+  2  ghcr.io
+
+> Select server#: 1
+
+> server (registry.prod.aserto.com):
+
+> user (ogazitt):
+
+> secret name (TOKEN):
+
+> org/repo: ogazitt/peoplefinder
+
+Generating files .
+
+The template 'github' was created successfully.
+```
+
+This command generates a GitHub workflow to build, tag, and push a policy image based on a new tag event that is pushed to GitHub.
+
+```
+tree .github
+.github
+├── config.yaml
+└── workflows
+    └── build-release-policy.yaml
+
+1 directory, 2 files
+```
+
+The `.github/config.yaml` file contains the parameters to the workflow:
+```yaml
+server: registry.prod.aserto.com
+username: ogazitt
+repo: ogazitt/peoplefinder
+```
+
+The `secret name` that was provided (by default, `TOKEN`) refers to a GitHub secret that contains a key (the Aserto Policy Registry key, or a GitHub PAT with the correct scopes) to push the built, tagged image to the policy registry.
+
+For the Aserto Policy Registry, this should be the API key that can be found in the Console under the Aserto Policy Registry connection. This is the same API key that you used to login in using `policy login`.
+
+For `ghcr.io`, the PAT needs to have the `repo` and `write:packages` scopes.
+
+## Automated policy-as-code workflow
+
+You now have a policy-as-code workflow - simply make changes in the policy, commit and tag a release, push the tags, and your policy image will be built, tagged, and pushed to the registry you configured.
+
+## Manual workflow
+
+You can also use the `policy` CLI to manually [build](/docs/command-line-interface/policy-cli/build), [tag](/docs/command-line-interface/policy-cli/tag) and [push](/docs/command-line-interface/policy-cli/push) the policy to a policy registry.
