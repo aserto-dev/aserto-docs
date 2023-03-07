@@ -62,7 +62,11 @@ export default [
     github: 'https://github.com/aserto-dev/aserto-rails',
     docs: '/docs/software-development-kits/ruby/rails',
   },
-
-
-
+  {
+    title: 'Java',
+    icon: 'java.svg',
+    link: 'https://www.java.com/en/',
+    github: 'https://github.com/aserto-dev/java-authorizer',
+    docs: '/docs/software-development-kits/java/grpc-bindings',
+  }
 ]
