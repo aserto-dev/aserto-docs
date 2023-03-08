@@ -219,6 +219,14 @@ module.exports = {
             'software-development-kits/ruby/rails',
           ],
         },
+        {
+          type: 'category',
+          label: 'Java',
+          collapsed: false,
+          items: [
+            'software-development-kits/java/grpc-bindings'
+          ],
+        }
       ],
     },
     {

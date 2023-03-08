@@ -274,7 +274,7 @@ module.exports = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages: ['powershell', 'csharp', 'rego', 'ruby'],
+        additionalLanguages: ['powershell', 'csharp', 'rego', 'ruby', 'java'],
       },
       hubspot: {
         accountId: process.env.REACT_APP_HUBSPOT_ACCOUNT_ID ?? 21300286,
