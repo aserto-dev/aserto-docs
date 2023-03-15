@@ -14,6 +14,7 @@ Currently, the available plugins are:
 - okta
 - json
 - auth0
+- azuread
 
 The plugins can be downloaded in 2 ways:
 
@@ -57,10 +58,11 @@ aserto-idp list-plugins
 The output will be similar to:
 
 ```
-    auth0:v0.0.7
-    json:0.0.11
-    okta:0.0.23
-    aserto:0.0.11
+    auth0:v0.8.5
+    json:0.8.4
+    okta:0.8.9
+    aserto:0.8.5
+    azuread:0.0.14
 ```
 
 To list plugins and versions that are available remotely and can be downloaded:
@@ -72,25 +74,44 @@ aserto-idp list-plugins --remote
 The output will be similar to:
 
 ```
-Available versions for 'okta'
-*        okta:0.0.23
-         okta:0.0.22
-         okta:0.0.21
-         okta:0.0.20
+Available versions for 'aserto'
+*        aserto:0.8.5
+         aserto:0.8.4
+         aserto:0.8.3
+         aserto:0.8.2
+         aserto:0.8.1
+         aserto:0.8.0
 
 Available versions for 'json'
-         json:0.0.12
-*        json:0.0.11
-         json:0.0.10
+*        json:0.8.4
+         json:0.8.3
+         json:0.8.2
+         json:0.8.1
+         json:0.8.0
+
+Available versions for 'okta'
+*        okta:0.8.9
+         okta:0.8.8
+         okta:0.8.7
+         okta:0.8.6
+         okta:0.8.5
+         okta:0.8.4
+         okta:0.8.3
+         okta:0.8.2
+         okta:0.8.1
+         okta:0.8.0
 
 Available versions for 'auth0'
-         auth0:0.0.7
-         auth0:0.0.6
-         auth0:0.0.5
+*        auth0:0.8.5
+         auth0:0.8.4
+         auth0:0.8.3
+         auth0:0.8.2
+         auth0:0.8.1
+         auth0:0.8.0
 
-Available versions for 'aserto'
-*        aserto:0.0.11
-         aserto:0.0.10
+Available versions for 'azuread'
+*        azuread:0.0.14
+         azuread:0.0.13
 ```
 
 where `*` symbolize the version that is currently on the system.
