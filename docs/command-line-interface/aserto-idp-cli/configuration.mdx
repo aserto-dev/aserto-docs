@@ -24,6 +24,10 @@ plugins:
   okta:
     domain: OKTA_DOMAIN
     api-token: TOKEN
+  azuread:
+    tenant: AZUREAD_TENANT
+    client-id: AZUREAD_CLIENT_ID
+    client-secret: AZUREAD_CLIENT_SECRET
 ```
 
 ## Configuration elements
@@ -33,7 +37,7 @@ log_level: the possible logging level values are: `trace`, `debug`, `warning` an
 
 ### Auth0
 
-:::note:::
+:::note
 These values should come from a machine-to-machine (M2M) application. To learn how to set one up in Auth0, refer to [this](/docs/aserto-console/connections/setup-auth0) guide.
 :::note
 
@@ -54,3 +58,13 @@ These values should come from a machine-to-machine (M2M) application. To learn h
 ### Okta
 * domain: the Okta machine-to-machine (M2M) Okta domain
 * api-token: the Okta machine-to-machine (M2M) Client Secret
+
+### AzureAD
+
+:::note
+To get these values, navigate to the `Azure Portal` => `Azure Active Directory` => `App Registrations`, locate your Azure AD app and select `Certificates & Secrets`
+:::note
+
+* tenant: the AzureAD tenant
+* client-id: the AzureAD client ID
+* client-secret: the AzureAD secret for the provided client ID
