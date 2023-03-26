@@ -56,10 +56,10 @@ the name you gave it (in our case, `peoplefinder`).
 aserto developer configure peoplefinder
 ```
 
-The following command will `docker run` a local container with the `peoplefinder` policy configuration:
+The following command will `docker run` a local container with the `peoplefinder` policy configuration, writing the decision logs to `/tmp/decision-logs`:
 
 ```bash
-aserto developer start peoplefinder
+aserto developer start peoplefinder --data-path=/tmp/decision-logs
 ```
 
 You can use the next command to open a browser window that shows a local version of the console, to

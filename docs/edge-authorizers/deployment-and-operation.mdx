@@ -31,15 +31,16 @@ A couple of flavors of edge authorizers are available:
 
 ## Running the Edge Authorizer
 
-You can run the Onebox authorizer using `aserto` CLI. First, you need to configure your Onebox instance by running the following command:
+You can run the Onebox authorizer using `aserto` CLI. First, you need to configure your Onebox instance by running the following command. Note that POLICY_INSTANCE_NAME below is the name of a policy instance you created in the console.
 
 ```sh
 aserto developer configure <POLICY_INSTANCE_NAME>
 ```
-Then, start the Onebox instance by running:
+
+Then, start the Onebox instance by running the following command. Note that the DECISION_LOG_DIRECTORY is a path to where the decision logs will be stored.
 
 ```sh
-aserto developer start <POLICY_INSTANCE_NAME>
+aserto developer start <POLICY_INSTANCE_NAME> --data-path=<DECISION_LOG_DIRECTORY>
 ```
 
 Or by using the `docker` CLI selecting the correct image (`ghcr.io/aserto-dev/authorizer-sidecar:latest` or
