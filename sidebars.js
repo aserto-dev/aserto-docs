@@ -105,7 +105,6 @@ module.exports = {
               label: 'Container Registries',
               collapsed: true,
               items: [
-                'aserto-console/connections/setup-opcr',
                 'aserto-console/connections/setup-ghcr',
               ],
             },
