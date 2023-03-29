@@ -7,10 +7,14 @@ description: React and Express.js quickstart - Setting up the application
 # React Application setup
 
 :::note
-If you'd like to skip to the end, rather than follow the steps, simply clone the [demo repo](https://github.com/aserto-demo/aserto-react-and-node).
+If you'd like to skip to the end, rather than follow the steps, simply clone the [demo repo](https://github.com/aserto-demo/aserto-react-and-node-with-conditional-rendering).
 ```shell
-git clone git@github.com:aserto-demo/aserto-react-and-node.git
+git clone git@github.com:aserto-demo/aserto-react-and-node-with-conditional-rendering.git
+cd aserto-react-and-node-with-conditional-rendering
+yarn install:all
 ```
+
+You also need to instantiate an Aserto policy before you can run `yarn start:all` to run the app. Skip to this [step](create-a-policy).
 :::
 
 We’re going to build a very bare bones application for this tutorial. We’ll start by creating an application using the `yarn` react-app generator: In your terminal, execute the following command:
@@ -79,7 +83,7 @@ Now that we have a running React application, we'll continue by installing and t
 
 In your terminal, execute the following command:
 
-```
+```shell
 yarn add oidc-react@1.5.1
 ```
 
