@@ -6,6 +6,13 @@ description: React and Express.js quickstart - Setting up the application
 
 # React Application setup
 
+:::note
+If you'd like to skip to the end, rather than follow the steps, simply clone the [demo repo](https://github.com/aserto-demo/aserto-react-and-node).
+```shell
+git clone git@github.com:aserto-demo/aserto-react-and-node.git
+```
+:::
+
 We’re going to build a very bare bones application for this tutorial. We’ll start by creating an application using the `yarn` react-app generator: In your terminal, execute the following command:
 
 ```
@@ -23,6 +30,49 @@ The familiar React logo should appear, indicating that the app is ready to go.
 
 ![react-atom](/quickstart-react-and-node/react-atom.png)
 
+## Downgrade to React 17
+
+The OIDC dependencies aren't yet working with React 18, so we'll need to downgrade.
+
+```shell
+yarn add react@17 react-dom@17 @testing-library/react@12 @types/react@17 @types/react-dom@17
+```
+
+You'll also need to change `index.js` to the following:
+
+Change the line `import { createRoot } from 'react-dom/client';` to the following:
+
+```javascript
+import ReactDOM from 'react-dom';
+```
+
+Next, change this block:
+
+```javascript
+const container = document.getElementById('root')
+const root = createRoot(container)
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+to the following:
+
+```javascript
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+```
+
+Make sure the app still loads and shows the spinning React logo.
+
+We are now back to React v17.0.2 and can proceed to add authentication and authorization.
+
 ## Adding OIDC dependencies
 
 Now that we have a running React application, we'll continue by installing and then importing the required dependency - `oidc-react`
@@ -30,7 +80,7 @@ Now that we have a running React application, we'll continue by installing and t
 In your terminal, execute the following command:
 
 ```
-yarn add oidc-react
+yarn add oidc-react@1.5.1
 ```
 
 The following environment variables are used to point your application to Aserto’s demo IDP, so that you don’t have to set one yourself. Create a file called `.env` and add the following:

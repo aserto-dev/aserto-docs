@@ -21,12 +21,11 @@ First, we’ll update our policy to include clauses for `visible` and `enabled`.
 ```
 package asertodemo.GET.api.protected
 
+import input.policy.path
 import input.user.properties.roles as user_roles
 
 default allowed = false
-
 default visible = false
-
 default enabled = false
 
 allowed {
