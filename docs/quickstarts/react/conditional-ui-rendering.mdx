@@ -16,17 +16,20 @@ A common pattern for leveraging authorization in the UI is to conditionally rend
 
 ## Update the policy
 
+:::note
+If you took the shortcut and created a policy instance from a template, all these steps are already taken for you. But feel free to review how the policy evolved.
+:::
+
 First, we’ll update our policy to include clauses for `visible` and `enabled`. They will look very similar to the `allowed` clause:
 
 ```
 package asertodemo.GET.api.protected
 
+import input.policy.path
 import input.user.properties.roles as user_roles
 
 default allowed = false
-
 default visible = false
-
 default enabled = false
 
 allowed {

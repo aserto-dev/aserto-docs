@@ -6,6 +6,10 @@ description: React and Express.js quickstart - Supporting more roles
 
 # Support more roles
 
+:::note
+If you took the shortcut and created a policy instance from a template, all these steps are already taken for you. But feel free to review how the policy evolved.
+:::
+
 So far, we have defined rules that support a single role - `admin`. We’ll now expand our policy to cover more roles by adding a data file to our policy bundle. In addition to policy Rego files, we can add JSON files that the policy can refer to in runtime.
 
 We'll open the local copy of the _policy_ we cloned before. Directly under the `src` folder, create a new file and name it `data.json` and add the following contents:
@@ -43,14 +47,14 @@ We'll open the local copy of the _policy_ we cloned before. Directly under the `
 
 In order to reference the data file in our policy, we’ll update our policy file:
 
-```
+```rego
 package asertodemo.GET.api.protected
 
 import input.policy.path
 import input.user.properties.roles as user_roles
 
 
-default allow = false
+default allowed = false
 
 allowed {
 	some index

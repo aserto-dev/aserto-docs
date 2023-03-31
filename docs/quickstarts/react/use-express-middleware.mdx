@@ -21,7 +21,13 @@ ASERTO_AUTHORIZER_SERVICE_URL=authorizer.prod.aserto.com:8443
 ASERTO_POLICY_ROOT=asertodemo
 ```
 
-Add the following dependency reference in `service/api.js` (after the `const jwt = require("express-jwt");` line):
+In the `service` directory, install the `@aserto/aserto-node` package:
+
+```shell
+yarn add @aserto/aserto-node
+```
+
+Then, add the following dependency reference in `service/api.js` (after the `const jwt = require("express-jwt");` line):
 
 ```javascript
 const { jwtAuthz } = require("@aserto/aserto-node");
@@ -34,7 +40,7 @@ const authzOptions = {
   authorizerServiceUrl: process.env.ASERTO_AUTHORIZER_SERVICE_URL,
   instanceName: process.env.ASERTO_POLICY_INSTANCE_NAME,
   instanceLabel: process.env.ASERTO_POLICY_INSTANCE_LABEL,
-  policyRoot: process.env.ASERTO_POLICY_ROOT,
+  policyRoot: 'asertodemo',
   authorizerApiKey: process.env.ASERTO_AUTHORIZER_API_KEY,
   tenantId: process.env.ASERTO_TENANT_ID,
 };

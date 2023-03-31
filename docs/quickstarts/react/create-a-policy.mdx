@@ -18,6 +18,29 @@ We want to ensure that if we're logged in as Euan (a `viewer`), the application 
 
 Initially, the policy we’ll create for this tutorial will only allow a user with the role of `admin` to access our protected resource, while users without the `admin` role will not be able to access that resource.
 
+:::note
+You can choose your own adventure - if you'd like to speed things up and just create the final policy from a template instead of creating it from scratch, follow the steps below.
+:::
+
+### Create the final policy instance from a template
+
+Let's create a running policy instance from a template. Note this will use an existing policy image, which means it's read-only and you won't be able to evolve it. Not to worry - if you'd like to go back and create and modify your own image, you can come back to this section and choose the other path.
+
+In [console.aserto.com](https://console.aserto.com), go to the Policies tab and click the "Create an instance" button.
+
+<img
+  src="/quickstart-react-and-node/create-instance-button.png"
+  width="160px"
+/>
+
+Choose "...from a sample image", and select `policy-aserto-react` from the dropdown. Choose the `latest` tag, and use the name `aserto-react`.
+
+Finally, click the "Create policy" button. 
+
+That was easy! We now have a policy that will only allow users with the `admin` role access our protected resource. You can now skip to the [next section](use-express-middleware), where we'll see how to reference the policy in our Express.js service. 
+
+### Do it step by step, and learn about the policy language
+
 In [console.aserto.com](https://console.aserto.com), go to the Images tab and click the "Create a new image" button.
 
 <img
@@ -108,7 +131,7 @@ At runtime, the application will send the JWT associated with the logged in user
 
 The `some index` and `...roles[index]` expressions indicate the authorizer will iterate over all the elements in the `roles` array under the `properties` in the user object. The authorizer will check if the iterated role is equal to the string `admin`. If it is, the `allowed` decision will evaluate to `true`.
 
-## Updating the Policy Repository
+#### Updating the Policy Repository
 
 Now that we’ve modified our policy, we’ll publish our changes: Aserto applies a GitOps flow to any changes made to the repository we set up. That means that we can simply tag and push the changes we’ve made to the policy and the updated policy will be built and published to the policy instance.
 
@@ -126,7 +149,7 @@ Open the Aserto console, and navigate to the Registry tab. Then, open the policy
 
 <img src="/quickstart-react-and-node/policy-repo-details.png" />
 
-## Create a policy instance
+#### Create a policy instance
 
 To set up a policy instance, head to the Policies tab and click the "Create an instance" button:
 
