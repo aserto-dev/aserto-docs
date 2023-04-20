@@ -1,0 +1,71 @@
+---
+sidebar_label: Authorizer Client
+title: Aserto SDKs - Java - Authorizer Client
+description: Aserto SDKs - Java - Creating a client and making authorization calls
+---
+
+# Authorizer Client
+
+[`AuthorizerClient`](https://github.com/aserto-dev/aserto-java/blob/98e155e0305d14685256b2bde0d14e4b58f1bc75/src/main/java/com/aserto/AuthorizerClient.java#L13) is an abstraction over the raw grpc bindings that talks to the Aserto [authorization API](/docs/authorizer-guide/authz).
+It can be used to make authorization calls, or to create authorization middleware.
+
+
+## Installation
+The code is available as a [maven component](https://central.sonatype.com/artifact/com.aserto/aserto-java/)
+and can be easily added to you project by adding the maven dependency
+```maven
+<dependency>
+    <groupId>com.aserto</groupId>
+    <artifactId>aserto-java</artifactId>
+    <version>1.0.1</version>
+</dependency>
+```
+
+## Create a Client
+
+```java
+// create a channel that has the connection details
+ManagedChannel channel = new ChannelBuilder()
+        .withAddr("localhost:8282")
+        .withCACertPath(<path_to_authorizer_certificates>)
+        .build();
+
+// create authz client
+AuthorizerClient authzClient =  new AuthzClient(channel);
+```
+
+The `ChannelBuilder` accepts setting the fallowing properties
+
+
+
+| Method | Description |
+| -------------- | ----------- |
+|withTenantId(String) | TenantId, not required for Topaz |
+| withAddr(String) | authorizer address |
+| withAPIKeyAuth(String) | auth key, not required for Topaz |
+| withTokenAuth(String) | Auth0 token |
+| withInsecure(Boolean) | use an isecure connection to the authorizer |
+| withCACertPath(String) | path to certificate used for TLS connection to authorizer  |
+
+
+## Make Authorization Calls
+
+```java
+// identity context contains information abou the user that requests access to some resource
+IdentityCtx identityCtx = new IdentityCtx("rick@the-citadel.com", IdentityType.IDENTITY_TYPE_SUB);
+
+// contains information about the policy we want to check for the provided identity
+PolicyCtx policyCtx = new PolicyCtx("todo", "todo", "todoApp.DELETE.todos.__id", new String[]{"allowed"});
+
+// check if the identity is allowed to perform the action
+List<Decision> decisions = authzClient.is(identityCtx, policyCtx);
+authzClient.close();
+
+decisions.forEach(decision -> {
+    String dec = decision.getDecision();
+    boolean isAllowed =  decision.getIs();
+    System.out.println("For decision [" + dec + "] the answer was [" + isAllowed + "]");
+});
+```
+
+For more details please see the [full example](https://github.com/aserto-dev/aserto-java/tree/main/examples/authz-example)
