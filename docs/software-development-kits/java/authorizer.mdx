@@ -37,17 +37,16 @@ AuthorizerClient authzClient =  new AuthzClient(channel);
 If you are using Topaz as am authorizer, the certificate is located at `~/.config/topaz/certs/grpc-ca.crt`
 For dev/test scenarios  you can also use an insecure connection by replacing `.withCACertPath(<path_to_authorizer_certificates>)` with `.withInsecure(true)`
 
-The `ChannelBuilder` accepts setting the fallowing properties
+The `ChannelBuilder` accepts setting the fallowing properties:
 
 | Method | Description |
 | -------------- | ----------- |
-|withTenantId(String) | TenantId, not required for Topaz |
 | withAddr(String) | authorizer address |
+| withCACertPath(String) | path to certificate used for TLS connection to authorizer |
+| withInsecure(Boolean) | use an isecure connection to the authorizer |
+| withTenantId(String) | TenantId, not required for Topaz |
 | withAPIKeyAuth(String) | auth key, not required for Topaz |
 | withTokenAuth(String) | Auth0 token |
-| withInsecure(Boolean) | use an isecure connection to the authorizer |
-| withCACertPath(String) | path to certificate used for TLS connection to authorizer  |
-
 
 ## Make Authorization Calls
 
