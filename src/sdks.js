@@ -67,6 +67,6 @@ export default [
     icon: 'java.svg',
     link: 'https://www.java.com/en/',
     github: 'https://github.com/aserto-dev/java-authorizer',
-    docs: '/docs/software-development-kits/java/grpc-bindings',
+    docs: '/docs/software-development-kits/java/authorizer',
   }
 ]

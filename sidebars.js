@@ -224,7 +224,8 @@ module.exports = {
           label: 'Java',
           collapsed: false,
           items: [
-            'software-development-kits/java/grpc-bindings'
+            'software-development-kits/java/grpc-bindings',
+            'software-development-kits/java/authorizer'
           ],
         }
       ],
