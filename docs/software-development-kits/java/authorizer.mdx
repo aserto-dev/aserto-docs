@@ -34,9 +34,10 @@ ManagedChannel channel = new ChannelBuilder()
 AuthorizerClient authzClient =  new AuthzClient(channel);
 ```
 
+If you are using Topaz as am authorizer, the certificate is located at `~/.config/topaz/certs/grpc-ca.crt`
+For dev/test scenarios  you can also use an insecure connection by replacing `.withCACertPath(<path_to_authorizer_certificates>)` with `.withInsecure(true)`
+
 The `ChannelBuilder` accepts setting the fallowing properties
-
-
 
 | Method | Description |
 | -------------- | ----------- |
