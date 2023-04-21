@@ -1,5 +1,12 @@
 export default [
   {
+    title: 'Node.js',
+    icon: 'nodejs.svg',
+    link: 'https://expressjs.com',
+    github: 'https://github.com/aserto-dev/aserto-node',
+    docs: '/docs/software-development-kits/javascript/express',
+  },
+  {
     title: 'React.js',
     icon: 'react.svg',
     link: 'https://reactjs.org',
@@ -14,11 +21,11 @@ export default [
     docs: '/docs/software-development-kits/javascript/spa',
   },
   {
-    title: 'Express.js',
-    icon: 'nodejs.svg',
-    link: 'https://expressjs.com',
-    github: 'https://github.com/aserto-dev/express-jwt-aserto',
-    docs: '/docs/software-development-kits/javascript/express',
+    title: 'Go',
+    icon: 'go.svg',
+    link: 'https://go.dev/',
+    github: 'https://github.com/aserto-dev/aserto-go',
+    docs: '/docs/software-development-kits/go/install',
   },
   {
     title: 'Python',
@@ -31,8 +38,16 @@ export default [
     title: 'Flask',
     icon: 'flask.svg',
     link: 'https://flask.palletsprojects.com',
-    github: 'https://github.com/aserto-dev/aserto-python/tree/main/packages/flask-aserto',
+    github:
+      'https://github.com/aserto-dev/aserto-python/tree/main/packages/flask-aserto',
     docs: '/docs/software-development-kits/python/flask',
+  },
+  {
+    title: 'Java',
+    icon: 'java.svg',
+    link: 'https://www.java.com/en/',
+    github: 'https://github.com/aserto-dev/java-authorizer',
+    docs: '/docs/software-development-kits/java/authorizer',
   },
   {
     title: 'ASP.NET Core',
@@ -40,13 +55,6 @@ export default [
     link: 'https://dotnet.microsoft.com/apps/aspnet',
     github: 'https://github.com/aserto-dev/aserto-dotnet',
     docs: '/docs/software-development-kits/dotnetcore',
-  },
-  {
-    title: 'Go',
-    icon: 'go.svg',
-    link: 'https://go.dev/',
-    github: 'https://github.com/aserto-dev/aserto-go',
-    docs: '/docs/software-development-kits/go/install',
   },
   {
     title: 'Ruby',
@@ -62,11 +70,4 @@ export default [
     github: 'https://github.com/aserto-dev/aserto-rails',
     docs: '/docs/software-development-kits/ruby/rails',
   },
-  {
-    title: 'Java',
-    icon: 'java.svg',
-    link: 'https://www.java.com/en/',
-    github: 'https://github.com/aserto-dev/java-authorizer',
-    docs: '/docs/software-development-kits/java/authorizer',
-  }
 ]

@@ -14,7 +14,7 @@ const SdkPage = () => {
                         key={s.title}
                         title={s.title}
                         icon={s.icon}
-                        link={s.link}
+                        link={s.docs}
                         github={s.github}
                         docs={s.docs}
                     />

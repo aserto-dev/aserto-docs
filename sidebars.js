@@ -168,9 +168,27 @@ module.exports = {
           label: 'JavaScript',
           collapsed: false,
           items: [
+            'software-development-kits/javascript/express',
             'software-development-kits/javascript/react',
             'software-development-kits/javascript/spa',
-            'software-development-kits/javascript/express',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Go',
+          collapsed: false,
+          items: [
+            'software-development-kits/go/install',
+            'software-development-kits/go/authorizer',
+            {
+              type: 'category',
+              label: 'Middleware',
+              collapsed: false,
+              items: [
+                'software-development-kits/go/middleware-http',
+                'software-development-kits/go/middleware-grpc',
+              ],
+            },
           ],
         },
         {
@@ -193,20 +211,11 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'Go',
+          label: 'Java',
           collapsed: false,
           items: [
-            'software-development-kits/go/install',
-            'software-development-kits/go/authorizer',
-            {
-              type: 'category',
-              label: 'Middleware',
-              collapsed: false,
-              items: [
-                'software-development-kits/go/middleware-http',
-                'software-development-kits/go/middleware-grpc',
-              ],
-            },
+            'software-development-kits/java/grpc-bindings',
+            'software-development-kits/java/authorizer'
           ],
         },
         'software-development-kits/dotnetcore',
@@ -219,15 +228,6 @@ module.exports = {
             'software-development-kits/ruby/rails',
           ],
         },
-        {
-          type: 'category',
-          label: 'Java',
-          collapsed: false,
-          items: [
-            'software-development-kits/java/grpc-bindings',
-            'software-development-kits/java/authorizer'
-          ],
-        }
       ],
     },
     {
