@@ -40,16 +40,15 @@ Click on the newly created connection to retrieve the edge authorizer connection
 
 <img src="/edge-authorizer-connection-entry.png" />
 
-### Onebox
+### Sidecar
 
-The Aserto CLI can be used to configure a Onebox to use the control plane by adding an option to the `configure` sub-command.
+The Aserto CLI can be used to configure the Aserto sidecar to use the control plane by adding an option to the `configure` sub-command.
 
 ```
 aserto x configure <policy-name> --edge-authorizer <edge-authorizer-connection-id>
 ```
 
-This will install the client certificates and configure the Onebox to connect to the control plane using them. The
-`edge-authorizer-connection-id` can be acquired from the console, or using the Aserto CLI:
+This will install the client certificates and configure the sidecar to connect to the control plane using them. The `edge-authorizer-connection-id` can be acquired from the console, or using the Aserto CLI:
 
 ```
 aserto p list-connections
@@ -57,17 +56,15 @@ aserto p list-connections
 
 The `list-connections` sub-command lists all the edge authorizer connections the tenant has.
 
-A Onebox can also be configured to generate decision logs and upload them to the control plane. To do this add the 
-`--decision-logging` argument.
+A sidecar can also be configured to generate decision logs and upload them to the control plane. To do this add the `--decision-logging` argument.
 
 ```
 aserto x configure <policy-name> --edge-authorizer <edge-authorizer-connection-id> --decision-logging
 ```
 
+### Obtaining certificates
 
-### Sidecar
-
-To configure a sidecar authorizer, it is first necessary to get the client certificates for the desired edge authorizer connection. This can be done with the Aserto CLI:
+Certificates have a lifetime of 30 days. You can rotate the certificates in the Aserto console. To obtain the new client certificates, issue the following command using the Aserto CLI:
 
 ```
 aserto p client-cert <edge-authorizer-connection-id>
