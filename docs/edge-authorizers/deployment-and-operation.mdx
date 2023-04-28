@@ -16,35 +16,48 @@ discovery call to the Aserto control plane.
 
 ## Edge Authorizer Flavors
 
-A couple of flavors of edge authorizers are available:
+:::danger Note
+The `onebox` authorizer flavor has been deprecated. Please use the `sidecar`.
+:::
 
-- Onebox: a single-tenant, single policy authorizer with a built-in web UI, to be used as a developer workstation.
-- Sidecar: a single-tenant, single policy authorizer without a web UI. The sidecar is the general edge authorizer flavor
-  with a small surface area, which can be used as a sidecar but also as a local service instance.
+Currently the following flavors of edge authorizers are available:
+
+- Sidecar: a single-tenant, single policy authorizer without a web UI. The sidecar is the general edge authorizer flavor with a small surface area, which can be used as a sidecar but also as a local service instance.
 
 ## Docker images
 
 | Flavor  | Image
 | ------- | --------------------------------------------------------
-| Onebox  | docker pull ghcr.io/aserto-dev/authorizer-onebox:latest
-| Sidecar | docker pull ghcr.io/aserto-dev/authorizer-sidecar:latest
+| Sidecar | docker pull ghcr.io/aserto-dev/sidecar:latest
 
 ## Running the Edge Authorizer
 
-You can run the Onebox authorizer using `aserto` CLI. First, you need to configure your Onebox instance by running the following command. Note that POLICY_INSTANCE_NAME below is the name of a policy instance you created in the console.
+You can run the sidecar authorizer using `aserto` CLI. First, you need to configure your sidecar instance by running the following command. Note that POLICY_INSTANCE_NAME below is the name of a policy instance you created in the console. You can optionally turn on decision logging by using the corresponding flag:
 
 ```sh
-aserto developer configure <POLICY_INSTANCE_NAME>
+aserto developer configure <POLICY_INSTANCE_NAME> [--decision-logging]
 ```
 
-Then, start the Onebox instance by running the following command. Note that the DECISION_LOG_DIRECTORY is a path to where the decision logs will be stored.
+To configure the sidecar to connect to the Aserto control plane, use the following command. Note that EDGE_AUTHORIZER_CONNECTION_ID is the connection ID of an edge authorizer that you [created in the Aserto console](/docs/aserto-console/connections/setup-edge.mdx). 
 
 ```sh
-aserto developer start <POLICY_INSTANCE_NAME> --data-path=<DECISION_LOG_DIRECTORY>
+aserto developer configure <POLICY_INSTANCE_NAME> --edge-authorizer=<EDGE_AUTHORIZER_CONNECTION_ID> [--decision-logging]
 ```
 
-Or by using the `docker` CLI selecting the correct image (`ghcr.io/aserto-dev/authorizer-sidecar:latest` or
-`ghcr.io/aserto-dev/authorizer-onebox:latest`):
+:::note Tip
+To list the available edge authorizer connections, use the following command:
+```sh
+aserto control-plane list-connections
+```
+:::
+
+Then, start the sidcar instance by running the following command. Note that if you turned on decision logging in the configure command, you need to specify the `--data-path` flag, where the DECISION_LOG_DIRECTORY is a path to where the decision logs will be stored.
+
+```sh
+aserto developer start <POLICY_INSTANCE_NAME> [--data-path=<DECISION_LOG_DIRECTORY>]
+```
+
+Or by using the `docker` CLI selecting the correct image (`ghcr.io/aserto-dev/sidecar:latest`):
 
 ```sh
 #!/usr/bin/env bash
@@ -52,7 +65,7 @@ Or by using the `docker` CLI selecting the correct image (`ghcr.io/aserto-dev/au
 docker run \
 -ti \
 --rm \
---name aserto-one \
+--name sidecar \
 --platform=linux/amd64 \
 -p 8282:8282 \
 -p 8383:8383 \
@@ -60,6 +73,6 @@ docker run \
 -v $PWD/certs:/certs:rw \
 -v $PWD/cfg:/app/cfg:ro \
 -v $PWD/eds:/app/db:rw \
-ghcr.io/aserto-dev/authorizer-sidecar:latest run \
+ghcr.io/aserto-dev/sidecar:latest run \
 --config-file /app/cfg/config.yaml
 ```
