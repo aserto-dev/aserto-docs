@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -22,4 +22,4 @@ jobs:
 
       - name: Run Algolia Scrape
         run: |
-          docker run --rm -it -e "APPLICATION_ID=${APPLICATION_ID}" -e API_KEY="${API_KEY}" -e "CONFIG=$(cat ./scripts/algolia-config.json)" algolia/docsearch-scraper
+          docker run --rm -e "APPLICATION_ID=${APPLICATION_ID}" -e API_KEY="${API_KEY}" -e "CONFIG=$(cat ./scripts/algolia-config.json)" algolia/docsearch-scraper
