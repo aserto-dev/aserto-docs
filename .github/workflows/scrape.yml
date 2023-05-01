@@ -1,0 +1,25 @@
+name: Update search index
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Read Configuration
+        uses: hashicorp/vault-action@v2.5.0
+        id: vault
+        with:
+          url: https://vault.eng.aserto.com/
+          token: ${{ secrets.VAULT_TOKEN }}
+          secrets: |
+            kv/data/algolia  "API_KEY"          | API_KEY;
+            kv/data/algolia  "APPLICATION_ID"   | APPLICATION_ID;
+
+      - name: Run Algolia Scrape
+        run: |
+          docker run --rm -it -e "APPLICATION_ID=${APPLICATION_ID}" -e API_KEY="${API_KEY}" -e "CONFIG=$(cat ./scripts/algolia-config.json)" algolia/docsearch-scraper
