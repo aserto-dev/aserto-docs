@@ -11,18 +11,15 @@ The bindings are generated from [Aserto authorizer gRPC API definition](https://
 
 ## Installation
 
-The maven artifact is not yet published to a public maven repository, you have to build it from source.
-To do so, clone the [java-authorizer](https://github.com/aserto-dev/java-authorizer) repository and run `mvn clean install` from the root directory.
-This will create a maven artifact and install it in your local maven repository. To include it just add the following dependency to your `pom.xml`:
+The code is available as a [maven component](https://central.sonatype.com/artifact/com.aserto/java-authorizer)
+and can be easily added to you project by adding the maven dependency
 
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>com.aserto</groupId>
-        <artifactId>java-authorizer</artifactId>
-        <version>0.20.5</version>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>com.aserto</groupId>
+    <artifactId>java-authorizer</artifactId>
+    <version>0.20.5</version>
+</dependency>
 ```
 
 ## Creating a client
