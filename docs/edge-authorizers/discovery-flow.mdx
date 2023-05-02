@@ -10,7 +10,7 @@ When a new edge authorizer is started, the discovery flow will be initiated:
 <img src="/discovery-bootstrap.png" />
 
 1. A configuration file (config.yaml) is passed to the authorizer when it is started
-2. The authorizer makes a discovery call to the control plane, passing the policy ID, authorizer API key, and tenant ID.
+2. The authorizer makes a discovery call to the control plane, passing the policy name, instance label, authorizer API key, and tenant ID.
 3. The authorizer receives a response from the control plane including the configuration that the edge authorizer will need pointing it to the specific policy bundle.
 4. The authorizer validates and merges configuration settings
 5. Finally, the authorizer creates a runtime configuration
@@ -48,55 +48,58 @@ You can retrieve the configuration credentials from the console and copy them in
 
 2. The tenant and policy identifiers can be retrieved from the Policy Settings page of the policy instance which needs to get assigned to the edge authorizer instance.
 
-<img src="/policy-and-tenant-ids.png" />
-
 These credentials map into the `config.yaml` file:
 
 ```yaml
 ---
-logging:
-  prod: true
-  log_level: info
+tenant_id: <TENANT_ID>
+policy_name: <POLICY_NAME>
+instance_label: <INSTANCE_LABEL>
 
-directory_service:
-  path: /app/db/directory.db
-
-api:
-  grpc:
-    connection_timeout_seconds: 2
-    listen_address: '0.0.0.0:8282'
-    certs:
-      tls_key_path: '/app/certs/grpc.key'
-      tls_cert_path: '/app/certs/grpc.crt'
-      tls_ca_cert_path: '/app/certs/grpc-ca.crt'
-  gateway:
-    listen_address: '0.0.0.0:8383'
-    allowed_origins:
-      - https://*.mydomain.com
-    certs:
-      tls_key_path: '/app/certs/gateway.key'
-      tls_cert_path: '/app/certs/gateway.crt'
-      tls_ca_cert_path: '/app/certs/gateway-ca.crt'
-  health:
-    listen_address: '0.0.0.0:8484'
-
-opa:
-  instance_id: <TENANT_ID>
-  graceful_shutdown_period_seconds: 2
-  config:
-    services:
-      aserto-discovery:
-        url: https://discovery.prod.aserto.com/api/v1/discovery/policies
-        credentials:
-          bearer:
-            token: '<DISCOVERY_API_KEY>'
-            scheme: 'basic'
-        headers:
-          Aserto-Tenant-Id: <TENANT_ID>
-    discovery:
-      name: 'opa/discovery'
-      prefix: '<POLICY_ID>'
-
+authorizer:
+  logging:
+    prod: true
+    log_level: info
+  
+  directory_service:
+    path: /app/db/directory.db
+  
+  api:
+    grpc:
+      connection_timeout_seconds: 2
+      listen_address: '0.0.0.0:8282'
+      certs:
+        tls_key_path: '/app/certs/grpc.key'
+        tls_cert_path: '/app/certs/grpc.crt'
+        tls_ca_cert_path: '/app/certs/grpc-ca.crt'
+    gateway:
+      listen_address: '0.0.0.0:8383'
+      allowed_origins:
+        - https://*.mydomain.com
+      certs:
+        tls_key_path: '/app/certs/gateway.key'
+        tls_cert_path: '/app/certs/gateway.crt'
+        tls_ca_cert_path: '/app/certs/gateway-ca.crt'
+    health:
+      listen_address: '0.0.0.0:8484'
+  
+  opa:
+    instance_id: <TENANT_ID>
+    graceful_shutdown_period_seconds: 2
+    config:
+      services:
+        aserto-discovery:
+          url: https://discovery.prod.aserto.com/api/v2/discovery
+          credentials:
+            bearer:
+              token: '<DISCOVERY_API_KEY>'
+              scheme: 'basic'
+          headers:
+            Aserto-Tenant-Id: <TENANT_ID>
+      discovery:
+        service: aserto-discovery
+        resource: <POLICY_NAME>/<INSTANCE_LABEL>/opa
+  
 decision_logger:
   enabled: false
 ```
@@ -107,7 +110,7 @@ To validate the correctness of the data used and to inspect what information is 
 
 ```sh
 curl --request GET \
-     --url https://discovery.prod.aserto.com/api/v1/discovery/policies/<POLICY_ID>/opa/discovery \
+     --url https://discovery.prod.aserto.com/api/v2/discovery/<POLICY_NAME>/<INSTANCE_LABEL>/opa\
      --header 'Accept: application/json' \
      --header 'Content-Type: application/json' \
      --header 'aserto-tenant-id: <TENANT_ID>' \
