@@ -1,0 +1,38 @@
+---
+sidebar_label: Deploy to Kubernetes
+title: Deploy Self-Hosted Console to Kubernetes
+description: Deploy Self-Hosted Console to Kubernetes
+---
+
+# Deploy Self-Hosted Console to Kubernetes via Helm Chart
+
+## Helm Chart
+
+### Usage
+Helm must be installed to use the charts. Please refer to Helm’s documentation to get started.
+
+Once Helm has been set up correctly, add the repo as follows:
+
+```bash
+helm repo add aserto https://charts.aserto.com
+```
+
+If you had already added this repo earlier, run `helm repo update` to retrieve the latest versions of the packages. You can then run `helm search repo aserto` to see the charts.
+
+To install the self-hosted chart:
+
+```bash
+helm install my-aserto aserto/self-hosted
+```
+
+To uninstall the chart:
+
+```bash
+helm delete my-aserto
+```
+
+## Using your own database
+
+The helm chart deploys a local postgres deployment by default.  To use your own database you can override configuration.
+
+values.yaml WIP
