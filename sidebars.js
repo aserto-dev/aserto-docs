@@ -45,6 +45,15 @@ module.exports = {
             'getting-started/peoplefinder/modify-the-policy',
           ],
         },
+
+        {
+          type: 'category',
+          label: 'Self-Hosted',
+          collapsed: false,
+          items: [
+            'getting-started/self-hosted/helm-chart'
+          ],
+        },
         {
           type: 'category',
           label: 'Explore ABAC Policies',
