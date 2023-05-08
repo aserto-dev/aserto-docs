@@ -277,3 +277,8 @@
   from = "/docs/aserto-console/directory"
   to = "/docs/aserto-console/directory/overview"
   status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/self-hosted/helm-chart"
+  to = "/docs/local-deployment/local-directory/helm-chart"
+  status = 301
