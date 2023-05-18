@@ -48,13 +48,22 @@ kubectl --namespace default port-forward $CONSOLE_POD_NAME 8080:8080
 
 For production installations you can install your own kubernetes ingress routes to direct traffic to the console, authorizer, and directory services.
 
-### Using your own database
+### Using your own database and policy
 
 The helm chart deploys a local postgres deployment which is used by the directory by default.  This local database does not persist after the chart is uninstalled.  To use your own external database server you can override the default chart configuration via a `values.yaml` file.
+
+The policy used by the bundled authorizer deployment can also be overridden via `values.yaml`.
+
+For a full list of supported values see (https://github.com/aserto-dev/charts/blob/main/charts/self-hosted/values.yaml)
 
 Create a `values.yaml` in a local folder.  Replace these values with your own.
 ```yaml
 global:
+    sidecar:
+      policyName: policy-todo
+      policyImage: ghcr.io/aserto-policies/policy-todo
+      policyTag: 2
+
     postgresql:
       localServerEnabled: false
       auth:
@@ -68,4 +77,4 @@ Apply your values file with the -f flag when installing the chart:
 helm install my-aserto aserto/self-hosted  -f values.yaml
 ```
 
-Make sure that the database and database user you choose are already created, and that your kubernetes cluster has connectivity to the database server.
+When using your own database ensure that the database and database user you choose are already created, and that your kubernetes cluster has connectivity to the database server.
