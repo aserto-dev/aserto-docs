@@ -17,7 +17,6 @@ A kind of relation that can exist between subjects and resources.
 
 ```graphql
 type RelationType {
-  id: TypeID!
   objectType: ObjectType!
   name: String!
   displayName: String!
@@ -35,10 +34,6 @@ type RelationType {
 
 
 ### Fields
-
-#### [<code style={{ fontWeight: 'normal' }}>RelationType.<b>id</b></code>](#)<Bullet />[`TypeID!`](/docs/directory-api-reference/schema/common/scalars/type-id) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
-> Unique identifier of the relation type.
-> 
 
 #### [<code style={{ fontWeight: 'normal' }}>RelationType.<b>objectType</b></code>](#)<Bullet />[`ObjectType!`](/docs/directory-api-reference/schema/object-types/objects/object-type) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="object-types"/>
 > The type of object that can be part of the relation.

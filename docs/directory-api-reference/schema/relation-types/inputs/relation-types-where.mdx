@@ -19,7 +19,6 @@ All fields are optional. Only relation types that match all given fields are inc
 
 ```graphql
 input RelationTypesWhere {
-  id: TypeIDWhere
   objectType: ObjectTypesWhere
   name: StringWhere
   displayName: StringWhere
@@ -31,10 +30,6 @@ input RelationTypesWhere {
 
 
 ### Fields
-
-#### [<code style={{ fontWeight: 'normal' }}>RelationTypesWhere.<b>id</b></code>](#)<Bullet />[`TypeIDWhere`](/docs/directory-api-reference/schema/common/inputs/type-idwhere) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
-> Filter relation types by id.
-> 
 
 #### [<code style={{ fontWeight: 'normal' }}>RelationTypesWhere.<b>objectType</b></code>](#)<Bullet />[`ObjectTypesWhere`](/docs/directory-api-reference/schema/object-types/inputs/object-types-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="object-types"/>
 > Filter relation types by their associated object type.

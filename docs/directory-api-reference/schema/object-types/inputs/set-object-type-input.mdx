@@ -23,7 +23,6 @@ the object type and `name` is the new name.
 
 ```graphql
 input SetObjectTypeInput {
-  id: TypeID
   name: String!
   displayName: String
   isSubject: Boolean
@@ -35,10 +34,6 @@ input SetObjectTypeInput {
 
 
 ### Fields
-
-#### [<code style={{ fontWeight: 'normal' }}>SetObjectTypeInput.<b>id</b></code>](#)<Bullet />[`TypeID`](/docs/directory-api-reference/schema/common/scalars/type-id) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
-> ID of an existing object type to update. If set, an object type with the specified ID must already exist.
-> 
 
 #### [<code style={{ fontWeight: 'normal' }}>SetObjectTypeInput.<b>name</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
 > Name of the object type. Must be unique among all object types in the directory.

@@ -15,23 +15,16 @@ export const Badge = (props) => <><span class={'badge badge--' + props.class}>{p
 
 Input that uniquely identifies an object.
 
-The fields are mutually exclusive. Exactly one value must be set.
-
 ```graphql
 input ObjectSelector {
-  id: ID
-  key: ObjectKey
+  key: ObjectKey!
 }
 ```
 
 
 ### Fields
 
-#### [<code style={{ fontWeight: 'normal' }}>ObjectSelector.<b>id</b></code>](#)<Bullet />[`ID`](/docs/directory-api-reference/schema/common/scalars/id) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
-> The ID of the object to select.
-> 
-
-#### [<code style={{ fontWeight: 'normal' }}>ObjectSelector.<b>key</b></code>](#)<Bullet />[`ObjectKey`](/docs/directory-api-reference/schema/objects/inputs/object-key) <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+#### [<code style={{ fontWeight: 'normal' }}>ObjectSelector.<b>key</b></code>](#)<Bullet />[`ObjectKey!`](/docs/directory-api-reference/schema/objects/inputs/object-key) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
 > The key and type of the object to select.
 > 
 

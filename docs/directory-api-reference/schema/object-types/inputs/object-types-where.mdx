@@ -19,7 +19,6 @@ All fields are optional. Only object types that match all given fields are inclu
 
 ```graphql
 input ObjectTypesWhere {
-  id: TypeIDWhere
   isSubject: Boolean
   name: StringWhere
   displayName: StringWhere
@@ -30,10 +29,6 @@ input ObjectTypesWhere {
 
 
 ### Fields
-
-#### [<code style={{ fontWeight: 'normal' }}>ObjectTypesWhere.<b>id</b></code>](#)<Bullet />[`TypeIDWhere`](/docs/directory-api-reference/schema/common/inputs/type-idwhere) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
-> Filter object types by id.
-> 
 
 #### [<code style={{ fontWeight: 'normal' }}>ObjectTypesWhere.<b>isSubject</b></code>](#)<Bullet />[`Boolean`](/docs/directory-api-reference/schema/common/scalars/boolean) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
 > If true, only include subject types. If false, only include non-subject types.

@@ -17,9 +17,8 @@ ObjectType represents the kinds of objects that can exist in the directory.
 
 ```graphql
 type ObjectType {
-  id: TypeID!
-  isSubject: Boolean!
   name: String!
+  isSubject: Boolean!
   displayName: String!
   ordinal: Int!
   status: [Flag!]!
@@ -35,16 +34,12 @@ type ObjectType {
 
 ### Fields
 
-#### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>id</b></code>](#)<Bullet />[`TypeID!`](/docs/directory-api-reference/schema/common/scalars/type-id) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
-> Unique identifier for the object type.
+#### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>name</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Name of the object type.
 > 
 
 #### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>isSubject</b></code>](#)<Bullet />[`Boolean!`](/docs/directory-api-reference/schema/common/scalars/boolean) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
 > Whether the object type represents a subject type.
-> 
-
-#### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>name</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
-> Name of the object type.
 > 
 
 #### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>displayName</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>

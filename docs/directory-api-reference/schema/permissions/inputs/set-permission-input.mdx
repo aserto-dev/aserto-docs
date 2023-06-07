@@ -17,7 +17,6 @@ Input to the setPermission mutation.
 
 ```graphql
 input SetPermissionInput {
-  id: ID
   permission: String
   displayName: String
   hash: Hash
@@ -26,10 +25,6 @@ input SetPermissionInput {
 
 
 ### Fields
-
-#### [<code style={{ fontWeight: 'normal' }}>SetPermissionInput.<b>id</b></code>](#)<Bullet />[`ID`](/docs/directory-api-reference/schema/common/scalars/id) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
-> The ID of an existing permission to update. If provided, a permission with the specified ID must exist.
-> 
 
 #### [<code style={{ fontWeight: 'normal' }}>SetPermissionInput.<b>permission</b></code>](#)<Bullet />[`String`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
 > The unique permission value.

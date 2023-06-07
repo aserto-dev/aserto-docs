@@ -17,7 +17,6 @@ Input for the setRelationType mutation.
 
 ```graphql
 input SetRelationTypeInput {
-  id: TypeID
   name: String
   objectType: ObjectTypeSelector
   displayName: String
@@ -30,10 +29,6 @@ input SetRelationTypeInput {
 
 
 ### Fields
-
-#### [<code style={{ fontWeight: 'normal' }}>SetRelationTypeInput.<b>id</b></code>](#)<Bullet />[`TypeID`](/docs/directory-api-reference/schema/common/scalars/type-id) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
-> ID of an existing relation type to update. If set, a relation type with the specified ID must already exist.
-> 
 
 #### [<code style={{ fontWeight: 'normal' }}>SetRelationTypeInput.<b>name</b></code>](#)<Bullet />[`String`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
 > Name of the relation type.
