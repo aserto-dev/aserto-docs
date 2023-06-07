@@ -19,7 +19,6 @@ The following query is used to [paginate](overview#pagination) over all object t
 {
   objectTypes(first: 3) {
     nodes {
-      id
       name
       isSubject
       displayName
@@ -47,7 +46,6 @@ The following query is used to [paginate](overview#pagination) over all object t
     "objectTypes": {
       "nodes": [
         {
-          "id": 10001,
           "name": "user",
           "isSubject": true,
           "displayName": "User",
@@ -58,7 +56,6 @@ The following query is used to [paginate](overview#pagination) over all object t
           }
         },
         {
-          "id": 10003,
           "name": "group",
           "isSubject": true,
           "displayName": "Group",
@@ -69,7 +66,6 @@ The following query is used to [paginate](overview#pagination) over all object t
           }
         },
         {
-          "id": 10002,
           "name": "identity",
           "isSubject": false,
           "displayName": "Identity",
@@ -106,7 +102,6 @@ substring `"user"`:
     where: {isSubject: true, name: {contains: "user"}}
   ) {
     nodes {
-      id
       name
       isSubject
       displayName
@@ -127,7 +122,6 @@ substring `"user"`:
     "objectTypes": {
       "nodes": [
         {
-          "id": 10001,
           "name": "user",
           "isSubject": true,
           "displayName": "User",
@@ -135,7 +129,6 @@ substring `"user"`:
           "status": []
         },
         {
-          "id": 10006,
           "name": "user-v1",
           "isSubject": true,
           "displayName": "UserV1",
@@ -174,7 +167,6 @@ mutation CreateOrganizationObjectType {
     status: []
   }) {
     objectType {
-      id
       name
       displayName
       isSubject
@@ -185,7 +177,7 @@ mutation CreateOrganizationObjectType {
 }
 ```
 
-The _name_ of the new type is "org". It must be unique among all object types and, like the ID, can be used to refer to
+The _name_ of the new type is "org". It must be unique among all object types and is used to refer to
 the type in other queries and mutations.
 
 The display name, "Organization", is how the type appears in the Aserto Console.
@@ -206,7 +198,6 @@ set in the `status` field.
   "data": {
     "setObjectType": {
       "objectType": {
-        "id": 1,
         "name": "org",
         "displayName": "Organization",
         "isSubject": false,
@@ -223,25 +214,21 @@ set in the `status` field.
 
 ### Modify
 
-All object type fields can be modified after creation except for the ID. The same [setObjetType](schema/object-types/mutations/set-object-type)
+All object type fields except `name` can be modified after creation. The same [setObjetType](schema/object-types/mutations/set-object-type)
 mutation used above to create a new object type is also used to modify existing ones.
 
-To modify the name of the new type to `"organization"` we need to refer to the type by its ID.
-Since an object type is uniquely identified by its name, the `id` field in [setObjetType](schema/object-types/mutations/set-object-type)
-is only required when changing an object type's `name`.
+The mutation belw modifies the display name of the new type to `"Org"` and its ordinal to `400`.
 
 ```graphql
 mutation CreateOrganizationObjectType {
   setObjectType(type: {
-    id: 1
-    name: "organization"
-    displayName: "Organization"
+    name: "org"
+    displayName: "Org"
     isSubject: false
-    ordinal: 350
+    ordinal: 400
     status: []
   }) {
     objectType {
-      id
       name
       displayName
       isSubject
@@ -261,11 +248,10 @@ mutation CreateOrganizationObjectType {
   "data": {
     "setObjectType": {
       "objectType": {
-        "id": 1,
-        "name": "organization",
-        "displayName": "Organization",
+        "name": "org",
+        "displayName": "Org",
         "isSubject": false,
-        "ordinal": 350,
+        "ordinal": 400,
         "status": []
       }
     }
@@ -274,52 +260,3 @@ mutation CreateOrganizationObjectType {
 ```
   </div>
 </details>
-
-To modify any field(s) besided `name` we can omit the ID since the name uniquely identifies the object type.
-The query below changes the `ordinal` value and adds the `READONLY` flag to the object type's `status` field.
-
-
-```graphql
-mutation CreateOrganizationObjectType {
-  setObjectType(type: {
-    name: "organization"
-    displayName: "Organization"
-    isSubject: false
-    ordinal: 450
-    status: [READONLY]
-  }) {
-    objectType {
-      id
-      name
-      displayName
-      isSubject
-      ordinal
-      status
-    }
-  }
-}
-```
-
-<details>
-  <summary>Results</summary>
-  <div><span/>
-
-```json
-{
-  "data": {
-    "setObjectType": {
-      "objectType": {
-        "id": 1,
-        "name": "organization",
-        "displayName": "Organization",
-        "isSubject": false,
-        "ordinal": 350,
-        "status": [READONLY]
-      }
-    }
-  }
-}
-```
-  </div>
-</details>
-

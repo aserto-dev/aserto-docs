@@ -24,7 +24,6 @@ mutation CreateDepartmentObjectType {
     status: []
   }) {
     objectType {
-      id
       name
       displayName
       isSubject
@@ -44,7 +43,6 @@ mutation CreateDepartmentObjectType {
   "data": {
     "setObjectType": {
       "objectType": {
-        "id": 1,
         "name": "department",
         "displayName": "Department",
         "isSubject": false,
@@ -67,14 +65,13 @@ The input fields are described in more detail [here](/docs/directory-api-referen
 To see that the department object types was indeed created, we can enumerate object types using the
 [objectTypes](/docs/directory-api-reference/schema/object-types/queries/object-types) query.
 
-The following query retrieves the `id`, `name`, and `displayName` fields of the first 10 object types that are not subject
+The following query retrieves the `name` and `displayName` fields of the first 10 object types that are not subject
 _and_ have an no modifier flags in their `status` field:
 
 ```graphql title="Query"
 query ListObjectTypes {
   objectTypes(first: 10, where: {isSubject: false, status: {equals: []}}) {
     nodes {
-      id
       name
       displayName
     }
@@ -92,17 +89,14 @@ query ListObjectTypes {
     "objectTypes": {
       "nodes": [
         {
-          "id": 1,
           "name": "department",
           "displayName": "Department"
         },
         {
-          "id": 10004,
           "name": "application",
           "displayName": "Application"
         },
         {
-          "id": 10005,
           "name": "resource",
           "displayName": "Resource"
         }
@@ -132,13 +126,13 @@ mutation CreateDepartmentViewerRelationType {
   setRelationType(type: {
     objectType: {name: "department"}
     name: "viewer",
-    displayName: "department::viewer"
+    displayName: "department:viewer"
     ordinal: 1,
     status: []
     unions: []
   }) {
     relationType {
-      id
+      name
       displayName
     }
   }
@@ -154,8 +148,8 @@ mutation CreateDepartmentViewerRelationType {
   "data": {
     "setRelationType": {
       "relationType": {
-        "id": 2,
-        "displayName": "department::viewer"
+        "name": "viewer",
+        "displayName": "department:viewer"
       }
     }
   }
@@ -164,13 +158,11 @@ mutation CreateDepartmentViewerRelationType {
   </div>
 </details>
 
-We specify the object type on which the relation can occur using the `objectType` field. Here we referred to the
-object type by name, but could also refer to it by ID, in which case we would use `{id: 1}` (the ID of our newly
-created department object type is `1`).
+We specify the object type on which the relation can occur using the `objectType` field.
 
 The `name` field of relation types needs to be unique among all relation types defined on the same object type.
 
-By convention, the `displayName` of relation types is set to `<object type name>::<relation type name>`.
+By convention, the `displayName` of relation types is set to `<object type name>:<relation type name>`.
 
 The input fields are described in more detail
 [here](/docs/directory-api-reference/schema/relation-types/inputs/set-relation-type-input).
@@ -185,27 +177,27 @@ types in a single request:
 mutation CreateDepartmentMemberAndOwnerRelationTypes {
   member: setRelationType(type: {
     name: "member",
-    displayName: "department::member"
+    displayName: "department:member"
     objectType: {name: "department"}
     ordinal: 1,
     status: []
     unions: []
   }) {
     relationType {
-      id
+      name
     }
   }
 
   owner: setRelationType(type: {
     name: "owner",
-    displayName: "department::owner"
+    displayName: "department:owner"
     objectType: {name: "department"}
     ordinal: 1,
     status: []
     unions: []
   }) {
     relationType {
-      id
+      name
     }
   }
 }
@@ -220,14 +212,12 @@ mutation CreateDepartmentMemberAndOwnerRelationTypes {
   "data": {
     "member": {
       "relationType": {
-        "id": 3,
-        "displayName": "department::member"
+        "name": "member"
       }
     },
     "owner": {
       "relationType": {
-        "id": 4,
-        "displayName": "department::owner"
+        "name": "owner"
       }
     }
   }
@@ -249,7 +239,6 @@ Let's run a query to see that all three relation types were created as intended.
 query RelationTypes {
   relationTypes(first: 3) {
     nodes {
-      id
       name
       displayName
       objectType {
@@ -271,27 +260,24 @@ query RelationTypes {
     "relationTypes": {
       "nodes": [
         {
-          "id": 2,
           "name": "viewer",
-          "displayName": "department::viewer",
+          "displayName": "department:viewer",
           "objectType": {
             "name": "department"
           },
           "ordinal": 1,
         },
         {
-          "id": 3,
           "name": "member",
-          "displayName": "department::member",
+          "displayName": "department:member",
           "objectType": {
             "name": "department"
           },
           "ordinal": 1,
         },
         {
-          "id": 4,
           "name": "owner",
-          "displayName": "department::owner",
+          "displayName": "department:owner",
           "objectType": {
             "name": "department"
           },
@@ -308,5 +294,5 @@ query RelationTypes {
 :::info
 The three relation types we created appear first because we gave them all a low `ordinal` value (i.e. `1`).
 Types with lower ordinal values are retruned first. When several types have the same ordinal value, as in our case,
-they are sorted by ID.
+their sort order is arbitrary but stable.
 :::
