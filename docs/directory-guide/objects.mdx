@@ -22,7 +22,6 @@ mutation CreateDepartmentObjects {
     properties: {}
   }) {
     object {
-      id
       key
       displayName
       type {
@@ -38,7 +37,6 @@ mutation CreateDepartmentObjects {
     properties: {}
   }) {
     object {
-      id
       key
       displayName
       type {
@@ -54,7 +52,6 @@ mutation CreateDepartmentObjects {
     properties: {}
   }) {
     object {
-      id
       key
       displayName
       type {
@@ -74,7 +71,6 @@ mutation CreateDepartmentObjects {
   "data": {
     "spaceships": {
       "object": {
-        "id": "e107f748-670e-4bb3-b0e4-c7648f72623a",
         "key": "spaceships",
         "displayName": "Spaceships"
         "type": {
@@ -84,7 +80,6 @@ mutation CreateDepartmentObjects {
     },
     "teleporters": {
       "object": {
-        "id": "82fcd434-eec0-4c05-b4e8-7d04ac973ce1",
         "key": "teleporters",
         "displayName": "Teleporters"
         "type": {
@@ -94,7 +89,6 @@ mutation CreateDepartmentObjects {
     },
     "lasers": {
       "object": {
-        "id": "a88ae63c-269d-440f-bbaa-2341b7007f30",
         "key": "lasers",
         "displayName": "Lasers"
         "type": {
@@ -109,8 +103,8 @@ mutation CreateDepartmentObjects {
 </details>
 
 Similar to the `name` field of the object and realtion types we created in the [previous step](types), the `key` value
-of an object is used to identify it within other objects of the same type. Objects can be uniquely identified either by
-their `id` or the combination of their `key` and `type`.
+of an object is used to identify it within other objects of the same type. Objects are uniquely identified by the
+combination of their `key` and `type`.
 
 See [SetObjectInput](/docs/directory-api-reference/schema/objects/inputs/set-object-input) for more details on the input fields.
 
@@ -123,7 +117,6 @@ just created.
 query DepartmentObjects {
   objects(first: 5, where: {type: {name: {equals: "department"}}}) {
     nodes {
-      id
       key
       displayName
       type {
@@ -144,7 +137,6 @@ query DepartmentObjects {
     "objects": {
       "nodes": [
         {
-          "id": "82fcd434-eec0-4c05-b4e8-7d04ac973ce1",
           "key": "teleporters",
           "displayName": "Teleporters",
           "type": {
@@ -152,7 +144,6 @@ query DepartmentObjects {
           }
         },
         {
-          "id": "a88ae63c-269d-440f-bbaa-2341b7007f30",
           "key": "lasers",
           "displayName": "Lasers",
           "type": {
@@ -160,7 +151,6 @@ query DepartmentObjects {
           }
         },
         {
-          "id": "e107f748-670e-4bb3-b0e4-c7648f72623a",
           "key": "spaceships",
           "displayName": "Spaceships",
           "type": {
