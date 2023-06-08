@@ -228,7 +228,7 @@ module.exports = {
             'local-deployment/local-directory/overview',
             'local-deployment/local-directory/helm-chart',
           ],
-        },        
+        },
       ],
     },
     {
@@ -297,6 +297,7 @@ module.exports = {
           items: [
             'software-development-kits/ruby/middleware',
             'software-development-kits/ruby/rails',
+            'software-development-kits/ruby/directory',
           ],
         },
       ],
