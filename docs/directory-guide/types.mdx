@@ -124,7 +124,7 @@ We'll start witht the `viewer` relation.
 ```graphql title="Query"
 mutation CreateDepartmentViewerRelationType {
   setRelationType(type: {
-    objectType: {name: "department"}
+    objectType: "department"
     name: "viewer",
     displayName: "department:viewer"
     ordinal: 1,
@@ -178,7 +178,7 @@ mutation CreateDepartmentMemberAndOwnerRelationTypes {
   member: setRelationType(type: {
     name: "member",
     displayName: "department:member"
-    objectType: {name: "department"}
+    objectType: "department"
     ordinal: 1,
     status: []
     unions: []
@@ -191,7 +191,7 @@ mutation CreateDepartmentMemberAndOwnerRelationTypes {
   owner: setRelationType(type: {
     name: "owner",
     displayName: "department:owner"
-    objectType: {name: "department"}
+    objectType: "department"
     ordinal: 1,
     status: []
     unions: []
