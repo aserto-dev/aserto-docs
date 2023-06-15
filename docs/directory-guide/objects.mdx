@@ -16,7 +16,7 @@ We can use a single request to create all three objects:
 ```graphql title="Query"
 mutation CreateDepartmentObjects {
   spaceships: setObject(object: {
-    type: {name: "department"}
+    type: "department"
     key: "spaceships"
     displayName: "Spaceships"
     properties: {}
@@ -31,7 +31,7 @@ mutation CreateDepartmentObjects {
   }
 
   teleporters: setObject(object: {
-    type: {name: "department"}
+    type: "department"
     key: "teleporters"
     displayName: "Teleporters"
     properties: {}
@@ -46,7 +46,7 @@ mutation CreateDepartmentObjects {
   }
 
   lasers: setObject(object: {
-    type: {name: "department"}
+    type: "department"
     key: "lasers"
     displayName: "Lasers"
     properties: {}

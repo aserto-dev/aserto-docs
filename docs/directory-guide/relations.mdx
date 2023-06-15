@@ -85,9 +85,9 @@ The following request creates all three of Rick's `owner` relations:
 ```graphql title="Query"
 mutation CreateRickOwnerRelations {
   spaceships: setRelation(relation: {
-    object: {key: {key: "spaceships", type: {name: "department"}}}
-    relationType: {name: {name: "owner", objectType: {name: "department"}}}
-    subject: {key: {key: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d", type: {name: "user"}}}
+    object: {key: "spaceships", type: "department"}
+    relationType: {name: "owner", objectType: "department"}
+    subject: {key: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d", type: "user"}
   }) {
     relation {
       object {
@@ -109,9 +109,9 @@ mutation CreateRickOwnerRelations {
   }
 
   teleporters: setRelation(relation: {
-    object: {key: {key: "teleporters", type: {name: "department"}}}
-    relationType: {name: {name: "owner", objectType: {name: "department"}}}
-    subject: {key: {key: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d", type: {name: "user"}}}
+    object: {key: "teleporters", type: "department"}
+    relationType: {name: "owner", objectType: "department"}
+    subject: {key: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d", type: "user"}
   }) {
     relation {
       object {
@@ -133,9 +133,9 @@ mutation CreateRickOwnerRelations {
   }
 
   lasers: setRelation(relation: {
-    object: {key: {key: "lasers", type: {name: "department"}}}
-    relationType: {name: {name: "owner", objectType: {name: "department"}}}
-    subject: {key: {key: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d", type: {name: "user"}}}
+    object: {key: "lasers", type: "department"}
+    relationType: {name: "owner", objectType: "department"}
+    subject: {key: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d", type: "user"}
   }) {
     relation {
       object {
@@ -237,18 +237,18 @@ the relations in which it appears as the subject and the object is of type `depa
 
 ```graphql title="Query"
 query RicksRelations {
-  object(selector: {key: {key: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d"}, type: {name: "user"}}) {
+  object(key: "fd0614d3-c39a-4781-b7bd-8b96f5a5100d", type: "user") {
     displayName
     relations(
       side: SUBJECT,
-      options: {otherType: {name: "department"}},
+      options: {otherType: "department"},
       first: 3
     ) {
       nodes {
         type {
           displayName
         }
-        subject {
+        object {
           type {
             displayName
           }
@@ -275,7 +275,7 @@ query RicksRelations {
             "type": {
               "displayName": "department:owner"
             },
-            "subject": {
+            "object": {
               "type": {
                 "displayName": "Department"
               },
@@ -286,7 +286,7 @@ query RicksRelations {
             "type": {
               "displayName": "department:owner"
             },
-            "subject": {
+            "object": {
               "type": {
                 "displayName": "Department"
               },
@@ -297,7 +297,7 @@ query RicksRelations {
             "type": {
               "displayName": "department:owner"
             },
-            "subject": {
+            "object": {
               "type": {
                 "displayName": "Department"
               },
