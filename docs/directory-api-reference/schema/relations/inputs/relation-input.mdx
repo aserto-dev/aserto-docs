@@ -17,18 +17,16 @@ Input to the setRelation mutation.
 
 ```graphql
 input RelationInput {
-  object: ObjectSelector
+  object: ObjectSelector!
   relationType: RelationTypeSelector!
-  subject: ObjectSelector
-  source: ObjectSelector
-  target: ObjectSelector
+  subject: ObjectSelector!
 }
 ```
 
 
 ### Fields
 
-#### [<code style={{ fontWeight: 'normal' }}>RelationInput.<b>object</b></code>](#)<Bullet />[`ObjectSelector`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+#### [<code style={{ fontWeight: 'normal' }}>RelationInput.<b>object</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
 > The relation's object.
 > 
 
@@ -36,16 +34,8 @@ input RelationInput {
 > The relation type.
 > 
 
-#### [<code style={{ fontWeight: 'normal' }}>RelationInput.<b>subject</b></code>](#)<Bullet />[`ObjectSelector`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+#### [<code style={{ fontWeight: 'normal' }}>RelationInput.<b>subject</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
 > The relation's subject.
-> 
-
-#### [<code style={{ fontWeight: 'normal' }}>RelationInput.<b>source</b></code>](#)<Bullet />[`ObjectSelector`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
-> The source object. Deprecated: use `object` instead.
-> 
-
-#### [<code style={{ fontWeight: 'normal' }}>RelationInput.<b>target</b></code>](#)<Bullet />[`ObjectSelector`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
-> The target object. Deprecated: use `subject` instead.
 > 
 
 

@@ -17,15 +17,20 @@ Delete a relation type.
 
 ```graphql
 deleteRelationType(
-  selector: RelationTypeSelector!
+  name: String!
+  objectType: String!
 ): DeleteRelationTypeResult!
 ```
 
 
 ### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>deleteRelationType.<b>selector</b></code>](#)<Bullet />[`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
+#### [<code style={{ fontWeight: 'normal' }}>deleteRelationType.<b>name</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The name of the relation type to delete.
 > 
+
+#### [<code style={{ fontWeight: 'normal' }}>deleteRelationType.<b>objectType</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The name of the object type on which the relation type is defined.
 > 
 
 ### Type

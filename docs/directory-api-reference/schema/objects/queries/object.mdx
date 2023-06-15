@@ -17,15 +17,20 @@ Select a single object.
 
 ```graphql
 object(
-  selector: ObjectSelector!
+  key: String!
+  type: String!
 ): Object!
 ```
 
 
 ### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>object.<b>selector</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
-> [Required] Selection criteria. Objects can be selected based on their `id` or the combination of `key` and `type`.
+#### [<code style={{ fontWeight: 'normal' }}>object.<b>key</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The key of the object to select.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>object.<b>type</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The type of the object to select. Must be the name of an existing object type.
 > 
 
 ### Type

@@ -18,7 +18,7 @@ Options for queriying object relations.
 ```graphql
 input RelationOptions {
   other: ObjectSelector
-  otherType: ObjectTypeSelector
+  otherType: String
   relationType: RelationTypeSelector
 }
 ```
@@ -30,7 +30,7 @@ input RelationOptions {
 > [optional] Only include relations with the specified object ID.
 > 
 
-#### [<code style={{ fontWeight: 'normal' }}>RelationOptions.<b>otherType</b></code>](#)<Bullet />[`ObjectTypeSelector`](/docs/directory-api-reference/schema/object-types/inputs/object-type-selector) <Badge class="secondary" text="input"/> <Badge class="secondary" text="object-types"/>
+#### [<code style={{ fontWeight: 'normal' }}>RelationOptions.<b>otherType</b></code>](#)<Bullet />[`String`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
 > [optional] Only include relations with objects of the specified object type.
 > 
 

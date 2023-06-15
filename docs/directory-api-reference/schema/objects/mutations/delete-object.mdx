@@ -13,19 +13,24 @@ export const SpecifiedBy = (props) => <>Specification<a className="link" style={
 export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
 
 
-Delete an existing object and all its relations.
+Delete an existing object.
 
 ```graphql
 deleteObject(
-  selector: ObjectSelector!
+  key: String!
+  type: String!
 ): DeleteObjectResult!
 ```
 
 
 ### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>deleteObject.<b>selector</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+#### [<code style={{ fontWeight: 'normal' }}>deleteObject.<b>key</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The key of the object to delete.
 > 
+
+#### [<code style={{ fontWeight: 'normal' }}>deleteObject.<b>type</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The type name of the object to delete.
 > 
 
 ### Type

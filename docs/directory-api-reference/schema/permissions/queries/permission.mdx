@@ -17,15 +17,15 @@ Select a single permission.
 
 ```graphql
 permission(
-  selector: PermissionSelector!
+  permission: String!
 ): Permission!
 ```
 
 
 ### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>permission.<b>selector</b></code>](#)<Bullet />[`PermissionSelector!`](/docs/directory-api-reference/schema/permissions/inputs/permission-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="permissions"/>
-> [Required] Selection criteria. Permissions can be selected based on their `id` or `permission` field.
+#### [<code style={{ fontWeight: 'normal' }}>permission.<b>permission</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> [Required] The permission to select.
 > 
 
 ### Type

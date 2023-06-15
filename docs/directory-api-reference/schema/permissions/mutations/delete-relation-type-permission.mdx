@@ -18,7 +18,7 @@ Delete a permission from a relation type.
 ```graphql
 deleteRelationTypePermission(
   relationType: RelationTypeSelector!
-  permission: PermissionSelector!
+  permission: String!
 ): DeleteRelationTypePermissionResult!
 ```
 
@@ -26,11 +26,11 @@ deleteRelationTypePermission(
 ### Arguments
 
 #### [<code style={{ fontWeight: 'normal' }}>deleteRelationTypePermission.<b>relationType</b></code>](#)<Bullet />[`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
-> 
+> The relation type from which the permission is to be removed.
 > 
 
-#### [<code style={{ fontWeight: 'normal' }}>deleteRelationTypePermission.<b>permission</b></code>](#)<Bullet />[`PermissionSelector!`](/docs/directory-api-reference/schema/permissions/inputs/permission-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="permissions"/>
-> 
+#### [<code style={{ fontWeight: 'normal' }}>deleteRelationTypePermission.<b>permission</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The permission to remove from the relation type.
 > 
 
 ### Type

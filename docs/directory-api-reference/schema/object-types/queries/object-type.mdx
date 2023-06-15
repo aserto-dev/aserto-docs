@@ -17,15 +17,15 @@ Select a single object type.
 
 ```graphql
 objectType(
-  selector: ObjectTypeSelector!
+  name: String!
 ): ObjectType!
 ```
 
 
 ### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>objectType.<b>selector</b></code>](#)<Bullet />[`ObjectTypeSelector!`](/docs/directory-api-reference/schema/object-types/inputs/object-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="object-types"/>
-> [Required] Selection criteria. Object types can be selected based on their `id` or `name` field.
+#### [<code style={{ fontWeight: 'normal' }}>objectType.<b>name</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The name of the object type to retrieve.
 > 
 
 ### Type

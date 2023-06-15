@@ -1,6 +1,6 @@
 ---
 id: check-relation
-title: check_relation
+title: checkRelation
 hide_table_of_contents: true
 ---
 
@@ -16,7 +16,7 @@ export const Badge = (props) => <><span class={'badge badge--' + props.class}>{p
 Checks if a subject has a given relation to an object.
 
 ```graphql
-check_relation(
+checkRelation(
   subject: ObjectSelector!
   relation: RelationTypeSelector!
   object: ObjectSelector!
@@ -26,15 +26,15 @@ check_relation(
 
 ### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>check_relation.<b>subject</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+#### [<code style={{ fontWeight: 'normal' }}>checkRelation.<b>subject</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
 > [Required] The subject of the relation.
 > 
 
-#### [<code style={{ fontWeight: 'normal' }}>check_relation.<b>relation</b></code>](#)<Bullet />[`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
+#### [<code style={{ fontWeight: 'normal' }}>checkRelation.<b>relation</b></code>](#)<Bullet />[`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
 > [Required] The relation type.
 > 
 
-#### [<code style={{ fontWeight: 'normal' }}>check_relation.<b>object</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+#### [<code style={{ fontWeight: 'normal' }}>checkRelation.<b>object</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
 > [Required] The object of the relation.
 > 
 

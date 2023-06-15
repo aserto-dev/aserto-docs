@@ -15,26 +15,29 @@ export const Badge = (props) => <><span class={'badge badge--' + props.class}>{p
 
 A RelationTypeSelector identifies a relation type by the combination of its name and associated object type.
 
-The two fields are mutually exclusive. Only one may be specified.
-
 ```graphql
 input RelationTypeSelector {
-  name: RelationTypeName
+  name: String!
+  objectType: String!
 }
 ```
 
 
 ### Fields
 
-#### [<code style={{ fontWeight: 'normal' }}>RelationTypeSelector.<b>name</b></code>](#)<Bullet />[`RelationTypeName`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-name) <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
-> Select relation type by name + object-type.
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypeSelector.<b>name</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Name of the relation type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypeSelector.<b>objectType</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The type of object that can be part of the relation.
 > 
 
 
 
 ### Member of
 
-[`check_relation`](/docs/directory-api-reference/schema/relations/queries/check-relation)  <Badge class="secondary" text="query"/><Bullet />[`deleteRelationType`](/docs/directory-api-reference/schema/relation-types/mutations/delete-relation-type)  <Badge class="secondary" text="mutation"/><Bullet />[`deleteRelationTypePermission`](/docs/directory-api-reference/schema/permissions/mutations/delete-relation-type-permission)  <Badge class="secondary" text="mutation"/><Bullet />[`RelationInput`](/docs/directory-api-reference/schema/relations/inputs/relation-input)  <Badge class="secondary" text="input"/><Bullet />[`RelationOptions`](/docs/directory-api-reference/schema/objects/inputs/relation-options)  <Badge class="secondary" text="input"/><Bullet />[`relationType`](/docs/directory-api-reference/schema/relation-types/queries/relation-type)  <Badge class="secondary" text="query"/><Bullet />[`SetRelationTypeInput`](/docs/directory-api-reference/schema/relation-types/inputs/set-relation-type-input)  <Badge class="secondary" text="input"/><Bullet />[`SetRelationTypePermissionInput`](/docs/directory-api-reference/schema/permissions/inputs/set-relation-type-permission-input)  <Badge class="secondary" text="input"/><Bullet />[`UnionsWhere`](/docs/directory-api-reference/schema/relation-types/inputs/unions-where)  <Badge class="secondary" text="input"/>
+[`checkRelation`](/docs/directory-api-reference/schema/relations/queries/check-relation)  <Badge class="secondary" text="query"/><Bullet />[`deleteRelationTypePermission`](/docs/directory-api-reference/schema/permissions/mutations/delete-relation-type-permission)  <Badge class="secondary" text="mutation"/><Bullet />[`RelationInput`](/docs/directory-api-reference/schema/relations/inputs/relation-input)  <Badge class="secondary" text="input"/><Bullet />[`RelationOptions`](/docs/directory-api-reference/schema/objects/inputs/relation-options)  <Badge class="secondary" text="input"/><Bullet />[`SetRelationTypeInput`](/docs/directory-api-reference/schema/relation-types/inputs/set-relation-type-input)  <Badge class="secondary" text="input"/><Bullet />[`SetRelationTypePermissionInput`](/docs/directory-api-reference/schema/permissions/inputs/set-relation-type-permission-input)  <Badge class="secondary" text="input"/><Bullet />[`UnionsWhere`](/docs/directory-api-reference/schema/relation-types/inputs/unions-where)  <Badge class="secondary" text="input"/>
 
 
 

@@ -20,10 +20,7 @@ type Relation {
   object: Object!
   subject: Object!
   type: RelationType!
-  hash: Hash
   lifecycle: Lifecycle!
-  source: Object!
-  target: Object!
 }
 ```
 
@@ -42,24 +39,8 @@ type Relation {
 > The type of relation.
 > 
 
-#### [<code style={{ fontWeight: 'normal' }}>Relation.<b>hash</b></code>](#)<Bullet />[`Hash`](/docs/directory-api-reference/schema/common/scalars/hash) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
-> Optional value of the hash value previously read from the directory.
-
-If a hash value is specified and the relation being mutated already exists, the update will be rejected unless the hash
-value matches the existing relation's hash value.
-This can be used to ensure that the relation being mutated has not been modified since it was read from the directory.
-> 
-
 #### [<code style={{ fontWeight: 'normal' }}>Relation.<b>lifecycle</b></code>](#)<Bullet />[`Lifecycle!`](/docs/directory-api-reference/schema/common/objects/lifecycle) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="common"/>
 > Metadata about the relation type's lifecycle.
-> 
-
-#### [<code style={{ fontWeight: 'normal' }}>Relation.<b>source</b></code>](#)<Bullet />[`Object!`](/docs/directory-api-reference/schema/objects/objects/object) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="objects"/>
-> The source of the relation. Deprecated: use `object` instead.
-> 
-
-#### [<code style={{ fontWeight: 'normal' }}>Relation.<b>target</b></code>](#)<Bullet />[`Object!`](/docs/directory-api-reference/schema/objects/objects/object) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="objects"/>
-> The target of the relation. Deprecated: use `subject` instead.
 > 
 
 

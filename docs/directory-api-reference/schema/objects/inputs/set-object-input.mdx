@@ -17,7 +17,7 @@ Input for the setObject mutation.
 
 ```graphql
 input SetObjectInput {
-  type: ObjectTypeSelector!
+  type: String!
   key: String!
   displayName: String!
   properties: Map!
@@ -28,7 +28,7 @@ input SetObjectInput {
 
 ### Fields
 
-#### [<code style={{ fontWeight: 'normal' }}>SetObjectInput.<b>type</b></code>](#)<Bullet />[`ObjectTypeSelector!`](/docs/directory-api-reference/schema/object-types/inputs/object-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="object-types"/>
+#### [<code style={{ fontWeight: 'normal' }}>SetObjectInput.<b>type</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
 > The type of object to create or update. If `id` is set, `type` must match the type of the existing object.
 > 
 

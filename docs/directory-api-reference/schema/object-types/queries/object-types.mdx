@@ -17,25 +17,25 @@ Find object types that match the given criteria.
 
 ```graphql
 objectTypes(
-  where: ObjectTypesWhere
   first: Int!
   after: Cursor
+  where: ObjectTypesWhere
 ): ObjectTypeConnection!
 ```
 
 
 ### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>objectTypes.<b>where</b></code>](#)<Bullet />[`ObjectTypesWhere`](/docs/directory-api-reference/schema/object-types/inputs/object-types-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="object-types"/>
-> [Optional] Filtering criteria.
-> 
-
 #### [<code style={{ fontWeight: 'normal' }}>objectTypes.<b>first</b></code>](#)<Bullet />[`Int!`](/docs/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
-> [Required] The maximum number of object types to return.
+> The maximum number of object types to return.
 > 
 
 #### [<code style={{ fontWeight: 'normal' }}>objectTypes.<b>after</b></code>](#)<Bullet />[`Cursor`](/docs/directory-api-reference/schema/common/scalars/cursor) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
 > [Optional] Pagination cursor for forward pagination.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>objectTypes.<b>where</b></code>](#)<Bullet />[`ObjectTypesWhere`](/docs/directory-api-reference/schema/object-types/inputs/object-types-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="object-types"/>
+> [Optional] Filtering criteria.
 > 
 
 ### Type

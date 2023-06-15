@@ -17,8 +17,8 @@ Input for the setRelationType mutation.
 
 ```graphql
 input SetRelationTypeInput {
-  name: String
-  objectType: ObjectTypeSelector
+  name: String!
+  objectType: String!
   displayName: String
   ordinal: Int
   status: [Flag!]
@@ -30,11 +30,11 @@ input SetRelationTypeInput {
 
 ### Fields
 
-#### [<code style={{ fontWeight: 'normal' }}>SetRelationTypeInput.<b>name</b></code>](#)<Bullet />[`String`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+#### [<code style={{ fontWeight: 'normal' }}>SetRelationTypeInput.<b>name</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
 > Name of the relation type.
 > 
 
-#### [<code style={{ fontWeight: 'normal' }}>SetRelationTypeInput.<b>objectType</b></code>](#)<Bullet />[`ObjectTypeSelector`](/docs/directory-api-reference/schema/object-types/inputs/object-type-selector) <Badge class="secondary" text="input"/> <Badge class="secondary" text="object-types"/>
+#### [<code style={{ fontWeight: 'normal' }}>SetRelationTypeInput.<b>objectType</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
 > The type of object that can be the object of the relation. If `id` is set the `objectType` is optional and if
 specified, must match the object type defined on the existing relation type.
 > 

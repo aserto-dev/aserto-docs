@@ -17,7 +17,7 @@ Input to the setRelationTypePermission mutation.
 
 ```graphql
 input SetRelationTypePermissionInput {
-  permission: PermissionSelector!
+  permission: String!
   relationType: RelationTypeSelector!
   allowed: Boolean!
 }
@@ -26,7 +26,7 @@ input SetRelationTypePermissionInput {
 
 ### Fields
 
-#### [<code style={{ fontWeight: 'normal' }}>SetRelationTypePermissionInput.<b>permission</b></code>](#)<Bullet />[`PermissionSelector!`](/docs/directory-api-reference/schema/permissions/inputs/permission-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="permissions"/>
+#### [<code style={{ fontWeight: 'normal' }}>SetRelationTypePermissionInput.<b>permission</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
 > The permission being set.
 > 
 
