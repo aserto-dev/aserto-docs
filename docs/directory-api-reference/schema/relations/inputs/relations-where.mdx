@@ -20,8 +20,6 @@ input RelationsWhere {
   object: ObjectsWhere
   subject: ObjectsWhere
   type: RelationTypesWhere
-  source: ObjectsWhere
-  target: ObjectsWhere
 }
 ```
 
@@ -38,14 +36,6 @@ input RelationsWhere {
 
 #### [<code style={{ fontWeight: 'normal' }}>RelationsWhere.<b>type</b></code>](#)<Bullet />[`RelationTypesWhere`](/docs/directory-api-reference/schema/relation-types/inputs/relation-types-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
 > Filter relations by their type.
-> 
-
-#### [<code style={{ fontWeight: 'normal' }}>RelationsWhere.<b>source</b></code>](#)<Bullet />[`ObjectsWhere`](/docs/directory-api-reference/schema/objects/inputs/objects-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
-> Filter relations by their source object. Deprecated: use `object` instead.
-> 
-
-#### [<code style={{ fontWeight: 'normal' }}>RelationsWhere.<b>target</b></code>](#)<Bullet />[`ObjectsWhere`](/docs/directory-api-reference/schema/objects/inputs/objects-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
-> Filter relations by their target object. Deprecated: use `subject` instead.
 > 
 
 

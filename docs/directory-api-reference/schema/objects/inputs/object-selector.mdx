@@ -13,26 +13,31 @@ export const SpecifiedBy = (props) => <>Specification<a className="link" style={
 export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
 
 
-Input that uniquely identifies an object.
+Combination of object type and key that uniquely identifies an object.
 
 ```graphql
 input ObjectSelector {
-  key: ObjectKey!
+  key: String!
+  type: String!
 }
 ```
 
 
 ### Fields
 
-#### [<code style={{ fontWeight: 'normal' }}>ObjectSelector.<b>key</b></code>](#)<Bullet />[`ObjectKey!`](/docs/directory-api-reference/schema/objects/inputs/object-key) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
-> The key and type of the object to select.
+#### [<code style={{ fontWeight: 'normal' }}>ObjectSelector.<b>key</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The key of the object to select.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectSelector.<b>type</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The type of the object to select.
 > 
 
 
 
 ### Member of
 
-[`check_permission`](/docs/directory-api-reference/schema/permissions/queries/check-permission)  <Badge class="secondary" text="query"/><Bullet />[`check_relation`](/docs/directory-api-reference/schema/relations/queries/check-relation)  <Badge class="secondary" text="query"/><Bullet />[`deleteObject`](/docs/directory-api-reference/schema/objects/mutations/delete-object)  <Badge class="secondary" text="mutation"/><Bullet />[`object`](/docs/directory-api-reference/schema/objects/queries/object)  <Badge class="secondary" text="query"/><Bullet />[`RelationInput`](/docs/directory-api-reference/schema/relations/inputs/relation-input)  <Badge class="secondary" text="input"/><Bullet />[`RelationOptions`](/docs/directory-api-reference/schema/objects/inputs/relation-options)  <Badge class="secondary" text="input"/>
+[`checkPermission`](/docs/directory-api-reference/schema/permissions/queries/check-permission)  <Badge class="secondary" text="query"/><Bullet />[`checkRelation`](/docs/directory-api-reference/schema/relations/queries/check-relation)  <Badge class="secondary" text="query"/><Bullet />[`RelationInput`](/docs/directory-api-reference/schema/relations/inputs/relation-input)  <Badge class="secondary" text="input"/><Bullet />[`RelationOptions`](/docs/directory-api-reference/schema/objects/inputs/relation-options)  <Badge class="secondary" text="input"/>
 
 
 

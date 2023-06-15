@@ -17,15 +17,20 @@ Select a single relation type.
 
 ```graphql
 relationType(
-  selector: RelationTypeSelector!
+  name: String!
+  objectType: String!
 ): RelationType!
 ```
 
 
 ### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>relationType.<b>selector</b></code>](#)<Bullet />[`RelationTypeSelector!`](/docs/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
-> [Required] Selection criteria. Relation types can be selected based on their `id` or the combination of `name` and `objectType`.
+#### [<code style={{ fontWeight: 'normal' }}>relationType.<b>name</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Name of the relation type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>relationType.<b>objectType</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The name of the relation's object type.
 > 
 
 ### Type

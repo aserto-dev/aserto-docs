@@ -1,6 +1,6 @@
 ---
 id: check-permission
-title: check_permission
+title: checkPermission
 hide_table_of_contents: true
 ---
 
@@ -16,9 +16,9 @@ export const Badge = (props) => <><span class={'badge badge--' + props.class}>{p
 Checks if a subject has a given permission on an object.
 
 ```graphql
-check_permission(
+checkPermission(
   subject: ObjectSelector!
-  permission: PermissionSelector!
+  permission: String!
   object: ObjectSelector!
 ): CheckPermissionResult!
 ```
@@ -26,15 +26,15 @@ check_permission(
 
 ### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>check_permission.<b>subject</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+#### [<code style={{ fontWeight: 'normal' }}>checkPermission.<b>subject</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
 > [Required] The subject to check the permission for.
 > 
 
-#### [<code style={{ fontWeight: 'normal' }}>check_permission.<b>permission</b></code>](#)<Bullet />[`PermissionSelector!`](/docs/directory-api-reference/schema/permissions/inputs/permission-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="permissions"/>
+#### [<code style={{ fontWeight: 'normal' }}>checkPermission.<b>permission</b></code>](#)<Bullet />[`String!`](/docs/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
 > [Required] The permission to check.
 > 
 
-#### [<code style={{ fontWeight: 'normal' }}>check_permission.<b>object</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+#### [<code style={{ fontWeight: 'normal' }}>checkPermission.<b>object</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
 > [Required] The object to check the permission on.
 > 
 

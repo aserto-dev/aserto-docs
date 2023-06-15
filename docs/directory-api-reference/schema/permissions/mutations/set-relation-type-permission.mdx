@@ -13,7 +13,7 @@ export const SpecifiedBy = (props) => <>Specification<a className="link" style={
 export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
 
 
-Create or update a relation type permission.
+Add a permission to a relation type.
 
 ```graphql
 setRelationTypePermission(
@@ -25,7 +25,7 @@ setRelationTypePermission(
 ### Arguments
 
 #### [<code style={{ fontWeight: 'normal' }}>setRelationTypePermission.<b>permission</b></code>](#)<Bullet />[`SetRelationTypePermissionInput!`](/docs/directory-api-reference/schema/permissions/inputs/set-relation-type-permission-input) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="permissions"/>
-> 
+> The relation type and permission to add.
 > 
 
 ### Type
