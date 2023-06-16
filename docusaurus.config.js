@@ -42,9 +42,8 @@ module.exports = {
     [
       '@docusaurus/plugin-google-tag-manager',
       {
-        trackingID:
+        containerId:
           process.env.REACT_APP_GOOGLE_TAG_MANAGER_ID ?? '_',
-        anonymizeIP: true,
       },
     ],
     [
