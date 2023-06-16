@@ -40,11 +40,10 @@ module.exports = {
       },
     ],
     [
-      '@docusaurus/plugin-google-gtag',
+      '@docusaurus/plugin-google-tag-manager',
       {
-        trackingID:
-          process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID ?? '_',
-        anonymizeIP: true,
+        containerId:
+          process.env.REACT_APP_GOOGLE_TAG_MANAGER_ID ?? '_',
       },
     ],
     [
