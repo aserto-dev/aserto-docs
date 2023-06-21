@@ -2846,6 +2846,11 @@
     p-map "^4.0.0"
     webpack-sources "^3.2.2"
 
+"@stackql/docusaurus-plugin-hubspot@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@stackql/docusaurus-plugin-hubspot/-/docusaurus-plugin-hubspot-1.1.0.tgz#2549c521e7cb162ec3c20352cbe3a458da988b6c"
+  integrity sha512-pQIF3WkzJ0Ng8gjc3cpG72GwNu5AHc9/jIpyvOO8kYNAzSTcKDMFJGOGGSz8dG3j6M0ZZp1TciLbZod2cFpSQQ==
+
 "@svgr/babel-plugin-add-jsx-attribute@^5.4.0":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-5.4.0.tgz#81ef61947bb268eb9d50523446f9c638fb355906"
@@ -4748,11 +4753,6 @@ dns-packet@^5.2.2:
   integrity sha512-EgqGeaBB8hLiHLZtp/IbaDQTL8pZ0+IvwzSHA6d7VyMDM+B9hgddEMa9xjK5oYnw0ci0JQ6g2XCD7/f6cafU6g==
   dependencies:
     "@leichtgewicht/ip-codec" "^2.0.1"
-
-docusaurus-plugin-hubspot@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/docusaurus-plugin-hubspot/-/docusaurus-plugin-hubspot-1.0.0.tgz#64c3d232c02ff5b34c39cc959fc92528c5959318"
-  integrity sha512-qeNRlI336M6mcANGrEDxMt7B+GWvWd+yXOpT6uquQLX0b2cDHncDj0+rbuUaJUNQnKQz1st7sKgJQ0P55736Ug==
 
 docusaurus2-dotenv@^1.4.0:
   version "1.4.0"
