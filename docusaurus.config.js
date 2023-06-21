@@ -68,7 +68,7 @@ module.exports = {
         },
       },
     ],
-    'docusaurus-plugin-hubspot',
+    '@stackql/docusaurus-plugin-hubspot',
   ],
 
   presets: [
