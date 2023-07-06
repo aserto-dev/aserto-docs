@@ -282,3 +282,8 @@
   from = "/docs/getting-started/self-hosted/helm-chart"
   to = "/docs/local-deployment/local-directory/helm-chart"
   status = 301
+
+[[redirects]]
+  from = "/docs/decision-logs-guide/api/users"
+  to = "/docs/decision-logs-guide/api/overview"
+  status = 301
