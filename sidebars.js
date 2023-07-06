@@ -191,7 +191,6 @@ module.exports = {
           items: [
             'decision-logs-guide/api/overview',
             'decision-logs-guide/api/decision-logs',
-            'decision-logs-guide/api/users',
             'decision-logs-guide/api/query',
             'decision-logs-guide/api/decisions',
           ],
