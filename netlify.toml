@@ -287,4 +287,3 @@
   from = "/docs/decision-logs-guide/api/users"
   to = "/docs/decision-logs-guide/api/overview"
   status = 301
-
