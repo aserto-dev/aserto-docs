@@ -279,9 +279,7 @@
   status = 301
 
 [[redirects]]
-from = "/docs/decision-logs-guide/api/users"
-to = "/docs/decision-logs-guide/api/overview"
-status = 301
+  from = "/docs/decision-logs-guide/api/users"
+  to = "/docs/decision-logs-guide/api/overview"
+  status = 301
 
-
-/docs/decision-logs-guide/api/users
