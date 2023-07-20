@@ -6,36 +6,52 @@ description: How to deploy the PeopleFinder sample to Netlify
 
 # Deploy the PeopleFinder sample to Netlify
 
-Bring up the [peoplefinder sample application repo](https://github.com/aserto-demo/peoplefinder-acmecorp) on GitHub, and scroll down to the Deployment section, which has a “Deploy to Netlify” button. Click this button to initiate the deployment to your Netlify account (if you don’t have one, you’ll be prompted to create one - it’s free and awesome!)
+To get started let's deploy the PeopleFinder application. In the upper right corner of the Aserto console click on the arrow to bring up the context menu.
 
-[<img src="/peoplefinder-repo.png" width="400"/>](/peoplefinder-repo.png)
+[<p align="left"><img src="/peoplefinder-1-contextmenu.png"/></p>](/peoplefinder-1-contextmenu.png)
 
-You should see a screen like the following, which asks you to connect to your GitHub:
+Select Quickstarts in the menu. This will bring you to the Aserto Quickstarts screen.
 
-[<img src="/getting-started/netlify-connect-github.png" width="700px" />](/getting-started/netlify-connect-github.png)
+[<img src="/peoplefinder-2-quickstarts.png"/>](/peoplefinder-2-quickstarts.png)
 
-Once you complete the OAuth2 flow and authorize Netlify, you’ll be able to configure your PeopleFinder Netlify site by copying the values from the PeopleFinder policy configuration screen:
+Choose the left sample to deploy using the Acmecop sample IDP. This will bring up the deployment screen and prompt you to connect Acmecorp. 
 
-![netlify-configuration](/getting-started/netlify-configuration.png)
+[<img src="/peoplefinder-3-deploy-idp.png"/>](/peoplefinder-3-deploy-idp.png)
 
-To find your policy configuration information, open the Policies tab in [console.aserto.com](https://console.aserto.com/ui/policies), and open the `peoplefinder` instance you created.
+Aserto syncs to an identity provider to pull user information into the Aserto [Directory](/docs/overview/directory). The directory is the source of truth which your applications will use to determine users, roles, groups, and more. Click the "Connect" button.
 
-On the left sidebar, click on "Policy Settings":
+[<img src="/peoplefinder-4-deploy-registry.png"/>](/peoplefinder-4-deploy-registry.png)
+ 
+Aserto relies on [Policies](/docs/overview/policy-lifecycle) for decisions which determine whether or not a user can access a specific resource. Policies are container images containing code files, which are stored in a policy registry and copied into your Aserto organization. Aserto has a public policy registry which contains the policies for PeopleFinder which the Quickstart has connected to.
 
-![policy-settings-sidebar](/policy-instance-sidebar-settings.png)
+[<img src="/peoplefinder-5-deploy-instance.png"/>](/peoplefinder-5-deploy-instance.png)
 
-Copy the Policy ID, Tenant ID, and Authorizer API key from shown in the Policy Settings view into the Netlify application configuration.
+Now that the registry is connected, the Quickstart will download the PeopleFinder policy image out of the registry and start a policy instance, which the application will be able to connect to for authorization decisions. Click the button to create the instance.
 
-![policy-settings](/policy-settings-credentials.png)
+[<img src="/peoplefinder-6-deploy-netlify-1.png"/>](/peoplefinder-6-deploy-netlify-1.png)
 
-Finally, click "Save and Deploy". Wait until Netlify completes building and deploying the application, then click on the URL produced by Netlify to open the application.
+The last step is to start the deployment to Netlify. Click the "Deploy to Netify" button.
 
-## Testing the PeopleFinder application
+[<img src="/peoplefinder-7-deploy-netlify-2.png"/>](/peoplefinder-7-deploy-netlify-2.png)
 
-When Netlify is done deploying your site, click on the deployed PeopleFinder URL to show the app hosted at a custom URL in the `*.netlify.app` domain. You should see the following:
+Click the "Connect to Github" button to have Netlify connect to your Github account so that it can create a copy of the `peoplefinder-acmecorp` repo.
 
-![peoplefinder-login](/getting-started/peoplefinder-login.png)
+[<img src="/peoplefinder-8-deploy-netlify-3.png"/>](/peoplefinder-8-deploy-netlify-3.png)
 
-## Next steps
+The next screen is pre-populated with all the configuration information Netlify needs to deploy the site. Click "Save & Deploy" and the deployment will start.
 
-Next, we'll explore the peoplefinder app and see how the authorization policy controls its behavior.
+[<img src="/peoplefinder-9-deploy-netlify-4.png"/>](/peoplefinder-9-deploy-netlify-2.png)
+
+After about two minutes, Netlify should indicate that the deployment was successfull. Click the "Get Started" link and will take you to the configuration screen for your instance. 
+
+[<img src="/peoplefinder-10-deploy-netlify-5.png"/>](/peoplefinder-10-deploy-netlify-5.png)
+
+Click the "Open production deploy" button, and you will be taken to your live instance of PeopleFinder!
+
+[<img src="/peoplefinder-11-deploy-login.png"/>](/peoplefinder-11-deploy-login.png)
+
+## Congratulations!
+
+You now have a live instance of the PeopleFinder application bound to an Aserto Policy instance running in your Aserto account. Now let's dive in and learn more about the PeopleFinder application.
+
+
