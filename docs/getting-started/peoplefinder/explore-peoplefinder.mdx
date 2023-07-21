@@ -22,7 +22,7 @@ You will see Euan's card. Click on the card to open Euan's details.
 
 ## Roles
 
-Users logging in to PeopleFinder have different roles either 'viewer', 'editor', or 'admin'. PeopleFinder's Aserto policies determines what the logged-in user is allowed to do based on their role rather than it being hard coded within the application.
+Users logging in to PeopleFinder have different roles either 'viewer', 'editor', or 'admin'. PeopleFinder's Aserto policies determine what the logged-in user is allowed to do based on their role rather than it being hard coded within the application.
 
 |Role|Permissions|
 |----|-----------|
@@ -35,13 +35,11 @@ Users logging in to PeopleFinder have different roles either 'viewer', 'editor',
 |     |Can update department or title for any user |
 |     |Can create users|
 
-
-
-Let's see how this works. Notice the "Edit" button is enabled, while the "Update" button is disabled. This is because Euan (the current logged-in user) has the "Viewer" role so he can edit his own phone number. We can verify his role by looking at Euan's details from Aserto's directory. To do this, press the "Show Detail" button. Notice that "viewer" is listed underneath his roles.
+Let's see how this works. Notice the "Edit" button is enabled, while the "Update" button is disabled. This is because Euan (the current logged-in user) has the "Viewer" role so he can edit his own phone number. We can verify his role by looking at his data coming from Aserto's directory. To do this, press the "Show Detail" button. Notice that "viewer" is listed underneath his roles.
 
 ![peoplefinder-euan-detail](/peoplefinder-euan-detail.png)
 
-Press "Hide Detail" to close Euan's details and then pess the "Edit" button and modify the phone number, then click Save. 
+Press "Hide Detail" to close Euan's details and then pess the "Edit" button and modify the phone number and click Save. 
 
 ![peoplefinder-euan-phone-edit](/peoplefinder-euan-phone-edit.png)
 
@@ -55,7 +53,7 @@ For illustration purposes, the "Edit" button is still enabled, but the save oper
 
 Notice the error says this was forbidden by the Aserto policy for PUT on the users API with an id. Our application relies on Aserto to ensure users are only allowed to perform the actions they should based on their role. Pretty cool right? Soon you'll learn about how policies are defined, and how they can be changed on the fly without requiring any code changes in the application
 
-Let's go one step further and see what happens when Kris views Euan. Go select "Kris" in the dropdown selector.
+Let's go one step further and see what happens when Kris Johnsen views Euan. Go select "Kris" in the dropdown selector.
 
 ![peoplefinder-euan-kris](/peoplefinder-euan-kris.png)
 
@@ -65,7 +63,7 @@ We can verify this. Instead of doing it within the app, let's take a quick look 
 
 ![peoplefinder-directory](/peoplefinder-directory.png)
 
-Type "kris" into the search bar to bring up "Kris Johson"
+Type "kris" into the search bar to bring up "Kris Johnsen"
 
 ![peoplefinder-directory-kris](/peoplefinder-directory-kris.png)
 
