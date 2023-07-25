@@ -26,16 +26,16 @@ Users logging in to PeopleFinder have different roles either 'viewer', 'editor',
 
 |Role|Permissions|
 |----|-----------|
-|Viewer|Can list users in the directory and view user details|
+|viewer|Can list users in the directory and view user details|
 |      |Can update their own phone number |
-|Editor|Everything Viewer can do|
+|editor|Everything viewer can do|
 |      |Can delete users                |
-|Admin|Everything Editor can do |
+|admin|Everything editor can do |
 |      |Can edit any users phone number |
 |     |Can update department or title for any user |
 |     |Can create users|
 
-Let's see how this works. Notice the "Edit" button is enabled, while the "Update" button is disabled. This is because Euan (the current logged-in user) has the "Viewer" role so he can edit his own phone number. We can verify his role by looking at his data coming from Aserto's directory. To do this, press the "Show Detail" button. Notice that "viewer" is listed underneath his roles.
+Let's see how this works. Notice the "Edit" button is enabled, while the "Update" button is disabled. This is because Euan (the current logged-in user) has the "viewer" role so he can edit his own phone number. We can verify his role by looking at his data coming from Aserto's directory. To do this, press the "Show Detail" button. Notice that "viewer" is listed underneath his roles.
 
 ![peoplefinder-euan-detail](/peoplefinder-euan-detail.png)
 
@@ -45,7 +45,7 @@ Press "Hide Detail" to close Euan's details and then pess the "Edit" button and 
 
 The save operation should complete successfully. Now let's see what happens when Euan's Manager views him. PeopleFinder allows you to impersonate other users by using the dropdown in the upper right. Click it and select "April Stewart".
 
-![peoplefinder-user-impersonate.png](/peoplefinder-user-impersonate.png)
+![peoplefinder-user-impersonate.png](/peoplefinder-user-impersonate-april.png)
 
 For illustration purposes, the "Edit" button is still enabled, but the save operation will not succeed. Try it and you'll get an error similar to the following:
 
@@ -55,7 +55,7 @@ Notice the error says this was forbidden by the Aserto policy for PUT on the use
 
 Let's go one step further and see what happens when Kris Johnsen views Euan. Go select "Kris" in the dropdown selector.
 
-![peoplefinder-user-impersonate.png](/peoplefinder-user-impersonate.png)
+![peoplefinder-user-impersonate.png](/peoplefinder-user-impersonate-kris.png)
 
 What's different? Notice the "Update" and "Delete" buttons are both enabled. The "Edit" button will also allow saving. Why? Kris is an admin. 
 
