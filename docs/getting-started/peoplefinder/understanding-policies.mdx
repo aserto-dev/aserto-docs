@@ -14,7 +14,7 @@ A Policy is a collection of decisions that govern access to the resources within
 
 ## How Aserto Policies are authored and deployed
 
-Aserto Policies contain a collection of Policy Modules which are authored in a declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/). For each API that needs to be authorized, there should be a corresponding Policy Module. Each module contains one or more decisions. All the modules within your application are packaged into a Policy Image which can then be deployed to a Policy Instance, which uses an [Aserto Authorizer](/docs/overview/authorizer) behind the scenes at runtime.
+Aserto Policies contain a collection of Policy Modules which are authored in a declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/). For each API that needs to be authorized, there should be a corresponding Policy Module. Each module contains one or more decisions. All the modules within your application are packaged into a Policy Image that can then be deployed to a Policy Instance, which uses an [Aserto Authorizer](/docs/overview/authorizer) behind the scenes at runtime.
 
 ## How PeopleFinder uses Policies
 
@@ -22,9 +22,9 @@ At runtime, PeopleFinder uses Aserto Policies for multiple things.
 
 * Visiblity - Whether elements of the UI should appear at all.
 * Enabled - Whether elements are enabled or disabled.
-* Allowed - Whether the specific API call should1 be allowed.
+* Allowed - Whether the specific API call should be allowed.
 
-Having Aserto handle these concerns, makes the app easier to maintain as the policy behavior can be changed without having to redeploy the app. PeopleFinder users Aserto's [SDKs](/docs/software-development-kits/overview) in the browser and on the server in order to invoke its Policy.
+Having Aserto handle these concerns, makes the app easier to maintain as the policy behavior can be changed without having to redeploy the app. PeopleFinder calls Aserto's [SDKs](/docs/software-development-kits/overview) in the browser and on the server in order to invoke its Policy.
 
 # PeopleFinder Policies in Aserto
 
@@ -32,7 +32,7 @@ Let's take a look at how PeopleFinder's policies are configured in Aserto. Head 
 
 ![/peoplefinder-policy-1](/peoplefinder-policy-1.png)
 
-This will open the Policy Instance viewer. Click on "Modules" to view the individual Policy Modules.
+This will open the Policy Instance viewer. Click on `Modules` to view the individual Policy Modules.
 
 ![/peoplefinder-policy-2](/peoplefinder-policy-2.png)
 
@@ -55,7 +55,7 @@ This policy runs when a DELETE request is made to the User API or when elements 
 
 * The package statement - Defines the name of the package. 
 * Imports - Importing external libraries and data. Imports can be aliased, for example here you can see the user's roles are imported as `user_roles`.
-* Decision declaration - Decisions are declared with their default values. In this case allowed, visible, and enabled have been declared as false. 
+* Decision declaration - Decisions are declared with their default values. In this case allowed, visible, and enabled have been declared as `false`. 
 * Rule definition - Rules are code that executes to determine the decision.
 
 This table shows the different decisions rules that are listed
@@ -72,11 +72,13 @@ Let's take a look at another module. Click on "peoplefinder.POST.api.users.__id"
 
 ![/peoplefinder-policy-4](/peoplefinder-policy-4.png)
 
-This Policy Module runs when POST request is issued for a specific user to the User API. In PeopleFinder this happens when a User tries to update an employee's department or title. The policy also runs when rendering the Update button to determine it is visible or enabled.
+This Policy Module runs when POST request is issued for a specific user to the User API. In PeopleFinder this happens when a user tries to update an employee's department or title. The policy also runs when rendering the `Update` button to determine it is visible or enabled.
 
-Looking at the Rego code, it requires the logged-in user to be an admin in ordre to update the employee's department and title.
+Looking at the Rego code, it requires the logged-in user to be an admin to update the employee's department and title.
 
-What if we want to test this? We could do a curl request or use POSTMAN to invoke Policy, but Aserto gives us a much easier way, using the Evalutor. Click Evaluator on the left.
+## Using the Aserto Evaluator to test your policies
+
+What if we want to test this? We could do a curl request or use POSTMAN to invoke Policy, but Aserto gives us a much easier way, using the Evalutor. Click `Evaluator` on the left.
 
 ![/peoplefinder-policy-5](/peoplefinder-policy-5.png)
 
@@ -87,7 +89,7 @@ Using the Evaluator allows you to conveniently test you policy instantly within 
 * Leave `Decisions` with the default.
 * For Resource Context, put ```{ "id": "dfdadc39-7335-404d-af66-c77cf13a15f8" }``` which is Euan's id. This provides the resource that the caller is accessing.
 
-Press the Play button in the top to run the evaluation. 
+Press the `Play` button in the top to run the evaluation. 
 
 ![/peoplefinder-policy-6](/peoplefinder-policy-6.png)
 
@@ -95,11 +97,11 @@ The result is `false` as expected as Euan is not an admin. Now let's try an admi
 
 ![/peoplefinder-policy-7](/peoplefinder-policy-7.png)
 
-Great, we can see the result is `true`, proving that admins can access and our policy module is working correctly.
+Great, we can see the result is `true`, proving that admins can POST to the users API. Our policy module is working correctly.
 
 ## Summary
 
-You've just learned about Aserto Policies, how they are authored, and how they function. You've explored PeopleFinder's policy in the console and have seen how to use the Evaluator to test out your policies to ensure they are working as expected.
+You've just learned about Aserto Policies, how they are authored, and how they function. You've explored PeopleFinder's policy in the console and have seen how to use the Evaluator to test out your policies to ensure they are working as expected. You've just scratched the surface of what is possible with policies!
 
 In the final section of this quickstart, you'll see how you can dynamically switch policies in order to enable new features in PeopleFinder.
 
