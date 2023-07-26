@@ -10,25 +10,25 @@ In this section you'll learn about Aserto Policies, and how they are used within
 
 ## What is a Policy?
 
-A Policy is a collection of decisions that govern access to the resources within an application. At runtime, Aserto uses Policies to determine whether or not to allow a caller to access resources as 
+A Policy is a collection of decisions that govern access to the resources within an application. At runtime, Aserto uses Policies to determine whether or not to allow a caller to access resources.
 
 ## How Aserto Policies are authored and deployed
 
-Aserto Policies contain a collection of Policy Modules which are authored in a declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/). For each API that needs to be authorized, there should be a corresponding Policy Module. Each module contains one or more decisions All the modules within your application are packaged into a Policy Image which can then be deployed to a Policy Instance, which uses an [Aserto Authorizer](/docs/overview/authorizer) behind the scenes at runtime.
+Aserto Policies contain a collection of Policy Modules which are authored in a declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/). For each API that needs to be authorized, there should be a corresponding Policy Module. Each module contains one or more decisions. All the modules within your application are packaged into a Policy Image which can then be deployed to a Policy Instance, which uses an [Aserto Authorizer](/docs/overview/authorizer) behind the scenes at runtime.
 
 ## How PeopleFinder uses Policies
 
 At runtime, PeopleFinder uses Aserto Policies for multiple things. 
 
 * Visiblity - Whether elements of the UI should appear at all.
-* Enabled - Whether elements are enabled or disabled
+* Enabled - Whether elements are enabled or disabled.
 * Allowed - Whether the specific API call should1 be allowed.
 
 Having Aserto handle these concerns, makes the app easier to maintain as the policy behavior can be changed without having to redeploy the app. PeopleFinder users Aserto's [SDKs](/docs/software-development-kits/overview) in the browser and on the server in order to invoke its Policy.
 
 # PeopleFinder Policies in Aserto
 
-Let's take a look at how PeopleFinder's policies are configured in Aserto. Head over the Aserto Console a click on the Policies. You should see the PeopleFinder policy in the list. Click on it.
+Let's take a look at how PeopleFinder's policies are configured in Aserto. Head over the Aserto Console and click on Policies. You should see the Policy instance list come up with the `peoplefinder-instance` in the list. Notice that it is bound to the peoplefinder RBAC policy. Click on it.
 
 ![/peoplefinder-policy-1](/peoplefinder-policy-1.png)
 
@@ -36,7 +36,7 @@ This will open the Policy Instance viewer. Click on "Modules" to view the indivi
 
 ![/peoplefinder-policy-2](/peoplefinder-policy-2.png)
 
-PeopleFinder has 6 Policy Modules shown here which are using an RBAC model. Each module is named using a convention that matches up against an API route in the application. This quick table shows the module name and a sample HTTP request so you can see the convention.
+PeopleFinder has 6 Policy Modules shown here. Each module is named using a convention that matches up against an API route in the application. This quick table shows the module name and a sample HTTP request so you can see the convention.
 
 |Module                                |Example Request                                    |
 |--------------------------------------|---------------------------------------------------|
