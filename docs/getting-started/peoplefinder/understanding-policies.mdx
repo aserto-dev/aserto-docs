@@ -30,11 +30,11 @@ Having Aserto handle these concerns, makes the app easier to maintain as the pol
 
 Let's take a look at how PeopleFinder's policies are configured in Aserto. Head over the Aserto Console and click on Policies. You should see the Policy instance list come up with the `peoplefinder-instance` in the list. Notice that it is bound to the peoplefinder RBAC policy. Click on it.
 
-![/peoplefinder-policy-1](/peoplefinder-policy-1.png)
+![peoplefinder-policy-1](/peoplefinder-policy-1.png)
 
 This will open the Policy Instance viewer. Click on `Modules` to view the individual Policy Modules.
 
-![/peoplefinder-policy-2](/peoplefinder-policy-2.png)
+![peoplefinder-policy-2](/peoplefinder-policy-2.png)
 
 PeopleFinder has 6 Policy Modules shown here. Each module is named using a convention that matches up against an API route in the application. This quick table shows the module name and a sample HTTP request so you can see the convention.
 
@@ -49,7 +49,7 @@ PeopleFinder has 6 Policy Modules shown here. Each module is named using a conve
 
 In the viewer you can select a module on the left and see the policy [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) code. Each of the PeopleFinder Policy Modules has been documented so you can see how they work.
 
-![/peoplefinder-policy-3](/peoplefinder-policy-3.png)
+![peoplefinder-policy-3](/peoplefinder-policy-3.png)
 
 This policy runs when a DELETE request is made to the User API or when elements are rendered for issuing the DELETE. Looking through the code you will policies have four main parts. 
 
@@ -74,7 +74,7 @@ Learn more about how to author Rego policies [here](/docs/overview/policy)
 
 Let's take a look at another module. Click on `peoplefinder.POST.api.users.__id`
 
-![/peoplefinder-policy-4](/peoplefinder-policy-4.png)
+![peoplefinder-policy-4](/peoplefinder-policy-4.png)
 
 This Policy Module runs when POST request is issued for a specific user to the User API. In PeopleFinder this happens when a user tries to update an employee's department or title. The policy also runs when rendering the `Update` button to determine it is visible or enabled.
 
@@ -84,18 +84,18 @@ Looking at the Rego code, it requires the logged-in user to be an admin to updat
 
 What if we want to test this? We could do a curl request or use POSTMAN to invoke Policy, but Aserto gives us a much easier way, using the Evalutor. Click `Evaluator` on the left.
 
-![/peoplefinder-policy-5](/peoplefinder-policy-5.png)
+![peoplefinder-policy-5](/peoplefinder-policy-5.png)
 
 Using the Policy Evaluator allows you to conveniently test your policy instantly within the console. In this case, let's test the previous module and see if it indeed only allows admins to update their department or title. First we'll test out Euan trying to update himself.
 
 * For `Identity Context` select `Subject`. In the Subject dropdown choose 'Euan Garden'. This provides the identity of the caller to the API (the logged in user).
 * For `Path` choose `peoplefinder.POST.api.users.__id`. This represents the API that we're evaluating.
 * Leave `Decisions` with the default.
-* For Resource Context, put ```{ "id": "dfdadc39-7335-404d-af66-c77cf13a15f8" }``` which is Euan's ID. This provides the resource that the caller is accessing.
+* For Resource Context, put ```{ "id": "euang@acmecorp.com" }```. This provides the resource that the caller is accessing.
 
 Press the `Play` button in the top to run the evaluation. 
 
-![/peoplefinder-policy-6](/peoplefinder-policy-6.png)
+![peoplefinder-policy-6](/peoplefinder-policy-6.png)
 
 The result is `false` as expected as Euan is not an admin. Now let's try an admin, Kris Johnsen. In `Identity Context` dropdown select `Kris Johnsen` and then press Play again. 
 
