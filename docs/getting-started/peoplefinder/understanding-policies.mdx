@@ -40,12 +40,12 @@ PeopleFinder has 6 Policy Modules shown here. Each module is named using a conve
 
 |Module                                |Example Request                                    |
 |--------------------------------------|---------------------------------------------------|
-|peoplefinder.DELETE.api.users.__id    | DELETE /users/1                                   |
-|peoplefinder.GET.api.users            | GET /users                                        |
-|peoplefinder.GET.api.users.__id       | GET /users/1                                      |
-|peoplefinder.POST.api.users           | POST /users                                       |
-|peoplefinder.POST.api.users.__id      | POST /users/1                                     |
-|peoplefinder.PUT.api.users.__id       | PUT /users/1                                      |
+|peoplefinder.DELETE.api.users.__id    | DELETE api/users/1                                   |
+|peoplefinder.GET.api.users            | GET api/users                                        |
+|peoplefinder.GET.api.users.__id       | GET api/users/1                                      |
+|peoplefinder.POST.api.users           | POST api/users                                       |
+|peoplefinder.POST.api.users.__id      | POST api/users/1                                     |
+|peoplefinder.PUT.api.users.__id       | PUT api/users/1                                      |
 
 In the viewer you can select a module on the left and see the policy [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) code. Each of the PeopleFinder Policy Modules has been documented so you can see how they work.
 
@@ -58,7 +58,7 @@ This policy runs when a DELETE request is made to the User API or when elements 
 * Decision declaration - Decisions are declared with their default values. In this case allowed, visible, and enabled have been declared as `false`. 
 * Rule definition - Rules are code that executes to determine the decision.
 
-This table shows the different decisions rules that are listed
+This table shows the three decisions that are defined by the policy:
 
 |Decision | Rule                                                                           |
 |---------|--------------------------------------------------------------------------------| 
@@ -82,7 +82,7 @@ Looking at the Rego code, it requires the logged-in user to be an admin to updat
 
 ## Using the Aserto Policy Evaluator to test your policies
 
-What if we want to test this? We could do a curl request or use POSTMAN to invoke Policy, but Aserto gives us a much easier way, using the Evalutor. Click `Evaluator` on the left.
+What if we want to test this? We could do a curl request or use Postman to invoke Policy, but Aserto gives us a much easier way, using the Evalutor. Click `Evaluator` on the left.
 
 ![peoplefinder-policy-5](/peoplefinder-policy-5.png)
 

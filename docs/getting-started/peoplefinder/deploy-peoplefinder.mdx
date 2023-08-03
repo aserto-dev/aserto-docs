@@ -14,19 +14,21 @@ Select Quickstarts in the menu. This will bring you to the Aserto Quickstarts sc
 
 ![peoplefinder-2-quickstarts"](/peoplefinder-2-quickstarts.png)
 
-Choose the left sample to deploy using the Acmecop sample IDP. This will bring up the deployment screen and prompt you to connect Acmecorp. 
+Choose the left sample to deploy using the Acmecorp sample IDP. This will bring up the deployment screen and prompt you to connect Acmecorp. 
 
 ![peoplefinder-3-deploy-idp](/peoplefinder-3-deploy-idp.png)
 
-Aserto syncs to an identity provider to pull user information into the Aserto [Directory](/docs/overview/directory). The directory is the source of truth which your applications will use to determine users, roles, groups, and more. Click the "Connect" button.
+Aserto can pull user and group information out of an identity provider and into the Aserto [Directory](/docs/overview/directory).
 
 ![peoplefinder-4-deploy-registry](/peoplefinder-4-deploy-registry.png)
  
-Aserto relies on [Policies](/docs/overview/policy-lifecycle) for decisions which determine whether or not a user can access a specific resource. Policies are container images containing code files, which are stored in a policy registry and copied into your Aserto organization. Aserto has a public policy registry which contains the policies for PeopleFinder which the Quickstart has connected to.
+Aserto relies on [Policies](/docs/overview/policy-lifecycle) for decisions which determine whether or not a user can access a specific resource. A policy is written in a language called Rego and built into a policy image (similar to a docker image). Policy images are stored in a policy registry, and can be instantiated as a policy instance. 
+
+Aserto has a public policy registry which contains the policy for PeopleFinder. This public policy registry is already connected to your tenant.
 
 ![peoplefinder-5-deploy-instance](/peoplefinder-5-deploy-instance.png)
 
-Now that the registry is connected, the Quickstart will download the PeopleFinder policy image out of the registry and start a policy instance, which the application will be able to connect to for authorization decisions. Click the button to create the instance.
+Next, let's instantiate the PeopleFinder policy and name it "peoplefinder-instance" by clicking the "Create" button. This will start a hosted authorizer instance that runs this specific policy. The PeopleFinder application will be able to connect to this authorizer to make authorization decisions.
 
 ![peoplefinder-6-deploy-netlify-1](/peoplefinder-6-deploy-netlify-1.png)
 

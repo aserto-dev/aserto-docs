@@ -43,9 +43,9 @@ Press "Hide Detail" to close Euan's details and then pess the "Edit" button and 
 
 ![peoplefinder-euan-phone-edit](/peoplefinder-euan-phone-edit.png)
 
-The save operation should complete successfully. Now let's see what happens when Euan's Manager views him. PeopleFinder allows you to impersonate other users by using the dropdown in the upper right. Click it and select "April Stewart".
+The save operation should complete successfully. Now let's see what happens when Euan's Manager views him. PeopleFinder allows you to impersonate other users by using the identity selector in the upper right. Click it and select April.
 
-![peoplefinder-user-impersonate.png](/peoplefinder-user-impersonate-april.png)
+[<img src="/peoplefinder-user-impersonate-april.png" width="250px"/>](/peoplefinder-user-impersonate-april.png)
 
 For illustration purposes, the "Edit" button is still enabled, but the save operation will not succeed. Try it and you'll get an error similar to the following:
 
@@ -53,9 +53,9 @@ For illustration purposes, the "Edit" button is still enabled, but the save oper
 
 Notice the error says this was forbidden by the Aserto policy for PUT on the users API with an id. Our application relies on Aserto to ensure users are only allowed to perform the actions they should based on their role. Pretty cool right? Soon you'll learn about how policies are defined, and how they can be changed on the fly without requiring any code changes in the application
 
-Let's go one step further and see what happens when Kris Johnsen views Euan. Go select "Kris" in the dropdown selector.
+Let's go one step further and see what happens when Kris Johnsen views Euan. Go select "Kris" in the identity selector.
 
-![peoplefinder-user-impersonate.png](/peoplefinder-user-impersonate-kris.png)
+[<img src="/peoplefinder-user-impersonate-kris.png" width="250px"/>](/peoplefinder-user-impersonate-kris.png)
 
 What's different? Notice the "Update" and "Delete" buttons are both enabled. The "Edit" button will also allow saving. Why? Kris is an admin. 
 
