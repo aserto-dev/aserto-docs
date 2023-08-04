@@ -37,8 +37,6 @@ module.exports = {
           collapsed: false,
           items: [
             'getting-started/peoplefinder/peoplefinder-overview',
-            'getting-started/peoplefinder/create-policy',
-            'getting-started/peoplefinder/set-up-users',
             'getting-started/peoplefinder/deploy-peoplefinder',
             'getting-started/peoplefinder/explore-peoplefinder',
             'getting-started/peoplefinder/understanding-policies',

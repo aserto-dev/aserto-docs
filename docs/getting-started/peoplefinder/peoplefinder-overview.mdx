@@ -8,20 +8,18 @@ description: Quickstart for the Peoplefinder sample application
 
 ## Overview
 
-This guide will take you through the process of creating your first policy and using it from a
-demo application called [PeopleFinder](https://github.com/aserto-demo/peoplefinder-acmecorp),
-an application which allows its users to browse a corporate directory, edit their own information,
-and if they have the right permissions, edit department and title information for others.
+In this quickstart you'll deploy and explore a live demo application called [PeopleFinder](https://github.com/aserto-demo/peoplefinder-acmecorp). This application is a corporate directory and allows users to browse all users, view detail, and edit their own information. It also gives additional permissions to managers and admins. PeopleFinder uses Aserto for managing authorization within the application.
 
-At the end of the process, you will have the following:
+As you go through this quickstart, you'll learn the following:
 
-- A connection to your Source Code Control provider (in our examples, GitHub), so Aserto can help you create Policy bundles from policies stored in a policy repository
-- An Authorizer API key, which allows your application to talk to the Aserto hosted authorizer
-- Our sample application, [PeopleFinder](https://github.com/aserto-demo/peoplefinder-acmecorp), cloned to your GitHub account
-- Your own copy of the policy repository associated with that sample application, [policy-peoplefinder-rbac](https://github.com/aserto-dev/policy-peoplefinder-rbac), in your GitHub account
-- A running policy instance, attached to a version of the policy
-- A live version of PeopleFinder deployed to your Netlify account, which uses authorization policy that comes directly from your policy-peoplefinder policy repo
-- The Aserto CLI that allows you to manage the Aserto tenant and your local developer experience
-- A local developer experience (using the Aserto Sidecar), which allows you to run a local copy of the authorizer in a docker container
+- How to deploy the PeopleFinder app to Netlify.
+- How to use the app and its different users, roles, and permissions.
+- How to view PeopleFinder's default RBAC policy in the Aserto Console and use the Aserto Policy Evaluator.
+- How to view the Aserto Directory.
+- How to dynamically introduce new security requirements in the app through rebinding to a ReBAC policy.
 
-Please allow about 30 minutes to have it all working end-to-end.
+At the end of the Quickstart, you'll have the following:
+
+- A peoplefinder-instance policy deployed in your account and running on the Aserto hosted authorizer.
+- An instance of the Demo "Acmecorp" IDP connected to your account.
+- A live version of the PeopleFinder application deployed via Netlify and which is bound to your peoplefinder-instance.
