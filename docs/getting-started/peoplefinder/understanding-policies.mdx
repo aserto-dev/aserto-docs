@@ -10,11 +10,13 @@ In this section you'll learn about Aserto Policies, and how they are used within
 
 ## What is a Policy?
 
-A Policy is a collection of decisions that govern access to the resources within an application. At runtime, Aserto uses Policies to determine whether or not to allow a caller to access resources.
+A Policy is a collection of rules that govern access to the resources within an application. At runtime, Aserto uses Policies to determine whether or not to allow a caller to access resources.
 
 ## How Aserto Policies are authored and deployed
 
-Aserto Policies contain a collection of Policy Modules which are authored in a declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/). For each API that needs to be authorized, there should be a corresponding Policy Module. Each module contains one or more decisions. All the modules within your application are packaged into a Policy Image that can then be deployed to a Policy Instance, which uses an [Aserto Authorizer](/docs/overview/authorizer) behind the scenes at runtime.
+Aserto Policies contain a collection of Policy Modules which are authored in a declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/). For each API that needs to be authorized, there should be a corresponding Policy Module. Each module contains one or more decisions. All the modules within your application are packaged into a Policy Image that can be bound to a Policy Instance. Every Policy Instance has a hosted [Aserto Authorizer](/docs/overview/authorizer) instance automatically running, so you can easily integrate your application and test it against a running authorizer without having to deploy anything.
+
+When it comes to deploy your application, you can run an authorizer instance close to your application (either as a sidecar or as another microservice), so that you're not dependent on a hosted authorizer in production.
 
 ## How PeopleFinder uses Policies
 

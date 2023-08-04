@@ -29,11 +29,12 @@ Users logging in to PeopleFinder have different roles either 'viewer', 'editor',
 |viewer|Can list users in the directory and view user details|
 |      |Can update their own phone number |
 |editor|Everything viewer can do|
-|      |Can delete users                |
+|      |Can see the delete button|
 |admin|Everything editor can do |
 |      |Can edit any users phone number |
 |     |Can update department or title for any user |
 |     |Can create users|
+|     |Can delete users|
 
 Let's see how this works. Notice the "Edit" button is enabled, while the "Update" button is disabled. This is because Euan (the current logged-in user) has the "viewer" role so he can edit his own phone number. We can verify his role by looking at his data coming from Aserto's directory. To do this, press the "Show Detail" button. Notice that "viewer" is listed underneath his roles.
 
