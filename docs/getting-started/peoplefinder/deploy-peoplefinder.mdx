@@ -16,25 +16,33 @@ Select Quickstarts in the menu. This will bring you to the Aserto Quickstarts sc
 
 Choose the left sample to deploy using the Acmecorp sample IDP. This will bring up the deployment screen and prompt you to connect Acmecorp. 
 
-![peoplefinder-3-deploy-idp](/peoplefinder-3-deploy-idp.png)
+## Connect the "Acmecorp" identity provider
 
 An identity provider is the source of truth for user and group information. Aserto can pull user and group information out of an identity provider and into the Aserto [Directory](/docs/overview/directory), so you can use these users, groups, and relationships between them in your authorization decisions.
 
-The Acmecorp identity provider is a sample IDP that contains around 270 users and a few groups, which represent the Acmecorp employees. Click the "Connect" button to connect the Acmecorp IDP to your account.
+The Acmecorp identity provider is a sample IDP that contains around 270 employees of a fictitious company called "Acmecorp", as well as a few groups that they belong to. Click the "Connect" button to connect the Acmecorp IDP to your account and import these users and groups.
 
-![peoplefinder-4-deploy-registry](/peoplefinder-4-deploy-registry.png)
+![peoplefinder-3-deploy-idp](/peoplefinder-3-deploy-idp.png)
+
+## Instantiate the PeopleFinder policy
  
 Aserto relies on [Policies](/docs/overview/policy-lifecycle) for decisions which determine whether or not a user can access a specific resource. A policy is written in a language called Rego and built into a policy image (similar to a docker image). Policy images are stored in a policy registry, and can be instantiated as a policy instance. 
 
 Aserto has a public policy registry which contains the policy for PeopleFinder. This public policy registry is already connected to your tenant.
 
-![peoplefinder-5-deploy-instance](/peoplefinder-5-deploy-instance.png)
+![peoplefinder-4-deploy-registry](/peoplefinder-4-deploy-registry.png)
 
 Next, let's instantiate the PeopleFinder policy and name it "peoplefinder-instance" by clicking the "Create" button. This will start a hosted authorizer instance that runs this specific policy. The PeopleFinder application will be able to connect to this authorizer to make authorization decisions.
 
+![peoplefinder-5-deploy-instance](/peoplefinder-5-deploy-instance.png)
+
+## Deploy PeopleFinder to Netlify
+
+The last step is to start the deployment of PeopleFinder to Netlify. Click the "Deploy to Netify" button.
+
 ![peoplefinder-6-deploy-netlify-1](/peoplefinder-6-deploy-netlify-1.png)
 
-The last step is to start the deployment to Netlify. Click the "Deploy to Netify" button.
+This will bring up the Netlify UI on a different browser tab:
 
 ![peoplefinder-7-deploy-netlify-2](/peoplefinder-7-deploy-netlify-2.png)
 

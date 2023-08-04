@@ -10,7 +10,7 @@ Click on the Login button and sign in with `euang@acmecorp.com` - the password i
 
 ![login-screen](/getting-started/login-screen.png)
 
-PeopleFinder is an HR management tool that allows viewing all the users in the organization. You have likely seen something similar in your own organization. You can search for users, drill into their individual details, and assuming you have permission make edits, add, or even delete a user.
+PeopleFinder is corporate directory that allows viewing all the users in the organization. You have likely seen something similar in your own organization. You can search for users, drill into their individual details, and assuming you have permission make edits, add, or even delete a user.
 
 In the search bar type "Euan" to search for "Euan Garden"
 
@@ -22,21 +22,22 @@ You will see Euan's card. Click on the card to open Euan's details.
 
 ## Roles
 
-Users logging in to PeopleFinder have different roles either 'viewer', 'editor', or 'admin'. PeopleFinder's Aserto policies determine what the logged-in user is allowed to do based on their role rather than it being hard coded within the application.
+Users logging in to PeopleFinder have different roles - 'viewer', 'editor', or 'admin'. PeopleFinder's Aserto policies determine what the logged-in user is allowed to do based on their role rather than hard-coding them into the application.
 
 |Role|Permissions|
 |----|-----------|
 |viewer|Can list users in the directory and view user details|
-|      |Can update their own phone number |
+|      |Can Edit their own phone number |
+|      |Can see a (disabled) Update button  |
 |editor|Everything viewer can do|
-|      |Can see the delete button|
+|      |Can see a (disabled) Delete button|
 |admin|Everything editor can do |
-|      |Can edit any users phone number |
-|     |Can update department or title for any user |
-|     |Can create users|
-|     |Can delete users|
+|      |Can Edit anyone's phone number |
+|     |Can Update department or title for any user |
+|     |Can Create users|
+|     |Can Delete users|
 
-Let's see how this works. Notice the "Edit" button is enabled, while the "Update" button is disabled. This is because Euan (the current logged-in user) has the "viewer" role so he can edit his own phone number. We can verify his role by looking at his data coming from Aserto's directory. To do this, press the "Show Detail" button. Notice that "viewer" is listed underneath his roles.
+Let's see how this works. Notice the "Edit" button is enabled, while the "Update" button is disabled. This is because Euan (the current logged-in user) has the "viewer" role so he can edit his own phone number, but not anyone else's. We can verify his role by looking at his data coming from Aserto's directory. To do this, press the "Show Detail" button. Notice that "viewer" is listed underneath his roles.
 
 ![peoplefinder-euan-detail](/peoplefinder-euan-detail.png)
 
