@@ -52,19 +52,15 @@ These credentials map into the `config.yaml` file:
 
 ```yaml
 ---
-tenant_id: <TENANT_ID>
-policy_name: <POLICY_NAME>
-instance_label: <INSTANCE_LABEL>
+logging:
+  prod: true
+  log_level: info
 
-authorizer:
-  logging:
-    prod: true
-    log_level: info
-  
-  directory_service:
-    path: /app/db/directory.db
-  
-  api:
+directory:
+  db_path: /app/db/directory.db
+
+api:
+  authorizer:
     grpc:
       connection_timeout_seconds: 2
       listen_address: '0.0.0.0:8282'
@@ -82,24 +78,24 @@ authorizer:
         tls_ca_cert_path: '/app/certs/gateway-ca.crt'
     health:
       listen_address: '0.0.0.0:8484'
-  
-  opa:
-    instance_id: <TENANT_ID>
-    graceful_shutdown_period_seconds: 2
-    config:
-      services:
-        aserto-discovery:
-          url: https://discovery.prod.aserto.com/api/v2/discovery
-          credentials:
-            bearer:
-              token: '<DISCOVERY_API_KEY>'
-              scheme: 'basic'
-          headers:
-            Aserto-Tenant-Id: <TENANT_ID>
-      discovery:
-        service: aserto-discovery
-        resource: <POLICY_NAME>/<INSTANCE_LABEL>/opa
-  
+
+opa:
+  instance_id: <TENANT_ID>
+  graceful_shutdown_period_seconds: 2
+  config:
+    services:
+      aserto-discovery:
+        url: https://discovery.prod.aserto.com/api/v2/discovery
+        credentials:
+          bearer:
+            token: '<DISCOVERY_API_KEY>'
+            scheme: 'basic'
+        headers:
+          Aserto-Tenant-Id: <TENANT_ID>
+    discovery:
+      service: aserto-discovery
+      resource: <POLICY_NAME>/<INSTANCE_LABEL>/opa
+
 decision_logger:
   enabled: false
 ```
@@ -138,7 +134,7 @@ The expected response should be:
       },
       "plugins": {
         "aserto_edge": {
-          "addr": "authorizer.prod.aserto.com:8443",
+          "addr": "directory.prod.aserto.com:8443",
           "apikey": "<REDACTED directory API key>",
           "enabled": false,
           "insecure": false,

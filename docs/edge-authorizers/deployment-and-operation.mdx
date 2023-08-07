@@ -17,18 +17,23 @@ discovery call to the Aserto control plane.
 ## Edge Authorizer Flavors
 
 :::danger Note
-The `onebox` authorizer flavor has been deprecated. Please use the `sidecar`.
+The `sidecar` authorizer is replaced by the [topaz](https://github.com/aserto-dev/topaz).
 :::
+
 
 Currently the following flavors of edge authorizers are available:
 
-- Sidecar: a single-tenant, single policy authorizer without a web UI. The sidecar is the general edge authorizer flavor with a small surface area, which can be used as a sidecar but also as a local service instance.
+- Topaz: a single-tenant, single policy authorizer without a web UI. Topaz is the general edge authorizer flavor with a small surface area, which can be used as a sidecar but also as a local service instance.
 
 ## Docker images
 
 | Flavor  | Image
 | ------- | --------------------------------------------------------
-| Sidecar | docker pull ghcr.io/aserto-dev/sidecar:latest
+| Topaz   | docker pull ghcr.io/aserto-dev/topaz:latest
+
+:::danger Note
+Only Topaz images with a version of 0.25.6 or higher support being deployed as an edge authorizer.
+:::
 
 ## Running the Edge Authorizer
 
@@ -57,7 +62,7 @@ Then, start the sidcar instance by running the following command. Note that if y
 aserto developer start <POLICY_INSTANCE_NAME> [--data-path=<DECISION_LOG_DIRECTORY>]
 ```
 
-Or by using the `docker` CLI selecting the correct image (`ghcr.io/aserto-dev/sidecar:latest`):
+Or by using the `docker` CLI selecting the correct image (`ghcr.io/aserto-dev/topaz:latest`):
 
 ```sh
 #!/usr/bin/env bash
@@ -65,7 +70,7 @@ Or by using the `docker` CLI selecting the correct image (`ghcr.io/aserto-dev/si
 docker run \
 -ti \
 --rm \
---name sidecar \
+--name edge \
 --platform=linux/amd64 \
 -p 8282:8282 \
 -p 8383:8383 \
@@ -73,6 +78,6 @@ docker run \
 -v $PWD/certs:/certs:rw \
 -v $PWD/cfg:/app/cfg:ro \
 -v $PWD/eds:/app/db:rw \
-ghcr.io/aserto-dev/sidecar:latest run \
+ghcr.io/aserto-dev/topaz:latest run \
 --config-file /app/cfg/config.yaml
 ```
