@@ -21,19 +21,15 @@ The runtime configuration is automatically retrieved from the control plane and 
 Example configuration of an authorizer that uses a policy image from the Aserto registry service:
 ```yaml
 ---
-tenant_id: <TENANT-ID>
-policy_name: <POLICY-NAME>
-instance_label: <INSTANCE-LABEL>
+logging:
+  prod: true
+  log_level: info
 
-authorizer:
-  logging:
-    prod: true
-    log_level: info
-  
-  directory_service:
-    path: /app/db/directory.db
-  
-  api:
+directory:
+  db_path: /app/db/directory.db
+
+api:
+  authorizer:
     grpc:
       connection_timeout_seconds: 2
       listen_address: '0.0.0.0:8282'
@@ -51,36 +47,21 @@ authorizer:
         tls_ca_cert_path: '/app/certs/gateway-ca.crt'
     health:
       listen_address: '0.0.0.0:8484'
-  
-  opa:
-    discovery:
-      bundles:
-        '<POLICY_NAME>.<INSTANCE_LABEL>.<DIGEST>':
-          persist: false
-          polling:
-            max_delay_seconds: 120
-            min_delay_seconds: 60
-          resource: 'https://registry.prod.aserto.com/v2/<TENANT_NAME>/<REPO_NAME>:<LABEL>'
-          service: <CONNECTION_ID>-<TENANT_NAME>
-          signing: null,
-          size_limit_bytes: 0
-      plugins:
-        aserto_edge:
-          addr: authorizer.prod.aserto.com:8443
-          apikey: '<REDACTED directory API key>'
-          enabled: false
-          insecure: false
-          page_size: 100
-          sync_interval: 60
-          timeout: 10
-      services:
-        <CONNECTION_ID>-<TENANT_NAME>:
-          credentials:
-            bearer:
-              token: '<REDACTED> registry download API key'
-          response_header_timeout_seconds: 60
-          url:  "https://registry.prod.aserto.com/v2/"
-  
-decision_logger:
-  enabled: false
+
+opa:
+  instance_id: <TENANT_ID>
+  config:
+    bundles:
+      '<POLICY_NAME>.<INSTANCE_LABEL>.<DIGEST>':
+        persist: false       
+        resource: 'registry.prod.aserto.com/<TENANT_NAME>/<REPO_NAME>:<LABEL>'
+        service: <CONNECTION_ID>-<TENANT_NAME>         
+    services:
+      <CONNECTION_ID>-<TENANT_NAME>:
+        credentials:
+          bearer:
+            token: '<TENANT_NAME>:<REDACTED> registry download API key'
+            scheme: 'basic'
+        response_header_timeout_seconds: 60
+        url:  "https://registry.prod.aserto.com/v2/"
 ```
