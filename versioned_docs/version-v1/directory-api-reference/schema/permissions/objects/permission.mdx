@@ -1,0 +1,71 @@
+---
+id: permission
+title: Permission
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+An action that can be performed on a resource.
+
+```graphql
+type Permission {
+  permission: String!
+  displayName: String
+  hash: Hash!
+  lifecycle: Lifecycle!
+  relationTypes(
+  first: Int!
+  after: Cursor
+): RelationTypeConnection!
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>Permission.<b>permission</b></code>](#)<Bullet />[`String!`](/docs/v1/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Unique user-defined value representing the permission.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Permission.<b>displayName</b></code>](#)<Bullet />[`String`](/docs/v1/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> An optional name for the permission
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Permission.<b>hash</b></code>](#)<Bullet />[`Hash!`](/docs/v1/directory-api-reference/schema/common/scalars/hash) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> A hash value of permission's fields.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Permission.<b>lifecycle</b></code>](#)<Bullet />[`Lifecycle!`](/docs/v1/directory-api-reference/schema/common/objects/lifecycle) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="common"/>
+> Metadata about the permission's lifecycle.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Permission.<b>relationTypes</b></code>](#)<Bullet />[`RelationTypeConnection!`](/docs/v1/directory-api-reference/schema/relation-types/objects/relation-type-connection) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="relation-types"/>
+> The relation types that include this permission.
+> ##### [<code style={{ fontWeight: 'normal' }}>Permission.relationTypes.<b>first</b></code>](#)<Bullet />[`Int!`](/docs/v1/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> 
+> 
+
+##### [<code style={{ fontWeight: 'normal' }}>Permission.relationTypes.<b>after</b></code>](#)<Bullet />[`Cursor`](/docs/v1/directory-api-reference/schema/common/scalars/cursor) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> 
+> 
+
+
+
+### Returned by
+
+[`permission`](/docs/v1/directory-api-reference/schema/permissions/queries/permission)  <Badge class="secondary" text="query"/>
+
+### Member of
+
+[`PermissionConnection`](/docs/v1/directory-api-reference/schema/permissions/objects/permission-connection)  <Badge class="secondary" text="object"/><Bullet />[`RelationTypePermission`](/docs/v1/directory-api-reference/schema/permissions/objects/relation-type-permission)  <Badge class="secondary" text="object"/><Bullet />[`SetPermissionResult`](/docs/v1/directory-api-reference/schema/permissions/objects/set-permission-result)  <Badge class="secondary" text="object"/><Bullet />[`SetRelationTypePermissionResult`](/docs/v1/directory-api-reference/schema/permissions/objects/set-relation-type-permission-result)  <Badge class="secondary" text="object"/>
+
+
+

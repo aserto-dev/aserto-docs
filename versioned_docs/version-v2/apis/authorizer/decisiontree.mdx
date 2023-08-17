@@ -1,0 +1,148 @@
+---
+sidebar_label: decisiontree API
+title: The decisiontree API
+description: Documentation for the decisiontree API
+---
+
+# authz/decisiontree
+
+The `decisiontree` API allows the caller to get the value of any decisions across ALL policy modules, with a user context, but without a resource context.
+
+This API is useful for getting a "decision tree" that guides a calling application around what functionality will be available to a user based on their context.
+
+It is used by the the [**display state map**](display-state-map) middleware in SDKs such as the [Aserto Express.js SDK](/docs/software-development-kits/javascript/express#displaystatemap-middleware), in conjunction with the [Aserto React SDK](/docs/software-development-kits/javascript/react), that is useful in conditionally rendering UI elements based on the **display state** that corresponds to a decision.
+
+The inputs to the `decisiontree` API are the user context, the set of decisions that the calling application wants to evaluate, the (optional) policy module used to make the decision(s), the (optional) resource context, and a set of options.
+
+## URL
+
+`POST .../api/v2/authz/decisiontree`
+
+## Input payload
+
+```json
+{
+  "identityContext": {
+    "type": "IDENTITY_TYPE_SUB",
+    "identity": "<subject>"
+  },
+  "policyContext": {
+    "decisions": ["visible", "enabled"],
+    "path": "sample"
+  },
+  "policyInstance": {
+    "name": "[policy-name]",
+    "instanceLabel": "[instance-label]"
+  },
+  "resourceContext": {
+    "additionalProp1": "string",
+    "additionalProp2": "string",
+    "additionalProp3": "string"
+  },
+  "options": {
+    "pathSeparator": "PATH_SEPARATOR_SLASH"
+  }
+}
+```
+
+The `identityContext` map is documented [here](identity-context).
+
+The `policyContext` map is documented [here](policy-context).
+
+The `policyInstance` map is documented [here](policy-instance).
+
+The `resourceContext` map is documented [here](resource-context).
+
+The `options` map allows the caller to specify the format for retrieving the cartesian product of
+paths and decisions that are being requested.
+
+### Path separator
+
+Path separator values are:
+
+- PATH_SEPARATOR_SLASH: the key in the returned decision tree is of the form `VERB/route/segments/etc`
+- PATH_SEPARATOR_DOT: the key in the returned decision tree is of the form `VERB.route.segments.etc`
+
+## Output payload
+
+The return payload for the options above may look like the following:
+
+```json
+{
+  "GET/api/orders": {
+    "visible": true,
+    "enabled": true
+  }
+}
+```
+
+## Upgrading from v1
+
+To upgrade from the v1 Policy Context, see this [topic](upgrading-from-v1.mdx).
+
+# Deprecated v1 authz/decisiontree API
+
+The `decisiontree` API allows the caller to get the value of any decisions across ALL policy modules, with a user context, but without a resource context.
+
+This API is useful for getting a "decision tree" that guides a calling application around what functionality will be available to a user based on their context.
+
+It is used by the the [**display state map**](display-state-map) middleware in SDKs such as the [Aserto Express.js SDK](/docs/software-development-kits/javascript/express#displaystatemap-middleware), in conjunction with the [Aserto React SDK](/docs/software-development-kits/javascript/react), that is useful in conditionally rendering UI elements based on the **display state** that corresponds to a decision.
+
+The inputs to the `decisiontree` API are the user context, the set of decisions that the calling application wants to evaluate, the (optional) policy module used to make the decision(s), the (optional) resource context, and a set of options.
+
+## URL
+
+`POST .../api/v1/authz/decisiontree`
+
+## Input payload
+
+```json
+{
+  "identityContext": {
+    "type": "IDENTITY_TYPE_SUB",
+    "identity": "<subject>"
+  },
+  "policyContext": {
+    "decisions": ["visible", "enabled"],
+    "id": "[policy-id]",
+    "path": "sample"
+  },
+  "resourceContext": {
+    "additionalProp1": "string",
+    "additionalProp2": "string",
+    "additionalProp3": "string"
+  },
+  "options": {
+    "pathSeparator": "PATH_SEPARATOR_SLASH"
+  }
+}
+```
+
+The `identityContext` map is documented [here](identity-context).
+
+The `policyContext` map is documented [here](policy-context).
+
+The `resourceContext` map is documented [here](resource-context).
+
+The `options` map allows the caller to specify the format for retrieving the cartesian product of
+paths and decisions that are being requested.
+
+### Path separator
+
+Path separator values are:
+
+- PATH_SEPARATOR_SLASH: the key in the returned decision tree is of the form `VERB/route/segments/etc`
+- PATH_SEPARATOR_DOT: the key in the returned decision tree is of the form `VERB.route.segments.etc`
+
+## Output payload
+
+The return payload for the options above may look like the following:
+
+```json
+{
+  "GET/api/orders": {
+    "visible": true,
+    "enabled": true
+  }
+}
+```

@@ -1,0 +1,88 @@
+---
+sidebar_label: Create an ABAC Policy
+title: Create an ABAC Policy
+description: How to create an Attribute Based Access Control Policy
+---
+
+# Creating an Attribute Based Access Control Policy
+
+We're going to create an ABAC policy that will interact with our PeopleFinder application.
+
+## Create the policy repository
+
+First, open the Aserto Console and navigate to the Policies tab. Click on the "Create a new repository" button:
+
+<img src="/getting-started/create-new-repo-button.png" width="200px" />
+
+Select "Use a template":
+
+<img src="/getting-started/use-template-options.png" width="700px" />
+
+Choose your source code provider:
+
+<img
+  src="/getting-started/select-source-code-provider.png"
+  width="600px"
+/>
+
+Create a new policy based on the `policy-peoplefinder-abac` template, and name the repo `policy-peoplefinder-abac`.
+
+<img
+  src="/getting-started/select-org-and-repo-peoplefinder-abac.png"
+  width="600px"
+/>
+
+Finally, name your policy repository `peoplefinder-abac`, and click "Create a new policy repository":
+
+<img src="/getting-started/policy-repo-name-abac.png" width="600px" />
+
+## Create a policy instance
+
+After creating a policy repository, we'll create a _policy instance_ that will be associated the repository.
+
+First, click on the "Policies" tab and click the "Create an instance" button:
+
+<img src="/getting-started/create-instance-button.png" width="170" />
+
+Next, you'll be asked to select between creating the policy from a sample image or from your own policy image - choose "...from your own policy image".
+
+<img src="/create-policy-instance-dialog.png" width="500px" />
+
+Next, you'll be prompted to select a policy registry:
+
+<img src="/select-policy-registry.png" width="500px" />
+
+Select "Aserto Policy Registry" from the dropdown.
+
+Next, from the "Select organization" dropdown select your personal (account) organization.
+
+<img src="/select-policy-organization.png" width="500px" />
+
+From the "Policy repository" dropdown, select "peoplefinder-abac".
+
+<img src="/select-policy-repository.png" width="500px" />
+
+From the "Tag list" dropdown, select "latest".
+
+<img src="/select-policy-tag.png" width="500px" />
+
+This sets up the policy instance to always pick up the _latest_ version of the policy. While this is going to be very useful while we are developing the policy - we would probably choose to lock the policy instance to a specific tag in a production environment.
+
+Finally, name your instance `peoplefinder-abac` and click "Create an instance".
+
+<img
+  src="/getting-started/name-policy-instance-abac.png"
+  width="500px"
+/>
+
+Open the policy instance once it is created, and open the `peoplefinder.POST.api.users.__id` module.
+
+![console-policy-peoplefinder-post](/getting-started/console-policy-peoplefinder-post.png)
+
+As you can see, this policy is slightly different from the RBAC policy we created before: instead of referencing the `data` object (which is based on the definitions in the `data.json` file) and the roles defined there, it uses the user's _properties_ to determine whether they are equal to a specific value.
+
+In this module, we check whether the user's `department` property is equal to `Operations`. If the check yields a `true` value, the user will be `allowed` to perform the `POST` operation on the `/api/users/:id` resource - which means they'll be able to update the `title` and `department` property of another user.
+
+This policy will result in a dynamic behavior of the authorization model: any user assigned to the `Operations` department _at runtime_ will now have the permission to make updates to other users as well.
+
+Let's update our PeopleFinder application to point to this new policy to see it in action.

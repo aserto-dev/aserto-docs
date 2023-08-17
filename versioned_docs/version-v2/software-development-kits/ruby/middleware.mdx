@@ -1,0 +1,203 @@
+---
+sidebar_label: Rack Middleware
+title: Aserto SDKs - Ruby middleware - Installation and setup
+description: Aserto SDKs - Ruby middleware - Installing and using the Ruby middleware
+---
+
+# Ruby Rack Middleware
+
+`Aserto::Authorization` is a middleware that allows Ruby applications to use Aserto as the Authorization provider.
+
+## Installation
+Add to your application Gemfile:
+
+```ruby
+gem "aserto"
+```
+
+And then execute:
+```bash
+bundle install
+```
+Or install it yourself as:
+```bash
+gem install aserto
+```
+
+## Configuration
+The following configuration settings are required for the authorization middleware:
+ - policy_id
+ - tenant_id
+ - authorizer_api_key
+ - policy_root
+
+These settings can be retrieved from the [Policy Settings](https://console.aserto.com/ui/policies) page of your Aserto account.
+
+The middleware accepts the following optional parameters:
+
+| Parameter name | Default value | Description |
+| -------------- | ------------- | ----------- |
+| enabled | true | Enables or disables Aserto Authorization |
+| service_url | `"authorizer.prod.aserto.com:8443"` | Sets the URL for the authorizer endpoint. |
+| decision | `"allowed"` | The decision that will be used by the middleware when creating an authorizer request. |
+| logger | `STDOUT` | The logger to be used by the middleware. |
+| identity_mapping | `{ type: :none }` | The strategy for retrieveing the identity, possible values: `:jwt, :sub, :none` |
+| disabled_for | `[{}]` | Which path and actions to skip the authorization for. |
+| on_unauthorized | `-> { return [403, {}, ["Forbidden"]] }`| A lambda that is executed when the authorization fails. |
+
+## Identity
+To determine the identity of the user, the middleware can be configured to use a JWT token or a claim using the `identity_mapping` config.
+```ruby
+# configure the middleware to use a JWT token form the `my-auth-header` header.
+config.identity_mapping = {
+  type: :jwt,
+  from: "my-auth-header",
+}
+```
+```ruby
+# configure the middleware to use a claim from the JWT token.
+# This will decode the JWT token and extract the `sub` field from payload.
+config.identity_mapping = {
+  type: :sub,
+  from: :sub,
+}
+```
+
+The whole identity resolution can be overwritten by providing a custom function.
+```ruby
+# config/initializers/aserto.rb
+
+# needs to return a hash with the identity having `type` and `identity` keys.
+# supported types: `:jwt, :sub, :none`
+Aserto.with_identity_mapper do |request|
+  {
+    type: :sub,
+    identity: "my custom identity",
+  }
+end
+```
+
+## URL path to policy mapping
+By default, when computing the policy path, the middleware:
+* converts all slashes to dots
+* converts any character that is not alpha, digit, dot or underscore to underscore
+* converts uppercase characters in the URL path to lowercases
+
+This behavior can be overwritten by providing a custom function:
+
+```ruby
+# config/initializers/aserto.rb
+
+# must return a String
+Aserto.with_policy_path_mapper do |policy_root, request|
+  method = request.request_method
+  path = request.path_info
+
+  "custom: #{policy_root}.#{method}.#{path}"
+end
+```
+
+## Resource
+A resource can be any structured data that the authorization policy uses to evaluate decisions. By default, middleware do not include a resource in authorization calls.
+
+This behavior can be overwritten by providing a custom function:
+
+```ruby
+# config/initializers/aserto.rb
+
+# must return a Hash
+Aserto.with_resource_mapper do |request|
+  { resource:  request.path_info }
+end
+```
+
+## Disable authorization for specific paths
+
+The middleware exposes a `disable_for` configuration option that
+accepts an array of hashes with the following keys:
+ - path - the path to disable authorization for
+ - actions - an array of actions to disable authorization for
+
+### Rails
+You can find the paths and actions using `bundle exec rails routes`
+```bash
+bundle exec rails routes
+
+  Prefix       Verb   URI Pattern               Controller#Action
+
+  api_v1_users GET    /api/users(.:format)      api/v1/users#index {:format=>:json}
+               POST   /api/users(.:format)      api/v1/users#create {:format=>:json}
+  api_v1_user  GET    /api/users/:id(.:format)  api/v1/users#show {:format=>:json}
+```
+```ruby
+# disables get user by id
+config.disabled_for = [
+  {
+    path: '/api/users/:id'
+    actions: [:GET]
+  }
+]
+```
+## Examples
+
+### Rails
+```ruby
+# config/initializers/aserto.rb
+
+Rails.application.config.middleware.use Aserto::Authorization do |config|
+  config.enabled = true
+  config.policy_id = "my-policy-id"
+  config.tenant_id = "my-tenant-id"
+  config.authorizer_api_key = Rails.application.credentials.aserto[:authorizer_api_key]
+  config.policy_root = "peoplefinder"
+  config.service_url = "authorizer.prod.aserto.com:8443"
+  config.decision = "allowed"
+  config.logger = Rails.logger
+  config.identity_mapping = {
+    type: :sub,
+    from: :sub
+  }
+  config.disabled_for = [
+    {
+      path: "/api/users",
+      actions: %i[GET POST]
+    },
+    {
+      path: "/api/authentication",
+      actions: %i[POST]
+    }
+  ]
+  config.on_unauthorized = lambda do |env|
+    puts env
+    return [403, {}, ["Forbidden"]]
+  end
+end
+```
+
+### Sinatra
+```ruby
+# server.rb
+
+# aserto middleware
+use Aserto::Authorization do |config|
+  config.enabled = true
+  config.policy_id = "my-policy-id"
+  config.tenant_id = "my-tenant-id"
+  config.authorizer_api_key = ENV['authorizer_api_key']
+  config.policy_root = "peoplefinder"
+  config.service_url = "authorizer.prod.aserto.com:8443"
+  config.decision = "allowed"
+  config.disabled_for = [
+    {
+      path: "/api/users/:id",
+      actions: %i[GET]
+    },
+    {
+      path: "/",
+      actions: %i[GET]
+    }
+  ]
+
+end
+```
+

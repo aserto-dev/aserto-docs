@@ -1,0 +1,80 @@
+---
+sidebar_label: query API
+title: query API
+description: The query API
+---
+
+# authz/query
+
+The `query` API is the most abstract API for interacting with the Authorizer. It allows the caller to
+send a general query to the Authorizer, along with an input, and returns the output from the
+Authorizer.
+
+## URL
+
+`POST .../api/v2/authz/query`
+
+## Input payload
+
+```json
+{
+  "identityContext": {
+    "identity": "[aserto-user-guid]",
+    "type": "IDENTITY_TYPE_*"
+  },
+  "policyContext": {
+    "decisions": ["string"],
+    "path": "string"
+  },
+  "policyInstance": {
+    "name": "[policy-name]",
+    "instanceLabel": "[instance-label]"
+  },
+  "resourceContext": {
+    "additionalProp1": "string",
+    "additionalProp2": "string",
+    "additionalProp3": "string"
+  },
+  "input": "string",
+  "query": "string",
+  "options": {
+    "instrument": true,
+    "metrics": true,
+    "trace": "TRACE_LEVEL_*",
+    "traceSummary": true
+  }
+}
+```
+
+The `identityContext` map is documented [here](/docs/v1/authorizer-guide/identity-context).
+
+The `policyContext` map is documented [here](/docs/v1/authorizer-guide/policy-context).
+
+The `policyInstance` map is documented [here](/docs/v1/authorizer-guide/policy-instance).
+
+The `resourceContext` map is documented [here](/docs/v1/authorizer-guide/resource-context).
+
+The `input` parameter is a string that encodes a JSON document, and is mapped into the `input` in the context of
+evaluating the policy.
+
+The `query` parameter is a rego query that is evaluated over the policy. Example queries:
+
+* `x = input`: bind the `input` to the `x` variable
+* `y = data`: bind the `data` to the `y` variable
+* `z = ds.object({ "id": input.user.id })`: bind the results of loading the user object associated with the user identified by `input.user.id` to the `z` variable
+
+The `options` map allows the caller to instrument the query, retrieve metrics, set a trace level, and
+get a trace summary.
+
+### Trace levels
+
+The trace levels can be one of the following values:
+
+- TRACE_LEVEL_OFF
+- TRACE_LEVEL_FULL
+- TRACE_LEVEL_NOTES
+- TRACE_LEVEL_FAIL
+
+## Upgrading from v1
+
+To upgrade from the v1 API, see this [topic](/docs/v1/authorizer-guide/upgrading-from-v1).

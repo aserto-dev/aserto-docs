@@ -1,0 +1,51 @@
+---
+sidebar_label: Auth0
+title: Setting up Auth0 as an Identity Provider
+description: Setting up Auth0 as an Identity Provider
+---
+
+Follow the steps below to set up Auth0 as an Identity Provider.
+
+## Create an M2M Application
+In order for Aserto to communicate with Auth0, you'll need an M2M application set up in Auth0. To create one, open your Auth0 console, and navigate to “Applications”.
+
+<img src="/auth0-applications-tab.png" width="300px"/>
+
+Create a new Machine-to-Machine application by clicking the "Create Application" button.
+
+<img src="/auth0-create-application-button.png" width="200px"/>
+
+In the following screen, name the application "Aserto - Management" and select "Machine to Machine Applications".
+
+:::caution Note
+The application type MUST be "Machine to Machine Applications".
+:::
+
+<img src="/auth0-m2m-dialog.png" width="800px"/>
+
+Next, select the Auth0 Management API and enable the `read:users` permission.
+
+<img src="/auth0-m2m-scopes.png" width="800px"/>
+
+:::note
+If you'd like to use the `aserto-idp` CLI tool to import users into Auth0, you'll also need to select the permissions `read:connections` and `create:users`. If you'd also like to delete users using the `aserto-idp` CLI you'll need the `delete:users` permission as well.
+:::
+
+## Connect Auth0 to Aserto
+
+From the settings tab, retrieve the Domain, Client ID and Client Secret used by this application. We will use them shortly when we add Auth0 to Aserto.
+
+<img src="/auth0-creds.png" width="800px"/>
+
+### Create an Auth0 connection
+
+Next, connect Auth0 to Aserto as an identity provider. Head to the Aserto console and open the Connections tab.
+
+<img src="/connections-tab.png" />
+
+In the Connections tab, click the "Add a Connection" button. In the following screen, use the "auth0" provider. Name the connection “auth0” and use the display name "Auth0". Then, paste the Domain, Client ID, and Client Secret you retrieved from the Auth0 M2M application settings into their corresponding fields.
+
+<img src="/add-auth0-connection.png"  width="500px"/>
+
+Finally, click the "Add connection" button to save the connection. Aserto will now automatically sync your Auth0 users to the Aserto directory.
+

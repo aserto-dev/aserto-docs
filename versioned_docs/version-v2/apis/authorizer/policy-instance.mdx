@@ -1,0 +1,28 @@
+---
+sidebar_label: Policy Instance
+title: Policy Instance
+description: The Policy Instance
+---
+
+# Policy Instance
+
+The `is`, `decisiontree`, `query`  and `compile` APIs for the Aserto Hosted Authorizer take a Policy Instance argument from the calling application.
+
+This parameter identifies the policy instance created in the Aserto Console. The `"name"` field is the policy instance name, and the `"instanceLabel"` field identifies the specific instance.
+
+:::note
+Currently, the Aserto Console only allows creating a single authorizer instance for each policy instance, with the `instanceLabel` set to `name`. Creating more than once instance label per policy instance is on the feature roadmap.
+:::
+
+## Setting the Policy Context
+
+`POST .../api/v2/is`
+
+```json
+{
+  "policyInstance": {
+    "name": "[policy-name]",
+    "instanceLabel": "[instance-label]"
+  }, ...
+}
+```

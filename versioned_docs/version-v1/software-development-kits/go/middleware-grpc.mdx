@@ -1,0 +1,105 @@
+---
+sidebar_label: gRPC
+title: Aserto SDKs - Go - gRPC Middleware
+description: Aserto SDKs - Go - Creating and using the gRPC middleware
+---
+
+# gRPC Middleware
+
+Using authorization middleware when building gRPC servers focuses the responsibility of making authorization decisions
+to a single component instead of fragmenting the logic across many service methods.
+
+The middleware can be configured to retrieve authorization information, such as user identity, from incoming messages
+and streams.
+
+## Creating Middleware
+
+Creating middleware requires two arguments: an [authorizer client](/docs/v1/software-development-kits/go/authorizer),
+and a `Policy` that identifies the authorization policy to be applied, the decision rule to evaluate, and optionally a
+path to a policy module. If a path isn't provided, the middleware infers the policy path from the incoming
+request's URL. This behavior too can be further customized to fit other naming schemes.
+
+```go
+import (
+    middleware "github.com/aserto-dev/aserto-go/middleware/grpc"
+)
+
+...
+
+// Create gRPC middleware.
+mw := middleware.New(
+    authClient,
+    mw.Policy{
+        ID:       "<Aserto policy ID>",
+        Decision: "allowed",             // Name of the policy rule to evaluate.
+    },
+)
+```
+
+## Configuring Middleware
+
+Middleware can be configured to extract authorization information from incoming requests. This information includes:
+
+1. Identity: the identity of the caller.
+2. Policy Path: the policy module to evaluate (e.g. `"peoplefinder.GET.api.users.__id"`).
+3. Resource: contextual information about the resource being accessed.
+
+### Identity
+
+[Identity](/docs/v1/authorizer-guide/identity-context) information is set on the middleware's `.Identity`.
+
+For example, to read a subject name from a `"username"` context value on the incoming request (presumably, set by some
+authentication middleware):
+
+```go
+mw.Identity.Subject().FromContextValue("username")
+```
+
+Or, to configure the middleware to identify callers using a JWT in the `"identity"`
+[metadata](https://pkg.go.dev/google.golang.org/grpc/metadata) key on the incoming request context:
+request context:
+
+```go
+mw.Identity.JWT().FromMetadata("identity")
+```
+
+### Policy Path
+
+If a policy path isn't specified when the middleware is created, it will be inferred from the request method,
+replacing path separators (`/`) with dots(`.`) (e.g. `/service/method` becomes, `service.method`).
+
+To provide your own logic for determining the policy path use:
+
+```go
+mw.WithPolicyPathMapper(
+    func((ctx context.Context, message interface{})) string {
+        // custom logic inspects the request and returns the policy path.
+    },
+)
+```
+
+### Resource
+
+[Resource](/docs/v1/authorizer-guide/resource-context) information can be added to authorization requests using
+`.WithResourceMapper()`:
+
+```go
+mw.WithResourceMapper(
+    func(ctx, context.Context, message interface{}, resource map[string]interface{}) {
+        // Custom function to retrieve the owner of the resource being accessed.
+        resource["ownerId"] = GetOwner(ctx, message)
+    },
+)
+```
+
+## Connecting Middleware
+
+With a configured middleware in hand, all that's left is connecting it to your gRPC server:
+
+```go
+// Create gRPC server with middleware.
+s := grpc.NewServer(
+    grpc.UnaryInterceptor(mw.Unary),
+    grpc.StreamInterceptor(mw.Stream),
+)
+```

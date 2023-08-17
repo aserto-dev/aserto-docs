@@ -1,0 +1,30 @@
+---
+id: hash
+title: Hash
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+Hash value of a directory object.
+
+```graphql
+scalar Hash
+```
+
+
+
+
+### Member of
+
+[`Object`](/docs/v1/directory-api-reference/schema/objects/objects/object)  <Badge class="secondary" text="object"/><Bullet />[`ObjectType`](/docs/v1/directory-api-reference/schema/object-types/objects/object-type)  <Badge class="secondary" text="object"/><Bullet />[`Permission`](/docs/v1/directory-api-reference/schema/permissions/objects/permission)  <Badge class="secondary" text="object"/><Bullet />[`RelationType`](/docs/v1/directory-api-reference/schema/relation-types/objects/relation-type)  <Badge class="secondary" text="object"/><Bullet />[`SetObjectInput`](/docs/v1/directory-api-reference/schema/objects/inputs/set-object-input)  <Badge class="secondary" text="input"/><Bullet />[`SetObjectTypeInput`](/docs/v1/directory-api-reference/schema/object-types/inputs/set-object-type-input)  <Badge class="secondary" text="input"/><Bullet />[`SetPermissionInput`](/docs/v1/directory-api-reference/schema/permissions/inputs/set-permission-input)  <Badge class="secondary" text="input"/><Bullet />[`SetRelationTypeInput`](/docs/v1/directory-api-reference/schema/relation-types/inputs/set-relation-type-input)  <Badge class="secondary" text="input"/>
+
+
+

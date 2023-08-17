@@ -1,0 +1,56 @@
+---
+sidebar_label: Connections
+title: Connections
+description: Managing connections
+---
+
+# Connections
+
+Aserto manages [connections](../../architecture/connections) to source code providers and identity providers.
+
+To list the connections you've established, use the following command:
+
+```bash
+aserto tenant list-connections
+```
+
+There are two types of connections: system connections and user connections.
+
+A system connection stores the connection between the tenant and other Aserto services, such as the policy registry and the hosted authorizer.
+
+A user connection is one that the user has established between Aserto and one of their services. There are two types of user connections currently supported:
+
+- IDP (identity provider): this is a read-only connection between Aserto and an Identity Provider. Currently, Auth0 and Okta are supported.
+- SCC (source code control): this is a connection between Aserto and a source code control system. Currently, only GitHub is supported.
+
+To display detailed information about a particular connection, type
+
+```bash
+aserto tenant get-connection <connection-id>
+```
+
+To verify that a connection is still operational (i.e. the token that Aserto holds is still valid), use the following command:
+
+```bash
+aserto tenant verify-connection <connection-id>
+```
+
+To discover the types of connections Aserto supports (known as [Providers](../../architecture/connections#providers)),
+use the following:
+
+```bash
+aserto tenant list-providers
+```
+
+To list the kinds of providers Aserto supports, type
+
+```bash
+aserto tenant list-provider-kinds
+```
+
+To get more detailed information about a provider, use the following command (using the ID that
+is listed in the `list-providers` results):
+
+```bash
+aserto tenant get-provider <provider-id>
+```

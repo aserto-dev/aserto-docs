@@ -1,0 +1,54 @@
+---
+sidebar_label: Sidecar
+title: Local Developer Experience (Sidecar)
+description: Using the local developer experience (Sidecar) and the Aserto CLI
+---
+
+# Local developer experience (Sidecar)
+
+Aserto's authorizer is available as a docker container that you can run locally.
+This "all-in-one" version of the Aserto Authorizer is referred to as the **Sidecar**.
+
+The CLI provides a management experience over the Sidecar.
+
+:::note
+The Sidecar requires `docker` to be installed and running.
+To install Docker on a Mac or Linux system: `brew install --cask docker`
+:::
+
+To get started with the Sidecar, you can pull it down using the Aserto CLI.
+
+Sign in to your Aserto account:
+
+```bash
+aserto login
+```
+
+The following command will pull down the latest `sidecar` docker image.
+
+```bash
+aserto developer install
+```
+
+The next command will pull down the configuration for a policy that you've set up in the console, using
+the name you gave it (in the example below, `peoplefinder`).
+
+```bash
+aserto developer configure peoplefinder
+```
+
+The following command will `docker run` a local container with the `peoplefinder` policy configuration, writing the decision logs to `/tmp/decision-logs`:
+
+```bash
+aserto developer start peoplefinder --data-path=/tmp/decision-logs
+```
+
+The next few commands help manage the `sidecar` docker instance and image.
+
+```bash
+aserto developer status   # displays the running status of the authorizer
+aserto developer stop     # stops the authorizer
+aserto developer update   # updates the authorizer image to :latest
+```
+
+The Sidecar can be connected to the Aserto control plane. This enables additional functionality, including the ability to issue commands to the Sidecar remotely. To connect the Sidecar to the Aserto control plane see the [edge authorizers](/docs/v1/edge-authorizers/security-and-management) section.

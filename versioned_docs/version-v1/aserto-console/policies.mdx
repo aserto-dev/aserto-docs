@@ -1,0 +1,130 @@
+---
+sidebar_label: Managing Policies
+title: Managing Policies
+description: Managing Policies in the Aserto Console
+---
+
+# Managing Policies
+
+The underpinning of Aserto's authorization model is the [policy](/docs/v1/overview/policy).
+
+**Policies** are authored, stored, and versioned as code in a `git` repository.
+
+A **policy instance** is an instance of the decision engine's runtime associated with a tagged version of a policy. You can create multiple policy instances, each associated with a different version of a policy.
+
+To create a policy instance, you must first create a policy repository. Once the policy repository is set up, you can create a policy instance and associate it with a tag in the policy repository.
+
+:::note
+Currently, GitHub is the only supported source for policy repositories. More to come!
+:::
+
+## Add a policy repository
+
+To add a policy repository, navigate the Registry tab and click "Create a new policy"
+
+<img src="/create-new-repo-button.png" width="200px" />
+
+When you click on “Create a new repository", you'll go through a short workflow to select a git repository for your policy, and name that policy repository in the Aserto console.
+
+Initially, you'll be asked to either use a template or create an empty repository:
+
+<img src="/use-template-options.png" width="700px" />
+
+### Creating a policy repository from a template
+
+If you choose to create a policy from a template, you'll be asked to select a connection to a source code control system. If you don't have any yet, follow the instructions to [create one](/docs/v1/aserto-console/connections/overview).
+
+[<img src="/connect-scc.png" width="600px" />](/connect-scc.png)
+
+Next, you'll select the template you want to use, the organization under which the policy repository will be created and the name of the policy repository (as it will be created in the source code provider).
+
+<img src="/select-org-and-repo-peoplefinder-rbac.png" width="600px" />
+
+Name your new repository with the prefix `policy-` (for example, `policy-peoplefinder-rbac`). This will clone the template to the organization and repository name that you selected. The repository will have the right GitHub Action installed, so that when you tag a commit, a new policy image will automatically be built and pushed to the Aserto Registry. See the [Policy Lifecycle](/docs/v1/overview/policy-lifecycle) topic for more information.
+
+Next, name the policy repository with a descriptive name (e.g. peoplefinder).
+
+<img src="/policy-repo-name.png" width="600px" />
+
+Finally, click "Create a new policy repository" to complete the process.
+
+### Creating an empty policy repository
+
+If you choose to create an empty policy repository, you'll see the following:
+
+<img src="/policy-repo-name-empty.png" width="500px" />
+
+Choose a descriptive name for your policy repository, and click "Create a new policy repository". You'll see the policy repository list:
+
+<img src="/policies-list-empty.png" />
+
+Click on the policy you created, and the following view will be shown:
+
+<img src="/policy-link-code-repo.png" />
+
+Click the "Link a source code repository" button. First, you'll be asked to select your source code provider. If you don't have any yet, follow the instructions to [create one](/docs/v1/aserto-console/connections/overview).
+
+<img src="/connect-scc.png" width="600px" />
+
+Next, select the source control organization for the repository. You can choose to use an existing repository or to use a template.
+
+<img src="/policy-link-org-and-repo.png" width="600px" />
+
+To complete the process, click "Link a source code repository".
+
+## Policy repository details
+
+Once you have one or more policy repositories created, you'll see the list of all the policy repositories in the organization:
+
+You can click on each policy repository and view its details:
+
+<img src="/getting-started/policy-repo-details.png" />
+
+Aserto automatically creates four tags for your repository:
+
+1. latest - Represents the latest version of the policy. An policy instance associated with this tag will always reflect the latest tag pushed to the repository.
+2. 0.0.0 - The _patch_ version of the policy. This tells the policy instance to use this specific version of the policy.
+3. 0.0 - The _minor_ version of the policy. The latest **patch** version under the minor version will be included in this policy. For example, if you create a `0.0.1` tag, any policy instance associated with the `0.0` tag will reflect the latest patch version change.
+4. 0 - The _major_ version of the policy. The latest **minor and patch** versions under the major will be applied. For example, if you create a `0.1` or `0.0.1` tag, any policy instance associated with the `0` tag will reflect the latest minor and patch version change.
+
+## Create a policy instance
+
+After setting up a policy repository, you can create a policy instance. Open the "Policies" tab in the Aserto console, and click "Create an instance":
+
+<img src="/create-instance-button.png" width="170" />
+
+Next, you'll be prompted to select a policy registry:
+
+<img src="/select-policy-registry.png" width="500px" />
+
+Select "Aserto Policy Registry" from the dropdown.
+
+Then, you'll be prompted to select a Policy organization. Choose the organization under which you created your repository.
+
+<img src="/select-policy-organization.png" width="500px" />
+
+Next, select the policy repository you want to associate with the policy instance.
+
+<img src="/select-policy-repository.png" width="500px" />
+
+Select the tag you'd like to associate with the policy instance.
+
+<img src="/select-policy-tag.png" width="500px" />
+
+Finally, name your policy instance and click "Create an instance".
+
+<img src="/name-policy-instance.png" width="500px" />
+
+## Remove a policy repository
+
+In the policy repository list, click the ellipsis on the right side of the policy repository, and click "Delete repository".
+
+<img src="/remove-policy-repository.png" />
+
+Note that removing a policy from your Aserto organization doesn't remove the source code repository. To remove the repository from your git provider, use that provider's API or UI.
+
+## Remove a policy instance
+
+In the Policies tab, click on the X at the top right of any policy instance to remove it.
+
+<img src="/remove-policy-instance.png" />

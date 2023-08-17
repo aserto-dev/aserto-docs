@@ -1,0 +1,141 @@
+---
+sidebar_label: HTTP
+title: Aserto SDKs - Go - HTTP Middleware
+description: Aserto SDKs - Go - Creating and using the HTTP middleware
+---
+
+# HTTP Middleware
+
+Using authorization middleware when building HTTP servers focuses the responsibility of making authorization decisions
+to a single component instead of fragmenting the logic across all routes.
+
+The middleware can be configured to retrieve authorization information, such as user identity, from incoming requests.
+
+## Creating Middleware
+
+Creating middleware requires two arguments: an [authorizer client](authorizer),
+and a `Policy` that identifies the authorization policy to be applied, the decision rule to evaluate, and optionally a
+path to a policy module. If a path isn't provided, the middleware infers the policy path from the incoming
+request's URL. This behavior too can be further customized to fit other naming schemes.
+
+```go
+import (
+    middleware "github.com/aserto-dev/aserto-go/middleware/http"
+)
+
+...
+
+// Create HTTP middleware.
+mw := middleware.New(
+    authClient,
+    mw.Policy{
+        ID:       "<Aserto policy ID>",
+        Decision: "allowed",             // Name of the policy rule to evaluate.
+    },
+)
+```
+
+## Configuring Middleware
+
+Middleware can be configured to extract authorization information from incoming requests. This information includes:
+
+1. Identity: the identity of the caller.
+2. Policy Path: the policy module to evaluate (e.g. `"peoplefinder.GET.api.users.__id"`).
+3. Resource: contextual information about the resource being accessed.
+
+### Identity
+
+[Identity](../../apis/authorizer/identity-context) information is set on the middleware's `.Identity`.
+
+For example, to configure the middleware to identify callers using a JWT in the `"Authorization"` HTTP header:
+
+```go
+mw.Identity.JWT().FromHeader("Authorization")
+```
+
+Or, to read a subject name from a `"username"` context value on the incoming request (presumably, set by some
+authentication middleware):
+
+```go
+mw.Identity.Subject().FromContextValue("username")
+```
+
+### Policy Path
+
+If a policy path isn't specified when the middleware is created, it will be inferred from the request URL starting with
+the HTTP method, followed by the URL segments separated by dots (`.`). Path parameters are prefixed
+with two underscores (e.g. `GET /users/{id}` becomes `GET.users.__id`).
+
+To add a prefix to the generated path (e.g. `peoplefinder.GET.users.__id`) use:
+
+```go
+mw.WithPolicyFromURL("peoplefinder")
+```
+
+To provide your own logic for determining the policy path use:
+
+```go
+mw.WithPolicyPathMapper(
+    func(r *http.Request) string {
+        // custom logic inspects the request and returns the policy path.
+    },
+)
+```
+
+### Resource
+
+[Resource](../../apis/authorizer/resource-context) information can be added to authorization requests using
+`.WithResourceMapper()`:
+
+```go
+mw.WithResourceMapper(
+    func(r *http.Request) *structpb.Struct {
+        resourceContext, err := structpb.NewStruct(map[string]string{
+            "ownerId": GetOwner(r),  // Custom function to retrieve the owner of the resource being accessed.
+        })
+        if err != nil {
+            return resourceContext
+        }
+
+        return nil
+    },
+)
+```
+
+## Connecting Middleware
+
+With a configured middleware in hand, all that's left is connecting it to your HTTP router.
+The way you do that may differ depending on the library/framework you use, but they all follow similar patterns.
+
+### net/http
+
+Using just the built-in `net/http` package:
+
+```go
+func Hello(w http.ResponseWriter, r *http.Request) {
+    w.Write([]byte(`"hello"`))
+}
+
+// Create a router.
+mux := http.NewServeMux()
+
+// Attach middleware to route handler.
+mux.Handle("/", mw.Handler(http.HandlerFunc(Hello)))
+
+```
+
+### gorilla/mux
+
+The popular [`gorilla/mux`](https://pkg.go.dev/github.com/gorilla/mux) package lets you set apply middleware to all
+routes:
+
+```go
+func Hello(w http.ResponseWriter, r *http.Request) {
+    w.Write([]byte(`"hello"`))
+}
+
+r := mux.NewRouter()  // Create new gorilla/mux Router.
+r.Use(mw)             // Attach authorization middleware to all routes.
+
+r.HandleFunc("/", Hello) // Define route.
+```

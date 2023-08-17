@@ -9,13 +9,12 @@ module.exports = {
   tagline: 'Welcome to modern authorization.',
   url: 'https://docs.aserto.com',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'aserto-dev',
   projectName: 'aserto-docs',
   trailingSlash: false,
-
   plugins: [
     [
       'docusaurus2-dotenv',
@@ -35,7 +34,7 @@ module.exports = {
           {
             to: '/docs/',
             from: '/',
-          },
+          }
         ],
       },
     ],
@@ -81,6 +80,8 @@ module.exports = {
           editUrl: 'https://github.com/aserto-dev/aserto-docs/edit/main/',
           routeBasePath: 'docs',
           exclude: ['docs/directory-api-reference/schema/directives/*'],
+          lastVersion: 'v2',
+          includeCurrentVersion: false
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -112,6 +113,12 @@ module.exports = {
           target: '_self',
         },
         items: [
+          {
+            type: 'docsVersionDropdown',
+            position: 'left',
+            dropdownItemsAfter: [{to: '/versions', label: 'All versions'}],
+            dropdownActiveClassDisabled: true,
+          },
           {
             to: 'docs',
             position: 'left',

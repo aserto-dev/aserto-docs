@@ -1,0 +1,43 @@
+---
+id: permissions-where
+title: PermissionsWhere
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+A comparison predicate for filtering permissions.
+
+```graphql
+input PermissionsWhere {
+  permission: StringWhere
+  displayName: StringWhere
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>PermissionsWhere.<b>permission</b></code>](#)<Bullet />[`StringWhere`](/docs/v1/directory-api-reference/schema/common/inputs/string-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter by the permission's value.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>PermissionsWhere.<b>displayName</b></code>](#)<Bullet />[`StringWhere`](/docs/v1/directory-api-reference/schema/common/inputs/string-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter by the permission's display name.
+> 
+
+
+
+### Member of
+
+[`permissions`](/docs/v1/directory-api-reference/schema/permissions/queries/permissions)  <Badge class="secondary" text="query"/>
+
+
+

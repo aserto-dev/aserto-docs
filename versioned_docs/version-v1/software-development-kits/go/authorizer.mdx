@@ -1,0 +1,74 @@
+---
+sidebar_label: Authorizer Client
+title: Aserto SDKs - Go - Authorizer Client
+description: Aserto SDKs - Go - Creating a client and making authorization calls
+---
+
+# Authorizer Client
+
+[`AuthorizerClient`](https://github.com/aserto-dev/go-grpc-authz/blob/main/aserto/authorizer/authorizer/v1/authorizer_grpc.pb.go#L20)
+is the low-level interface that talks to the Aserto [authorization API](/docs/v1/authorizer-guide/authz).
+It can be used on its own to make authorization calls or, more commonly, it can be used to create authorization
+middleware.
+
+## Create a Client
+
+```go
+import (
+    authz "github.com/aserto-dev/aserto-go/authorizer/grpc"
+    "github.com/aserto-dev/aserto-go/client"
+)
+
+...
+
+authClient, err := authz.New(
+        ctx,
+        client.WithAPIKeyAuth("<Aserto authorizer API key"),
+        client.WithTenantID("<Aserto tenant ID>"),
+)
+```
+
+## Make Authorization Calls
+
+Using an authorizer client we can call the [`Is()`](/docs/v1/authorizer-guide/is) API to check if a user is authorized
+to perform an operation.
+
+```go
+import (
+    "fmt"
+
+    "github.com/aserto-dev/go-grpc-authz/aserto/authorizer/authorizer/v1"
+    "github.com/aserto-dev/go-grpc/aserto/api/v1"
+)
+
+...
+
+result, err := authClient.Is(ctx, &authorizer.IsRequest{
+    IdentityContext: &api.IdentityContext{          // The user performing the operation.
+        Type: api.IdentityType_IDENTITY_TYPE_SUB,
+        Identity: "username",
+    },
+    PolicyContext: &api.PolicyContext{
+        Id:        "<Aserto Policy ID>",
+        Path:      "peoplefinder.GET.users",  // Policy module to evaluate.
+        Decisions: []string{"allowed"},       // Policy rules to evaluate.
+    },
+})
+if err != nil {
+    log.Fatal("Failed to call authorizer:", err)
+}
+
+// Check the authorizer's decision.
+for _, decision := range result.Decisions {
+    if decision.Decision == "allowed" {
+        if decision.Is {
+            fmt.Println("Access granted")
+        } else {
+            fmt.Println("Access denied")
+        }
+    }
+}
+```
+
+We can similarly call the [`DecisionTree()`](/docs/v1/authorizer-guide/decisiontree) and
+[`Query()`](/docs/v1/authorizer-guide/query) APIs.

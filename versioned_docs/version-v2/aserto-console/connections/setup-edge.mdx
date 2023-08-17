@@ -1,0 +1,29 @@
+---
+sidebar_label: Edge Authorizers
+title: Setting up an Edge Authorizer Connection
+description: Setting up an Edge Authorizer Connection
+---
+
+## Create an Edge Authorizer connection
+
+Navigate to the "Connections" tab:
+
+<img src='/connections-tab.png' />
+
+Click on the "Add a connection" button:
+
+<img src='/add-a-connection-button.png' width="150px"/>
+
+Select the `Edge Authorizer` provider, name the connection something like "edge-authorizer", click "Add connection".
+
+<img src='/add-edge-connection.png' width="500px" />
+
+Once you've added the Edge Authorizer connection, you'll be able to configure an edge authorizer to create an mTLS connection to the Aserto Control Plane, 
+which will then be able to remotely manage that edge authorizer.
+
+## Obtain the connection ID 
+
+Click the Edge Authorizer connection you just created to show the connection ID. This is the connection ID you will use 
+when [configuring an edge authorizer](../../architecture/authorizer/edge-authorizer/security-and-management).
+
+<img src='/edge-authorizer.png' />

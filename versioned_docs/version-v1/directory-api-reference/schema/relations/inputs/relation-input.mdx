@@ -1,0 +1,48 @@
+---
+id: relation-input
+title: RelationInput
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+Input to the setRelation mutation.
+
+```graphql
+input RelationInput {
+  object: ObjectSelector!
+  relationType: RelationTypeSelector!
+  subject: ObjectSelector!
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationInput.<b>object</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/v1/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+> The relation's object.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationInput.<b>relationType</b></code>](#)<Bullet />[`RelationTypeSelector!`](/docs/v1/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
+> The relation type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationInput.<b>subject</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/v1/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+> The relation's subject.
+> 
+
+
+
+### Member of
+
+[`deleteRelation`](/docs/v1/directory-api-reference/schema/relations/mutations/delete-relation)  <Badge class="secondary" text="mutation"/><Bullet />[`setRelation`](/docs/v1/directory-api-reference/schema/relations/mutations/set-relation)  <Badge class="secondary" text="mutation"/>
+
+
+

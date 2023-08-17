@@ -1,0 +1,349 @@
+{
+  "sidebar": [
+    "index",
+    "get-started",
+    {
+      "Authorization Basics": [
+        "authorization-basics/access-control",
+        "authorization-basics/authz-vs-authn",
+        {
+          "Authorization Models": [
+            "authorization-basics/authorization-models/rbac",
+            "authorization-basics/authorization-models/rebac",
+            "authorization-basics/authorization-models/abac"
+          ]
+        },
+        "authorization-basics/glossary"
+      ]
+    },
+    {
+      "Architecture": [
+        "architecture/introduction",
+        {
+          "Authorizer" : [
+            "architecture/authorizer/overview",
+            {
+              "Edge Authorizer" : [
+                "architecture/authorizer/edge-authorizer/overview",
+                "architecture/authorizer/edge-authorizer/deployment-and-operation",
+                "architecture/authorizer/edge-authorizer/security-and-management",
+                "architecture/authorizer/edge-authorizer/decision-logs",
+                "architecture/authorizer/edge-authorizer/discovery-flow",
+                "architecture/authorizer/edge-authorizer/runtime-flow",
+                "architecture/authorizer/edge-authorizer/directory-synchronization"
+              ]
+            }
+          ]
+        },
+        {
+          "Policy" : [
+            "architecture/policy/overview",
+            "architecture/policy/policy-lifecycle"
+          ]  
+        },
+        "architecture/directory",
+        "architecture/control-plane",
+        "architecture/connections",
+        "architecture/organization"
+      ]
+    },
+    {
+      "Console": [
+        "aserto-console/introduction",
+        {
+          "type": "category",
+          "label": "Managing the Directory",
+          "collapsed": true,
+          "items": [
+            "aserto-console/directory/overview",
+            "aserto-console/directory/navigate-relation",
+            "aserto-console/directory/add-group",
+            "aserto-console/directory/create-object-type",
+            "aserto-console/directory/create-relation-type",
+            "aserto-console/directory/create-permission",
+            "aserto-console/directory/add-relation"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Managing Connections",
+          "collapsed": true,
+          "items": [
+            "aserto-console/connections/overview",
+            {
+              "type": "category",
+              "label": "Identity Providers",
+              "collapsed": true,
+              "items": [
+                "aserto-console/connections/setup-auth0",
+                "aserto-console/connections/setup-azuread",
+                "aserto-console/connections/setup-okta"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Source Code Providers",
+              "collapsed": true,
+              "items": [
+                "aserto-console/connections/setup-github",
+                "aserto-console/connections/setup-gitlab"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Container Registries",
+              "collapsed": true,
+              "items": [
+                "aserto-console/connections/setup-ghcr"
+              ]
+            },
+            "aserto-console/connections/setup-edge"
+          ]
+        },
+        "aserto-console/policies",
+        "aserto-console/view-policies",
+        "aserto-console/decision-logs",
+        "aserto-console/manage-organizations"
+      ]
+    },
+    {
+      "End-to-end scenarios": [
+        {
+          "Corporate Directory" : [
+            "end-to-end-scenarios/corp-directory/overview",
+            "end-to-end-scenarios/corp-directory/deploy-peoplefinder",
+            "end-to-end-scenarios/corp-directory/explore-peoplefinder",
+            "end-to-end-scenarios/corp-directory/understanding-policies",
+            "end-to-end-scenarios/corp-directory/modify-the-policy"
+          ]
+        },
+        {
+          "Multi-tenant Issue Tracker" : [
+            "end-to-end-scenarios/multi-tenant-tracker/overview"
+          ]
+        },
+        {
+          "Todo app" : [
+            "end-to-end-scenarios/todo-app/overview"
+          ]
+        }
+      ]
+    },
+    {
+      "Tutorials": [
+        {
+          "Build a React and Node app" : [
+            "tutorials/react/overview",
+            "tutorials/react/adding-users",
+            "tutorials/react/application-setup",
+            "tutorials/react/service-setup",
+            "tutorials/react/update-the-application",
+            "tutorials/react/create-a-policy",
+            "tutorials/react/use-express-middleware",
+            "tutorials/react/support-more-roles",
+            "tutorials/react/conditional-ui-rendering"
+          ]
+        },
+        {
+          "Create a policy" : [
+            "tutorials/create-policy/overview"
+          ]
+        },
+        {
+          "Setup a Policy-as-code workflow" : [
+            "tutorials/policy-as-code-workflow/overview"
+          ]
+        },
+        "tutorials/elk-decision-logs"        
+      ]
+    },
+    {
+      "Deployment" : [
+        {
+          "Local Deployment": [
+            "deployment/local-deployment/overview",
+            {
+              "Local Directory": [
+                "deployment/local-deployment/local-directory/overview"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "SDKs": [
+        "software-development-kits/overview",
+        {
+          "type": "category",
+          "label": "JavaScript",
+          "collapsed": false,
+          "items": [
+            "software-development-kits/javascript/express",
+            "software-development-kits/javascript/react",
+            "software-development-kits/javascript/spa"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Go",
+          "collapsed": false,
+          "items": [
+            "software-development-kits/go/install",
+            "software-development-kits/go/authorizer",
+            {
+              "type": "category",
+              "label": "Middleware",
+              "collapsed": false,
+              "items": [
+                "software-development-kits/go/middleware-http",
+                "software-development-kits/go/middleware-grpc"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Python",
+          "collapsed": false,
+          "items": [
+            "software-development-kits/python/api-client",
+            "software-development-kits/python/flask",
+            {
+              "type": "category",
+              "label": "Reference",
+              "collapsed": false,
+              "items": [
+                "software-development-kits/python/identity-providers",
+                "software-development-kits/python/authorizers"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Java",
+          "collapsed": false,
+          "items": [
+            "software-development-kits/java/grpc-bindings",
+            "software-development-kits/java/authorizer"
+          ]
+        },
+        "software-development-kits/dotnetcore",
+        {
+          "type": "category",
+          "label": "Ruby",
+          "collapsed": false,
+          "items": [
+            "software-development-kits/ruby/middleware",
+            "software-development-kits/ruby/rails",
+            "software-development-kits/ruby/directory"
+          ]
+        }
+      ]
+    },
+    {
+      "CLIs": [
+        "command-line-interface/introduction",
+        {
+          "type": "category",
+          "label": "Aserto CLI",
+          "collapsed": true,
+          "items": [
+            "command-line-interface/aserto-cli/installation",
+            "command-line-interface/aserto-cli/login",
+            "command-line-interface/aserto-cli/policies",
+            "command-line-interface/aserto-cli/connections",
+            "command-line-interface/aserto-cli/directory",
+            "command-line-interface/aserto-cli/decision-logs",
+            "command-line-interface/aserto-cli/sidecar",
+            "command-line-interface/aserto-cli/control-plane"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Policy CLI",
+          "collapsed": true,
+          "items": [
+            "command-line-interface/policy-cli/download",
+            "command-line-interface/policy-cli/login",
+            "command-line-interface/policy-cli/init",
+            "command-line-interface/policy-cli/build",
+            "command-line-interface/policy-cli/images",
+            "command-line-interface/policy-cli/tag",
+            "command-line-interface/policy-cli/push",
+            "command-line-interface/policy-cli/pull",
+            "command-line-interface/policy-cli/rm",
+            "command-line-interface/policy-cli/export",
+            "command-line-interface/policy-cli/repl",
+            "command-line-interface/policy-cli/sign"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Aserto IDP CLI",
+          "collapsed": true,
+          "items": [
+            "command-line-interface/aserto-idp-cli/installation",
+            "command-line-interface/aserto-idp-cli/plugins",
+            "command-line-interface/aserto-idp-cli/configuration",
+            "command-line-interface/aserto-idp-cli/usage"
+          ]
+        }
+      ]
+    },
+    {
+      "API Reference" : [
+        {
+          "Authorizer": [
+            "apis/authorizer/overview",
+            "apis/authorizer/authz",
+            "apis/authorizer/is",
+            "apis/authorizer/identity-context",
+            "apis/authorizer/policy-context",
+            "apis/authorizer/resource-context",
+            "apis/authorizer/query",
+            "apis/authorizer/display-state-map",
+            "apis/authorizer/decisiontree",
+            "apis/authorizer/policy",
+            "apis/authorizer/built-ins"
+          ]
+        },
+        {
+          "Decision Logs": [
+            "apis/decision-logs/overview",
+            "apis/decision-logs/decision-logs-list",
+            "apis/decision-logs/query",
+            "apis/decision-logs/decisions",
+            "apis/decision-logs/schemas"
+          ]
+        },
+        {
+          "Directory": [
+            "apis/directory/overview",
+            {
+              "GraphQL": [
+                "apis/directory/graphql/overview"
+              ]
+            },
+            {
+              "REST": [
+                "apis/directory/rest/overview"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Troubleshooting": [
+        "troubleshooting/overview",
+        "troubleshooting/existing-policy-cannot-be-added",
+        "troubleshooting/leaked-secret-keys",
+        "troubleshooting/github-connection-cannot-be-removed",
+        "troubleshooting/policy-added-but-shows-error",
+        "troubleshooting/errors-reference"
+      ]
+    }
+  ]
+}

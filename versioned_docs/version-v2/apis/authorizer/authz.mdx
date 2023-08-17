@@ -1,0 +1,23 @@
+---
+sidebar_label: Authorization
+title: Authorization
+description: The Authorizer APIs
+---
+
+# Authorization
+
+The Authorizer makes three APIs available to the calling application for the purpose of
+authorization:
+
+- [`authz/is`](is)
+- [`authz/query`](query)
+- [`authz/decisiontree`](decisiontree)
+
+Each of these APIs is a `POST` style API and accepts an input payload.
+
+The payload for each of these APIs includes three common objects:
+
+- [Identity context](identity-context) identifies the user
+- [Policy context](policy-context) identifies the path and decisions
+- [Policy instance](policy-instance) identifies the policy instance
+- [Resource context](resource-context) identifies the (optional) resource

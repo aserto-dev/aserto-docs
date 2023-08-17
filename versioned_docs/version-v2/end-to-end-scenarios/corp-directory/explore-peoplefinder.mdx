@@ -1,0 +1,81 @@
+---
+sidebar_label: Explore PeopleFinder
+title: Explore PeopleFinder
+---
+
+# Explore PeopleFinder
+
+Click on the Login button and sign in with `euang@acmecorp.com` - the password is `V@erySecre#t123!`.
+
+![login-screen](/getting-started/login-screen.png)
+
+PeopleFinder is a corporate directory that allows viewing all the users in the organization. You have likely seen something similar in your own organization. You can search for users, drill into their individual details, and assuming you have permission make edits, add, or even delete a user.
+
+In the search bar type "Euan" to search for "Euan Garden"
+
+![peoplefinder-search-euan](/peoplefinder-search-euan.png)
+
+You will see Euan's card. Click on the card to open Euan's details.
+
+![peoplefinder-euan-card](/peoplefinder-euan-card.png)
+
+## Roles
+
+Users logging in to PeopleFinder have different roles - 'viewer', 'editor', or 'admin'. PeopleFinder's Aserto policies determine what the logged-in user is allowed to do based on their role rather than hard-coding them into the application.
+
+|Role|Permissions|
+|----|-----------|
+|viewer|Can list users in the directory and view user details|
+|      |Can Edit their own phone number |
+|      |Can see a (disabled) Update button  |
+|editor|Everything viewer can do|
+|      |Can see a (disabled) Delete button|
+|admin|Everything editor can do |
+|      |Can Edit anyone's phone number |
+|     |Can Update department or title for any user |
+|     |Can Create users|
+|     |Can Delete users|
+
+Let's see how this works. Notice the "Edit" button is enabled, while the "Update" button is disabled. This is because Euan (the current logged-in user) has the "viewer" role so he can edit his own phone number, but not anyone else's. We can verify his role by looking at his data coming from Aserto's directory. To do this, press the "Show Detail" button. Notice that "viewer" is listed underneath his roles.
+
+![peoplefinder-euan-detail](/peoplefinder-euan-detail.png)
+
+Press "Hide Detail" to close Euan's details and then pess the "Edit" button and modify the phone number and click Save. 
+
+![peoplefinder-euan-phone-edit](/peoplefinder-euan-phone-edit.png)
+
+The save operation should complete successfully. Now let's see what happens when Euan's Manager views him. PeopleFinder allows you to impersonate other users by using the identity selector in the upper right. Click it and select April.
+
+[<img src="/peoplefinder-user-impersonate-april.png" width="250px"/>](/peoplefinder-user-impersonate-april.png)
+
+For illustration purposes, the "Edit" button is still enabled, but the save operation will not succeed. Try it and you'll get an error similar to the following:
+
+![peoplefinder-euan-phone-april](/peoplefinder-euan-phone-april.png)
+
+Notice the error says this was forbidden by the Aserto policy for PUT on the users API with an id. Our application relies on Aserto to ensure users are only allowed to perform the actions they should based on their role. Pretty cool right? Soon you'll learn about how policies are defined, and how they can be changed on the fly without requiring any code changes in the application
+
+Let's go one step further and see what happens when Kris Johnsen views Euan. Go select "Kris" in the identity selector.
+
+[<img src="/peoplefinder-user-impersonate-kris.png" width="250px"/>](/peoplefinder-user-impersonate-kris.png)
+
+What's different? Notice the "Update" and "Delete" buttons are both enabled. The "Edit" button will also allow saving. Why? Kris is an admin. 
+
+![peoplefinder-euan-kris](/peoplefinder-euan-kris.png)
+
+We can verify this. Instead of doing it within the app, let's take a quick look in the Aserto directory. If you have closed the console, click [here](https://console.aserto.com). Once the console opens, click on the Directory tab on the top.
+
+![peoplefinder-directory](/peoplefinder-directory.png)
+
+Type "kris" into the search bar to bring up "Kris Johnsen"
+
+![peoplefinder-directory-kris](/peoplefinder-directory-kris.png)
+
+Click on Kris and you will her details in Aserto directory and that she is a member of the admin group.
+
+![peoplefinder-directory-kris-details](/peoplefinder-directory-kris-details.png)
+
+## Summary
+
+Nice work! You have now seen how PeopleFinder uses Aserto to apply roles and permissions within the application. You've seen how users have different sets of actions they can perform depending on their role. You've also seen how applications can access and surface data from the Aserto directory, and how you can view the user roles right within the Aserto console.
+
+Next we'll delve deeper into Aserto policies and see how they are constructed.

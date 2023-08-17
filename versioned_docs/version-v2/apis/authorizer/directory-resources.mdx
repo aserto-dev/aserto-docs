@@ -1,0 +1,250 @@
+---
+sidebar_label: Directory Resources
+title: Directory Resources
+description: Documentation for the Directory Resources API
+---
+
+# Directory Resources
+Resources provide a means to manage arbitrary data objects inside the Aserto directory, which are managed (created, updated and deleted) outside the scope a policy. Like `data.json` files which reside inside a policy, resources are JSON data objects, managed as key-value pairs.
+
+Resource objects are loaded on-demand, in contrast to data.json files which are materialized into the data namespace when the policy is loaded and remain memory-resident for the duration of the policy lifetime. Concretely this means that a policy (rule) interacting with data managed in a resource object, will load the data when needed, using the `res.get(<keyname>)` built-in function, present in the Aserto Authorizer.
+
+As noted earlier resources objects are managed out-of-band of the policy, where data.json files and their content are managed as part of the policy (as code) lifecycle.
+
+## Managing Resource Objects
+Resource objects can be managed using the [Aserto CLI](https://github.com/aserto-dev/aserto) or using the directory gRPC APIs.
+
+Resource related Aserto CLI commands:
+
+```sh
+directory (d) list-res    list resources
+directory (d) get-res     get resource
+directory (d) set-res     set resource
+directory (d) del-res     delete resource
+```
+
+A resource can be a simple single value. The below example shows creating, getting and deleted a boolean resource object named `is_it_dark_outside`:
+
+```
+aserto d set-res is_it_dark_outside --value true
+
+aserto d get-res is_it_dark_outside
+{
+  "is_it_dark_outside": true
+}
+
+aserto d del-res is_it_dark_outside
+```
+
+Using the `is_it_dark_outside` resource inside a rego policy:
+
+```
+package policies.demo
+
+default is_dark_outside = false
+
+is_dark_outside {
+    res.get("is_it_dark_outside")
+}
+```
+:::note
+Note: The reason for specifying `default is_dark_outside = false` clause is to cover the case when the resource key value is not defined or found, which would result in an undefined value. This in turn would results in an undefined outcome of the rule.
+:::
+
+### Handling complex `JSON` objects
+
+A resource can also contain a complex JSON object, source from a file or stdin. For example, consider the following `JSON` file:
+
+**demo.json**
+```json
+{
+    "user_roles": {
+        "alice": [
+            "admin"
+        ],
+        "bob": [
+            "employee",
+            "billing"
+        ],
+        "eve": [
+            "customer"
+        ]
+    },
+    "role_grants": {
+        "customer": [
+            {
+                "action": "read",
+                "type": "dog"
+            },
+            {
+                "action": "read",
+                "type": "cat"
+            },
+            {
+                "action": "adopt",
+                "type": "dog"
+            },
+            {
+                "action": "adopt",
+                "type": "cat"
+            }
+        ],
+        "employee": [
+            {
+                "action": "read",
+                "type": "dog"
+            },
+            {
+                "action": "read",
+                "type": "cat"
+            },
+            {
+                "action": "update",
+                "type": "dog"
+            },
+            {
+                "action": "update",
+                "type": "cat"
+            }
+        ],
+        "billing": [
+            {
+                "action": "read",
+                "type": "finance"
+            },
+            {
+                "action": "update",
+                "type": "finance"
+            }
+        ]
+    }
+}
+```
+
+To load the JSON fragment inside the `demo.json` file using the Aserto CLI into a resource objects with the demo key name, use the following command:
+
+```sh
+aserto directory set-res demo --file ./demo.json
+```
+
+To list resources in the directory:
+
+```sh
+aserto directory list-res
+```
+
+Organizing resource objects is a design decision based on the use case, the expected update frequency and object size. For example we can shred the demo.json file into four segments: user_roles, role_grants, employee and billing if these need to be updated independently, or if data size and therefore memory footprint would become important.
+
+Here's an example of a Rego policy that would use the `demo` resource object:
+
+```
+package app.rbac
+
+import future.keywords.in
+
+# By default, deny requests.
+default allow = false
+
+# Allow admins to do anything.
+allow {
+	user_is_admin
+}
+
+# Allow the action if the user is granted permission to perform the action.
+allow {
+	# Find grants for the user.
+	some grant
+	user_is_granted[grant]
+
+	# Check if the grant permits the action.
+	input.action == grant.action
+	input.type == grant.type
+}
+
+# user_is_admin is true if...
+user_is_admin {
+	# "admin" is among the user's roles as per data.user_roles
+	"admin" in res.get("demo").demo.user_roles[input.user]
+}
+
+# user_is_granted is a set of grants for the user identified in the request.
+# The `grant` will be contained if the set `user_is_granted` for every...
+user_is_granted[grant] {
+	# `role` assigned an element of the user_roles for this user...
+	some role in res.get("demo").demo.user_roles[input.user]
+
+	# `grant` assigned a single grant from the grants list for 'role'...
+	some grant in res.get("demo").demo.role_grants[role]
+}
+```
+
+Using the rule with the input:
+
+```json
+{
+    "user": "bob",
+    "action": "read",
+    "object": "id123",
+    "type": "dog"
+}
+```
+
+Would result in:
+```json
+[
+    {
+        "x": {
+            "allow": true,
+            "user_is_granted": [
+                {
+                    "action": "read",
+                    "type": "cat"
+                },
+                {
+                    "action": "read",
+                    "type": "dog"
+                },
+                {
+                    "action": "read",
+                    "type": "finance"
+                },
+                {
+                    "action": "update",
+                    "type": "cat"
+                },
+                {
+                    "action": "update",
+                    "type": "dog"
+                },
+                {
+                    "action": "update",
+                    "type": "finance"
+                }
+            ]
+        }
+    }
+]
+```
+
+## Resource related gRPC APIs
+
+You can list resource related gRPC APIs using the `list` command with a `grep` filter. For example:
+
+```sh
+❯ grpcurl authorizer.prod.aserto.com:8443 list aserto.authorizer.directory.v1.Directory | grep -i resource
+
+aserto.authorizer.directory.v1.Directory.DeleteResource
+aserto.authorizer.directory.v1.Directory.GetResource
+aserto.authorizer.directory.v1.Directory.ListResources
+aserto.authorizer.directory.v1.Directory.SetResource
+```
+
+The `describe` command can be used to get the detailed description of the gRPC function signature:
+
+```sh
+❯ grpcurl authorizer.prod.aserto.com:8443 describe aserto.authorizer.directory.v1.Directory.GetResource
+
+
+aserto.authorizer.directory.v1.Directory.GetResource is a method:
+rpc GetResource ( .aserto.authorizer.directory.v1.GetResourceRequest ) returns ( .aserto.authorizer.directory.v1.GetResourceResponse );
+```

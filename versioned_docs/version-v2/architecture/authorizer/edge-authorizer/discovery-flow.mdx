@@ -1,0 +1,166 @@
+---
+sidebar_label: Discovery Flow
+title: Edge Authorizer - Discovery Flow
+description: Discovery flow of edge authorizers
+---
+# Discovery Flow
+
+When a new edge authorizer is started, the discovery flow will be initiated:
+
+<img src="/discovery-bootstrap.png" />
+
+1. A configuration file (config.yaml) is passed to the authorizer when it is started
+2. The authorizer makes a discovery call to the control plane, passing the policy name, instance label, authorizer API key, and tenant ID.
+3. The authorizer receives a response from the control plane including the configuration that the edge authorizer will need pointing it to the specific policy bundle.
+4. The authorizer validates and merges configuration settings
+5. Finally, the authorizer creates a runtime configuration
+
+## Configuration
+
+To create the configuration file needed to bootstrap the edge authorizer, you can either use the `aserto` CLI or retrieve the credentials from the Aserto console and use them in the configuration template found below.
+
+### Using the `aserto` CLI
+
+To generate the configuration file, you can use the `aserto`
+CLI.
+
+First, login to your Aserto account using the following command:
+
+```sh
+aserto login
+```
+
+Then, use the following command to generate the configuration file:
+
+```sh
+aserto developer configure <POLICY_INSTANCE_NAME>
+```
+
+The configuration will be generated in the directory ` ~/.config/aserto/sidecar/cfg`.
+
+### Retrieving credentials from the Aserto Console
+
+You can retrieve the configuration credentials from the console and copy them into the configuration file template found below.
+
+1. The discovery API key is located on the [connections tab](https://console.aserto.com/ui/connections), under system connections. Click on the “discovery” connection to expose the information associated with the connection.
+
+<img src="/discovery-api-key.png" />
+
+2. The tenant and policy identifiers can be retrieved from the Policy Settings page of the policy instance which needs to get assigned to the edge authorizer instance.
+
+These credentials map into the `config.yaml` file:
+
+```yaml
+---
+logging:
+  prod: true
+  log_level: info
+
+directory:
+  db_path: /app/db/directory.db
+
+api:
+  authorizer:
+    grpc:
+      connection_timeout_seconds: 2
+      listen_address: '0.0.0.0:8282'
+      certs:
+        tls_key_path: '/app/certs/grpc.key'
+        tls_cert_path: '/app/certs/grpc.crt'
+        tls_ca_cert_path: '/app/certs/grpc-ca.crt'
+    gateway:
+      listen_address: '0.0.0.0:8383'
+      allowed_origins:
+        - https://*.mydomain.com
+      certs:
+        tls_key_path: '/app/certs/gateway.key'
+        tls_cert_path: '/app/certs/gateway.crt'
+        tls_ca_cert_path: '/app/certs/gateway-ca.crt'
+    health:
+      listen_address: '0.0.0.0:8484'
+
+opa:
+  instance_id: <TENANT_ID>
+  graceful_shutdown_period_seconds: 2
+  config:
+    services:
+      aserto-discovery:
+        url: https://discovery.prod.aserto.com/api/v2/discovery
+        credentials:
+          bearer:
+            token: '<DISCOVERY_API_KEY>'
+            scheme: 'basic'
+        headers:
+          Aserto-Tenant-Id: <TENANT_ID>
+    discovery:
+      service: aserto-discovery
+      resource: <POLICY_NAME>/<INSTANCE_LABEL>/opa
+
+decision_logger:
+  enabled: false
+```
+
+## Configuration Validation
+
+To validate the correctness of the data used and to inspect what information is exchanged between the edge authorizer and the control plane, the following `curl` command can be used to execute the discovery request:
+
+```sh
+curl --request GET \
+     --url https://discovery.prod.aserto.com/api/v2/discovery/<POLICY_NAME>/<INSTANCE_LABEL>/opa\
+     --header 'Accept: application/json' \
+     --header 'Content-Type: application/json' \
+     --header 'aserto-tenant-id: <TENANT_ID>' \
+     --header 'authorization: basic <DISCOVERY_API_KEY>'
+```
+
+The expected response should be:
+
+```json
+{
+  "opa": {
+    "discovery": {
+      "bundles": {
+        "<POLICY_ID>": {
+          "persist": false,
+          "polling": {
+            "max_delay_seconds": 120,
+            "min_delay_seconds": 60
+          },
+          "resource": "<TENANT>/<POLICY>//blobs/sha256:<DIGEST>",
+          "service": "<CONNECTION-ID>-tenant",
+          "signing": null,
+          "size_limit_bytes": 0
+        }
+      },
+      "plugins": {
+        "aserto_edge": {
+          "addr": "directory.prod.aserto.com:8443",
+          "apikey": "<REDACTED directory API key>",
+          "enabled": false,
+          "insecure": false,
+          "page_size": 100,
+          "sync_interval": 60,
+          "timeout": 10
+        }
+      },
+      "services": {
+        "<CONNECTION-ID>-tenant": {
+          "credentials": {
+            "bearer": {
+              "token": "<REDACTED> registry download API key"
+            }
+          },
+          "response_header_timeout_seconds": 60,
+          "url": "https://registry.aserto.com/v2/"
+        }
+      }
+    }
+  }
+}
+```
+
+When the edge authorizer receives the discovery response, the information received will be replace the OPA element from the bootstrap configuration, resulting in the following configuration.
+
+:::note
+The edge authorizer runtime configuration is ephemeral and does not get persisted to disk.
+:::

@@ -1,0 +1,23 @@
+---
+sidebar_label: Authorization
+title: Authorization
+description: The Authorizer APIs
+---
+
+# Authorization
+
+The Authorizer makes three APIs available to the calling application for the purpose of
+authorization:
+
+- [`authz/is`](is.mdx)
+- [`authz/query`](query.mdx)
+- [`authz/decisiontree`](decisiontree.mdx)
+
+Each of these APIs is a `POST` style API and accepts an input payload.
+
+The payload for each of these APIs includes three common objects:
+
+- [Identity context](identity-context.mdx) identifies the user
+- [Policy context](policy-context.mdx) identifies the path and decisions
+- [Policy instance](policy-instance.mdx) identifies the policy instance
+- [Resource context](resource-context.mdx) identifies the (optional) resource

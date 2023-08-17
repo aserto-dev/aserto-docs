@@ -1,0 +1,86 @@
+---
+id: object-type
+title: ObjectType
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+ObjectType represents the kinds of objects that can exist in the directory.
+
+```graphql
+type ObjectType {
+  name: String!
+  isSubject: Boolean!
+  displayName: String!
+  ordinal: Int!
+  status: [Flag!]!
+  hash: Hash!
+  lifecycle: Lifecycle!
+  relationTypes(
+  first: Int!
+  after: Cursor
+): RelationTypeConnection!
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>name</b></code>](#)<Bullet />[`String!`](/docs/v1/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Name of the object type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>isSubject</b></code>](#)<Bullet />[`Boolean!`](/docs/v1/directory-api-reference/schema/common/scalars/boolean) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Whether the object type represents a subject type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>displayName</b></code>](#)<Bullet />[`String!`](/docs/v1/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Friendly name of the object type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>ordinal</b></code>](#)<Bullet />[`Int!`](/docs/v1/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Sort order of the object type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>status</b></code>](#)<Bullet />[`[Flag!]!`](/docs/v1/directory-api-reference/schema/common/enums/flag) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="enum"/> <Badge class="secondary" text="common"/>
+> A of flags that describe the status of the object type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>hash</b></code>](#)<Bullet />[`Hash!`](/docs/v1/directory-api-reference/schema/common/scalars/hash) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> A hash value of object type's fields.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>lifecycle</b></code>](#)<Bullet />[`Lifecycle!`](/docs/v1/directory-api-reference/schema/common/objects/lifecycle) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="common"/>
+> Metadata about the object type's lifecycle.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectType.<b>relationTypes</b></code>](#)<Bullet />[`RelationTypeConnection!`](/docs/v1/directory-api-reference/schema/relation-types/objects/relation-type-connection) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="relation-types"/>
+> The types of relations that can be created with objects of this type.
+> ##### [<code style={{ fontWeight: 'normal' }}>ObjectType.relationTypes.<b>first</b></code>](#)<Bullet />[`Int!`](/docs/v1/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> 
+> 
+
+##### [<code style={{ fontWeight: 'normal' }}>ObjectType.relationTypes.<b>after</b></code>](#)<Bullet />[`Cursor`](/docs/v1/directory-api-reference/schema/common/scalars/cursor) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> 
+> 
+
+
+
+### Returned by
+
+[`objectType`](/docs/v1/directory-api-reference/schema/object-types/queries/object-type)  <Badge class="secondary" text="query"/>
+
+### Member of
+
+[`Object`](/docs/v1/directory-api-reference/schema/objects/objects/object)  <Badge class="secondary" text="object"/><Bullet />[`ObjectTypeConnection`](/docs/v1/directory-api-reference/schema/object-types/objects/object-type-connection)  <Badge class="secondary" text="object"/><Bullet />[`RelationType`](/docs/v1/directory-api-reference/schema/relation-types/objects/relation-type)  <Badge class="secondary" text="object"/><Bullet />[`SetObjectTypeResult`](/docs/v1/directory-api-reference/schema/object-types/objects/set-object-type-result)  <Badge class="secondary" text="object"/>
+
+
+

@@ -1,0 +1,40 @@
+---
+id: delete-object-type
+title: deleteObjectType
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+Delete an object type.
+
+```graphql
+deleteObjectType(
+  name: String!
+): DeleteObjectTypeResult!
+```
+
+
+### Arguments
+
+#### [<code style={{ fontWeight: 'normal' }}>deleteObjectType.<b>name</b></code>](#)<Bullet />[`String!`](/docs/v1/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The name of the object type to delete.
+> 
+
+### Type
+
+#### [`DeleteObjectTypeResult`](/docs/v1/directory-api-reference/schema/object-types/objects/delete-object-type-result) <Badge class="secondary" text="object"/> <Badge class="secondary" text="object-types"/>
+> Result of a DeleteObjectType mutation.
+> 
+
+
+
+
+

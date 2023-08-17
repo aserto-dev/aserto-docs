@@ -1,0 +1,34 @@
+---
+id: cursor
+title: Cursor
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+A pagination cursor.
+
+Cursors are returned within PageInfo objects in responses to paginated queries.
+They are the arguments expected by the the `after` parameter of paginated queries and are used to continue querying for
+more results after a specific point.
+
+```graphql
+scalar Cursor
+```
+
+
+
+
+### Member of
+
+[`objects`](/docs/v1/directory-api-reference/schema/objects/queries/objects)  <Badge class="secondary" text="query"/><Bullet />[`objectTypes`](/docs/v1/directory-api-reference/schema/object-types/queries/object-types)  <Badge class="secondary" text="query"/><Bullet />[`PageInfo`](/docs/v1/directory-api-reference/schema/common/objects/page-info)  <Badge class="secondary" text="object"/><Bullet />[`permissions`](/docs/v1/directory-api-reference/schema/permissions/queries/permissions)  <Badge class="secondary" text="query"/><Bullet />[`relations`](/docs/v1/directory-api-reference/schema/relations/queries/relations)  <Badge class="secondary" text="query"/><Bullet />[`relationTypes`](/docs/v1/directory-api-reference/schema/relation-types/queries/relation-types)  <Badge class="secondary" text="query"/>
+
+
+

@@ -1,0 +1,35 @@
+---
+sidebar_label: Overview
+title: Directory Overview
+description: Overview of the Aserto Directory
+---
+
+# Directory Overview
+
+The Aserto Directory contains users, groups, relations, and permissions. You can also create your own object types, relation types, and permissions which match your applications "nouns" and "verbs".
+
+First, let's cover interacting with users.
+
+## Viewing users 
+
+Users are seeded from identity providers. By default, your account is connected to the "Citadel" demo identity provider, which contains five users (Rick, Morty, Summer, Beth, and Jerry). 
+
+When you click on the Directory tab in the Navbar, you'll see the users that are in the Aserto Directory.
+
+![users](/users.png)
+
+If you've created an organization, or disconnected the Citadel identity provider, you'll need to connect another IDP in order to see those users.
+
+## Viewing user details
+
+When you click on a user (for example, Rick Sanchez), you'll see the user's details. 
+
+![rick](/rick.png)
+
+These include a JSON property bag, which contains any properties that were imported from the identity provider. You can also add your own application-specific properties to the user.
+
+## Modifying user properties
+
+Add, edit, or remove properties from the JSON object, and click "Save" to save the changes to the Aserto Directory.
+
+Next, we will cover relationships between users and other objects.

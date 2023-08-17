@@ -1,0 +1,67 @@
+---
+sidebar_label: Runtime Flow
+title: Edge Authorizer - Runtime flow
+description: Runtime flow of edge authorizers
+---
+
+# Runtime Flow
+
+When the edge authorizer has been bootstrapped it will transition to the runtime flow:
+
+<img src="/runtime-flow.png" />
+
+In this state, it will spin up two timer-based background tasks: The first is the discovery updates flow, which executes the discovery request described above to retrieve configuration updates. These updates include updates of the policy in case of a new version as well as configuration changes for the plugins, concretely the edge directory plugin. When a new policy version is available, the policy will be downloaded and applied to the authorizer.
+
+A second time-based background task will synchronize the identity data from the central directory to the edge authorizer when the edge directory plugin is enabled. By default, directory synchronization is turned off and can be enabled in the Aserto console.
+
+## Runtime configuration
+
+The runtime configuration is automatically retrieved from the control plane and is not persisted. The example below shows the resolved runtime configuration of the edge authorizer.
+
+Example configuration of an authorizer that uses a policy image from the Aserto registry service:
+```yaml
+---
+logging:
+  prod: true
+  log_level: info
+
+directory:
+  db_path: /app/db/directory.db
+
+api:
+  authorizer:
+    grpc:
+      connection_timeout_seconds: 2
+      listen_address: '0.0.0.0:8282'
+      certs:
+        tls_key_path: '/app/certs/grpc.key'
+        tls_cert_path: '/app/certs/grpc.crt'
+        tls_ca_cert_path: '/app/certs/grpc-ca.crt'
+    gateway:
+      listen_address: '0.0.0.0:8383'
+      allowed_origins:
+        - https://*.mydomain.com
+      certs:
+        tls_key_path: '/app/certs/gateway.key'
+        tls_cert_path: '/app/certs/gateway.crt'
+        tls_ca_cert_path: '/app/certs/gateway-ca.crt'
+    health:
+      listen_address: '0.0.0.0:8484'
+
+opa:
+  instance_id: <TENANT_ID>
+  config:
+    bundles:
+      '<POLICY_NAME>.<INSTANCE_LABEL>.<DIGEST>':
+        persist: false       
+        resource: 'registry.prod.aserto.com/<TENANT_NAME>/<REPO_NAME>:<LABEL>'
+        service: <CONNECTION_ID>-<TENANT_NAME>         
+    services:
+      <CONNECTION_ID>-<TENANT_NAME>:
+        credentials:
+          bearer:
+            token: '<TENANT_NAME>:<REDACTED> registry download API key'
+            scheme: 'basic'
+        response_header_timeout_seconds: 60
+        url:  "https://registry.prod.aserto.com/v2/"
+```

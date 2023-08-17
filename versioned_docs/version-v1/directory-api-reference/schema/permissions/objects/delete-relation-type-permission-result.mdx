@@ -1,0 +1,38 @@
+---
+id: delete-relation-type-permission-result
+title: DeleteRelationTypePermissionResult
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+Result of the DeleteRelationTypePermission mutation.
+
+```graphql
+type DeleteRelationTypePermissionResult {
+  deleted: Boolean!
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>DeleteRelationTypePermissionResult.<b>deleted</b></code>](#)<Bullet />[`Boolean!`](/docs/v1/directory-api-reference/schema/common/scalars/boolean) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Whether or not the permission was deleted.
+> 
+
+
+
+### Returned by
+
+[`deleteRelationTypePermission`](/docs/v1/directory-api-reference/schema/permissions/mutations/delete-relation-type-permission)  <Badge class="secondary" text="mutation"/>
+
+
+

@@ -1,0 +1,70 @@
+---
+sidebar_label: Decision Logs
+title: The decision_logs API
+description: List and get decision log objects
+---
+
+# decision_logs
+
+The `decision_logs` API provides a means of listing and retrieving decision logs objects.
+
+## URL
+
+`GET .../api/v1/decision_logs/decision_logs`
+
+This form returns a list of names of available decision log storage objects, each of which can be provided to the
+second form of this API to retrieve a secure download location (URL):
+
+`GET .../api/v1/decision_logs/decision_logs/{name}`
+
+Where `name` was previously retrieved using the list call. Note that storage object names must be
+URL-encoded before using them to retrieve a download location.
+
+## Example
+
+Given a hypothetical tenant with a policy with policy id `18d6580f-7fb0-11ec-bdd9-01c9e2c2068b`, the list call to
+retrieve those decision log object names is:
+
+`GET .../api/v1/decision_logs/decision_logs?policies=18d6580f-7fb0-11ec-bdd9-01c9e2c2068b`
+
+Note that omitting the policies parameter would retrieve object names for all the policies.
+
+The response would be similar to:
+
+```json
+{
+  "page": {
+    "next_token": "",
+    "result_size": 3,
+    "total_size": 0
+  },
+  "results": [
+    {
+      "name": "18d6580f-7fb0-11ec-bdd9-01c9e2c2068b/decisions-2022-01-28-00"
+    },
+    {
+      "name": "18d6580f-7fb0-11ec-bdd9-01c9e2c2068b/decisions-2022-01-28-01"
+    },
+    {
+      "name": "18d6580f-7fb0-11ec-bdd9-01c9e2c2068b/decisions-2022-01-28-04"
+    }
+  ]
+}
+```
+
+Passing one of the resulting names to the retrieval call and taking care to URL-encode the name:
+
+`GET .../api/v1/decision_logs/decision_logs/18d6580f-7fb0-11ec-bdd9-01c9e2c2068b%2Fdecisions-2022-01-28-00`
+
+Yields a response similar to:
+
+```json
+{
+  "log": {
+    "url": "https://storage.googleapis.com/..."
+  }
+}
+```
+
+`url` can be used to download the object, which is a CSV file, using standard HTTP tools. The URL is signed
+and valid for 15 minutes.

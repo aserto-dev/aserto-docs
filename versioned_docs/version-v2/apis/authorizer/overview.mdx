@@ -1,0 +1,44 @@
+---
+sidebar_label: Overview
+title: Authorizer Guide
+description: How to use the Aserto Authorizer
+---
+
+# Overview
+
+The Authorizer is an open source authorization engine which uses the
+[Open Policy Agent](https://www.openpolicyagent.org) (OPA) to
+compute a [**decision**](../../architecture/policy/overview#decision) based on a [**policy**](../../architecture/policy/overview),
+[**user context**](../../architecture/policy/overview#user-context), and **data**.
+
+An application can interact with the Authorizer through a set of gRPC or HTTPS REST APIs.
+
+## Hosted Authorizer vs Edge Authorizer
+
+Creating an Aserto tenant automatically creates a corresponding Authorizer instance in the multi-tenant hosted Authorizer. Since it's a multi-tenant service, the hosted Authorizer requires authorization headers to disambiguate the tenant and provide the tenant secret (API key).
+
+The Aserto authorizer can also be [deployed as a sidecar (or as a local service)](../../architecture/authorizer/edge-authorizer/overview), right next to your application. Since this Authorizer is a single-tenant service, it does not require authentication, besides the certificate validation mandated by HTTPS mutual TLS.
+
+## Authorization
+
+Any API call to the hosted Authorizer requires two HTTP headers:
+
+- `Aserto-Tenant-ID: <Tenant-ID>`
+- `Authorization: basic <Authorizer-API-Key>`
+
+You can find these values in the [Policy settings](../../aserto-console/view-policies#viewing-policy-settings)
+in the Aserto Console.
+
+## Authorizer API categories
+
+The Authorizer provides the following API categories to calling applications:
+
+- [Authorization](authz) (`authz`)
+- [Policy](policy) (`policy`)
+- Information (`info`)
+
+:::note
+The v1 [Directory](dir) (`dir`) namespace is now deprecated in favor of the v2 Directory [graphQL APIs](../directory/graphql/overview).
+
+The v1 System (`sys`) namespace is now removed from v2.
+:::

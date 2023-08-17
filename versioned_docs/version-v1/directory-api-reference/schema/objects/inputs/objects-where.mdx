@@ -1,0 +1,48 @@
+---
+id: objects-where
+title: ObjectsWhere
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+A comparison predicate for filtering objects.
+
+```graphql
+input ObjectsWhere {
+  type: ObjectTypesWhere
+  key: StringWhere
+  displayName: StringWhere
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectsWhere.<b>type</b></code>](#)<Bullet />[`ObjectTypesWhere`](/docs/v1/directory-api-reference/schema/object-types/inputs/object-types-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="object-types"/>
+> Filter objects by their type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectsWhere.<b>key</b></code>](#)<Bullet />[`StringWhere`](/docs/v1/directory-api-reference/schema/common/inputs/string-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter relations by key.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>ObjectsWhere.<b>displayName</b></code>](#)<Bullet />[`StringWhere`](/docs/v1/directory-api-reference/schema/common/inputs/string-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter relations by display name.
+> 
+
+
+
+### Member of
+
+[`objects`](/docs/v1/directory-api-reference/schema/objects/queries/objects)  <Badge class="secondary" text="query"/><Bullet />[`RelationsWhere`](/docs/v1/directory-api-reference/schema/relations/inputs/relations-where)  <Badge class="secondary" text="input"/>
+
+
+

@@ -1,0 +1,71 @@
+---
+sidebar_label: Overview
+title: Architecture - Policy - Overview
+description: The Aserto Authorization Policy - an Overview
+---
+
+# Policy
+
+Aserto Policies are a collection of rules that govern access to the resources within an application. At runtime, Aserto uses Policies to determine whether or not to allow a caller to access resources. 
+
+A Policy contains a collection of _Policy Modules_ which are authored in a declarative language called
+[rego](https://www.openpolicyagent.org/docs/latest/policy-language/).
+
+A policy can include one or more `rego` files, and one or more JSON data files.
+
+A `rego` file has a `package` directive which sets the namespace for the rego file, and defines one or more decisions.
+
+```rego
+package sample.GET.api.orders
+
+allowed {
+  true
+}
+```
+
+:::note
+In the rego file above, the `package` name follows the Aserto convention:
+
+`policy-root`.`HTTP method`.`HTTP route`
+:::
+
+## Decision
+
+A _decision_ is an output from the evaluation of a _policy_. The policy above exports a
+decision called `allowed`, and sets its value to `true`.
+
+The policy below exports the same decision (`allowed`), has a default value of `false` for this
+decision, and a rule that sets `allowed` to true only if the logged-in users's `department` attribute
+is equal to `"Sales"`:
+
+```rego
+package sample.GET.api.orders
+
+default allowed = false
+
+allowed {
+  input.user.properties.department == "Sales"
+}
+```
+
+## User context
+
+In the policy above, we were able to use the `department` attribute to help compute the `allowed`
+decision. This is an example of User context that is used in a policy. If you hook up your
+identity providers and/or directories to Aserto, it will automatically synchronize properties from
+these sources and make them available to your policies.
+
+In addition, you can create and manage extensions for users in the Aserto directory, on a global or
+per-application basis.
+
+## Resource context
+
+Policies can also use resource context in their evaluation process. If we added the allowed clause 
+below to our policy, and the caller included a resource context that contains `{ "id": "<the-user-id>" }`, 
+the policy would evaluate `allowed` to `true` if the user id and the resource id match.
+
+```rego
+allowed {
+  input.user.id == input.resource.id
+}
+```

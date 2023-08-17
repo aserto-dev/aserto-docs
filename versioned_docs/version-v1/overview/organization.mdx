@@ -1,0 +1,34 @@
+---
+sidebar_label: Organizations
+title: Overview - Organizations
+description: Aserto Organizations, artifacts and role based-access control
+---
+
+# Aserto Organizations
+
+The organization provides the context for the artifacts that are managed by Aserto -
+[_connections_](/docs/v1/overview/connections), [_policies_](/docs/v1/overview/policy-lifecycle), and the [_user directory_](/docs/v1/overview/directory). You can think of it like a GitHub organization.
+
+Every organization has at least one owner. It can also have members and viewers.
+
+## Artifacts
+
+Aserto manages the following artifacts for an organization:
+
+- [Connections](/docs/v1/overview/connections) - these are connections to external systems such as source code control systems and identity providers
+- [Policies](/docs/v1/overview/policy-lifecycle) - these are references to git repositories that store authorization policies
+- [User Directory](/docs/v1/overview/directory) - these are the users that Aserto has synched from one or more connected identity providers
+
+## Role-based access control
+
+Naturally, Aserto uses Aserto for authorization, using a simple role-based access control (RBAC) model.
+
+The roles that Aserto supports:
+
+- Owner: can perform all operations on an organization, including inviting other viewers, members, and owners, as well as reset the role of another member of the organization
+- Member: can perform all operations on an organization except inviting others to the organization or managing organization membership
+- Viewer: allowed to see all organization information, but not create or edit any organization artifacts
+
+The Aserto policy for the Aserto API can be found [here](https://github.com/aserto-dev/policy-aona).
+
+Learn more about how to [manage Aserto organizations](/docs/v1/aserto-console/manage-organizations) using the Aserto Console.

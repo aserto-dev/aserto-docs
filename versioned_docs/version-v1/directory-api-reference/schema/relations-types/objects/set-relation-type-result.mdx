@@ -1,0 +1,38 @@
+---
+id: set-relation-type-result
+title: SetRelationTypeResult
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+Result of the setRelationType mutation.
+
+```graphql
+type SetRelationTypeResult {
+  relationType: RelationType!
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>SetRelationTypeResult.<b>relationType</b></code>](#)<Bullet />[`RelationType!`](/docs/v1/directory-api-reference/schema/relation-types/objects/relation-type) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="object"/> <Badge class="secondary" text="relation-types"/>
+> The created relation type.
+> 
+
+
+
+### Returned by
+
+[`setRelationType`](/docs/v1/directory-api-reference/schema/relation-types/mutations/set-relation-type)  <Badge class="secondary" text="mutation"/>
+
+
+

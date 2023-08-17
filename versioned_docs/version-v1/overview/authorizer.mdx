@@ -1,0 +1,37 @@
+---
+sidebar_label: Authorizer
+title: Overview - Authorizer
+description: The Authorizer - an Overview
+---
+
+# Authorizer
+
+The Authorizer is an open source authorization engine which uses the
+[Open Policy Agent](https://www.openpolicyagent.org) (OPA) to
+compute a [**decision**](/docs/v1/overview/policy#decision) based on a [**policy**](/docs/v1/overview/policy),
+[**user context**](/docs/v1/overview/policy#user-context), and [**resource context**](/docs/v1/overview/policy#resource-context).
+
+The Authorizer is packaged as a docker image and is meant to be deployed as close as possible
+to your application:
+
+- a sidecar container in the same pod as the application (if you're running in Kubernetes)
+- a service that is deployed in the same subnet as your application (if not)
+
+In addition, when you create an Aserto [organization](/docs/v1/overview/organization), an Authorizer instance
+in Aserto's multi-tenant hosted authorizer service is provisioned for you. Since the APIs are identical to 
+the sidecar authorizer, using the hosted authorizer is the easiest way to start building applications that 
+use Aserto.
+
+Finally, the same container image underpins Aserto's local developer experience, which you can
+deploy on your local workstation using the Aserto [CLI](/docs/v1/command-line-interface/introduction), and
+use while developing your application. This helps create a tight development workflow that has no
+external dependencies.
+
+## Concepts
+
+The main concepts for the Authorizer are:
+
+- [Policy](/docs/v1/overview/policy): a set of rules for making an authorization decision
+- [Decision](/docs/v1/overview/policy#decision): an output of the policy
+- [User context](/docs/v1/overview/policy#user-context): a set of user _properties_, _roles_, and _scopes_ that can be used in a policy to determine the outcome of decisions
+- [Resource context](/docs/v1/overview/policy#resource-context): additional resource data (often in the form of lookup tables) that is used in determining the outcome of decisions

@@ -1,0 +1,49 @@
+---
+id: type-idwhere
+title: TypeIDWhere
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+A comparison predicate for filtering types on their id field.
+
+```graphql
+input TypeIDWhere {
+  equals: TypeID
+  notEquals: TypeID
+  in: [TypeID!]
+  notIn: [TypeID!]
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>TypeIDWhere.<b>equals</b></code>](#)<Bullet />[`TypeID`](/docs/v1/directory-api-reference/schema/common/scalars/type-id) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The type's id is equal to the given id.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>TypeIDWhere.<b>notEquals</b></code>](#)<Bullet />[`TypeID`](/docs/v1/directory-api-reference/schema/common/scalars/type-id) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The type's id is not equal to the given id.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>TypeIDWhere.<b>in</b></code>](#)<Bullet />[`[TypeID!]`](/docs/v1/directory-api-reference/schema/common/scalars/type-id) <Badge class="secondary" text="list"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The type's id is equal to one of the given ids.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>TypeIDWhere.<b>notIn</b></code>](#)<Bullet />[`[TypeID!]`](/docs/v1/directory-api-reference/schema/common/scalars/type-id) <Badge class="secondary" text="list"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The type's id is not equal to any of the given ids.
+> 
+
+
+
+
+

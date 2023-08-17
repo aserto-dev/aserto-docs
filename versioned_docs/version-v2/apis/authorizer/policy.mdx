@@ -1,0 +1,165 @@
+---
+sidebar_label: Policy
+title: Policy API
+description: The Policy API
+---
+
+# Policy
+
+The Authorizer makes three APIs available to the calling application for the purpose of
+interacting with the Policies modules that are loaded in the Authorizer:
+
+- `policies`
+- `policies/{id}`
+
+Each of these APIs is a `GET` style API.
+
+## policies
+
+`GET .../api/v2/policies?field_mask=<field1>,<field2>`
+
+This will return a list of all the policies loaded in the Authorizer runtime.
+
+### parameters
+
+`field_mask=<field1>,<field2>`: the set of fields to return (defaults to ALL if unspecified)
+
+Available fields:
+* `id`: the id of the policy module (which can be passed into the `policies/{id}` API)
+* `raw`: the raw text of the Rego module
+* `package_path`: the path of the package
+* `ast`: the parsed abstract syntax tree of the package
+
+### results
+
+The results contain all the policy modules, with the specified fields. If no `field_mask` fields are specified, all fields are returned.
+
+```json
+{
+  "result": [
+    {
+      "id": "todo/tmp/opa/oci/github/workspace/content/src/policies/todoApp.PUT.todos.__id.rego",
+      "raw": "package todoApp.PUT.todos.__id\n\nimport future.keywords.in\nimport input.resource\nimport input.user\n\ndefault allowed = false\n\nallowed {\n\tuser.properties.roles[_] == \"editor\"\n\tuser.key == resource.ownerID\n}\n\nallowed {\n\tuser.properties.roles[_] == \"evil_genius\"\n}\n",
+      "package_path": "data.todoApp.PUT.todos.__id",
+      "ast": {
+        ...
+      }
+    },
+    {
+      ...
+    }
+  ]
+}
+```
+
+## policies/{id}
+
+`GET .../api/v2/policies/{id}?field_mask=<field1>,<field2>`
+
+This will return the details for a particular policy module identified by `{id}`, which can be obtained from the `/api/v2/policies` call.
+
+### parameters
+
+`field_mask=<field1>,<field2>`: the set of fields to return (defaults to ALL if unspecified)
+
+The fields are the same as the ones for the `/api/v2/policies` call.
+
+### results
+
+```json
+{
+  "result": {
+    "id": "todo/tmp/opa/oci/github/workspace/content/src/policies/todoApp.PUT.todos.__id.rego",
+    "raw": "package todoApp.PUT.todos.__id\n\nimport future.keywords.in\nimport input.resource\nimport input.user\n\ndefault allowed = false\n\nallowed {\n\tuser.properties.roles[_] == \"editor\"\n\tuser.key == resource.ownerID\n}\n\nallowed {\n\tuser.properties.roles[_] == \"evil_genius\"\n}\n",
+    "package_path": "data.todoApp.PUT.todos.__id",
+    "ast": {
+      ...
+    }
+  }
+}
+```
+
+# Deprecated v1 APIs
+
+:::danger Note
+These APIs are no longer supported. The are documented here for users who still need to update to the v2 APIs, and want to understand the differences.
+:::
+
+The Authorizer makes three APIs available to the calling application for the purpose of
+interacting with the Policies modules that are loaded in the Authorizer:
+
+- `policy/policies`
+- `policy/policies/{id}`
+- `policy/modules/{id}`
+
+Each of these APIs is a `GET` style API.
+
+## policy/policies
+
+`GET .../api/v1/policy/policies`
+
+This will return a list of all the policies loaded in the Authorizer.
+
+### results
+
+```json
+{
+  "results": [
+    {
+      "name": "peoplefinder",
+      "id": "193725120"
+    },
+    {
+      "name": "mycars",
+      "id": "193790657"
+    }
+  ]
+}
+```
+
+## policy/policies/{id}
+
+`GET .../api/v1/policy/policies/{id}`
+
+This will return the list of policy modules for the policy ID specified, which is extracted from the
+results of the `/policy/policies` call.
+
+### results
+
+```json
+{
+  "id": "193725120",
+  "name": "peoplefinder",
+  "policies": [
+    {
+      "name": "peoplefinder.DELETE.api.users.__id",
+      "id": "YXNlcnRvMS9wZW9wbGVmaW5kZXIvdXNlcnMvX19pZC9kZWxldGUucmVnbw=="
+    },
+    {
+      "name": "peoplefinder.GET.api.users.__id",
+      "id": "YXNlcnRvMS9wZW9wbGVmaW5kZXIvdXNlcnMvX19pZC9nZXQucmVnbw=="
+    },
+    ...
+  ]
+}
+```
+
+## policy/modules/{id}
+
+`GET .../api/v1/policy/modules/{id}`
+
+This will return the content of the policy module ID specified, which is extracted from the results of
+the `/policy/policies/{id}` call.
+
+### results
+
+```json
+{
+  "module": {
+    "id": "YXNlcnRvMS9wZW9wbGVmaW5kZXIvdXNlcnMvcG9zdC5yZWdv",
+    "name": "peoplefinder.POST.api.users",
+    "content": "package peoplefinder.POST.api.users\n\ndefault allowed = false\n\ndefault visible = false\n\ndefault enabled = false\n\nallowed {\n\tu = input.user\n\tu.properties.department == \"Operations\"\n\tu.properties.title == \"IT Manager\"\n}\n\nvisible {\n\tallowed\n}\n\nenabled {\n\tallowed\n}\n",
+    "rules": ["allowed", "visible", "enabled", "allowed", "visible", "enabled"]
+  }
+}
+```

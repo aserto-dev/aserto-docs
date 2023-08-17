@@ -1,0 +1,40 @@
+---
+id: delete-permission
+title: deletePermission
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+Delete a permission.
+
+```graphql
+deletePermission(
+  permission: String!
+): DeletePermissionResult!
+```
+
+
+### Arguments
+
+#### [<code style={{ fontWeight: 'normal' }}>deletePermission.<b>permission</b></code>](#)<Bullet />[`String!`](/docs/v1/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The permission to delete.
+> 
+
+### Type
+
+#### [`DeletePermissionResult`](/docs/v1/directory-api-reference/schema/permissions/objects/delete-permission-result) <Badge class="secondary" text="object"/> <Badge class="secondary" text="permissions"/>
+> Result of the deletePermission mutation.
+> 
+
+
+
+
+

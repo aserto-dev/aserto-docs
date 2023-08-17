@@ -1,0 +1,50 @@
+---
+sidebar_label: Overview
+title: Build an Aserto app using React, Node.js, and Express
+description: Quickstart for React and Express
+---
+
+# React.js and Node.js / Express Tutorial
+
+## Overview
+
+Aserto is a cloud-native authorization platform that allows you to avoid having to build your own access control solution and instead frees you up to focus on your core user experience. In this tutorial you will learn how to integrate the Aserto SDK in the context of an Express.js API that will interact with a React application.
+
+Before we get started, let’s discuss two of Aserto's major components: the **Authorizer** and the **Control Plane**.
+
+**The Authorizer** is where authorization decisions get made. It is an open source authorization engine which uses Open Policy Agent (OPA) to compute a decision based on policy, user context and resource data. In this tutorial we’re going to use the hosted version of this authorizer.
+
+**The Control Plane** manages the lifecycle of policies, user context, and resource data that are used by the authorizer. The control plane makes it easy to manage these artifacts centrally, and takes care of the details of synchronizing them to the Authorizer instance(s) deployed at the edge. More specifically, it manages:
+
+- Connections to external systems such as identity providers and source control systems
+- References to registered authorization policies
+- A user directory built from the identity providers its connected to
+- A centralized log of aggregated decisions made by the Authorizer
+
+### The Policy
+
+At the core of Aserto’s authorization model is an **authorization policy**, which we refer to simply as a Policy. Policies are authored in a textual language called Rego, defined as part of the [Open Policy Agent (OPA)](https://www.openpolicyagent.org/) project in the [Cloud Native Computing Foundation](https://www.cncf.io/).
+
+We define the access control rules we want to enforce in our policy - as opposed to our application code. This is what's known as the "Policy-as-Code" approach, where authorization logic is decoupled from application logic.
+
+Policies are treated just like application code or infrastructure-as-code - they are stored and versioned in a git repository. We’re going to define and see the policy in action later in this tutorial.
+
+### What to expect
+
+When you’ve completed this tutorial you'll have learned how to:
+
+1. Create a React application with authentication using `oidc-react`
+2. Set up a simple Express.js application with authentication middleware and define a protected route
+3. Create and modify a very simple authorization policy
+4. Integrate the Aserto Authorization Express.js SDK to enable fine grained access control
+5. Conditionally render UI elements based on user access
+
+## Prerequisites
+
+To get started, you’re going to need:
+
+1. [Node.JS](https://nodejs.org/) and [Yarn](https://yarnpkg.com/) installed on your machine
+2. Aserto account and credentials (if you don't have one, sign up [here!](https://www.aserto.com/#sign-up))
+3. Your favorite code editor
+
+To get started, let's [add users to your Aserto directory](adding-users). We'll need these users to test our application and authorization policy.

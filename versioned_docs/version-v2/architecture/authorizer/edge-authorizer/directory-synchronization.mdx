@@ -1,0 +1,25 @@
+---
+sidebar_label: Directory synchronization
+title: Edge Authorizers - Directory synchronization
+description: Directory synchronization for edge authorizers
+---
+
+# Directory synchronization
+
+By default directory synchronization is turned off and can be enabled in the Aserto console, via the [connections tab](https://console.aserto.com/ui/connections).
+
+<img src="/enable-directory.png" />
+
+Once enabled the discovery response will reflect this, and the edge directory on the edge authorizer will be automatically synchronized in the time interval specified in the directory connection.
+
+```yaml
+plugins:
+  aserto_edge:
+    addr: directory.prod.aserto.com:8443
+    apikey: '<REDACTED directory API key>'
+    enabled: true
+    insecure: false
+    page_size: 100
+    sync_interval: 5
+    timeout: 5
+```

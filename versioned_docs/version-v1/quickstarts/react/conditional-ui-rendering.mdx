@@ -1,0 +1,295 @@
+---
+sidebar_label: Conditional UI Rendering
+title: Quickstart - Conditional UI Rendering
+description: React and Express.js quickstart - Conditional UI Rendering in the React application
+---
+
+# Conditional UI Rendering
+
+A common pattern for leveraging authorization in the UI is to conditionally render components based on the user’s access to a resource. We'll now expand our policy to include decisions that will be used by our application to conditionally render as well as disable/enable a couple of buttons.
+
+1. We want to create a section in the application containing a message that will be `visible` _only_ to a user with an `admin` role.
+2. We want to change the behavior of our "Get Sensitive Information" button such that:
+   - The `viewer` will be able to see the button - but they will not be able to click it.
+   - The `editor` will be able to click the button, but the resource will not be accessible to them.
+   - The `admin` will be able to see the button and they will have access to the protected resource.
+
+## Update the policy
+
+:::note
+If you took the shortcut and created a policy instance from a template, all these steps are already taken for you. But feel free to review how the policy evolved.
+:::
+
+First, we’ll update our policy to include clauses for `visible` and `enabled`. They will look very similar to the `allowed` clause:
+
+```
+package asertodemo.GET.api.protected
+
+import input.policy.path
+import input.user.properties.roles as user_roles
+
+default allowed = false
+default visible = false
+default enabled = false
+
+allowed {
+	some i
+	data.roles[user_roles[i]].perms[path].allowed
+}
+
+visible {
+	some i
+	data.roles[user_roles[i]].perms[path].visible
+}
+
+enabled {
+	some i
+	data.roles[user_roles[i]].perms[path].enabled
+}
+```
+
+Next, we'll update the `data.json` file to include the `visible` and `enabled` properties for each role:
+
+```javascript
+{
+  "roles": {
+    "viewer": {
+      "description": "A viewer with no access to sensitive asset",
+      "perms": {
+        "asertodemo.GET.api.protected": {
+          "allowed": false,
+          "enabled": false,
+          "visible": false
+        }
+      }
+    },
+    "editor": {
+      "description": "A editor with access to sensitive asset",
+      "perms": {
+        "asertodemo.GET.api.protected": {
+          "allowed": false,
+          "enabled": true,
+          "visible": false
+        }
+      }
+    },
+    "admin": {
+      "description": "An admin user with access to sensitive asset",
+      "perms": {
+        "asertodemo.GET.api.protected": {
+          "allowed": true,
+          "enabled": true,
+          "visible": true
+        }
+      }
+    }
+  }
+}
+```
+
+## Push the policy
+
+Commit, tag and push the changes you made:
+
+```
+git add .
+git commit -m "updated policy to include visible and enabled clauses"
+git tag v0.0.3
+git push
+git push --tags
+```
+
+## Use The Display State Map middleware
+
+Aserto provides a utility called Display State Map that will return the `visible` and `enabled` decisions from the authorizer to the server and finally to the application. To enable support for the Display State Map, we first need to update the Express.js service: let's add the reference to `displayStateMap` in the object destructuring for the `@aserto/aserto-node` dependencies:
+
+Change the line:
+
+```javascript
+const { jwtAuthz } = require('@aserto/aserto-node')
+```
+
+to:
+
+```javascript
+const { displayStateMap, jwtAuthz } = require('@aserto/aserto-node')
+```
+
+After the `app.use(cors())` statement, add the following line:
+
+```javascript
+app.use(displayStateMap(authzOptions))
+```
+
+## Update the Application
+
+Next, we’ll add the Aserto React SDK to our application. In the root folder of our application, execute the following command:
+
+```
+yarn add @aserto/aserto-react
+```
+
+In `src/index.js` add the following dependency after the `oidc-react` dependency:
+
+```javascript
+import { AsertoProvider } from '@aserto/aserto-react'
+```
+
+We'll wrap the `<App />` component with the `<AsertoProvider>` provider:
+
+```jsx
+<React.StrictMode>
+  <AuthProvider {...configuration}>
+    <AsertoProvider>
+      <App />
+    </AsertoProvider>
+  </AuthProvider>
+</React.StrictMode>
+```
+
+In `App.js`, we’ll add the `useAserto` hook, as well as a stateful object that will track the result coming back from `getDisplayState`.
+Add the `useAserto` hook dependency below the `useAuth` dependency:
+
+```javascript
+import { useAserto } from '@aserto/aserto-react'
+```
+
+Then, find the code block:
+
+```javascript
+const auth = useAuth()
+const isAuthenticated = auth.userData?.id_token ? true : false
+const [message, setMessage] = useState(false)
+```
+
+And add the following right after it:
+
+```javascript
+const { init, loading, getDisplayState, error: asertoError } = useAserto()
+```
+
+We’ll add an effect to initialize the Aserto SDK. Add the following after the definition of the `accessSensitiveInformation` callback:
+
+```javascript
+useEffect(() => {
+  async function initAserto() {
+    try {
+      const token = auth.userData?.id_token
+
+      if (token) {
+        await init({
+          serviceUrl: 'http://localhost:8080',
+          accessToken: token,
+          policyRoot: 'asertodemo',
+          throwOnError: false,
+        })
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  if (!asertoError && isAuthenticated) {
+    initAserto()
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [isAuthenticated, auth.userData?.id_token])
+```
+
+We’ll add some error handling - if the Aserto SDK ran into an error, we’ll display it and not render anything else. Add the following right after the effect we just added:
+
+```jsx
+if (asertoError) {
+  return (
+    <div>
+      <h1>Error encountered</h1>
+      <p>{asertoError}</p>
+    </div>
+  )
+}
+```
+
+Next, we’ll add a to call `getDisplayState`:
+
+```javascript
+const displayState =
+  loading || asertoError
+    ? { visible: false, enabled: false }
+    : getDisplayState('GET', '/api/protected')
+```
+
+In case the SDK is not yet loaded or returns an error, the `displayState` variable will be set to `{ visible: false, enabled: false }`. If the SDK completed loading successfully, the `getDisplayState` function will retrieve the `visible` and `enabled` decisions for the HTTP method (`GET`) and the path (`/api/protected`).
+
+Lastly, we’ll update the `main` section of the app again. Replace it with the following:
+
+```jsx
+<div className="main">
+  {loading && <div className="loading">Loading...</div>}
+  {!loading && isAuthenticated && (
+    <>
+      <div className="top-main">
+        <div className="welcome-message">
+          Welcome {auth.userData?.profile?.email}!
+        </div>
+        <div>
+          {!message && (
+            <button
+              className="primary-button"
+              disabled={!displayState.enabled}
+              onClick={() => accessSensitiveInformation()}
+            >
+              Get Sensitive Resource
+            </button>
+          )}
+          <div className="message-container">
+            {message && message !== 403 && message !== 401 && (
+              <>
+                <div className="lottie"></div>
+                <div className="message">{message}</div>
+              </>
+            )}
+            {message && message === 401 && (
+              <>
+                <div className="sad-lottie"></div>
+                <div className="message">
+                  No access to sensitive information
+                </div>
+              </>
+            )}
+            {message && message === 403 && (
+              <>
+                <div className="sad-lottie"></div>
+                <div className="message">
+                  No access to sensitive information
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="center-main">
+        {displayState.visible && (
+          <div>You have been identified as an `admin`.</div>
+        )}
+      </div>
+    </>
+  )}
+</div>
+```
+
+Based on our current policy:
+
+1. The button we added will be disabled for anyone who doesn’t have the `admin` or `editor` roles (for example, a `viewer`)
+2. While the `editor` will be able to click the button “Get Sensitive Information”, only the `admin` will be able to access the protected resource and receive the message.
+3. The `div` showing the “You have been identified as an `admin`” message will only be visible to users with the `admin` role.
+
+Using the Aserto React SDK with the displayStateMap middleware, we can make use of these decisions - which were previously only exposed to the server - directly in the UI.
+
+With the new changes to the policy, we can now test the differences between a user with the role of `editor` (like `dianet@acmecorp.com`) and `admin` (like `krisj@acmecorp.com`) to make sure that Diane can click the button, but only Kris can see the sensitive message. Both have the `V@erySecre#t123!` password.
+
+
+# Summary
+
+Congratulations! You've completed the Aserto React.js and Express.js tutorial. You learned how to create an Aserto policy and how to use it with the Aserto Express.js middleware. You also learned how to set up a React application that can authenticate the user, and conditionally render the UI based on the authenticated user's role. Read more about the [React.js SDK](/docs/v1/software-development-kits/javascript/react) and [Express.js SDK](/docs/v1/software-development-kits/javascript/express) to learn about other ways to use them in your own applications.
+
+The finished application code is available in [here](https://github.com/aserto-demo/aserto-react-and-node-with-conditional-rendering).

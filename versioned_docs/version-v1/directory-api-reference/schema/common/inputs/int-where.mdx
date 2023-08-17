@@ -1,0 +1,75 @@
+---
+id: int-where
+title: IntWhere
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+A comparison predicate for filtering on numeric fields.
+
+At most one field may be specified.
+
+```graphql
+input IntWhere {
+  equals: Int
+  notEquals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lessThan: Int
+  lessThanOrEqual: Int
+  greaterThan: Int
+  greaterThanOrEqual: Int
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>IntWhere.<b>equals</b></code>](#)<Bullet />[`Int`](/docs/v1/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The field being compared is equal to the given value.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>IntWhere.<b>notEquals</b></code>](#)<Bullet />[`Int`](/docs/v1/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The field being compared is not equal to the given value.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>IntWhere.<b>in</b></code>](#)<Bullet />[`[Int!]`](/docs/v1/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="list"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The field being compared is equal to one of the given values..
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>IntWhere.<b>notIn</b></code>](#)<Bullet />[`[Int!]`](/docs/v1/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="list"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The field being compared is not equal to any of the given values.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>IntWhere.<b>lessThan</b></code>](#)<Bullet />[`Int`](/docs/v1/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The field being compared is less than the given value.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>IntWhere.<b>lessThanOrEqual</b></code>](#)<Bullet />[`Int`](/docs/v1/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The field being compared is less than or equal to the given value.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>IntWhere.<b>greaterThan</b></code>](#)<Bullet />[`Int`](/docs/v1/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The field being compared is greater than the given value.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>IntWhere.<b>greaterThanOrEqual</b></code>](#)<Bullet />[`Int`](/docs/v1/directory-api-reference/schema/common/scalars/int) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> The field being compared is greater than or equal to the given value.
+> 
+
+
+
+### Member of
+
+[`ObjectTypesWhere`](/docs/v1/directory-api-reference/schema/object-types/inputs/object-types-where)  <Badge class="secondary" text="input"/><Bullet />[`RelationTypesWhere`](/docs/v1/directory-api-reference/schema/relation-types/inputs/relation-types-where)  <Badge class="secondary" text="input"/>
+
+
+

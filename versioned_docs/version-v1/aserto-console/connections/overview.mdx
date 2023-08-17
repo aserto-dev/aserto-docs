@@ -1,0 +1,31 @@
+---
+sidebar_label: Overview
+title: Connections
+description: Connections in the Aserto Console
+---
+
+# Connections
+
+The Aserto Control Plane manages [connections](/docs/v1/overview/connections) to external systems that are
+the source of Aserto artifacts.
+
+Click on the “Connections” tab to see your connections.
+
+![connections](/connections.png)
+
+## Connection types
+
+The console currently supports three types of connections to external systems:
+1. Identity Providers: [Auth0](/docs/v1/aserto-console/connections/setup-auth0), [Azure AD](/docs/v1/aserto-console/connections/setup-azuread) [Okta](/docs/v1/aserto-console/connections/setup-okta) (more IDPs will be supported in the future)
+2. Source Code Control systems: [Github](/docs/v1/aserto-console/connections/setup-github) and [Gitlab](/docs/v1/aserto-console/connections/setup-gitlab) (more SCMs will be supported in the future)
+3. OCI registries: in addition to the built-in Aserto Policy Registry, [GitHub Packages](/docs/v1/aserto-console/connections/setup-ghcr) is also supported.
+
+## Edge Authorizers
+
+In addition, Aserto has a connection type called Edge Authorizer that makes it easy to connect edge authorizers to the Aserto Control Plane.
+
+## Editing or removing a connection
+
+Click the "..." handle on the right side of a connection entry, and select "Edit connection info..." or "Remove".
+
+![edit or remove connection](/edit-or-remove-connection.png)

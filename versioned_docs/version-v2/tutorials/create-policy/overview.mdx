@@ -1,0 +1,125 @@
+---
+sidebar_label: Overview
+title: Create a policy
+description: How to create a policy and a policy instance
+---
+
+# Create a policy and a policy instance
+
+The underpinning of Aserto's authorization model is the [policy](../../architecture/policy/overview).
+
+**Policies** are authored, stored, and versioned as code in a `git` repository.
+
+A **policy instance** is an instance of the decision engine's runtime associated with a tagged version of a policy (or a tag mask - more on this later). You can create multiple policy instances, each associated with a different version of a policy.
+
+To get started, we'll create a policy repository and a single policy instance that will be a associated with it.
+
+## Add a policy repository
+
+After creating your organization, navigate to the Images tab.
+
+<img src="/images-tab.png" />
+
+Click on the "Create a new image" button.
+
+<img src="/create-new-image.png" width="200px" />
+
+You'll be asked to choose between using a policy template and creating an empty policy repository:
+
+<img src="/getting-started/use-template-options.png" width="600px" />
+
+Select "Use a template..." and click "Continue".
+
+Next, you'll go through a short workflow to select a git repository for your policy, and name that policy in the Aserto console.
+
+The first step is to select a connection to a source code control system. Since you don't yet have any, you'll want to select the "Add a new source code connection" item in the dropdown.
+
+<img src="/connect-scc.png" width="600px" />
+
+This will bring up a modal for adding a connection to a provider. Aserto supports GitHub and GitLab as source code provider.
+
+<img src="/add-connection-scc-github.png" />
+
+The easiest path is to select "GitHub (OAuth)" as the source code provider, give the connection a name (like `github-<youraccount>`), and click "Add connection".
+* To connect GitHub using a Personal Access Token (PAT), follow these [instructions](/docs/aserto-console/connections/setup-github#connecting-github-using-a-pat).
+* To connect to GitLab using a Personal Access Token (PAT), follow these [instructions](/docs/aserto-console/connections/setup-gitlab).
+
+:::note
+If you are managing an Aserto tenant for an organization, we recommend using a GitHub "bot account" to sign in with,
+and using a Personal Access Token which has access to your GitHub organization.
+:::
+
+Once you complete GitHub’s OAuth2 consent flow, select your newly created connection.
+
+<img
+  src="/getting-started/select-source-code-provider.png"
+  width="600px"
+/>
+
+Next, you'll be asked to select a template, an organization and a name for the policy repo. First, select the `policy-peoplefinder-rbac` template, then select the your source control organization from the dropdown and name the policy. Finally, name your policy repository `policy-peoplefinder-rbac` (this is the name of the repository as it will appear in your source control provider).
+
+<img
+  src="/getting-started/select-org-and-repo-peoplefinder-rbac.png"
+  width="600px"
+/>
+
+:::caution Note
+Your user must have sufficient permissions to create a secret in this GitHub repo (which may be controlled by the organization you choose to create the repo in).
+:::
+
+Finally, name your policy repository with a descriptive name (e.g. peoplefinder). You’ll use this name later with the CLI.
+
+<img src="/getting-started/policy-repo-name.png" width="600px" />
+
+To complete the process, click "Create a new policy repository".
+
+After creating your policy, you will see the details of the policy repository you just set up:
+
+<img src="/getting-started/policy-repo-details.png" />
+
+Aserto automatically creates four tags for your repository:
+
+1. latest - Represents the latest version of the policy. A policy instance associated with this tag will always reflect the latest tag pushed to the repository.
+2. 0.0.0 - The _patch_ version of the policy. This tells the authorizer to use this specific version of the policy.
+3. 0.0 - The _minor_ version of the policy. The latest **patch** version under the minor version will be included in this policy. For example, if you create a `0.0.1` tag, any policy instance associated with the `0.0` tag will reflect the latest patch version change.
+4. 0 - The _major_ version of the policy. The latest **minor and patch** versions under the major will be applied. For example, if you create a `0.1` or `0.0.1` tag, any policy instance associated with the `0` tag will reflect the latest minor and patch version change.
+
+## Create a Policy instance
+
+After creating a policy repository, we'll create a _policy instance_ that will be associated the repository.
+
+First, click on the "Policies" tab and click the "Create an instance" button:
+
+<img src="/getting-started/create-instance-button.png" width="170" />
+
+Next, you'll be asked to select between creating the policy from a sample image or from your own policy image - choose "...from your own policy image".
+
+<img src="/create-policy-instance-dialog.png" width="500px" />
+
+Next, you'll be prompted to select a policy registry:
+
+<img src="/select-policy-registry.png" width="500px" />
+
+Select "Aserto Policy Registry" from the dropdown.
+
+Next, from the "Select organization" dropdown select your personal (account) organization.
+
+<img src="/select-policy-organization.png" width="500px" />
+
+From the "Policy repository" dropdown, select "peoplefinder".
+
+<img src="/select-policy-repository.png" width="500px" />
+
+From the "Tag list" dropdown, select "latest".
+
+<img src="/select-policy-tag.png" width="500px" />
+
+This sets up the policy instance to always pick up the _latest_ version of the policy. While this is going to be very useful while we are developing the policy - we would probably choose to lock the policy instance to a specific tag in a production environment.
+
+Finally, name your policy instance `peoplefinder` and click "Create policy".
+
+<img src="/create-policy-instance.png" width="500px" />
+
+## Next Steps
+
+Congratulations! You now have a clone of the `policy-peoplefinder-rbac` policy template in your GitHub account, and an associated policy instance. Later, you'll modify this policy repository to change the authorization policy of the PeopleFinder application. But first, let's set up demo users in your directory so that we can understand how user information is used in the authorization flow.

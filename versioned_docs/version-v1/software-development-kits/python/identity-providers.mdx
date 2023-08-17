@@ -1,0 +1,53 @@
+---
+sidebar_label: Identity Providers
+title: Aserto SDKs - Python - Python Identity Provider package
+description: Aserto SDKs - Python - Installing and using the Python Identity Provider package
+---
+
+# Python Identity Provider package
+
+## Overview
+
+The packages in the Aserto Python SDK use an `Identity` abstraction to represent the identity of the
+accessing user in an authorization request. The `aserto-idp` package provides some utilities that eases
+the creation of `Identity` objects for different [Identity Providers](/docs/v1/overview/connections#providers).
+
+## Installation
+
+Using [pip](https://pip.pypa.io):
+
+```sh
+pip install aserto-idp
+```
+
+Using [Poetry](https://python-poetry.org):
+
+```sh
+poetry add aserto-idp
+```
+
+## Usage
+
+:::note
+Currently the Python SDK supports Auth0 as an identity provider. More are on the way!
+:::
+
+### Creating an Auth0 `Identity`
+
+```py
+from aserto import Identity
+from aserto_idp.auth0 import AccessTokenError, generate_oauth_subject_from_auth_header
+
+try:
+    subject = await generate_oauth_subject_from_auth_header(
+        authorization_header=AUTHORIZATION_HEADER,
+        domain=AUTH0_DOMAIN,
+        client_id=AUTH0_CLIENT_ID,
+        audience=AUTH0_AUDIENCE,
+    )
+
+    identity = Identity(type="SUBJECT", subject=subject)
+except AccessTokenError:
+    # An `Identity` representing an anonymous/logged-out user
+    identity = Identity(type="NONE")
+```

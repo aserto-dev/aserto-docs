@@ -1,0 +1,78 @@
+---
+sidebar_label: GRPC bindings
+title: Aserto SDKs - Java - GRPC bindings
+description: Aserto SDKs - Java - Creating a client and making authorization calls
+---
+
+# Java GRPC bindings
+
+The Java GRPC bindings are a low level API that allows you to make authorization calls to the Aserto  [authorization API](/docs/v1/authorizer-guide/authz).
+The bindings are generated from [Aserto authorizer gRPC API definition](https://buf.build/aserto-dev/authorizer).
+
+## Installation
+
+The code is available as a [maven component](https://central.sonatype.com/artifact/com.aserto/java-authorizer)
+and can be easily added to you project by adding the maven dependency
+
+```xml
+<dependency>
+    <groupId>com.aserto</groupId>
+    <artifactId>java-authorizer</artifactId>
+    <version>0.20.5</version>
+</dependency>
+```
+
+## Creating a client
+
+```java
+Metadata metadata = new Metadata();
+Metadata.Key<String> asertoTenantId = Metadata.Key.of("aserto-tenant-id", Metadata.ASCII_STRING_MARSHALLER);
+Metadata.Key<String> authorization = Metadata.Key.of("authorization", Metadata.ASCII_STRING_MARSHALLER);
+metadata.put(asertoTenantId, "<Aserto tenant ID>");
+metadata.put(authorization, "basic " + "<Aserto API key>"");
+
+ManagedChannel channel = NettyChannelBuilder
+        .forAddress(authorizerAddress, authorizerPort)
+        .intercept(MetadataUtils.newAttachHeadersInterceptor(metadata))
+        .sslContext(GrpcSslContexts.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE).build())
+        .build();
+
+AuthorizerGrpc.AuthorizerBlockingStub authzClient = AuthorizerGrpc.newBlockingStub(channel);
+```
+
+## Make authorization calls using the client:
+
+```java
+public boolean is() {
+    IsRequest.Builder isBuilder = IsRequest.newBuilder();
+
+    IdentityContext.Builder identityContextBuilder =  IdentityContext.newBuilder();
+    identityContextBuilder.setIdentity("<email-address>");
+    identityContextBuilder.setType(IdentityType.IDENTITY_TYPE_SUB);
+
+
+    PolicyContext.Builder policyContextBuilder = PolicyContext.newBuilder();
+    policyContextBuilder.setPath("todoApp.DELETE.todos.__id");
+    policyContextBuilder.addDecisions( "allowed");
+
+
+    isBuilder.setIdentityContext(identityContextBuilder.build());
+    isBuilder.setPolicyContext(policyContextBuilder.build());
+
+    PolicyInstance policy = getPolicy(<policyName>, <policyLabel>);
+    isBuilder.setPolicyInstance(policy);
+
+    IsResponse isReponse = authzClient.is(isBuilder.build());
+    isReponse.getDecisions(0).getIs();
+}
+
+private PolicyInstance getPolicy(String name, String label) {
+    PolicyInstance.Builder policyInstance = PolicyInstance.newBuilder();
+    policyInstance.setName(name);
+    policyInstance.setInstanceLabel(label);
+
+    return policyInstance.build();
+}
+```
+
+For a more comprehensive example, see the [java-authorizer/examples](https://github.com/aserto-dev/java-authorizer/tree/main/examples)

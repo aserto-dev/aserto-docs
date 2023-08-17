@@ -1,0 +1,38 @@
+---
+id: check-relation-result
+title: CheckRelationResult
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+Result of the check_relation query.
+
+```graphql
+type CheckRelationResult {
+  allowed: Boolean!
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>CheckRelationResult.<b>allowed</b></code>](#)<Bullet />[`Boolean!`](/docs/v1/directory-api-reference/schema/common/scalars/boolean) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> Whether or not a relation of the specified type exists between the subject and object.
+> 
+
+
+
+### Returned by
+
+[`checkRelation`](/docs/v1/directory-api-reference/schema/relations/queries/check-relation)  <Badge class="secondary" text="query"/>
+
+
+

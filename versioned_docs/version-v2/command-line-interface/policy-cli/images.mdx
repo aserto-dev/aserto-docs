@@ -1,0 +1,27 @@
+---
+sidebar_label: Listing images
+title: Listing policy images using the policy CLI
+description: How to list policy images using the policy CLI
+---
+
+# Listing images
+
+Similar to the `docker images` command, the `policy` CLI allows you list local images:
+
+```bash
+policy images
+```
+
+## Options
+
+`-e, --show-empty`: show policies with no images
+
+## Example
+
+```bash
+$ policy images
+
+|          REPOSITORY          |  TAG  | SIZE  |  CREATED AT  |
+|------------------------------|-------|-------|--------------|
+| ogazitt/peoplefinder         | 1.0.0 | 555 B | 1 minute ago |
+```

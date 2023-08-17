@@ -5,112 +5,112 @@
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/quickstart"
-  to = "/docs/getting-started/first-steps/quickstart"
+  to = "/docs/v1/getting-started/first-steps/quickstart"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/create-account"
-  to = "/docs/getting-started/first-steps/create-account"
+  to = "/docs/v1/getting-started/first-steps/create-account"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/create-policy"
-  to = "/docs/getting-started/peoplefinder/create-policy"
+  to = "/docs/v1/getting-started/peoplefinder/create-policy"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/set-up-users"
-  to = "/docs/getting-started/peoplefinder/set-up-users"
+  to = "/docs/v1/getting-started/peoplefinder/set-up-users"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/deploy-peoplefinder"
-  to = "/docs/getting-started/peoplefinder/deploy-peoplefinder"
+  to = "/docs/v1/getting-started/peoplefinder/deploy-peoplefinder"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/explore-peoplefinder"
-  to = "/docs/getting-started/peoplefinder/explore-peoplefinder"
+  to = "/docs/v1/getting-started/peoplefinder/explore-peoplefinder"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/understanding-policies"
-  to = "/docs/getting-started/peoplefinder/understanding-policies"
+  to = "/docs/v1/getting-started/peoplefinder/understanding-policies"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/modify-the-policy"
-  to = "/docs/getting-started/peoplefinder/modify-the-policy"
+  to = "/docs/v1/getting-started/peoplefinder/modify-the-policy"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/explore-abac-policies/overview"
-  to = "/docs/getting-started/explore-abac-policies/overview"
+  to = "/docs/v1/getting-started/explore-abac-policies/overview"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/explore-abac-policies/creating-an-abac-policy"
-  to = "/docs/getting-started/explore-abac-policies/creating-an-abac-policy"
+  to = "/docs/v1/getting-started/explore-abac-policies/creating-an-abac-policy"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/explore-abac-policies/update-app-and-review"
-  to = "/docs/getting-started/explore-abac-policies/update-app-and-review"
+  to = "/docs/v1/getting-started/explore-abac-policies/update-app-and-review"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/bring-your-own-idp/bring-your-own-idp"
-  to = "/docs/aserto-console/connections/setup-auth0"
+  to = "/docs/v1/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/bring-your-own-idp/bring-your-own-idp"
-  to = "/docs/aserto-console/connections/setup-auth0"
+  to = "/docs/v1/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/bring-your-own-idp/set-up-auth0"
-  to = "/docs/aserto-console/connections/setup-auth0"
+  to = "/docs/v1/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/bring-your-own-idp/extend-user-attributes"
-  to = "/docs/aserto-console/connections/setup-auth0"
+  to = "/docs/v1/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/bring-your-own-idp/deploy-peoplefinder-auth0"
-  to = "/docs/aserto-console/connections/setup-auth0"
+  to = "/docs/v1/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/bring-your-own-idp"
-  to = "/docs/aserto-console/connections/setup-auth0"
+  to = "/docs/v1/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/bring-your-own-idp/set-up-auth0"
-  to = "/docs/aserto-console/connections/setup-auth0"
+  to = "/docs/v1/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/bring-your-own-idp/extend-user-attributes"
-  to = "/docs/aserto-console/connections/setup-auth0"
+  to = "/docs/v1/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/bring-your-own-idp/deploy-peoplefinder-auth0"
-  to = "/docs/aserto-console/connections/setup-auth0"
+  to = "/docs/v1/aserto-console/connections/setup-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started-acmecorp/install-onebox"
-  to = "/docs/getting-started/install-onebox"
+  to = "/docs/v1/getting-started/install-onebox"
   status = 301
 
 [[redirects]]
   from = "/api-reference/"
-  to = "/docs/api-reference"
+  to = "/docs/v1/api-reference"
   status = 301
 
 [[redirects]]
@@ -135,92 +135,92 @@
 
 [[redirects]]
   from = "/authorizer-guide/authz"
-  to = "/docs/authorizer-guide/authz"
+  to = "/docs/v1/authorizer-guide/authz"
   status = 301
 
 [[redirects]]
   from = "/authorizer-guide/decisiontree"
-  to = "/docs/authorizer-guide/decisiontree"
+  to = "/docs/v1/authorizer-guide/decisiontree"
   status = 301
 
 [[redirects]]
   from = "/authorizer-guide/dir"
-  to = "/docs/authorizer-guide/dir"
+  to = "/docs/v1/authorizer-guide/dir"
   status = 301
 
 [[redirects]]
   from = "/authorizer-guide/overview/"
-  to = "/docs/authorizer-guide/overview"
+  to = "/docs/v1/authorizer-guide/overview"
   status = 301
 
 [[redirects]]
   from = "/authorizer-guide/policy/"
-  to = "/docs/authorizer-guide/policy-context"
+  to = "/docs/v1/authorizer-guide/policy-context"
   status = 301
 
 [[redirects]]
   from = "/authorizer-guide/query"
-  to = "/docs/authorizer-guide/query"
+  to = "/docs/v1/authorizer-guide/query"
   status = 301
 
 [[redirects]]
   from = "/command-line-interface/connections"
-  to = "/docs/command-line-interface/aserto-cli/connections"
+  to = "/docs/v1/command-line-interface/aserto-cli/connections"
   status = 301
 
 [[redirects]]
   from = "/command-line-interface/directory"
-  to = "/docs/command-line-interface/aserto-cli/directory"
+  to = "/docs/v1/command-line-interface/aserto-cli/directory"
   status = 301
 
 [[redirects]]
   from = "/command-line-interface/login"
-  to = "/docs/command-line-interface/aserto-cli/login"
+  to = "/docs/v1/command-line-interface/aserto-cli/login"
   status = 301
 
 [[redirects]]
   from = "/docs/aserto-console/manage-tenant/"
-  to = "/docs/aserto-console/manage-organizations"
+  to = "/docs/v1/aserto-console/manage-organizations"
   status = 301
 
 [[redirects]]
   from = "/docs/command-line-interface/connections/"
-  to = "/docs/command-line-interface/aserto-cli/connections"
+  to = "/docs/v1/command-line-interface/aserto-cli/connections"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/connect-idp/"
-  to = "/docs/getting-started/bring-your-own-idp"
+  to = "/docs/v1/getting-started/bring-your-own-idp"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/create-account/"
-  to = "/docs/getting-started/first-steps/create-account"
+  to = "/docs/v1/getting-started/first-steps/create-account"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/create-auth0-app/"
-  to = "/docs/getting-started/bring-your-own-idp/set-up-auth0"
+  to = "/docs/v1/getting-started/bring-your-own-idp/set-up-auth0"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/create-policy/"
-  to = "/docs/getting-started/peoplefinder/create-policy"
+  to = "/docs/v1/getting-started/peoplefinder/create-policy"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/deploy-peoplefinder/"
-  to = "/docs/getting-started/peoplefinder/deploy-peoplefinder"
+  to = "/docs/v1/getting-started/peoplefinder/deploy-peoplefinder"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/exploring-peoplefinder/"
-  to = "/docs/getting-started/peoplefinder/explore-peoplefinder"
+  to = "/docs/v1/getting-started/peoplefinder/explore-peoplefinder"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/extend-user-attributes/"
-  to = "/docs/getting-started/bring-your-own-idp/extend-user-attributes"
+  to = "/docs/v1/getting-started/bring-your-own-idp/extend-user-attributes"
   status = 301
 
 [[redirects]]
@@ -230,60 +230,113 @@
 
 [[redirects]]
   from = "/getting-started/make-policy-change"
-  to = "/docs/getting-started/peoplefinder/modify-the-policy"
+  to = "/docs/v1/getting-started/peoplefinder/modify-the-policy"
   status = 301
 
 [[redirects]]
   from = "/overview/tenant/"
-  to = "/docs/overview/organization"
+  to = "/docs/v1/overview/organization"
   status = 301
 
 [[redirects]]
   from = "/software-development-kits/dotnetcore"
-  to = "/docs/software-development-kits/dotnetcore"
+  to = "/docs/v1/software-development-kits/dotnetcore"
   status = 301
 
 [[redirects]]
   from = "/software-development-kits/express"
-  to = "/docs/software-development-kits/javascript/express"
+  to = "/docs/v1/software-development-kits/javascript/express"
   status = 301
 
 [[redirects]]
   from = "/software-development-kits/javascript"
-  to = "/docs/software-development-kits/javascript/spa"
+  to = "/docs/v1/software-development-kits/javascript/spa"
   status = 301
 
 [[redirects]]
   from = "/software-development-kits/sdks"
-  to = "/docs/software-development-kits/overview"
+  to = "/docs/v1/software-development-kits/overview"
   status = 301
 
 [[redirects]]
   from = "/docs/decision-logs-guide/elk/configure"
-  to = "/docs/decision-logs-guide/elk"
+  to = "/docs/v1/decision-logs-guide/elk"
   status = 301
 
 [[redirects]]
   from = "/docs/decision-logs-guide/elk/decision-logs-conf"
-  to = "/docs/decision-logs-guide/elk"
+  to = "/docs/v1/decision-logs-guide/elk"
   status = 301
 
 [[redirects]]
   from = "/docs/decision-logs-guide/elk/users-conf"
-  to = "/docs/decision-logs-guide/elk"
+  to = "/docs/v1/decision-logs-guide/elk"
   status = 301
 
 [[redirects]]
   from = "/docs/aserto-console/directory"
-  to = "/docs/aserto-console/directory/overview"
+  to = "/docs/v1/aserto-console/directory/overview"
   status = 301
 
 [[redirects]]
   from = "/docs/getting-started/self-hosted/helm-chart"
-  to = "/docs/local-deployment/local-directory/helm-chart"
+  to = "/docs/v1/local-deployment/local-directory/helm-chart"
   status = 301
 
 [[redirects]]
   from = "/docs/decision-logs-guide/api/users"
-  to = "/docs/decision-logs-guide/api/overview"
+  to = "/docs/v1/decision-logs-guide/api/overview"
   status = 301
+
+[[redirects]]
+  from = "/docs/api-reference/*"
+  to = "/docs/v1/api-reference/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/docs/getting-started/*"
+  to = "/docs/v1/getting-started/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/docs/quickstarts/*"
+  to = "/docs/v1/quickstarts/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/docs/authorizer-guide/*"
+  to = "/docs/v1/authorizer-guide/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/docs/directory-guide/*"
+  to = "/docs/v1/directory-guide/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/docs/decision-logs-guide/*"
+  to = "/docs/v1/decision-logs-guide/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/docs/local-deployment/*"
+  to = "/docs/v1/local-deployment/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/docs/overview/*"
+  to = "/docs/v1/overview/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/docs/command-line-interface/onebox"
+  to = "/docs/v1/command-line-interface/onebox"
+
+[[redirects]]
+  from = "/docs/aserto-console/enabling-getting-started"
+  to = "/docs/v1/aserto-console/enabling-getting-started"
+
+
+
+
+

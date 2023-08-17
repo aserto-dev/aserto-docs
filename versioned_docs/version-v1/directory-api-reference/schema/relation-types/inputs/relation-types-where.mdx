@@ -1,0 +1,65 @@
+---
+id: relation-types-where
+title: RelationTypesWhere
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+A comparison predicate for filtering relation types.
+
+All fields are optional. Only relation types that match all given fields are included.
+
+```graphql
+input RelationTypesWhere {
+  objectType: ObjectTypesWhere
+  name: StringWhere
+  displayName: StringWhere
+  unions: UnionsWhere
+  ordinal: IntWhere
+  status: FlagsWhere
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypesWhere.<b>objectType</b></code>](#)<Bullet />[`ObjectTypesWhere`](/docs/v1/directory-api-reference/schema/object-types/inputs/object-types-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="object-types"/>
+> Filter relation types by their associated object type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypesWhere.<b>name</b></code>](#)<Bullet />[`StringWhere`](/docs/v1/directory-api-reference/schema/common/inputs/string-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter relation types by name.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypesWhere.<b>displayName</b></code>](#)<Bullet />[`StringWhere`](/docs/v1/directory-api-reference/schema/common/inputs/string-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter relation types by display name.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypesWhere.<b>unions</b></code>](#)<Bullet />[`UnionsWhere`](/docs/v1/directory-api-reference/schema/relation-types/inputs/unions-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
+> Filter relation types by the relation types they are a union of.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypesWhere.<b>ordinal</b></code>](#)<Bullet />[`IntWhere`](/docs/v1/directory-api-reference/schema/common/inputs/int-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter relation types by sort order.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationTypesWhere.<b>status</b></code>](#)<Bullet />[`FlagsWhere`](/docs/v1/directory-api-reference/schema/common/inputs/flags-where) <Badge class="secondary" text="input"/> <Badge class="secondary" text="common"/>
+> Filter relation types by their status flags.
+> 
+
+
+
+### Member of
+
+[`RelationsWhere`](/docs/v1/directory-api-reference/schema/relations/inputs/relations-where)  <Badge class="secondary" text="input"/><Bullet />[`relationTypes`](/docs/v1/directory-api-reference/schema/relation-types/queries/relation-types)  <Badge class="secondary" text="query"/>
+
+
+

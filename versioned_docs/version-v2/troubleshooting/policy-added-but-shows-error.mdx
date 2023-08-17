@@ -1,0 +1,21 @@
+---
+sidebar_label: Policy added but shows an error
+title: Troubleshooting - Policy added but shows an error
+description: How to solve the issue when a policy was added but still shows an error
+---
+
+# Policy added but shows an error
+
+## Problem
+
+I added a new policy but I can't open it and the following error is shown:
+
+![added-policy-error](/troubleshooting/added-policy-error.png)
+
+## Solution
+
+Every policy in your tenant must have its own unique root. By hovering over the error shown for the policy you can see which policy ID is overlapping with the current policy.
+
+![added-policy-error-id](/troubleshooting/added-policy-error-id.png)
+
+Modify the root of one of overlapping policies to a value, or remove the overlapping policy from the tenant.

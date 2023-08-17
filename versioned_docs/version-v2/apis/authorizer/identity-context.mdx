@@ -1,0 +1,93 @@
+---
+sidebar_label: Identity Context
+title: Identity Context
+description: The Identity Context and how it is used
+---
+
+# Identity Context
+
+When an Authorizer evaluates a policy, it receives an Identity Context from the calling application.
+The `type` property of that Identity Context instructs the Authorizer how to identify the user:
+
+- IDENTITY_TYPE_NONE: the policy is evaluated without a user context (input.user is empty)
+- IDENTITY_TYPE_SUB: the user context is passed in as an OAuth subject
+- IDENTITY_TYPE_JWT: the user context is passed in as a JWT access token
+
+## Passing a user identity
+
+In the IDENTITY_TYPE_SUB and IDENTITY_TYPE_JWT cases, the Authorizer will treat the `identity` string as a
+OAuth subject or a JWT access, respectively. In the case of a JWT access token, the Authorizer will extract the `sub` (subject) claim, whereas
+IDENTITY_TYPE_SUB indicates that the `identity` string already contains a subject.
+
+Once the Authorizer has obtained the subject, it will use it as a key and look up the user in its
+local directory instance (known as the Edge Directory Service, or EDS). It will then load the user
+object identified by the identity context and make it available to the Policy as `input.user`.
+
+For a user-facing API (for example, a back-end REST API that requires a JSON Web Token (JWT)
+in the `Authorization` header), the caller will often extract the `sub` claim from the JWT and use it
+in the `identity` field. That said, the `identity` can be any key that is used by the Identity Provider
+to identify the user.
+
+## Setting the Identity Context
+
+The `is`, `query`, and `decisiontree` API calls all take an `identityContext` map:
+
+`POST .../api/v2/authz/is`
+
+```json
+{
+  "identityContext": {
+    "identity": "[aserto-user-guid]",
+    "type": "IDENTITY_TYPE_SUB"
+  }, ...
+}
+```
+
+To access the properties of the user in a policy, you can use `input.user`:
+
+```rego
+package sample.GET.api.orders
+default allowed = false
+
+# only allow salespeople
+allowed {
+  input.user.properties.department == "Sales"
+}
+```
+
+## Using other JWT claims in a policy
+
+Note that the `identityContext` is available as `input.identity`. If the policy wants to
+extract additional claims out of a JWT and use them in the policy, it can readily do so.
+
+Assuming the following `identityContext`:
+
+`POST .../api/v2/authz/is`
+
+```json
+{
+  "identityContext": {
+    "identity": "[JWT that could contain a 'manager' claim]",
+    "type": "IDENTITY_TYPE_JWT"
+  }, ...
+}
+```
+
+The following policy will extract the JWT using the `io.jwt.decode()` Rego built-in, make it available
+as `token.payload`, and use claims in the payload within the policy:
+
+```rego
+package sample.GET.api.orders
+default allowed = false
+
+# Helper to get the token payload
+token = {"payload": payload} {
+  [header, payload, signature] := io.jwt.decode(input.identity.identity)
+}
+
+# only allow sales managers
+allowed {
+  input.user.properties.department == "Sales"
+  token.payload.manager
+}
+```

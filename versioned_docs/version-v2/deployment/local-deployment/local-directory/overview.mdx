@@ -1,0 +1,35 @@
+---
+sidebar_label: Overview
+title: Deploy a local directory
+description: Deploy the Aserto Directory locally
+---
+
+# Local Directory Overview
+
+The Aserto Directory can be run as a standalone container, backed by a Postgres DB.
+
+In addition, a local management console experience is provided for this deployment option.
+
+## Scenarios
+
+There are a few scenarios where running a separate, local directory instance is advantageous:
+
+### Scaling data size beyond what fits in the embedded database
+
+For deployments that have hundreds of thousands / millions of users, some partitioning strategy may be required.
+
+Alternatively, a Postgres-backed directory provide a more scalable solution. Additionally, the cloud-specific mechanisms that are used to scale and manage Postgres databases can be applied to the directory database as well.
+
+### Stateless authorizers and a single directory
+
+Some organizations may prefer to have all their authorizers connect to a single directory instead of keeping their own cache of the subject, object, and relation data.
+
+Running a separate directory enables this scenario. In this type of deployment, the edge authorizers are completely stateless, and therefore are guaranteed to see exactly the same authorization data.
+
+### Self-hosting
+
+Some organizations want or need to self-host all of the components in their authorization solution. The smallest Aserto deployment is the Aserto Sidecar, but for organizations that want to use a relational directory without relying on the hosted Aserto Directory, this model is appropriate.
+
+## Deployment
+
+The easiest way to deploy the Local Directory is via a helm chart that includes a Sidecar as well as a Local Console, described [next](helm-chart).

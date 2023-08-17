@@ -1,0 +1,88 @@
+---
+sidebar_label: Elastic (ELK) Integration
+title: Configuration for integration with Elasticsearch
+description: How to use the Aserto CLI to retrieve data for ingest by Elasticsearch
+---
+
+# Elastic (ELK) Integration
+
+Ingesting aserto decision logs into an analytics platform, such as [Kibana](https://www.elastic.co/kibana/) and the rest
+of the [ELK stack](https://www.elastic.co/elastic-stack), is a great way of leveraging the value of Aserto. The steps
+described below can get basic ingestion into ELK configured. We will configure logstash to listen on an Aserto decision
+log stream, perform some data augmentation using the Aserto CLI, and stash the results into Elastic.
+
+## Preliminary Requirements
+
+- [The Aserto CLI](/docs/v1/command-line-interface/introduction)
+- A tenant id, which can be found in [policy settings](/docs/v1/aserto-console/view-policies#viewing-policy-settings)
+- A [decision logs API key](/docs/v1/decision-logs-guide/console#decision-logs-api-key)
+- An authorizer API key
+- A working Elasticsearch environment
+- [Install Logstash](https://www.elastic.co/guide/en/logstash/current/getting-started-with-logstash.html)
+- A working understanding of Logstash
+
+## Example logstash .conf file
+
+In this example, some of the decision events include a resource context containing the id of a user. We use the Aserto
+CLI to augment that with the referenced user's email.
+
+The basic .conf file looks like this, note the place-holders for Aserto-tenant-specific data denoted by '< >'.
+
+```json
+input {
+// Use the Aserto CLI to listen for decision log events and pipe the results through logstash
+  pipe {
+    command => "aserto l --api-key=<decision-logs-api-key> --tenant=<tenant-id>"
+    codec => multiline {
+      pattern => "^}"
+      negate => true
+      what => "next"
+    }
+  }
+}
+filter {
+  // Ensure we only grab entries that are decision log events  
+  json {
+    source => "message"
+  }
+  // Populate Elastic's preferred @timestamp field
+  date {
+    match => ["[timestamp][seconds]", "UNIX"]
+  }
+  // Make a copy of the timestamp field as a string, handy with some visualizations
+  mutate {
+    add_field => {
+      "[timestamp_str]" => "%{[@timestamp]}"
+    }                                                                                                                                                                                         
+  }
+  // If the resource context includes a user id, get the email and add a resource.user.email field.
+  if [resource][id] {
+    http {
+      url => "https://authorizer.prod.aserto.com/api/v1/dir/users/%{[resource][id]}"
+      verb => "GET"
+      headers => {
+        "aserto-tenant-id" => "<tenant-id>"
+        "authorization" => "basic <authorizer-api-key>"
+      }
+      add_field => {
+        "[resource][user][email]" => "%{[body][result][email]}"
+      }
+      remove_field => ["body", "headers"]
+    }
+  }
+}
+// Stash it!
+output {
+  elasticsearch {
+    hosts => ["<elastic hosts>"]
+    // Other elastic connection settings. These are specific to your elastic installation and may include:
+    // ssl => true
+    // cacert => "<path to your elastic server's CA .pem file>"
+    // user => "<elastic user>"
+    // password => "<elastic password>"
+    index => "<your index name>"
+    // Use the decision id as a document id. Decision ids are unique, so this prevents duplicate entries.
+    document_id => "%{[id]}"
+  }                                                                                                                                                                                           
+}
+```

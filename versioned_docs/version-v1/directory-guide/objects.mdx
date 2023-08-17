@@ -1,0 +1,169 @@
+---
+sidebar_label: Objects
+title: Objects
+---
+
+In the [previous step](types) we defined the `department` object type and its three relation
+types: `owner`, `member`, and `viewer`.
+With these types in place, we can start creating objects to represent the departments in our application.
+
+Our store has three departments: Spaceships, Teleporters, and Lasers.
+
+## Creating Objects
+
+We can use a single request to create all three objects:
+
+```graphql title="Query"
+mutation CreateDepartmentObjects {
+  spaceships: setObject(object: {
+    type: "department"
+    key: "spaceships"
+    displayName: "Spaceships"
+    properties: {}
+  }) {
+    object {
+      key
+      displayName
+      type {
+        name
+      }
+    }
+  }
+
+  teleporters: setObject(object: {
+    type: "department"
+    key: "teleporters"
+    displayName: "Teleporters"
+    properties: {}
+  }) {
+    object {
+      key
+      displayName
+      type {
+        name
+      }
+    }
+  }
+
+  lasers: setObject(object: {
+    type: "department"
+    key: "lasers"
+    displayName: "Lasers"
+    properties: {}
+  }) {
+    object {
+      key
+      displayName
+      type {
+        name
+      }
+    }
+  }
+}
+```
+
+<details>
+  <summary>Results</summary>
+  <div><span/>
+
+```json
+{
+  "data": {
+    "spaceships": {
+      "object": {
+        "key": "spaceships",
+        "displayName": "Spaceships"
+        "type": {
+          "name": "department"
+        }
+      }
+    },
+    "teleporters": {
+      "object": {
+        "key": "teleporters",
+        "displayName": "Teleporters"
+        "type": {
+          "name": "department"
+        }
+      }
+    },
+    "lasers": {
+      "object": {
+        "key": "lasers",
+        "displayName": "Lasers"
+        "type": {
+          "name": "department"
+        }
+      }
+    }
+  }
+}
+```
+  </div>
+</details>
+
+Similar to the `name` field of the object and realtion types we created in the [previous step](types), the `key` value
+of an object is used to identify it within other objects of the same type. Objects are uniquely identified by the
+combination of their `key` and `type`.
+
+See [SetObjectInput](/docs/v1/directory-api-reference/schema/objects/inputs/set-object-input) for more details on the input fields.
+
+## Querying Objects
+
+We use the [objects](/docs/v1/directory-api-reference/schema/objects/queries/objects) query to find the department objects we
+just created.
+
+```graphql title="Query"
+query DepartmentObjects {
+  objects(first: 5, where: {type: {name: {equals: "department"}}}) {
+    nodes {
+      key
+      displayName
+      type {
+        name
+      }
+    }
+  }
+}
+```
+
+<details>
+  <summary>Results</summary>
+  <div><span/>
+
+```json
+{
+  "data": {
+    "objects": {
+      "nodes": [
+        {
+          "key": "teleporters",
+          "displayName": "Teleporters",
+          "type": {
+            "name": "department"
+          }
+        },
+        {
+          "key": "lasers",
+          "displayName": "Lasers",
+          "type": {
+            "name": "department"
+          }
+        },
+        {
+          "key": "spaceships",
+          "displayName": "Spaceships",
+          "type": {
+            "name": "department"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+  </div>
+</details>
+
+We used the `where` parameter in the [objects](/docs/v1/directory-api-reference/schema/objects/queries/objects) query to only
+select objects with a type named "department".

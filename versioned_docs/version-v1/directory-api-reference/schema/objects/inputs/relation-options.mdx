@@ -1,0 +1,44 @@
+---
+id: relation-options
+title: RelationOptions
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+Options for queriying object relations.
+
+```graphql
+input RelationOptions {
+  other: ObjectSelector
+  otherType: String
+  relationType: RelationTypeSelector
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationOptions.<b>other</b></code>](#)<Bullet />[`ObjectSelector`](/docs/v1/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+> [optional] Only include relations with the specified object ID.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationOptions.<b>otherType</b></code>](#)<Bullet />[`String`](/docs/v1/directory-api-reference/schema/common/scalars/string) <Badge class="secondary" text="scalar"/> <Badge class="secondary" text="common"/>
+> [optional] Only include relations with objects of the specified object type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>RelationOptions.<b>relationType</b></code>](#)<Bullet />[`RelationTypeSelector`](/docs/v1/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
+> [optional] Only include relations of this type.
+> 
+
+
+
+
+

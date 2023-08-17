@@ -1,0 +1,48 @@
+---
+id: flags-where
+title: FlagsWhere
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+A comparison predicate for filtering on type status fields.
+
+```graphql
+input FlagsWhere {
+  equals: [Flag!]
+  contains: [Flag!]
+  notContains: [Flag!]
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>FlagsWhere.<b>equals</b></code>](#)<Bullet />[`[Flag!]`](/docs/v1/directory-api-reference/schema/common/enums/flag) <Badge class="secondary" text="list"/> <Badge class="secondary" text="enum"/> <Badge class="secondary" text="common"/>
+> The type's status is equal to the given flags.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>FlagsWhere.<b>contains</b></code>](#)<Bullet />[`[Flag!]`](/docs/v1/directory-api-reference/schema/common/enums/flag) <Badge class="secondary" text="list"/> <Badge class="secondary" text="enum"/> <Badge class="secondary" text="common"/>
+> The type's status contains all of the given flags.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>FlagsWhere.<b>notContains</b></code>](#)<Bullet />[`[Flag!]`](/docs/v1/directory-api-reference/schema/common/enums/flag) <Badge class="secondary" text="list"/> <Badge class="secondary" text="enum"/> <Badge class="secondary" text="common"/>
+> The type's status does not contain any of the given flags.
+> 
+
+
+
+### Member of
+
+[`ObjectTypesWhere`](/docs/v1/directory-api-reference/schema/object-types/inputs/object-types-where)  <Badge class="secondary" text="input"/><Bullet />[`RelationTypesWhere`](/docs/v1/directory-api-reference/schema/relation-types/inputs/relation-types-where)  <Badge class="secondary" text="input"/>
+
+
+

@@ -1,0 +1,56 @@
+# Authorizers
+
+An `Authorizer` can be one of the [two types of supported authorizers](../../apis/authorizer/overview/#hosted-authorizer-vs-edge-authorizer):
+
+## HostedAuthorizer
+
+### Constructor arguments
+
+- `api_key` (_required_): An Aserto Authorizer API Key
+- `tenant_id` (_required_): An Aserto Tenant ID
+- `service_type` (_required_): Either of the string values `"gRPC"` or `"REST"`, depending on the
+  protocol desired to call the API
+
+## Example
+
+```py
+from aserto import HostedAuthorizer
+
+authorizer = HostedAuthorizer(
+    api_key=YOUR_ASERTO_API_KEY,
+    tenant_id=YOUR_ASERTO_TENANT_ID,
+    service_type="REST",
+)
+```
+
+## EdgeAuthorizer
+
+### Constructor arguments
+
+- `url` (_required_): The URL for the Authorizer service API
+- `cert_file_path` (_required_): The location on the filesystem of the CA certificate that signed the
+  Aserto authorizer self-signed certificate. See the "Certificates" section for more information
+- `service_type` (_required_): Either of the string values `"gRPC"` or `"REST"`, depending on the
+  protocol desired to call the API
+
+## Example
+
+```py
+from aserto import EdgeAuthorizer
+
+authorizer = EdgeAuthorizer(
+    url=AUTHORIZER_SERVICE_URL,
+    cert_file_path=FILE_PATH_TO_YOUR_AUTHORIZER_CA_CERTIFICATE,
+    service_type="gRPC",
+)
+```
+
+## Certificates
+
+The Aserto [Authorizer](../../architecture/authorizer/overview) exposes HTTPS-only endpoints. In order for the API client to communicate with the authorizer, TLS certificates must be verified.
+
+In a development environment, the Aserto [Sidecar](../../command-line-interface/aserto-cli/sidecar) automatically creates a set of self-signed certificates and certificates of the CA (certificate authority) that signed them. It places them in a well-known location on the filesystem, defaulting to `$HOME/.config/aserto/sidecar/certs/`.
+
+In order for the API client to perform the TLS handshake, it needs to verify the TLS certificate of the one-box using the certificate of the CA that signed it - which was placed in `$HOME/.config/aserto/sidecar/certs/gateway-ca.crt`.
+
+Furthermore, when packaging a policy for deployment (e.g. in a Docker container) which uses the API client to communicate with an authorizer that has a self-signed TLS certificate, you must copy this CA certificate into the container as part of the Docker build (typically performed in the Dockerfile).

@@ -1,0 +1,48 @@
+---
+sidebar_label: decisions
+title: The stream API
+description: Open a stream of decision events
+---
+
+# decision_logs/decisions
+
+The `decisions` API opens a [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) that receives
+decision events in near real time; events are typically no more than a minute old. 
+
+## WebSocket
+
+### Create a new decision logs WebSocket
+```javascript
+ws = new WebSocket("wss://decision-logs.prod.aserto.com/api/v1/decision_logs/decisions/policy/<policy-id>",
+  [
+      "Basic", "<Decision-Logs-API-Key>",
+      "TenantID", "<Tenant-ID>"
+  ])
+```
+
+The new WebSocket will receive decision logs for the specified policy. The second parameter is analogous to 
+adding headers to an HTTP call that authenticates using the decision logs
+[API key](/docs/v1/decision-logs-guide/console#decision-logs-api-key).
+Specifying an empty `policy-id` causes events for all policies in the tenant to appear in the stream.
+
+### Receiving decision log events
+
+The `onmessage` handler is called for every decision that occurs using the policy specified when the WebSocket was created.
+```javascript
+ws.onmessage = function(e) {
+  processDecision(e)
+}   
+```
+
+### Buffered events
+
+The Aserto control plane buffers decision events for usage by the WebSocket stream, at most 1000 of them. The `since` 
+argument can be provided to control the oldest event that delivery should start from.
+
+```javascript
+ws = new WebSocket("wss://decision-logs.prod.aserto.com/api/v1/decision_logs/decisions/policy/<policy-id>?since=<start date-time>",
+  ...)
+```
+
+The value of `since` should be in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) format. For example: 
+`2022-03-21T06:30:00Z`.

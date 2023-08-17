@@ -1,0 +1,28 @@
+---
+sidebar_label: Removing images
+title: Removing policy images using the policy CLI
+description: How to remove policy images using the policy CLI
+---
+
+# Removing images
+
+To remove a tagged image:
+
+```bash
+policy rm [<registry>/]<organization-name>/<repository-name>:<tag>
+```
+
+## Options
+
+`-a, --all`: when remote is set, remove all tags and the policy reference
+
+`-f, --force`: don't ask for confirmation
+
+## Example
+
+```bash
+$ policy rm ogazitt/peoplefinder:1.0.0
+
+Removed reference.
+reference: ogazitt/peoplefinder:1.0.0
+```

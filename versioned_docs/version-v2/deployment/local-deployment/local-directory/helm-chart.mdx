@@ -1,0 +1,80 @@
+---
+sidebar_label: Helm Chart Deployment
+title: Deploy Local Directory and Console to Kubernetes
+description: Deploy local directory and self-hosted console to Kubernetes
+---
+
+# Deploy Local Directory and Console
+
+## Helm Chart
+
+Aserto provides an official helm chart to deploy an authorizer, directory, and a web console to your kubernetes cluster.  For testing purposes you can start up a local kubernetes cluster using [minikube](https://minikube.sigs.k8s.io/docs/start/), or deploy to a remote cluster.
+
+### Usage
+Helm must be installed to use the charts. Please refer to Helm’s [documentation](https://helm.sh/docs/intro/install/) to get started.
+
+Once Helm has been set up correctly, add the repo as follows:
+
+```bash
+helm repo add aserto https://charts.aserto.com
+```
+
+If you had already added this repo earlier, run `helm repo update` to retrieve the latest versions of the packages. You can then run `helm search repo aserto` to see the charts.
+
+To install the self-hosted chart:
+
+```bash
+helm install my-aserto aserto/self-hosted
+```
+
+To uninstall the chart:
+
+```bash
+helm delete my-aserto
+```
+
+### Connect to the Console
+
+For testing purposes you can access the self-hosted console by forwarding a port to the console-proxy pod.  Use this command to retrieve the pod name:
+
+```
+CONSOLE_POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=console-proxy,app.kubernetes.io/instance=my-aserto" -o jsonpath="{.items[0].metadata.name}")
+```
+
+Then start port forwarding to the server with:
+```
+kubectl --namespace default port-forward $CONSOLE_POD_NAME 8080:8080
+```
+
+For production installations you can install your own kubernetes ingress routes to direct traffic to the console, authorizer, and directory services.
+
+### Using your own database and policy
+
+The helm chart deploys a local postgres deployment which is used by the directory by default.  This local database does not persist after the chart is uninstalled.  To use your own external database server you can override the default chart configuration via a `values.yaml` file.
+
+The policy used by the bundled authorizer deployment can also be overridden via `values.yaml`.
+
+For a full list of supported values see (https://github.com/aserto-dev/charts/blob/main/charts/self-hosted/values.yaml)
+
+Create a `values.yaml` in a local folder.  Replace these values with your own.
+```yaml
+global:
+    sidecar:
+      policyName: policy-todo
+      policyImage: ghcr.io/aserto-policies/policy-todo
+      policyTag: 2
+
+    postgresql:
+      localServerEnabled: false
+      auth:
+        postgresHost: postgresql.example.com
+        postgresUser: postgres
+        postgresPassword: directory
+        database: directory
+```
+Apply your values file with the -f flag when installing the chart:
+```bash
+helm install my-aserto aserto/self-hosted  -f values.yaml
+```
+
+When using your own database ensure that the database and database user you choose are already created, and that your kubernetes cluster has connectivity to the database server.

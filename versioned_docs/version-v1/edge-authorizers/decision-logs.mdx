@@ -1,0 +1,45 @@
+---
+sidebar_label: Decision Logs
+title: Edge Authorizers - Decision Logs
+description: Generating decision logs on edge authorizers
+---
+# Decision Logs
+Edge authorizers can be configured to generate and upload decision logs and they can buffer decision logs locally,
+providing resiliency to network issues, restarts and other problems. The uploads are protected by the same
+[connection](/docs/v1/edge-authorizers/security-and-management#edge-authorizer-connections) used to connect to the control
+plane.
+
+## Configuration
+To generate and upload decision logs from an edge authorizer: 
+- It must be configured to connect to the control plane, and to upload decision logs. See the [security and
+management](/docs/v1/edge-authorizers/security-and-management#configuration) section for configuration details.
+- The policy it loads must have decision logs enabled. See the [decision logs
+guide](/docs/v1/decision-logs-guide/console) for details on how to enable decision logs
+for a policy.
+
+## Storage
+The resiliency of decision logging on an edge authorizer depends on the type of storage it is provided with to buffer. If 
+only ephemeral storage is used, i.e. storage that disappears when the container is stopped, then it isn't possible to 
+recover unsent decision logs upon restart. If persistent storage is provided, then upon restart, the edge authorizer will send
+unsent logs and re-send unacknowledged ones. 
+
+The `store_directory` configuration of the decision logger on the edge authorizer can be used to point at persistent
+storage that is mounted on the container, for example, using the `docker run` [volume mount
+options](https://docs.docker.com/storage/volumes/), or, in a Kubernetes environment, by indicating the mount point of a
+persistent volume.
+
+```yaml
+decision_logger:
+  type: self
+  config:
+    store_directory: <path mount point for decision logs buffer storate>
+    scribe:
+      address: ems.prod.aserto.com:8443
+      client_cert_path: <path to client cert>
+      client_key_path: <path to client key>
+      ack_wait_seconds: 30
+      headers:
+        Aserto-Tenant-Id: <TENANT-ID>
+    shipper: 
+      publish_timeout_seconds: 2
+```

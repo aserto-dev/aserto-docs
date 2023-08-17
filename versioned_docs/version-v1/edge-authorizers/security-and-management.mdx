@@ -1,0 +1,118 @@
+---
+sidebar_label: Security and Management
+title: Edge Authorizers - Security and Management
+description: Managing and securing edge authorizers
+---
+# Security and Management
+
+The Aserto control plane can be used to control certain operations on running edge authorizers. For example, one can
+list running edge authorizers and issue policy and directory sync commands. This link between the Aserto control plane
+and edge authorizers requires setting up a secure connection between the two.
+
+## Edge Authorizer Connections
+
+Edge authorizer connections can be created from the [Aserto console](/docs/v1/aserto-console/connections/setup-edge) or API
+and provide an identity that edge authorizers can use to connect to the control plane. Edge authorizers can use this
+identity by presenting a client certificate; performing a [mutual TLS
+handshake](https://en.wikipedia.org/wiki/Mutual_authentication). This identity is only authorized to establish a
+connection to the Aserto control plane for the purposes of receiving control commands and uploading decision logs.
+
+Edge authorizers use one of these identities by presenting the client certificate associated with a given edge authorizer
+connection. All edge authorizers presenting the same client certificate use the same identity and there can be as many
+edge authorizer connections as needed.
+
+Once an edge authorizer is connected to the Aserto control plane:
+- It will automatically refresh its policy state when a new policy image is pushed.
+- It will automatically refresh its policy state when the policy instance changes.
+- It can receive remote commands to refresh its policy and directory state.
+- Its ability to connect can be revoked by deleting the edge authorizer connection from which its client certificates
+  were obtained.
+
+## Configuration
+
+To use an edge authorizer, you'll first need to create an edge authorizer connection. Head to the Connections tab, and
+create a new connection by clicking the "Add connection" button. Select the "Edge Authorizer" provider and provide a
+name and a display name for your edge authorizer connection.
+
+<img src="/edge-authorizer-connection.png" />
+
+Click on the newly created connection to retrieve the edge authorizer connection id, which will be used to configure the edge authorizer.
+
+<img src="/edge-authorizer-connection-entry.png" />
+
+### Sidecar
+
+The Aserto CLI can be used to configure the Aserto sidecar to use the control plane by adding an option to the `configure` sub-command.
+
+```
+aserto x configure <policy-name> --edge-authorizer <edge-authorizer-connection-id>
+```
+
+This will install the client certificates and configure the sidecar to connect to the control plane using them. The `edge-authorizer-connection-id` can be acquired from the console, or using the Aserto CLI:
+
+```
+aserto p list-connections
+```
+
+The `list-connections` sub-command lists all the edge authorizer connections the tenant has.
+
+A sidecar can also be configured to generate decision logs and upload them to the control plane. To do this add the `--decision-logging` argument.
+
+```
+aserto x configure <policy-name> --edge-authorizer <edge-authorizer-connection-id> --decision-logging
+```
+
+### Obtaining certificates
+
+Certificates have a lifetime of 30 days. You can rotate the certificates in the Aserto console. To obtain the new client certificates, issue the following command using the Aserto CLI:
+
+```
+aserto p client-cert <edge-authorizer-connection-id>
+```
+
+This will return a JSON object with data about the client certificate, for example:
+
+```json
+{
+  "certificate": "-----BEGIN CERTIFICATE----- <elided data> -----END CERTIFICATE-----",
+  "common_name": "edge-test.69b537c3-8db5-11ec-8417-00c5cc9cb8c0.edge-authorizer.aserto.com",
+  "expiration": "2022-06-24T17:11:31Z",
+  "id": "2b:d0:75:a0:7f:25:e8:2d:75:3d:20:cd:f3:e7:0c:f6:8d:02:94:01",
+  "private_key": "-----BEGIN RSA PRIVATE KEY----- <elided data> -----END RSA PRIVATE KEY-----"
+}
+```
+
+The `certificate` field contains the certificate in PEM format and the `private_key` field contains the private key, also in PEM format. The contents of these fields should be saved as two files, for example `~/.config/aserto/sidecar.crt` and `~/.config/aserto/sidecar.key`.
+
+Using the paths in the example, the configuration file of a sidecar can be updated to connect to the control plane by adding a section similar to:
+
+```yaml
+tenant_id: <TENANT-ID>
+policy_name: <POLICY-NAME>
+instance_label: <INSTANCE-LABEL>
+
+controller:
+  enabled: true
+  server:
+    address: relay.prod.aserto.com:8443
+    client_cert_path: ~/.config/aserto/sidecar.crt
+    client_key_path: ~/.config/aserto/sidecar.key
+```
+
+To also configure a sidecar to upload decision logs, add the following config section:
+
+```yaml
+decision_logger:                                               
+  type: self                                                   
+  config:                                                      
+    store_directory: /app/decision_logs                        
+    scribe:                                                    
+      address: ems.prod.aserto.com:8443                        
+      client_cert_path: ~/.config/aserto/sidecar.crt                  
+      client_key_path: ~/.config/aserto/sidecar.key                    
+      ack_wait_seconds: 30                                     
+      headers:                                                 
+        Aserto-Tenant-Id: <TENANT-ID>
+    shipper:                                                   
+      publish_timeout_seconds: 2                               
+```

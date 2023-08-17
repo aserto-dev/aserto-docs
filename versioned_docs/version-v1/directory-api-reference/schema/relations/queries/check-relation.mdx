@@ -1,0 +1,50 @@
+---
+id: check-relation
+title: checkRelation
+hide_table_of_contents: true
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+Checks if a subject has a given relation to an object.
+
+```graphql
+checkRelation(
+  subject: ObjectSelector!
+  relation: RelationTypeSelector!
+  object: ObjectSelector!
+): CheckRelationResult!
+```
+
+
+### Arguments
+
+#### [<code style={{ fontWeight: 'normal' }}>checkRelation.<b>subject</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/v1/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+> [Required] The subject of the relation.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>checkRelation.<b>relation</b></code>](#)<Bullet />[`RelationTypeSelector!`](/docs/v1/directory-api-reference/schema/relation-types/inputs/relation-type-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="relation-types"/>
+> [Required] The relation type.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>checkRelation.<b>object</b></code>](#)<Bullet />[`ObjectSelector!`](/docs/v1/directory-api-reference/schema/objects/inputs/object-selector) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/> <Badge class="secondary" text="objects"/>
+> [Required] The object of the relation.
+> 
+
+### Type
+
+#### [`CheckRelationResult`](/docs/v1/directory-api-reference/schema/relations/objects/check-relation-result) <Badge class="secondary" text="object"/> <Badge class="secondary" text="relations"/>
+> Result of the check_relation query.
+> 
+
+
+
+
+
