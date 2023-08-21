@@ -1,0 +1,133 @@
+---
+sidebar_label: Spring Middleware
+title: Spring Middleware
+description: Aserto Middleware - Java - Installing and using Spring Middleware
+---
+
+The `AsertoFilter` is a Java library that provides a Spring Security filter that enables the use of Aserto's authorization service in projects that use Spring.
+
+## Requirements
+- Java 8  or newer
+- Spring Boot 2.7.x
+- Spring Security 5.7.x
+
+### Installation
+Add the fallowing dependency to your `pom.xml` file:
+
+```xml
+<dependency>
+    <groupId>com.aserto</groupId>
+    <artifactId>aserto-spring</artifactId>
+    <version>0.0.2</version>
+</dependency>
+```
+
+The latest version is available on [Maven Central](https://search.maven.org/artifact/com.aserto/aserto-spring).
+
+And them execute:
+```bash
+mvn clean package
+```
+
+In order for Spring to discovery the filter, we need to add the `@ComponentScan` annotation to the main class of the application.
+```java
+@ComponentScan("com.aserto")
+```
+
+## Configuration
+
+The authorization filter accepts the fallowing configuration parameters:
+
+| Parameter name | Default Value | Description |
+| -------------- | ------------- | ----------- |
+| aserto.authorization.enabled | true | Enable/disable the authorization filter |
+| aserto.authorization.host | localhost | The hostname of the authorizer service |
+| aserto.authorization.port | 8282 | The port of the authorizer service |
+| aserto.authorizer.insecure | false | Use insecure connection to the authorizer service |
+| aserto.authorizer.cert.path | N/A | The path to the authorizer service certificate, usefull when using local topaz with self signed certificates |
+| aserto.authorizer.apiKey | N/A | The API key to use when connecting to the authorizer service |
+| aserto.tenantId | N/A | The tenant ID to use when connecting to the authorizer service |
+| aserto.authorizer.policyName | N/A | The policy name used by the authorizer |
+| aserto.authorizer.policyLabel | N/A | The policy label used by the authorizer |
+| aserto.authorizer.decision | N/A | The decision used by the authorizer |
+| logging.level.com.aserto | N/A | The log level for the Aserto Middleware |
+
+
+## Identity
+To determine the identity of the user, the middleware can be configured to use a JWT token or a claim using the IdentityMapper.
+All you have to do is create a bean that return a InstanceMapper interface and the middleware will use it to determine the identity of the user.
+
+E.g.
+- use a JWT token from the `Authorization` header:
+```java
+    @Bean
+    public IdentityMapper identityDiscoverer() {
+        Extractor headerExtractor = new HeaderExtractor("Authorization");
+        return new JwtIdentityMapper(headerExtractor);
+    }
+```
+
+- use the "sub" claim from the JWT token in the `Authorization` header:
+```java
+    @Bean
+    public IdentityMapper identityDiscoverer() {
+        Extractor headerExtractor = new AuthzHeaderExtractor("Authorization", "sub");
+        return new SubjectIdentityMapper(headerExtractor);
+    }
+```
+
+You can also implement your own IdentityMapper by implementing the `IdentityMapper` interface.
+
+## Policy path
+By default, when computing the policy path, the middleware:
+* converts all slashes to dots
+* converts any path parameters to `__<param_name>`
+* converts uppercase characters in the URL path to lowercase
+
+As with the identity contest, you can implement your own PolicyPathMapper by implementing the `PolicyPathMapper`
+interface and creating a bean that returns it.
+
+E.g.
+```java
+    @Bean
+    public PolicyMapper policyMapperDiscoverer() {
+        return new MyCustomPolicyPathMapper(handlerMapping);
+    }
+```
+
+## Resource
+A resource can be any structured data that the authorization policy uses to evaluate decisions.
+By default, the middleware does not include a resource in authorization calls.
+This behavior can be changed by implementing the `ResourceMapper` interface and creating a bean that returns it.
+
+E.g.
+```java
+    @Bean
+    public ResourceMapper resourceMapper() {
+        BodyExtractor bodyExtractor = new BodyExtractor();
+        return new JsonResourceMapper(bodyExtractor, new String[]{"email", "name", "aud"});
+    }
+```
+
+## Config example
+
+The fallowing is a application.properties example with all the configuration parameters:
+
+```properties
+aserto.authorization.enabled=true
+aserto.authorizer.host=localhost
+aserto.authorizer.port=8282
+aserto.authorizer.insecure=true
+#aserto.authorizer.cert.path=<cert_path>
+#aserto.authorizer.apiKey=<api_key>
+aserto.authorizer.token=<auth_token>
+
+aserto.tenantId=<tenant_id>
+aserto.authorizer.policyName=<policy_name>
+aserto.authorizer.policyLabel=<instance_label>
+aserto.authorizer.decision=allowed
+
+logging.level.com.aserto=DEBUG
+```
+
+For a minimal example please see the [Spring example](https://github.com/aserto-dev/aserto-spring/tree/main/examples/spring-authz-example)
