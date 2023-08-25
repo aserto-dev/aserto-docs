@@ -18,7 +18,7 @@ Add the fallowing dependency to your `pom.xml` file:
 <dependency>
     <groupId>com.aserto</groupId>
     <artifactId>aserto-spring</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.5</version>
 </dependency>
 ```
 
@@ -44,13 +44,19 @@ The authorization filter accepts the fallowing configuration parameters:
 | aserto.authorization.host | localhost | The hostname of the authorizer service |
 | aserto.authorization.port | 8282 | The port of the authorizer service |
 | aserto.authorizer.insecure | false | Use insecure connection to the authorizer service |
-| aserto.authorizer.cert.path | N/A | The path to the authorizer service certificate, usefull when using local topaz with self signed certificates |
+| aserto.authorizer.cert.path | N/A | The path to the authorizer service certificate, useful when using local Topaz with self signed certificates |
+| aserto.authorizer.decision | N/A | The decision used by the authorizer |
+| logging.level.com.aserto | INFO | The log level for the Aserto Middleware |
+
+The following configuration settings are available when connecting the middleware to Aserto's hosted authorizer service
+
+| Parameter name | Default Value | Description |
+| -------------- | ------------- | ----------- |
 | aserto.authorizer.apiKey | N/A | The API key to use when connecting to the authorizer service |
 | aserto.tenantId | N/A | The tenant ID to use when connecting to the authorizer service |
 | aserto.authorizer.policyName | N/A | The policy name used by the authorizer |
 | aserto.authorizer.policyLabel | N/A | The policy label used by the authorizer |
-| aserto.authorizer.decision | N/A | The decision used by the authorizer |
-| logging.level.com.aserto | N/A | The log level for the Aserto Middleware |
+
 
 
 ## Identity
@@ -75,8 +81,7 @@ E.g.
         return new SubjectIdentityMapper(headerExtractor);
     }
 ```
-
-You can also implement your own IdentityMapper by implementing the `IdentityMapper` interface.
+By default the middleware uses the `NoneIdentityMapper`. You can also implement your own IdentityMapper by implementing the `IdentityMapper` interface.
 
 ## Policy path
 By default, when computing the policy path, the middleware:
@@ -91,13 +96,15 @@ E.g.
 ```java
     @Bean
     public PolicyMapper policyMapperDiscoverer() {
-        return new MyCustomPolicyPathMapper(handlerMapping);
+        return new MyCustomPolicyPathMapper();
     }
 ```
 
 ## Resource
 A resource can be any structured data that the authorization policy uses to evaluate decisions.
-By default, the middleware does not include a resource in authorization calls.
+By default, the middleware extracts resources from the path parameters. For example if we have a mapping of /user/{id}
+and we get a request to /user/123, the middleware will extract the resource from the path parameter `id` and use it.
+
 This behavior can be changed by implementing the `ResourceMapper` interface and creating a bean that returns it.
 
 E.g.
@@ -114,20 +121,23 @@ E.g.
 The fallowing is a application.properties example with all the configuration parameters:
 
 ```properties
-aserto.authorization.enabled=true
+# --- Authorizer configuration
 aserto.authorizer.host=localhost
 aserto.authorizer.port=8282
-aserto.authorizer.insecure=true
-#aserto.authorizer.cert.path=<cert_path>
-#aserto.authorizer.apiKey=<api_key>
-aserto.authorizer.token=<auth_token>
-
-aserto.tenantId=<tenant_id>
-aserto.authorizer.policyName=<policy_name>
-aserto.authorizer.policyLabel=<instance_label>
+aserto.authorization.enabled=false
+aserto.authorizer.policyRoot=todoApp
 aserto.authorizer.decision=allowed
 
-logging.level.com.aserto=DEBUG
+## Topaz
+##  This configuration targets a Topaz instance running locally.
+aserto.authorizer.insecure=false
+aserto.authorizer.grpc.caCertPath=${user.home}/.config/topaz/certs/grpc-ca.crt
+
+## Aserto hosted authorizer
+#aserto.tenantId=<tenant_id>
+#aserto.authorizer.policyName=todo
+#aserto.authorizer.policyLabel=todo
+#aserto.authorizer.apiKey=<api_key>
 ```
 
 For a minimal example please see the [Spring example](https://github.com/aserto-dev/aserto-spring/tree/main/examples/spring-authz-example)
