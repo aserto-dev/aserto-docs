@@ -283,7 +283,8 @@ module.exports = {
           collapsed: false,
           items: [
             'software-development-kits/java/grpc-bindings',
-            'software-development-kits/java/authorizer'
+            'software-development-kits/java/authorizer',
+            'software-development-kits/java/middleware',
           ],
         },
         'software-development-kits/dotnetcore',

@@ -50,6 +50,13 @@ export default [
     docs: '/docs/software-development-kits/java/authorizer',
   },
   {
+    title: 'Java Spring',
+    icon: 'spring.svg',
+    link: 'https://www.java.com/en/',
+    github: 'https://github.com/aserto-dev/aserto-spring',
+    docs: '/docs/software-development-kits/java/middleware',
+  },
+  {
     title: 'ASP.NET Core',
     icon: 'dotnet-core.svg',
     link: 'https://dotnet.microsoft.com/apps/aspnet',
