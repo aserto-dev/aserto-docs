@@ -41,8 +41,7 @@ The authorization filter accepts the fallowing configuration parameters:
 | Parameter name | Default Value | Description |
 | -------------- | ------------- | ----------- |
 | aserto.authorization.enabled | true | Enable/disable the authorization filter |
-| aserto.authorization.host | localhost | The hostname of the authorizer service |
-| aserto.authorization.port | 8282 | The port of the authorizer service |
+| aserto.authorization.serviceUrl | localhost:8282 | The service url of the authorizer service |
 | aserto.authorizer.insecure | false | Use insecure connection to the authorizer service |
 | aserto.authorizer.cert.path | N/A | The path to the authorizer service certificate, useful when using local Topaz with self signed certificates |
 | aserto.authorizer.decision | N/A | The decision used by the authorizer |
@@ -122,8 +121,7 @@ The fallowing is a application.properties example with all the configuration par
 
 ```properties
 # --- Authorizer configuration
-aserto.authorizer.host=localhost
-aserto.authorizer.port=8282
+aserto.authorizer.serviceUrl=localhost:8282
 aserto.authorization.enabled=false
 aserto.authorizer.policyRoot=todoApp
 aserto.authorizer.decision=allowed
