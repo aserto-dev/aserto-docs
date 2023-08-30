@@ -1,0 +1,74 @@
+---
+sidebar_label: Google Workspace
+---
+
+# Google Workspace plugin
+
+## Usage
+
+```sh
+Usage: ds-load-google <command>
+
+Google Workspace directory loader
+
+Commands:
+  version              version information
+  fetch                fetch google workspace data
+  transform            transform google workspace data
+  export-transform     export default transform template
+  exec                 fetch and transform google workspace data
+  get-refresh-token    obtain a refresh token from GCP
+  verify               verify fetcher configuration and credentials
+
+Flags:
+  -h, --help                  Show context-sensitive help.
+  -c, --config=CONFIG-FLAG    Configuration file path
+  -v, --verbosity=INT         Use to increase output verbosity.
+
+Run "ds-load-google <command> --help" for more information on a command.
+```
+
+## Arguments
+
+The Google Workspace plugin supports the following arguments:
+
+```sh
+  -i, --client-id=STRING          Google Client ID ($GOOGLE_CLIENT_ID)
+  -s, --client-secret=STRING      Google Client Secret ($GOOGLE_CLIENT_SECRET)
+  -r, --refresh-token=STRING      Google Refresh Token ($GOOGLE_REFRESH_TOKEN)
+  -g, --groups                    Retrieve Google groups ($GOOGLE_GROUPS)
+      --customer="my_customer"    Google Workspace Customer field ($GOOGLE_CUSTOMER)
+```
+
+## Obtaining a refresh token
+
+Once you've created an OAuth application in the Google Cloud Console, the Google Workspace plugin can generate a refresh token for you.
+
+```sh
+Usage: ds-load-google get-refresh-token --client-id=STRING --client-secret=STRING
+
+obtain a refresh token from GCP
+
+Flags:
+  -h, --help                    Show context-sensitive help.
+  -c, --config=CONFIG-FLAG      Configuration file path
+  -v, --verbosity=INT           Use to increase output verbosity.
+
+  -i, --client-id=STRING        Google Client ID ($GOOGLE_CLIENT_ID)
+  -s, --client-secret=STRING    Google Client Secret ($GOOGLE_CLIENT_SECRET)
+  -p, --port=8761               Port number to run callback server on ($GOOGLE_PORT)
+```
+
+This refresh token can then be passed (along with the Client ID and Client Secret) to complete the configuration of the Google Workspace plugin.
+
+## Transform
+
+The Google Workspace plugin can retrieve both users and groups, and transform these into directory user objects, identity objects, group objects, and relationships between these.
+
+To export the default transform, use:
+
+`ds-load google export-transform`
+
+You can use this as the basis for your own transform, which can be tweaked for a different mapping between Google Workspace and directory objects and relations.
+
+To learn about the transformation language, refer to the [transform](/docs/command-line-interface/ds-load-cli/transform) docs.

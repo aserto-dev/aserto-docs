@@ -1,7 +1,6 @@
 {
   "name": "aserto-docs",
   "version": "0.0.1",
-  "private": false,
   "author": "Aserto",
   "license": "Apache-2.0",
   "scripts": {
@@ -52,5 +51,6 @@
   },
   "devDependencies": {
     "prettier": "^2.7.1"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }
