@@ -213,7 +213,7 @@ Finally, if roles were retrieved for each user (and a group generated for each o
     {{ range $i, $element := $.roles }}
       {{ if $i }},{{ end }}
       {
-      "relation": "identifier",
+      "relation": "member",
               "subject": {
                   "type": "user",
                   "key": "{{$.email}}"

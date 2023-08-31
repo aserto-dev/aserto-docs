@@ -27,7 +27,12 @@ Flags:
   -v, --verbosity=INT         Use to increase output verbosity.
 ```
 
-The default command for ds-load is `exec`, so when running `ds-load` without any command, the exec parameters need to be passed.
+The `ds-load` pipeline has three stages: `fetch`, `transform`, and `publish`:
+* `fetch` retrieves plugin-specific data from the source in a native JSON format
+* `transform` converts this data into directory objects and relations
+* `publish` loads the objects and relations data into the directory
+
+The default command for ds-load is `exec`, which executes all three stages. When running `ds-load` without any command, the exec parameters need to be passed.
 
 :::tip Tip
 The plugin examples below all use `auth0`, but every one of the plugins (`azuread`, `cognito`, `google`, `okta`, etc) follows the same patterns. Each plugin has its own documentation page.
