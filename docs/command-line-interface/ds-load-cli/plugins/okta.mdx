@@ -1,0 +1,52 @@
+---
+sidebar_label: Okta
+---
+
+# Okta plugin
+
+## Usage
+
+```sh
+Usage: ds-load-okta <command>
+
+okta directory loader
+
+Commands:
+  version             version information
+  fetch               fetch okta data
+  transform           transform okta data
+  export-transform    export default transform template
+  exec                fetch and transform okta data
+  verify              verify fetcher configuration and credentials
+
+Flags:
+  -h, --help                  Show context-sensitive help.
+  -c, --config=CONFIG-FLAG    Configuration file path
+  -v, --verbosity=INT         Use to increase output verbosity.
+
+Run "ds-load-okta <command> --help" for more information on a command.
+```
+
+## Arguments
+
+The Azure AD plugin supports the following arguments:
+
+```sh
+      --domain=STRING         ($DS_OKTA_DOMAIN)
+      --api-token=STRING      ($DS_OKTA_TOKEN)
+      --[no-]groups           ($DS_OKTA_GROUPS)
+      --[no-]roles            ($DS_OKTA_ROLES)
+      --request-timeout=0
+```
+
+## Transform
+
+The Okta plugin can retrieve both users and groups, and transform these into directory user objects, identity objects, groups, and relationships between these.
+
+To export the default transform, use:
+
+`ds-load azuread export-transform`
+
+You can use this as the basis for your own transform, which can be tweaked for a different mapping between Okta and directory objects and relations.
+
+To learn about the transformation language, refer to the [transform](/docs/command-line-interface/ds-load-cli/transform) docs.

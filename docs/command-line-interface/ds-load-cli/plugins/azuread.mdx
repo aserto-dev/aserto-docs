@@ -1,0 +1,53 @@
+---
+sidebar_label: Azure AD
+---
+
+# Azure AD plugin
+
+## Usage
+
+```sh
+Usage: ds-load-azuread <command>
+
+AzureAD directory loader
+
+Commands:
+  version             version information
+  fetch               fetch Azure AD data
+  transform           transform Azure AD data
+  export-transform    export default transform template
+  exec                fetch and transform Azure AD data
+  verify              verify fetcher configuration and credentials
+
+Flags:
+  -h, --help                  Show context-sensitive help.
+  -c, --config=CONFIG-FLAG    Configuration file path
+  -v, --verbosity=INT         Use to increase output verbosity.
+
+Run "ds-load-azuread <command> --help" for more information on a command.
+```
+
+## Arguments
+
+The Azure AD plugin supports the following arguments:
+
+```sh
+  -a, --tenant=STRING           AzureAD tenant ($AZUREAD_TENANT)
+  -i, --client-id=STRING        AzureAD Client ID ($AZUREAD_CLIENT_ID)
+  -s, --client-secret=STRING    AzureAD Client Secret ($AZUREAD_CLIENT_SECRET)
+  -r, --refresh-token=STRING    AzureAD Refresh Token ($AZUREAD_REFRESH_TOKEN)
+```
+
+To create an Azure AD OAuth application which provides these arguments, please follow the tutorial [here](/docs/aserto-console/connections/setup-azuread.mdx).
+
+## Transform
+
+The Azure AD plugin can retrieve both users and groups, and transform these into directory user objects, identity objects, groups, and relationships between these.
+
+To export the default transform, use:
+
+`ds-load azuread export-transform`
+
+You can use this as the basis for your own transform, which can be tweaked for a different mapping between Azure AD and directory objects and relations.
+
+To learn about the transformation language, refer to the [transform](/docs/command-line-interface/ds-load-cli/transform) docs.

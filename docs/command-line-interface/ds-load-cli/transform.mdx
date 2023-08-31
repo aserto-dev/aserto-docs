@@ -1,0 +1,257 @@
+---
+sidebar_label: Transforms
+---
+
+# Transformations
+
+Each `ds-load` plugin transforms the source data into a set of directory objects and relations. Plugins have a default transform, which can be exported and modified. 
+
+This provides control over the extract, transform, and load process for getting data from a source (e.g. identity provider) into the directory.
+
+## Transform language
+
+The transform language is a [go template](https://pkg.go.dev/text/template). 
+
+## Exporting the default transform
+
+Each plugin supports the `export-transform` command. For example, for `auth0`:
+
+`ds-load auth0 export-transform`
+
+## Deciphering the transform
+
+Below we'll walk through the default `auth0` transform syntax, block by block.
+
+---
+The first block assigns the `$status` variable a default value, and then overrides it based on Auth0's `email_verified` and `blocked` attributes on an Auth0 user.
+
+```go
+{{$status := "USER_STATUS_ACTIVE"}}
+{{ if not $.email_verified }}
+  {{$status = "USER_STATUS_PROVISIONED"}}
+{{ else if $.blocked}}
+  {{$status = "USER_STATUS_SUSPENDED"}}
+{{end}}
+```
+
+---
+The following block will generate a JSON file with two arrays: `objects` and `relations`.
+
+Each user object retrieved from Auth0 will generate an object of type `user`, and at least 2 (and possibly more) objects of type `identity`.
+
+The `user` object is created with a `key` consisting of the `email` property from Auth0. Other properties are assigned in a similar fashion.
+
+```go
+{
+  "objects": [
+    {
+      "key": "{{ $.email }}",
+      "type": "user",
+      "displayName": "{{ $.nickname }}",
+      "created_at":"{{ $.created_at }}",
+      "properties":{
+        "email": "{{ $.email }}",
+        "enabled": true,
+        "picture": "{{ $.picture }}",
+        {{ fromEnv "connection_id" "ASERTO_CONNECTION_ID" }},
+        "status": "{{ $status }}"
+        {{ range $key, $value := $.user_metadata }}
+        ,"{{ $key }}": {{ marshal $value }}
+        {{ end }}
+      }
+    },
+```
+
+---
+Next, two `identity` objects are generated from the Auth0 `user_id` and `email` fields, respectively.
+```go
+    {
+      "key": "{{ $.user_id }}",
+      "type": "identity",
+      "properties": {
+        "kind": "IDENTITY_KIND_PID",
+        "provider": "auth0",
+        {{ fromEnv "connection_id" "ASERTO_CONNECTION_ID" }},
+        "verified": true
+      }
+    },
+    {
+        "key": "{{ $.email }}",
+        "type": "identity",
+        "properties": {
+          "kind": "IDENTITY_KIND_EMAIL",
+          "provider": "auth0",
+          {{ fromEnv "connection_id" "ASERTO_CONNECTION_ID" }},
+          "verified": {{ .email_verified }}
+        }
+    }
+```
+
+---
+Next, additional `identity` objects are generated from the Auth0 `username` and `phone_number` fields, if they are present.
+
+```go
+
+    {{ if and ($.username) (ne $.username "") }}
+    ,
+      {
+          "key": "{{ $.username }}",
+          "type": "identity",
+          "properties": {
+            "kind": "IDENTITY_KIND_USERNAME",
+            "provider": "auth0",
+            {{ fromEnv "connection_id" "ASERTO_CONNECTION_ID" }},
+            "verified": true
+          }
+      }
+    {{ end }}
+
+    {{ if and ($.phone_number) (ne $.phone_number "") ($.phone_verified) }}
+    ,
+      {
+          "key": "{{ $.phone_number }}",
+          "type": "identity",
+          "properties": {
+            "kind": "IDENTITY_KIND_PHONE",
+            "provider": "auth0",
+            {{ fromEnv "connection_id" "ASERTO_CONNECTION_ID" }},
+            "verified": {{ .phone_verified }}
+          }
+      }
+    {{ end }}
+```
+
+---
+If Roles were returned from the Auth0 plugin, they are transformed into objects of type `group` with a key consisting of the role name.
+
+```go
+    {{ if $.roles }}, {{ end }}
+
+    {{ range $i, $element := $.roles }}
+      {{ if $i }},{{ end }}
+      {
+        "key": "{{$element.name}}",
+        "type": "group",
+        "properties":{
+          {{ fromEnv "connection_id" "ASERTO_CONNECTION_ID" }}
+        }
+      }
+    {{ end }}
+  ],
+```
+
+---
+Next, the transform generates a set of relations, to link the objects (user, identity, group) with each other.
+
+The first two relations link the `identity` and `user` objects through the `identifier` relationship.
+
+The next two relations are generated for the `username` and `phone_number` identities, if those were generated as objects.
+
+```go
+  "relations":[
+      {
+      "relation": "identifier",
+              "subject": {
+                  "type": "user",
+                  "key": "{{ $.email }}"
+              },
+              "object": {
+                  "type": "identity",
+                  "key": "{{ $.user_id }}"
+              }
+      },
+      {
+      "relation": "identifier",
+              "subject": {
+                  "type": "user",
+                  "key": "{{ $.email }}"
+              },
+              "object": {
+                  "type": "identity",
+                  "key": "{{ $.email }}"
+              }
+      }
+
+    {{ if and ($.username) (ne $.username "") }}
+    ,
+      {
+      "relation": "identifier",
+              "subject": {
+                  "type": "user",
+                  "key": "{{ $.email }}"
+              },
+              "object": {
+                  "type": "identity",
+                  "key": "{{ $.username }}"
+              }
+      }
+    {{ end }}
+
+    {{ if and ($.phone_number) (ne $.phone_number "") ($.phone_verified) }}
+    ,
+      {
+      "relation": "identifier",
+              "subject": {
+                  "type": "user",
+                  "key": "{{ $.email }}"
+              },
+              "object": {
+                  "type": "identity",
+                  "key": "{{ $.phone_number }}"
+              }
+      }
+    {{ end }}
+```
+
+---
+Finally, if roles were retrieved for each user (and a group generated for each of the roles) the transform generates a `member` relation between the user and group.
+
+```go
+
+    {{ if $.roles }}, {{ end }}
+
+    {{ range $i, $element := $.roles }}
+      {{ if $i }},{{ end }}
+      {
+      "relation": "member",
+              "subject": {
+                  "type": "user",
+                  "key": "{{$.email}}"
+              },
+              "object": {
+                  "type": "group",
+                  "key": "{{$element.name}}"
+              }
+      }
+    {{ end }}
+  ]
+}
+```
+
+## Creating a custom transform
+
+The easiest way to get started with a custom transform is to modify a default transform, tweak it, and then pass it into the `transform` command using the  `--template` (or `-t` for short) flag.
+
+### Export the default transform
+
+```sh
+ds-load auth0 export-transform >auth0.tmpl
+```
+
+### Fetch data from Auth0
+
+```sh
+ds-load auth0 fetch --domain=<auth0-domain> --client-id=<auth0-client-id> --client-secret=<auth0-client-secret> >auth0.json
+```
+
+### Transform the data using a modified transform
+
+```sh
+ds-load -p auth0 transform --template=./auth0.tmpl <auth0.json >auth0-transformed.json 
+```
+
+### Publish the transformed data into the directory
+
+```sh
+ds-load publish <auth0-transformed.json
+```

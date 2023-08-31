@@ -1,0 +1,50 @@
+---
+sidebar_label: Custom Plugins
+---
+
+# Writing a custom plugin
+
+Plugins have a simple contract with the host `ds-load` command. They can be written in any language.
+
+A set of go packages can be used as a "mini-SDK" for building custom plugins in go. This eliminates much of the "boilerplate" of writing a plugin, including commands like `export-transform`, providing help, and so on.
+
+The plugins that come with `ds-load` can all be found [here](https://github.com/aserto-dev/ds-load/tree/main/plugins). They can be used as a guide for how to write a custom plugin for a new data source.
+
+In addition, a standalone plugin for importing Hubspot data into the directory can be found [here](https://github.com/aserto-demo/ds-load-hubspot). This shows how to properly import the `ds-load` SDK in an external plugin.
+
+## Retrieving data
+
+Most of the "heavy lifting" of building a plugin involves retrieving data from the source. The Hubspot plugin uses the Hubspot REST API, and can easily be adapted to any other service that supports a REST interaction pattern.
+
+## Transforming into objects and relations
+
+The other main task is to author the default transform for the plugin. The [transformation](/docs/command-line-interface/ds-load-cli/transform.mdx) docs provide an annotated walkthrough of the Auth0 default transform, which can act as a guide.
+
+The Hubspot sample plugin also has a default transform that shows how to create objects of different types, and relationships between them.
+
+## Installation
+
+To have `ds-load` pick up your custom plugin, simply call it `ds-load-<plugin-name>` and copy the binary to `~/.ds-load/plugins`.
+
+```sh
+ls -l ~/.ds-load/plugins
+total 32000
+-rwxr-xr-x  1 ogazitt  staff    16M Aug  3 10:50 ds-load-hubspot*```
+```
+
+To verify that `ds-load` can load your plugin, use `ds-load exec --help`. Note that `hubspot` is in the list of available commands:
+
+```sh
+Usage: ds-load exec <command> ...
+
+import data in directory by running fetch, transform and publish
+
+Arguments:
+  <command> ...    available commands are: hubspot|auth0|azuread|cognito|google|okta
+```
+
+## Need help?
+
+Please drop us a line in our [community slack](https://aserto.com/slack) if you need help writing a custom plugin!  Also, we're happy to evaluate and accept new providers written by the community via a Pull Request in the [ds-load](https://github.com/aserto-dev/ds-load) repository.
+
+Submitted plugins should follow the same design patterns as existing providers, and live in the [plugins](https://github.com/aserto-dev/ds-load/tree/main/plugins) directory.
