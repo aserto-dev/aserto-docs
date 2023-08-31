@@ -61,7 +61,8 @@
             "aserto-console/directory/create-object-type",
             "aserto-console/directory/create-relation-type",
             "aserto-console/directory/create-permission",
-            "aserto-console/directory/add-relation"
+            "aserto-console/directory/add-relation",
+            "aserto-console/directory/graphql-playground"
           ]
         },
         {
@@ -321,16 +322,9 @@
         {
           "Directory": [
             "apis/directory/overview",
-            {
-              "GraphQL": [
-                "apis/directory/graphql/overview"
-              ]
-            },
-            {
-              "REST": [
-                "apis/directory/rest/overview"
-              ]
-            }
+            "apis/directory/graphql",
+            "apis/directory/rest",
+            "apis/directory/grpc" 
           ]
         }
       ]
