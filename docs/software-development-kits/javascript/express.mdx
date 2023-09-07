@@ -243,7 +243,7 @@ The Directory APIs can be used to get or set object instances and relation insta
 
 You can initialize a directory client as follows:
 
-```javascript
+```typescript
 import { ds } from "@aserto/aserto-node";
 
 const directoryClient = ds({
@@ -266,13 +266,13 @@ const directoryClient = ds({
 
 Get an object instance with the type `type-name` and the key `object-key`. For example:
 
-```javascript
+```typescript
 const user = await directoryClient.object({ type: 'user', key: 'euang@acmecorp.com' });
 ```
 
 #### 'relation' function
 
-```javascript
+```typescript
   relation({
     subject: {
       type: 'subject-type',
@@ -290,7 +290,7 @@ const user = await directoryClient.object({ type: 'user', key: 'euang@acmecorp.c
 
 Get an array of relations of a certain type for an object instance. For example:
 
-```javascript
+```typescript
 const identity = 'euang@acmecorp.com';
 const relations = await directoryClient.relation(
   {
@@ -313,17 +313,20 @@ const relations = await directoryClient.relation(
 
 #### 'setObject' function
 
-`setObject({ ...Object$ })`:
+`setObject({ object: $Object })`:
 
 Create an object instance with the specified fields. For example:
 
-```javascript
+```typescript
 user = directoryClient.setObject(
   {
-    type: "user",
-    key: "test-object",
-    properties: {
-      displayName: "test object"
+    object: {
+      type: "user",
+      key: "test-object",
+      properties: {
+        displayName: "test object"
+      }
+    }
   }
 );
 ```
@@ -334,7 +337,7 @@ user = directoryClient.setObject(
 
 Create a relation with a specified name between two objects. For example:
 
-```javascript
+```typescript
 const relation = await directoryClient.setRelation(
   {
     subject: {
@@ -346,7 +349,6 @@ const relation = await directoryClient.setRelation(
       type: 'objectType',
       key: 'objectKey',
     },
-
   }
 );
 ```
@@ -357,7 +359,7 @@ const relation = await directoryClient.setRelation(
 
 Deletes an object instance with the specified type and key. For example:
 
-```javascript
+```typescript
 await directoryClient.deleteObject({ type: 'user', key: 'euang@acmecorp.com' });
 ```
 
@@ -368,7 +370,7 @@ await directoryClient.deleteObject({ type: 'user', key: 'euang@acmecorp.com' });
 
 Delete a relation:
 
-```javascript
+```typescript
 await directoryClient.deleteRelation(
   {
     subject: {
@@ -397,7 +399,7 @@ You can evaluate graph queries over the directory, to determine whether a subjec
 
 Check that an `user` object with the key `euang@acmecorp.com` has the `read` permission in the `admin` group:
 
-```javascript
+```typescript
 const check = await directoryClient.checkPermission(
   {
     subject: {
@@ -421,7 +423,7 @@ const check = await directoryClient.checkPermission(
 
 Check that `euang@acmecorp.com` has an `identifier` relation to an object with key `euang@acmecorp.com` and type `identity`:
 
-```javascript
+```typescript
 const check = directoryClient.checkPermission(
   {
     subject: {
@@ -442,7 +444,7 @@ const check = directoryClient.checkPermission(
 
 ### Example
 
-```javascript
+```typescript
 const identity = 'euang@acmecorp.com';
 const relation = await directoryClient.relation(
   {
