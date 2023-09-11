@@ -4,13 +4,37 @@ title: Deploy PeopleFinder
 description: How to deploy the PeopleFinder sample to Netlify
 ---
 
-# Deploy the PeopleFinder sample to Netlify
+# Deploy the PeopleFinder tutorial
 
-To get started let's deploy the PeopleFinder application. Click [here](https://console.aserto.com/ui/quickstarts) to be taken to the Quickstarts screen in the Aserto Console. 
+We'll follow these steps:
+1. Create the peoplefinder policy instance
+2. Connect the "Acmecorp" identity provider
+3. Deploy the PeopleFinder application to Netlify (or run it locally)
+4. Switch policies and observe how the authorization behavior changes!
 
-![peoplefinder-2-quickstarts"](/peoplefinder-2-quickstarts.png)
+## Create the policy instance
 
-Choose the left sample to deploy using the Acmecorp sample IDP. This will bring up the deployment screen and prompt you to connect Acmecorp. 
+Click the "Create new instance" button in the top-right of the Policies tab.
+
+<img src="/todo/todo-policy.png" />
+
+Select the "from a sample image" option:
+
+<img src="/todo/from-a-sample-image.png" width="600px" />
+
+### Select the peoplefinder RBAC policy
+
+Select `policy-peoplefinder-rbac` from the dropdown, and be sure to select the `latest` tag.
+
+Name the policy `peoplefinder-instance` to match the rest of the instructions in this tutorial.
+
+<img src="/peoplefinder/peoplefinder-instance.png" width="600px" />
+
+When you click the "Create policy" button, you'll be placed in the Evaluator for a newly created peoplefinder policy.
+
+Click the Quickstart tab in the left navigation bar to get to the PeopleFinder Quickstart.
+
+<img src="/peoplefinder/peoplefinder-quickstart.png" />
 
 ## Connect the "Acmecorp" identity provider
 
@@ -18,27 +42,19 @@ An identity provider is the source of truth for user and group information. Aser
 
 The Acmecorp identity provider is a sample IDP that contains around 270 employees of a fictitious company called "Acmecorp", as well as a few groups that they belong to. Click the "Connect" button to connect the Acmecorp IDP to your account and import these users and groups.
 
-![peoplefinder-3-deploy-idp](/peoplefinder-3-deploy-idp.png)
+## Run the PeopleFinder application
 
-## Instantiate the PeopleFinder policy
- 
-Aserto relies on [Policies](/docs/overview/policy-lifecycle) for decisions which determine whether or not a user can access a specific resource. A policy is written in a language called Rego and built into a policy image (similar to a docker image). Policy images are stored in a policy registry, and can be instantiated as a policy instance. 
+Next, we'll run the PeopleFinder application and bind it to the `peoplefinder-instance` policy that we just created.
 
-Aserto has a public policy registry which contains the policy for PeopleFinder. This public policy registry is already connected to your tenant.
+The easy way to do this is to deploy PeopleFinder to Netlify, a free hosting service for React-based applications.
 
-![peoplefinder-4-deploy-registry](/peoplefinder-4-deploy-registry.png)
+<img src="/peoplefinder/deploy-peoplefinder.png" width="600px" />
 
-Next, let's instantiate the PeopleFinder policy and name it "peoplefinder-instance" by clicking the "Create" button. This will start a hosted authorizer instance that runs this specific policy. The PeopleFinder application will be able to connect to this authorizer to make authorization decisions.
+Click the "Deploy app to Netify" button, or follow the instructions to clone the repository locally, install the dependencies, download the `.env` file, and run the application on your machine.
 
-![peoplefinder-5-deploy-instance](/peoplefinder-5-deploy-instance.png)
+### Deploy to Netlify
 
-## Deploy PeopleFinder to Netlify
-
-The last step is to start the deployment of PeopleFinder to Netlify. Click the "Deploy to Netify" button.
-
-![peoplefinder-6-deploy-netlify-1](/peoplefinder-6-deploy-netlify-1.png)
-
-This will bring up the Netlify UI on a different browser tab:
+Clicking the "Deploy app to Netlify" button will bring up the Netlify UI on a different browser tab:
 
 ![peoplefinder-7-deploy-netlify-2](/peoplefinder-7-deploy-netlify-2.png)
 
