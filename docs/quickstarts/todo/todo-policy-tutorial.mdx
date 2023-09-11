@@ -1,0 +1,37 @@
+---
+sidebar_label: Todo Policy Tutorial
+title: Todo Policy Tutorial
+description: Launch the todo policy tutorial
+---
+
+# Todo Policy Tutorial
+
+<img src="/todo-orientation-page.png" />
+
+The preloaded Todo policy is comprised of 5 modules (seen on the left side of the screen). Each one of these modules contains the Rego policy that dictates the authorization behavior of each of the routes in the application you set up.
+
+:::note
+Rego is a high-level language similar to Datalog, created by the Open Policy Agent OSS project to define authorization rules.
+:::
+
+Clicking on each module will load the Rego definition for the module and a corresponding explanation that will help you understand what the Rego definition does and how it works.
+
+Authorization decisions require three inputs:
+
+1. **The identity context** - the actor that is taking the action. Our application will resolve the user’s identity after they have logged in, and pass that identity to the server with every request.
+2. **The resource context** - the resource that is being acted upon. In the Todo application, the resource is each todo item - and particularly information about the owner of each todo item.
+3. **The policy context** - the rules applied to make the authorization decision.
+
+On this page, we'll see how all three come together to produce an _authorization decision_.
+
+On the right, you'll see the _evaluator_: it produces authorization decisions for each of the modules. To use it, first select the _identity_ you'd like to evaluate. Then, you can set the _resource context_ such that the `ownerID` would either equal the requesting user's ID or be different from it. This tells the authorizer whether the requesting user owns the the todo entry or not - and the authorization decision is made based on that information.
+
+When you select a policy module, the evaluator will produce the authorization decision for the selected policy module, identity and resource context.
+
+Follow the explanations for each of the policy modules better understand how each module works.
+
+## Next steps
+
+Feel free to explore the source code in the backend application you just downloaded, to see how to wire up Aserto into your favorite language!
+
+Also, you can explore the [PeopleFinder Quickstart](/docs/getting-started/peoplefinder/peoplefinder-overview) to dive into a deeper sample.

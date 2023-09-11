@@ -5,7 +5,6 @@ module.exports = {
   // create a sidebar manually
   sidebar: [
     'index',
-    'api-reference',
     {
       Overview: [
         'overview/introduction',
@@ -20,21 +19,24 @@ module.exports = {
       ],
     },
     {
-      'Getting Started': [
+      'Quickstarts': [
+        'quickstarts/overview',
+        'getting-started/first-steps/create-account',
         {
           type: 'category',
-          label: 'First Steps',
-          collapsed: false,
+          label: 'Todo',
+          collapsed: true,
           items: [
-            'getting-started/first-steps/quickstart',
-            'getting-started/first-steps/create-account',
-            'getting-started/first-steps/orientation',
+            'quickstarts/todo/overview',
+            'quickstarts/todo/download-backend',
+            'quickstarts/todo/launch-frontend',
+            'quickstarts/todo/todo-policy-tutorial',
           ],
         },
         {
           type: 'category',
-          label: 'PeopleFinder Quickstart',
-          collapsed: false,
+          label: 'PeopleFinder',
+          collapsed: true,
           items: [
             'getting-started/peoplefinder/peoplefinder-overview',
             'getting-started/peoplefinder/deploy-peoplefinder',
@@ -45,23 +47,8 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'Explore ABAC Policies',
-          collapsed: true,
-          items: [
-            'getting-started/explore-abac-policies/overview',
-            'getting-started/explore-abac-policies/creating-an-abac-policy',
-            'getting-started/explore-abac-policies/update-app-and-review',
-          ],
-        },
-        'getting-started/install-onebox',
-      ],
-    },
-    {
-      Quickstarts: [
-        {
-          type: 'category',
           label: 'React and Node',
-          collapsed: false,
+          collapsed: true,
           items: [
             'quickstarts/react/overview',
             'quickstarts/react/adding-users',
@@ -132,7 +119,6 @@ module.exports = {
         'aserto-console/policies',
         'aserto-console/view-policies',
         'aserto-console/manage-organizations',
-        'aserto-console/enabling-getting-started',
       ],
     },
     {
@@ -185,7 +171,7 @@ module.exports = {
         {
           type: 'category',
           label: 'APIs',
-          collapsed: false,
+          collapsed: true,
           items: [
             'decision-logs-guide/api/overview',
             'decision-logs-guide/api/decision-logs',
@@ -300,6 +286,7 @@ module.exports = {
         },
       ],
     },
+    'api-reference',
     {
       CLIs: [
         'command-line-interface/introduction',
