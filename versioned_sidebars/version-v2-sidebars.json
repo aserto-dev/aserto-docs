@@ -13,7 +13,11 @@
             "authorization-basics/authorization-models/abac"
           ]
         },
-        "authorization-basics/glossary"
+        {
+          "type": "link",
+          "label": "Glossary",
+          "href": "https://www.aserto.com/ref/glossary"
+        }
       ]
     },
     {
