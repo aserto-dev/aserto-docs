@@ -316,8 +316,6 @@ module.exports = {
         },
         {
           Directory: [
-            'directory-api-reference/overview',
-            'directory-api-reference/rest',
             'directory-api-reference/graphql',
             'directory-api-reference/grpc',
           ],
