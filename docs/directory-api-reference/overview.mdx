@@ -1,190 +1,29 @@
 ---
 sidebar_label: Overview
 title: Directory Guide
-description: How to use the Aserto Directory GraphQL API
+description: How to use the Aserto API`
 ---
 
 # Overview
 
-## Authentication
+Using Aserto's Directory API you can access the manifest, retrieve and update objects in the directory and work with relations.
 
-Two HTTP headers must be included in all requests to the directory API:
+## Checks
+* Check Permission - Check if a subject has permission on the specified object.
+* Check Relation - Check it a subject has requrested relation on the specific object.
 
-* `Authorization` - an API key (`basic <KEY>`) or OAuth2.0 token (`bearer <TOKEN>`).
+## Manifest
+* Get Manifest - Retrieve the manifest
+* Set Manifest - Set the manifest
+* Delete Manifest - Delete the manifest
 
-  API keys can be found under the Aserto Directory connection in the Connections page.
+## Objects
+* Retrieve an object by type and id
+* Delete an object by type and id
+* List all objects of a speicfic type
 
-  <img src="/directory/api-keys.png" width="700px" />
-
-* `Aserto-Tenant-ID` - the tenant ID of the organization being accessed.
-
-  The ID of your account's default tenant can be found in the Aserto console by selecting "Account settings" in
-  user drop-down menu at the top-right.
-
-  <img src="/directory/account-settings.png" width="700px" />
-
-  You can find an organization's tenant ID in the console by selecting "Manage organization" in the in the
-  organization drop-down menu.
-
-  <img src="/directory/manage-organization.png" width="700px" />
-
-## Pagination
-
-Pagination is supported using the _first_ and _after_ arguments to queries and fields that represent collections.
-
-The query below retrieves the display name of the first two objects in the directory.
-
-```graphql title="Query"
-{
-  objects(first: 2) {
-    nodes {
-      displayName
-    }
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-  }
-}
-```
-
-```json title="Result"
-{
-  "data": {
-    "objects": {
-      "nodes": [
-        {
-          "displayName": "Karin Lamb"
-        },
-        {
-          "displayName": "Nuno Farinha"
-        }
-      ],
-      "pageInfo": {
-        "hasNextPage": true,
-        "endCursor": "OC04NzQyLTQ5YWQtOTUyNi05NzA5YzAwYmIwZGUA"
-      }
-    }
-  }
-}
-```
-
-The results consist of two parts:
-
-* `nodes` is a list containing the returned objects.
-* `pageInfo` contains pagination metadata.
-  * `hasNextPage` is `false` if the returned page is the last one, `true` otherwise.
-  * `endCursor` contains a cursor that can be passed to the `after` parameter in order to retrieve the next page.
-
-The following query requests the next object after the two retrieved by the query above:
-
-```graphql title="Query"
-{
-  objects(first: 1, after: "OC04NzQyLTQ5YWQtOTUyNi05NzA5YzAwYmIwZGUA") {
-    nodes {
-      displayName
-    }
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-  }
-}
-```
-
-```json title="Result"
-{
-  "data": {
-    "objects": {
-      "nodes": [
-        {
-          "displayName": "Lukas Keller"
-        },
-      ],
-      "pageInfo": {
-        "hasNextPage": true,
-        "endCursor": "OC02ZWNjLTQ1ZWQtYjI3OC1kODQ5YWI1ZjdjM2UA"
-      }
-    }
-  }
-}
-```
-
-## Filters
-
-Unlike selectors that are used to pick individual objects, filters let you retrieve all items that match given criteria.
-
-The following query asks for the first 10 group objects whose key contains the substring "management":
-
-```graphql title="Query"
-{
-  objects(
-    first: 10
-    where: {
-      type: {name: {equals: "group"}}
-      key: {contains: "management"}
-  }) {
-    pageInfo {
-      hasNextPage
-    }
-    nodes {
-      key
-      displayName
-      type {
-        name
-      }
-    }
-  }
-}
-```
-
-```json title="Result"
-{
-  "data": {
-    "objects": {
-      "pageInfo": {
-        "hasNextPage": false
-      }
-      "nodes": [
-        {
-          "key": "sales-engagement-management",
-          "displayName": "sales-engagement-management-group",
-          "type": {
-            "name": "group"
-          }
-        },
-        {
-          "key": "content-management-consulting",
-          "displayName": "content-management-consulting-group",
-          "type": {
-            "name": "group"
-          }
-        },
-        {
-          "key": "project-management",
-          "displayName": "project-management-group",
-          "type": {
-            "name": "group"
-          }
-        },
-        {
-          "key": "senior-management",
-          "displayName": "senior-management-group",
-          "type": {
-            "name": "group"
-          }
-        }
-      ]
-    }
-  }
-}
-```
-
-**Note:** Filters have _AND_ semantics. When multiple fields are given, such as `key` and `type` in the last example,
-  the results only include objects that match _all_ criteria.
-
-## Life Cycle Metadata
-
-Most types in the directory retain metadata about key events in their life cycle.
-Life cycle metadata is represented by the [`Lifecycle`](schema/common/objects/lifecycle) type, and can be retrieved from
-directory items with `lifecycle` property (e.g. [`Object.lifecycle`](schema/objects/objects/object#lifecycle-lifecycle)).
+## Relations
+* Get a relation 
+* Set a relation
+* List relations
+* Delete a relation
