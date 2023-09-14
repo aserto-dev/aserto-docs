@@ -10,10 +10,7 @@ module.exports = {
         'overview/introduction',
         'overview/authorizer',
         {
-          Policy: [
-            'overview/policy',
-            'overview/policy-lifecycle'
-          ]
+          Policy: ['overview/policy', 'overview/policy-lifecycle'],
         },
         'overview/directory',
         'overview/control-plane',
@@ -23,7 +20,7 @@ module.exports = {
       ],
     },
     {
-      'Quickstarts': [
+      Quickstarts: [
         'quickstarts/overview',
         {
           type: 'category',
@@ -113,9 +110,7 @@ module.exports = {
               type: 'category',
               label: 'Container Registries',
               collapsed: true,
-              items: [
-                'aserto-console/connections/setup-ghcr',
-              ],
+              items: ['aserto-console/connections/setup-ghcr'],
             },
             'aserto-console/connections/setup-edge',
           ],
@@ -128,38 +123,24 @@ module.exports = {
     },
     {
       Deployment: [
+        'local-deployment/overview',
         {
-          type: 'category',
-          label: 'Local Deployment',
-          collapsed: true,
-          items: [
-            'local-deployment/overview',
-            {
-              type: 'category',
-              label: 'Edge Authorizers',
-              collapsed: true,
-              items: [
-                'edge-authorizers/overview',
-                'edge-authorizers/deployment-and-operation',
-                'edge-authorizers/security-and-management',
-                `edge-authorizers/decision-logs`,
-                'edge-authorizers/discovery-flow',
-                'edge-authorizers/runtime-flow',
-                'edge-authorizers/directory-synchronization',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'Local Directory',
-              collapsed: true,
-              items: [
-                'local-deployment/local-directory/overview',
-                'local-deployment/local-directory/helm-chart',
-              ],
-            },
+          'Edge Authorizers': [
+            'edge-authorizers/overview',
+            'edge-authorizers/deployment-and-operation',
+            'edge-authorizers/security-and-management',
+            `edge-authorizers/decision-logs`,
+            'edge-authorizers/discovery-flow',
+            'edge-authorizers/runtime-flow',
+            'edge-authorizers/directory-synchronization',
           ],
         },
-            
+        {
+          'Local Directory': [
+            'local-deployment/local-directory/overview',
+            'local-deployment/local-directory/helm-chart',
+          ]
+        }
       ]
     },
     {
@@ -298,7 +279,7 @@ module.exports = {
       ],
     },
     {
-      'API Reference' : [
+      'API Reference': [
         'api-reference',
         {
           Authorizer: [
@@ -334,15 +315,14 @@ module.exports = {
           ],
         },
         {
-          'Directory': [
-                'directory-api-reference/overview',
-                'directory-api-reference/rest',
-                'directory-api-reference/graphql',
-                'directory-api-reference/grpc'
-                
+          Directory: [
+            'directory-api-reference/overview',
+            'directory-api-reference/rest',
+            'directory-api-reference/graphql',
+            'directory-api-reference/grpc',
           ],
         },
-      ]
+      ],
     },
     {
       Troubleshooting: [
