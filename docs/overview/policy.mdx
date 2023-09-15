@@ -1,13 +1,12 @@
 ---
-sidebar_label: Authorization Policy
-title: Overview - Authorization Policy
+sidebar_label: Policy
+title: Conceptual Overview - Policy
 description: The Aserto Authorization Policy - an Overview
 ---
 
 # Authorization Policy
 
-An authorization policy (or simply, a **policy**) is expressed in a declarative language called
-[rego](https://www.openpolicyagent.org/docs/latest/policy-language/).
+At the core of Aserto’s authorization model is an authorization policy, which we refer to simply as a **Policy**. Policies are authored in a textual language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/), defined as part of the [Open Policy Agent](https://www.openpolicyagent.org/) (OPA) project in the [Cloud Native Computing Foundation](https://www.cncf.io/).
 
 A policy can include one or more `rego` files, and one or more JSON data files.
 
@@ -66,4 +65,18 @@ the policy would evaluate `allowed` to `true` if the user id and the resource id
 allowed {
   input.user.id == input.resource.id
 }
+
+# Policy Lifecycle
+
+Policies are treated just like application code or infrastructure-as-code - they can be stored as code in a git repository, or as an OCIv2 image in a policy repository (like the Aserto Policy Container Registry or the [Open Policy Registry](https://www.openpolicyregistry.io/)).
+
+## Policy as code
+
+Policies are **authored** using a text / code editor, **built** into an image, **published** to a repository hosted on a registry, **run** in a policy instance, and **consumed** by an application.
+
+![Policy as code](/policy-as-code.png)
+
+Aserto's control plane helps manage the policy lifecycle.
 ```
+
+For more information on authoring policies and the policy lifecyce, see this [topic](policy-lifecycle)

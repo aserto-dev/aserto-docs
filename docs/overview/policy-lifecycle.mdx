@@ -1,22 +1,10 @@
 ---
 sidebar_label: Policy Lifecycle
-title: Overview - Policy Lifecycle
+title: Architecture - Policy Lifecycle
 description: The Aserto Policy Lifecycle - an Overview
 ---
 
 # Policy Lifecycle
-
-## Policy
-
-At the core of Aserto’s authorization model is an authorization policy, which we refer to simply as a **Policy**. Policies are authored in a textual language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/), defined as part of the [Open Policy Agent](https://www.openpolicyagent.org/) (OPA) project in the [Cloud Native Computing Foundation](https://www.cncf.io/).
-
-Policies are treated just like application code or infrastructure-as-code - they can be stored as code in a git repository, or as an OCIv2 image in a policy repository (like the Aserto Policy Container Registry or the [Open Policy Registry](https://www.openpolicyregistry.io/)).
-
-## The policy lifecycle
-
-Policies are **authored** using a text / code editor, **built** into an image, **published** to a repository hosted on a registry, **run** in a policy instance, and **consumed** by an application.
-
-![Policy as code](/policy-as-code.png)
 
 Aserto's control plane helps manage the policy lifecycle.
 

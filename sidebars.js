@@ -6,17 +6,15 @@ module.exports = {
   sidebar: [
     'index',
     {
-      Architecture: [
+      'Conceptual Overview': [
         'overview/introduction',
         'overview/authorizer',
-        {
-          Policy: ['overview/policy', 'overview/policy-lifecycle'],
-        },
+        'overview/policy',
         'overview/directory',
+        'overview/decision-logs',
         'overview/control-plane',
         'overview/connections',
         'overview/organization',
-        'overview/decision-logs',
       ],
     },
     {
