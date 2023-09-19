@@ -292,6 +292,7 @@ module.exports = {
             'authorizer-guide/decisiontree',
             'authorizer-guide/policy',
             'authorizer-guide/built-ins',
+            'authorizer-guide/grpc'
           ],
         },
         {
