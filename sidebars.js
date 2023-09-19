@@ -115,6 +115,7 @@ module.exports = {
         },
         'aserto-console/policies',
         'aserto-console/view-policies',
+        'overview/policy-lifecycle',
         'decision-logs-guide/console',
         'aserto-console/manage-organizations',
       ],
