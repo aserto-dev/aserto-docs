@@ -279,6 +279,7 @@ module.exports = {
     },
     {
       'API Reference': [
+        'api-reference',
         {
           Authorizer: [
             'authorizer-guide/overview',
@@ -315,6 +316,7 @@ module.exports = {
         },
         {
           Directory: [
+            'directory-api-reference/overview',
             'directory-api-reference/graphql',
             'directory-api-reference/grpc',
           ],
