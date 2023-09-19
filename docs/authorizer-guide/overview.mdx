@@ -1,7 +1,7 @@
 ---
 sidebar_label: Overview
-title: Authorizer Guide
-description: How to use the Aserto Authorizer
+title: Authorizer API
+description: How to use the Aserto Authorizer API
 ---
 
 # Overview
@@ -12,6 +12,23 @@ compute a [**decision**](/docs/overview/policy#decision) based on a [**policy**]
 [**user context**](/docs/overview/policy#user-context), and **data**.
 
 An application can interact with the Authorizer through a set of gRPC or HTTPS REST APIs.
+
+## REST API documentation
+
+The Aserto Authorizer APIs are documented [here](https://aserto.readme.io/reference/authorizercompile). They are generated from
+the OpenAPI specification of each of the APIs, and and are meant to be used as the definitive reference
+for the Authorizer API surface.
+
+:::tip
+If you have an Aserto account, sign in to the [console](https://console.aserto.com), and
+select the `API Docs` menu item. This will bring up an authenticated experience for the
+reference docs, and automatically fill in the current Tenant ID, authorizer API key, and JWT
+so that you can directly execute API calls from the dashboard.
+:::
+
+[<img src="/api-reference.png" width="200px" />](/api-reference.png)
+
+![Readme API docs](/readme-io.png)
 
 ## Hosted Authorizer vs Edge Authorizer
 
@@ -38,7 +55,7 @@ The Authorizer provides the following API categories to calling applications:
 - Information (`info`)
 
 :::note
-The v1 [Directory](/docs/authorizer-guide/dir) (`dir`) namespace is now deprecated in favor of the v2 Directory [graphQL APIs](/docs/directory-guide/scenario.mdx).
+The v1 [Directory](/docs/authorizer-guide/dir) (`dir`) namespace is now deprecated in favor of the v2 Directory [graphQL APIs](/docs/directory-api-reference/graphql.mdx).
 
 The v1 System (`sys`) namespace is now removed from v2.
 :::
