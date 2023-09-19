@@ -279,7 +279,6 @@ module.exports = {
     },
     {
       'API Reference': [
-        'api-reference',
         {
           Authorizer: [
             'authorizer-guide/overview',

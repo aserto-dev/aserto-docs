@@ -13,6 +13,23 @@ compute a [**decision**](/docs/overview/policy#decision) based on a [**policy**]
 
 An application can interact with the Authorizer through a set of gRPC or HTTPS REST APIs.
 
+## REST API documentation
+
+The Aserto Authorizer APIs are documented [here](https://aserto.readme.io/reference/authorizercompile). They are generated from
+the OpenAPI specification of each of the APIs, and and are meant to be used as the definitive reference
+for the Authorizer API surface.
+
+:::tip
+If you have an Aserto account, sign in to the [console](https://console.aserto.com), and
+select the `API Docs` menu item. This will bring up an authenticated experience for the
+reference docs, and automatically fill in the current Tenant ID, authorizer API key, and JWT
+so that you can directly execute API calls from the dashboard.
+:::
+
+[<img src="/api-reference.png" width="200px" />](/api-reference.png)
+
+![Readme API docs](/readme-io.png)
+
 ## Hosted Authorizer vs Edge Authorizer
 
 Creating an Aserto tenant automatically creates a corresponding Authorizer instance in the multi-tenant hosted Authorizer. Since it's a multi-tenant service, the hosted Authorizer requires authorization headers to disambiguate the tenant and provide the tenant secret (API key).
