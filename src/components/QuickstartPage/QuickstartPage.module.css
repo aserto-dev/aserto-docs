@@ -1,0 +1,15 @@
+/* Aserto Quickstart Page - set to Aserto's light and dark theme */
+
+.pageTitle {
+    font-size: 32px;
+    color: #121212;
+}
+
+html[data-theme='dark'] .pageTitle {
+    color: #a0a0a0;
+}
+
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
