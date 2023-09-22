@@ -6,7 +6,7 @@ const Sdk = ({ title, link, icon, description, docs }) => {
   return (
     <div className={styles.card}>
       <a href={link}>
-        <img className={styles.cardImage} src={`/${icon}`} alt={title} />
+        <img className={styles.cardImage} src={`/quickstarts/${icon}`} alt={title} />
       </a>
       <p className={styles.cardTitle}>{title}</p>
       <br />
