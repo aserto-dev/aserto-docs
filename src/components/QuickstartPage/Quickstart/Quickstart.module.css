@@ -10,8 +10,17 @@
 }
 
 .card:hover {
-    background-color: #f9f9f9;
+    background-color: #e0e0e0;
     cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.card a {
+    color: black;
+}
+.card a:hover {
+    text-decoration: none;
 }
 
 html[data-theme='dark'] .card {
@@ -46,10 +55,28 @@ html[data-theme='dark'] .cardTitle {
     color: #e7e7e7;
 }
 
+html[data-theme='dark'] .cardDescription {
+    color: #e7e7e7;
+}
+
 .cardImage {
-    display: inline-block;
     margin: 20px 0;
+    display: inline-block;
     height: 100px;
+}
+
+.cardImage svg {
+    margin-bottom: 20px;
+    height: 100px;
+    width: 100px;
+}
+
+.cardImage svg path {
+    fill: #212121;
+}
+
+html[data-theme='dark'] .cardImage svg path {
+    fill: #e7e7e7;
 }
 
 .cardGithubLink {
