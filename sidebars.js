@@ -7,7 +7,7 @@ module.exports = {
     'index',
     {
       "Authorization Basics": [
-        "authorization-basics/access-control",
+        "authorization-basics/fundamentals",
         "authorization-basics/authz-vs-authn",
         {
           "Authorization Models": [
