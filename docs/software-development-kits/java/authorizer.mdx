@@ -26,7 +26,8 @@ and can be easily added to you project by adding the maven dependency
 ```java
 // create a channel that has the connection details
 ManagedChannel channel = new ChannelBuilder()
-        .withAddr("localhost:8282")
+        .withHost("localhost")
+        .withPort(8282)
         .withCACertPath(<path_to_authorizer_certificates>)
         .build();
 
@@ -41,7 +42,8 @@ The `ChannelBuilder` accepts setting the fallowing properties:
 
 | Method | Description |
 | -------------- | ----------- |
-| withAddr(String) | authorizer address |
+| withHost(String) | authorizer host |
+| withPort(int) | authorizer port |
 | withCACertPath(String) | path to certificate used for TLS connection to authorizer |
 | withInsecure(Boolean) | use an isecure connection to the authorizer |
 | withTenantId(String) | TenantId, not required for Topaz |
