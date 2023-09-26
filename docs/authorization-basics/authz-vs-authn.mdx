@@ -2,13 +2,13 @@
 sidebar_label: Authentication vs Authorization
 title: Authentication vs Authorization
 ---
+<img src="https://cdn.sanity.io/images/4gqsq44z/production/0938a172ad541cebe5468a2498db712e6aa6eac0-2008x739.png" width="60%"/>
+
 
 # Authentication vs Authorization
-
-Authentication and Authorization are two terms that are often thought of as the same thing. In this article we'll attempt to clarify what each of these terms mean and how they differ. In order to have a secure system, you need both. At a 25000 foot level, **Authentication** is focused on _WHO you are_ and **Authorization** is focused on _WHAT you can do_.
+Authentication and Authorization are two terms that are often thought of as the same thing. In this topic we'll attempt to clarify what each of these terms mean and how they differ. In order to have a secure system, you need both. At a high level level, **Authentication** is focused on _WHO you are_ and **Authorization** is focused on _WHAT you can do_.
 
 # Authentication
-
 Authentication's primary concern is the user's identity. Is the person trying to access the system who they claim to be? Do they have valid credentials? Can they prove it? Are they using a registered device and in a known location? Have they tried to login recently from two different locations? 
 
 Modern Authentication platforms or Identity Providers (IDP) like Auth0, Cognito, Azure AD, and more ask these questions for us. They are the front-line defense for a system. Whenever you try to use a secure system, the first thing you'll hit is a login screen, and that is where authentication kicks in. The IDP will require you to login using credentials such as a username and password, a social login (Google, Github, LinkedIn), Passwordless, or Single Sign On. Additionally it may use Multi-factor Authentication such as SMS or an Authenticator app to further provide proofs. The IDP will go deeper and look at the device you are using, where you are attempting to login from, your IP address, and more. Once you are authenticated, the IDP will issue an access token (commonly a JWT) that the client app can then use for subsequent calls. 
@@ -16,7 +16,6 @@ Modern Authentication platforms or Identity Providers (IDP) like Auth0, Cognito,
 Once you have a valid access token, Authentication is complete.  The next question is what are you allowed to do? What can you access? This is where Authorization comes in.
 
 # Authorization
-
 Authorization is concerned with access control, ensuring users have the right permissions to perform actions on the system. There are various levels to how this can be addressed as shown in the chart below.
 
 | Level | Summary | description |
@@ -26,5 +25,4 @@ Authorization is concerned with access control, ensuring users have the right pe
 | 2     | Externalized authorization | Modern (fine-grained, real-time) authorization services like Aserto. They make a call to an external authorization system with a user context, a policy/permission, and a resource context, which evaluates whether this user has this permission on this resource and this time. This overcomes two big problems with Level 1, which is granularity and staleness.  Granularity - you no longer have to embed scopes for EVERY resource in an access token (that's impractical for anything but the simplest systems). Staleness - you no longer have to rely on information that was true 2 hours ago, at the time the access token was minted.  You make a real-time authorization decision based on the current state of the world. |
 
 # Why you need both
-
 Authentication is the front-door to your system. It helps prevent unwanted actors from getting in unless they have proper credentials. Authorization controls the actions of the user once they get in. It says where they can go, what they can see, and what they can do. If credentials are compromised, Authorization is your next line of defense. It ensures that both well-meaning users and bad actors can't harm the system or compromise your customer's data. A modern Authorization system like Aserto helps here and provides tools to make it easier to manage your users and give them the right permissions appropriate for their role within your organization.
