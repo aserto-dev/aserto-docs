@@ -10,6 +10,11 @@ module.exports = {
         'authorization-basics/fundamentals',
         'authorization-basics/authz-vs-authn',
         {
+          'Authorization Models': [
+            'authorization-basics/authorization-models/rbac'
+          ]
+        },
+        {
           'type': 'link',
           'label': 'Glossary',
           'href': 'https://www.aserto.com/ref/glossary'
