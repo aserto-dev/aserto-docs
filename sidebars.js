@@ -6,13 +6,13 @@ module.exports = {
   sidebar: [
     'index',
     {
-      "Authorization Basics": [
-        "authorization-basics/fundamentals",
-        "authorization-basics/authz-vs-authn",
+      'Authorization Basics': [
+        'authorization-basics/fundamentals',
+        'authorization-basics/authz-vs-authn',
         {
-          "type": "link",
-          "label": "Glossary",
-          "href": "https://www.aserto.com/ref/glossary"
+          'type': 'link',
+          'label': 'Glossary',
+          'href': 'https://www.aserto.com/ref/glossary'
         }
       ]
     },
