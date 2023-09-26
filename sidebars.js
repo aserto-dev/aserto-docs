@@ -7,15 +7,7 @@ module.exports = {
     'index',
     {
       "Authorization Basics": [
-        "authorization-basics/access-control",
         "authorization-basics/authz-vs-authn",
-        {
-          "Authorization Models": [
-            "authorization-basics/authorization-models/rbac",
-            "authorization-basics/authorization-models/rebac",
-            "authorization-basics/authorization-models/abac"
-          ]
-        },
         {
           "type": "link",
           "label": "Glossary",
