@@ -11,7 +11,8 @@ module.exports = {
         'authorization-basics/authz-vs-authn',
         {
           'Authorization Models': [
-            'authorization-basics/authorization-models/rbac'
+            'authorization-basics/authorization-models/rbac',
+            'authorization-basics/authorization-models/abac'
           ]
         },
         {
