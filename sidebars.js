@@ -7,8 +7,8 @@ module.exports = {
     'index',
     {
       'Authorization Basics': [
-        'authorization-basics/fundamentals',
         'authorization-basics/authz-vs-authn',
+        'authorization-basics/fundamentals',
         {
           'Authorization Models': [
             'authorization-basics/authorization-models/rbac',
