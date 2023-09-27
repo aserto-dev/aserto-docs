@@ -12,7 +12,8 @@ module.exports = {
         {
           'Authorization Models': [
             'authorization-basics/authorization-models/rbac',
-            'authorization-basics/authorization-models/abac'
+            'authorization-basics/authorization-models/abac',
+            'authorization-basics/authorization-models/rebac'
           ]
         },
         {

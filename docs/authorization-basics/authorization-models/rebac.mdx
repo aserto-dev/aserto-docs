@@ -1,0 +1,40 @@
+---
+sidebar_label: ReBAC
+title: Relationship-based Access Control (ReBAC)
+---
+
+# Overview
+ReBAC is an authorization model that assigns permissions based on relations between resources. Relations include data ownership, parent-child relationships, groups, and hierarchies. Google Zanzibar, the authorization system for Drive, YouTube, and other Google services, is most commonly associated with this authorization model.
+
+ReBAC allows organizations to model their application’s resource hierarchy so that the authorization model matches it. Most B2B apps have tenants or organizations at the top of their resource hierarchy, followed by an internal hierarchy of resources, such as teams, projects, lists, folders, and even individual items. ReBAC allows organizations to restrict access at any level of the hierarchy and apply the principle of least privilege using fine-grained access control.
+
+To build relationship-based access control developers need to describe a relationship graph between subjects (users/groups) and objects (teams, projects, lists, folders, individual items) in their system. Once done, the authorization policy will check whether a particular type of relationship exists for any user or resource and determine which permissions are granted based on that information.
+
+# Example 
+
+In the RBAC example, we looked at a wiki system. Now let's look at a hierarchical document storage system where permissions need to be fine-grained down to the level of files and folders. We can define different types like user, folders, and documents. Next we can define user relations such as owner, editor, viewer, and parent on documents and folders. Finally we can define permissions that are granted based on relations being present. As an example we can say that users that have the viewer, editor, or owner relation on a folder are granted the can_view permission; and editors and owners of the folder are granted the can_write permission. "parent" is a special relation that inherits the can_view and can_write permissions from the parent folder.     
+
+Here is a table showing the objects, relations, and granted permissions.
+
+| Object | Relation  | Relation Type | Permissions |  
+| ------ | --------- | ------------- | ----------- |
+| User   |           |               |             |
+| Folder | owner     | user          | can_view, can_write    |
+|        | editor    | user          | can_view, can_write    |
+|        | viewer    | user          | can_view               |
+|        | parent    | folder        | parent->can_view, parent->can_write |
+| File   | owner     | user          | can_view, can_write    |
+|        | editor    | user          | can_view, can_write    |
+|        | viewer    | user          | can_view               |
+|        | parent    | folder        | parent->can_view, parent->can_write |
+
+Notice in the table the power of ReBAC. We're able to define permissions in a very fine-grained way, and we can have them flow down the hierarchy.
+
+# Pros and Cons
+The table below indicates the pros and cons of using an RBAC model
+
+| Pro             | Con            |
+| --------------- | -------------- |
+| Allows very fine-grained access control down to an individual resource | Difficult to manage |
+| Very flexible | Can be difficult to scale due to storage requirements
+| Aligns with the organization hierarchy | Can run into consistency issues with the authorization system |
