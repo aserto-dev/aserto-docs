@@ -38,13 +38,13 @@ Modern applications externalize their authorization logic - often by expressing 
 ## Authorization Policy
 An authorization poicy describes the set of rules to apply in order to evaluate whether a user has permission to perform an operation on a resource.
 
-A Policy can reason over a few different types of data - roles, attributes, and relationships. These determine the style or Authorization Model:
+A Policy can reason over a few different types of data - roles, attributes, and relationships. These determine the "style" of authorization, otherwise known as the Authorization Model:
 
 * **Role-based access control (RBAC)**: the policy is written in terms of the roles assigned to the user.
 * **Attribute-based access control (ABAC)**: the policy is written in terms of attributes associated with the user (e.g. department), the resource (e.g. status), and the environment (e.g. timezone, IP address)
 * **Relationship-based access control (ReBAC)**: the policy is written as a set of rules and relationships between users and resources.
 
-Aserto supports all of these models, as well as any combination, providing a flexible and extensible system.
+Aserto supports all of these authorization models, as well as any combination, providing a flexible and extensible system.
 
 
 
