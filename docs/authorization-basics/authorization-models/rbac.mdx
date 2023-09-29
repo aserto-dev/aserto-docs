@@ -5,10 +5,10 @@ title: Role-based Access Control (RBAC)
 <img width="70%" src="https://cdn.sanity.io/images/4gqsq44z/production/aa78dc75f19e5457619010ade8697534acefc507-801x554.png"/>
 
 # Overview
-RBAC is one of the most common authorization models. In RBAC we define permissions for operations that a user can take on a resource. Permissions are then grouped into roles which are then assigned to a subject (user, group, etc). 
+RBAC is one of the most common authorization models. In RBAC we define permissions for operations that a user can perform on a resource. Permissions are then grouped into roles which are then assigned to a subject (user, group, etc). 
 
 # Example
-Imagine a wiki. Users can create, view, edit or delete wiki pages, so the permissions would be view, edit, and delete. We can then map those permissions to viewer, editor, and admin roles. The table below indicates each role and the associated permissions.
+Imagine a wiki. Users can create, view, edit or delete wiki pages, so the permissions would be `view`, `edit`, and `delete`. We can then map those permissions to `viewer`, `editor`, and `admin` roles. The table below indicates each role and the associated permissions.
 
 | Role   | Permissions |
 | ------ | ----------- |
@@ -16,13 +16,13 @@ Imagine a wiki. Users can create, view, edit or delete wiki pages, so the permis
 | editor | view, edit  |
 | admin  | view, edit, delete |
 
-As you can see each role has one or more permissions, we can now assign each user the appropriate roles. Notice the roles are global, if you are an editor for example you can edit all the wiki pages. For a wiki used by a small team, this may be fine, however it probably won't work for a company-wide document system. 
+As you can see each role has one or more permissions, and we can now assign each user the appropriate roles. Notice the roles are global: for example, if you are an editor, you can edit all the wiki pages. For a wiki used by a small team, this may be fine; however, it probably won't work for a company-wide document system. 
 
 # Pros and Cons
-The table below indicates the pros and cons of using an RBAC model
+The table below indicates the pros and cons of using an RBAC model:
 
 | Pro             | Con            |
 | --------------- | -------------- |
 | Easy to stand up | Doesn't scale, hard to manage as the system grows |
-| Each to reason, modify, and audit | Can lead to role explosion |
+| Easy to reason about, modify, and audit | Can lead to role explosion |
 | Great for applications with a small set of predefined roles and permissions | Not sufficient for complex systems needing fine-grained access management | 

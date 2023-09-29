@@ -7,17 +7,17 @@ title: Attribute-based Access Control (ABAC)
 # Overview
 ABAC focuses on the use of attributes associated with the subject, resource, or environment to determine whether access to a resource is allowed. While roles are limited due to their static nature, attributes allow a more fine-grained authorization model by incorporating attributes that can have dynamic values. 
 
-User attributes include user-specific information, such as their name, role, team, seniority, projects, and more. Resource attributes include things like the resource’s owner, creation date, file name, folder, etc. Environmental attributes include data points such as the time of access, the location of the user, and if access is over a public network or VPN.
+User attributes include user-specific information, such as their name, role, team, seniority, and projects. Resource attributes include things like the resource’s owner, creation date, file name, and status. Environmental attributes include the time of access, the location of the user, and if access is over a public network or VPN.
 
-# Example
-A common use of ABAC is in patient-care applications where there are heavy regulations around privacy and data access. An ABAC policy for viewing a patient might limit viewing to only those staff who are in the same department as the patient's doctor, which might be a `user.department` property. Since there can be a large number of doctors and the department list is not fixed, it wouldn't make sense to handle this with roles.
+## Example
+A common use of ABAC is in patient-care applications where there are heavy regulations around privacy and data access. An ABAC policy for viewing a patient might limit viewing to staff who are in the same department as the patient's doctor (which might be a `user.department` property), as well as working at the same hospital (`user.hospital`). Since there can be a large number of doctors and the department list is not fixed, it wouldn't make sense to handle this with roles. Finally, access may be limited to working hours, to reduce the likelihood that a weekend breach would result in unauthorized access.
 
 
-# Pros and Cons
-The table below indicates the pros and cons of using an ABAC model
+## Pros and Cons
+The table below indicates the pros and cons of using an ABAC model:
 
 | Pro             | Con            |
 | --------------- | -------------- |
 | Allow much more fine-grained authorization | Requires more up front investment / more work to implement than RBAC |
-| Dynamic, and extensible | Difficult to reason since it incorporates dynamic data |
-| Offers a large amount of flexibility | Can introduce unwanted behavior if all potential values are not addressed |
+| Dynamic and extensible | Difficult to reason about, since it incorporates dynamic data |
+| Offers a large amount of flexibility | Can introduce unwanted behavior if there are many overlapping rules |
