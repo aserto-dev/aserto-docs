@@ -1,0 +1,42 @@
+---
+sidebar_label: Authorization Fundamentals
+title: Authorization Fundamentals
+---
+<img width="40%" src="https://cdn.sanity.io/images/4gqsq44z/production/68591c0f8ed93448053e03571531bcc3b5df3f11-808x710.png"/>
+
+# What is Authorization?
+Authorization determines whether or not a user is allowed to perform an operation on a server resource that they have access to. It is performed downstream from Authentication which is when the user establishes their identity and gains access to the system. Before a user accesses a resource, the authorization service will first check whether the user has the required permissions. If they do, the access request will be allowed, otherwise it will be denied. 
+
+# How do you design a system to support authorization
+
+Authorization is not a simple on/off switch, it has to be designed into the system, and requires careful thought to be effective. Here are the common requirements for supporting authorization.
+
+* Identify the resources the app exposes (e.g. documents, reports, projects, repositories)
+* Identify the actions users perform on resources (create, read, update, delete, list)
+* Design permissions around these operations (e.g. “read a document”, “delete a report”)
+* Group these permissions into default “roles” (e.g. viewer, owner, admin)
+* Provide a way for an admin of the application to assign users into roles, or allocate custom permissions for each user
+* Create rules for determining which permissions are needed for accessing each resource.
+* Evaluate the rules at runtime to determine whenever a user attempts to perform an operation if it should be allowed.
+
+In the past, developers would have to implement all of these themselves. Fortunately, modern authorization services like Aserto, do a lot of the heavy lifting.
+
+# Permissions 
+A permission is a digital consent to perform an operation such as view, edit, and delete. Permissions are granted or revoked to  users in order to control what they have access to. During authorization, a user's granted permissions are evaluated against the required permissions for accessing the resource. If there is a match then access will be allowed.
+
+# Authorization Models
+There are a common set of authorization models for defining permissions. The most traditional model is Role-Based Access Control or RBAC. In an RBAC system permissions are aggregated into roles which are assigned to users or groups. An example of permissions are view, edit, and delete, while examples of roles are viewer, editor, or admin.  
+
+# Authorization Policy
+Once permissions have been defined and the authorization model has been chosen, developers embed Authorization Policy into the application code. These are rules which govern access to the app resources, and which ensure the user has been granted the required permissions. 
+
+The policy logic will be based on the following inputs:
+
+* User Context - The identity of the user and associated properties. This includes their role, as well as directory information that is pulled from the Identity Provider.
+* Resource Context - Information about the resource being accessed. 
+
+At runtime the policy; user context; and resource context will all be used to determine resource access. 
+
+
+
+
