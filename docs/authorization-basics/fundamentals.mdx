@@ -1,0 +1,50 @@
+---
+sidebar_label: Authorization Fundamentals
+title: Authorization Fundamentals
+---
+<img width="40%" src="https://cdn.sanity.io/images/4gqsq44z/production/68591c0f8ed93448053e03571531bcc3b5df3f11-808x710.png"/>
+
+# What is Authorization?
+Authorization is the process of determining whether a user is allowed to perform an operation on a resource. An authorization system computes a decision (allow or deny) based on three inputs:
+* **the user's identity**: this is typically expressed as a `subject` claim in the access token that is issued by the authentication system.
+* **the operation / permission**: the type of access that is requested.
+* **the resource**: the specific object over which to compute the authorization decision.
+
+## How do you design a system to support authorization
+
+Authorization is not a simple on/off switch: the authorization model has to be designed into the system, and requires careful thought to be effective. Here are the common steps for designing robust authorization:
+
+* Identify the resources the app exposes (e.g. documents, reports, projects, repositories).
+* Identify the actions users perform on resources (create, read, update, delete, list).
+* Design permissions around these operations (e.g. “read a document”, “delete a report”).
+* Group these permissions into default “roles” (e.g. viewer, owner, admin).
+* Provide a way for an admin of the application to assign roles or allocate custom permissions for each user.
+* Create rules for determining which permissions are needed for accessing each resource.
+* At runtime, evaluate the rules before allowing the user to perform an operation on a resource.
+
+In the past, developers would have to implement all of these themselves. Fortunately, modern authorization services like Aserto do a lot of the heavy lifting.
+
+## Permissions 
+A permission is an entitlement to perform an operation such as view, edit, and delete. Permissions are granted or revoked to users in order to control what they have access to. During authorization, a user's granted permissions are evaluated against the required permissions for accessing the resource. If there is a match then access will be allowed.
+
+## RBAC and Roles
+Traditionally, authorization systems followed a model known as Role-Based Access Control, or RBAC. In an RBAC system, permissions are aggregated into roles which are assigned to users or groups. An example of permissions are `view`, `edit`, and `delete`, while examples of roles are `viewer`, `editor`, or `admin`.  
+
+## Authorization Logic
+Many applications perform authorization by embedding the logic inside the application. As the application grows, this logic (often expressed as `if` or `switch` statements) becomes convoluted and very hard to maintain. 
+
+Modern applications externalize their authorization logic - often by expressing their rules in a domain-specific language, maintained and evaluated by purpose-built authorization service. This is known as an authorization policy.
+
+## Authorization Policy
+An authorization poicy describes the set of rules to apply in order to evaluate whether a user has permission to perform an operation on a resource.
+
+A Policy can reason over a few different types of data - roles, attributes, and relationships. These determine the "style" of authorization, otherwise known as the Authorization Model:
+
+* **Role-based access control (RBAC)**: the policy is written in terms of the roles assigned to the user.
+* **Attribute-based access control (ABAC)**: the policy is written in terms of attributes associated with the user (e.g. department), the resource (e.g. status), and the environment (e.g. timezone, IP address)
+* **Relationship-based access control (ReBAC)**: the policy is written as a set of rules and relationships between users and resources.
+
+Aserto supports all of these authorization models, as well as any combination, providing a flexible and extensible system.
+
+
+
