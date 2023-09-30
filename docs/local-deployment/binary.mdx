@@ -1,0 +1,68 @@
+---
+sidebar_label: Binary
+title: Binary - Deployment
+description: Topaz Deployment - Binary
+---
+
+# Run as a binary
+
+Topaz releases are available on [github](https://github.com/aserto-dev/topaz/releases/latest). The tarball contains both the `topaz` CLI (which can be used to create a configuration file), as well as `topazd` (which can be run as a daemon, and provides the authorizer APIs).
+
+## Download the tarball
+
+Downloads are available for Linux (amd64, arm64); MacOS (amd64, arm64); and Windows (zip, MSI).
+
+For example, for Linux amd64:
+
+```sh
+curl -L https://github.com/aserto-dev/topaz/releases/download/v0.20.30/topaz_linux_x86_64.zip >topaz.zip
+```
+
+For Linux arm64:
+
+```sh
+curl -L https://github.com/aserto-dev/topaz/releases/download/v0.20.30/topaz_linux_arm64.zip >topaz.zip
+```
+
+## Unzip the tarball
+
+```sh
+unzip topaz_darwin_arm64.zip
+Archive:  topaz_darwin_arm64.zip
+  inflating: LICENSE
+  inflating: README.md
+  inflating: topazd
+  inflating: topaz
+```
+
+## Create a configuration file
+
+Topaz expects a configuration file  the `config.yaml` file to be in `$HOME/.config/topaz/cfg/config.yaml`. The configuration file can be created using the `topaz configure` command, documented [here](/docs/command-line-interface/topaz-cli/configuration.mdx).
+
+For example, to use the sample policy, you can run the following:
+
+```sh
+./topaz configure -d -s -r ghcr.io/aserto-policies/policy-todo-rebac:latest -n policy-todo
+```
+
+This will create a directory structure in `$HOME/.config/topaz` like this:
+
+```sh
+├──  certs
+│   ├──  gateway-ca.crt
+│   ├──  gateway.crt
+│   ├──  gateway.key
+│   ├──  grpc-ca.crt
+│   ├──  grpc.crt
+│   └──  grpc.key
+├──  cfg
+│   └──  config.yaml
+└──  db
+    └──  directory.db
+```
+
+## Run the topaz daemon
+
+```sh
+TOPAZ_DIR=$HOME/.config/topaz ./topazd run -c $HOME/.config/topaz/cfg/config.yaml
+```

@@ -23,8 +23,9 @@ module.exports = {
         }
       ]
     },
+    'architecture',
     {
-      'Conceptual Overview': [
+      'Components': [
         'overview/introduction',
         'overview/authorizer',
         'overview/policy',
@@ -140,7 +141,14 @@ module.exports = {
     },
     {
       Deployment: [
-        'local-deployment/overview',
+        {
+          'Topaz': [
+            'local-deployment/overview',
+            'local-deployment/sidecar',
+            'local-deployment/microservice',
+            'local-deployment/binary'
+          ]
+        },
         {
           'Edge Authorizers': [
             'edge-authorizers/overview',

@@ -1,0 +1,30 @@
+---
+sidebar_label: Microservice
+title: Microservice - Deployment
+description: Topaz Deployment - Microservice
+---
+
+# Deploy as a Microservice
+
+The `topaz run` command will run the docker container in interactive mode. The following docker command can be used to run the container as a microservice.
+
+```sh
+#!/usr/bin/env bash
+
+docker run \
+-ti \
+--rm \
+--name topaz \
+--platform=linux/amd64 \
+-p 8282:8282 \
+-p 8383:8383 \
+-p 8484:8484 \
+-p 9292:9292 \
+-v $PWD/certs:/certs:rw \
+-v $PWD/cfg:/app/cfg:ro \
+-v $PWD/eds:/app/db:rw \
+ghcr.io/aserto-dev/topaz:latest run \
+--config-file /app/cfg/config.yaml
+```
+
+Note that this command expects the `config.yaml` file to be in `$PWD/cfg/config.yaml`. The configuration file can be created using the `topaz configure` command, documented [here](/docs/command-line-interface/topaz-cli/configuration.mdx).

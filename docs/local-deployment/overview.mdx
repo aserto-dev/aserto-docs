@@ -6,11 +6,11 @@ description: Deploy Self-hosted Aserto locally
 
 # Overview
 
-Aserto authorizers are built to be deployed right next to your application, in your cloud.
+Topaz authorizers are built to be deployed right next to your application, in your cloud.
 
 ## Aserto Sidecar
 
-The simplest local deployment is in the form of a single container, known as the **Aserto Sidecar**. You can deploy it either as a local microservice (and scale it horizontally), or if you're running in Kubernetes, you can deploy it as a sidecar in your application pod.
+The simplest local deployment is in the form of a single container or Sidecar. You can deploy it either as a local microservice (and scale it horizontally), or if you're running in Kubernetes, you can deploy it as a sidecar in your application pod.
 
 The Sidecar container implements the Aserto Directory using an embedded database, based on BoltDB. It scales up to a couple of GB of data (which could house 10k's of users, depending on how many properties each user contains).
 

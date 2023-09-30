@@ -1,0 +1,94 @@
+---
+sidebar_label: Sidecar
+title: Sidecar - Deployment
+description: Topaz Deployment - Sidecar
+---
+
+# Deploy as a Sidecar
+
+Deploying topaz as a sidecar next to your applications is the most efficient way to use the authorizer as it minimizes the authorization latency.
+
+In this section we can follow an example deployment on minikube based on a golang backend application and topaz authorizer as a sidecar.
+
+## Prepare minikube
+Start by preparing minikube, you can follow the installation instructions [here](https://minikube.sigs.k8s.io/docs/start/).
+
+Check if your minikube cluster is running:
+```
+minikube status
+
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+```
+
+## Preparing your backend application container
+1. Clone [todo-go-v2](https://github.com/aserto-demo/todo-go-v2) repository 
+2. Add the following docker file to the root of your repository
+
+Dockerfile:
+```
+FROM golang:1.19-alpine AS build-dev
+RUN apk add --no-cache bash gcc build-base
+WORKDIR /src
+
+ENV GOBIN=/bin
+ENV ROOT_DIR=/src
+
+COPY . .
+RUN go build
+
+FROM alpine
+
+LABEL org.opencontainers.image.title="todo-go-v2"
+LABEL org.opencontainers.image.version="latest"
+
+RUN apk add --no-cache bash
+WORKDIR /app
+COPY --from=build-dev /src/todo-go /app/
+
+EXPOSE 3001
+
+ENTRYPOINT ["./todo-go"]
+```
+
+3. Use `docker build . -t todo-go-v2:latest` to build your backend application container
+
+4. Load the docker image into the minikube environment using: `minikube image load todo-go-v2:latest`
+
+## Prepare your deployment
+
+Your deployment directory should contain the following files:
+
+* [configmap.yaml](/sidecar-deployment/configmap.yaml)
+* [deployment.yaml](/sidecar-deployment/deployment.yaml)
+* [topaz-configmap.yaml](/sidecar-deployment/topaz-configmap.yaml)
+
+## Apply the deployment 
+
+To apply on your minikube cluster use: `kubectl apply -f . --recursive`
+
+Once the deployment is finished you will have a pod that will contain 2 running containers that use the following images:
+```
+ghcr.io/aserto-dev/topaz:latest 
+todo-go-v2:latest
+```
+
+Get the running pod name:
+```
+TODO_POD_NAME=$(kubectl get pods -n default -l 'app=todo' -o jsonpath="{.items[0].metadata.name}")
+```
+
+## Testing the backend application 
+
+If you want to test that the backend todo-go-v2 application is running from you local machine you can clone the [todo-application](https://github.com/aserto-demo/todo-application) but you will need to forwad the port from your minikube cluster to your local machine.
+
+To forward the port of the todo-go-v2 backend deployment pod you will need to run:
+```
+kubectl --namespace default port-forward $TODO_POD_NAME 3001:3001
+```
+
+Navigate to the folder of the todo-application you have cloned and follow the instructions from the [README](https://github.com/aserto-demo/todo-application/blob/main/README.md).
