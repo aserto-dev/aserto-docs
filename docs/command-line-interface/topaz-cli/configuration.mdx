@@ -1,0 +1,239 @@
+---
+sidebar_position: 2
+---
+# Configuration
+
+Topaz requires a configuration file to run. By default, the location of the config file is `$HOME/.config/topaz/cfg/config.yaml`. 
+
+## Generating a config file
+
+`topaz configure` will generate a configuration file with the most common options.
+
+```
+Flags:
+  -h, --help                         Show context-sensitive help.
+      --no-check                     disable local container running check ($TOPAZ_NO_CHECK)
+
+  -n, --policy-name=STRING           policy name
+  -l, --local-policy-image=STRING    local policy image name
+  -r, --resource=STRING              resource url
+  -p, --stdout                       generated configuration is printed to stdout but not saved
+  -d, --edge-directory               enable edge directory
+  -s, --seed-metadata                enable seed metadata
+```
+
+For example, to generate a configuration file for the demo "todo" policy, use the following command:
+
+```shell
+topaz configure -d -s -r ghcr.io/aserto-policies/policy-todo-rebac:latest -n policy-todo
+```
+
+## Config file documentation
+
+A full description of the config format is available [here](https://github.com/aserto-dev/topaz/blob/main/docs/config.md).
+
+## Managing Topaz at scale
+
+The Aserto Control Plane provides the central capabilities for managing policies, life-cycle management, identity data, and audit logs for the edge authorizer instances running as close to your application as possible.
+To connect to the Aserto Control Plane, Topaz is able to be deployed as an [Aserto Edge Authorizer](https://docs.aserto.com/docs/edge-authorizers/overview).
+
+The easiest method to configure Topaz as an Edge Authorizer is to use the [aserto CLI](https://docs.aserto.com/docs/command-line-interface/aserto-cli/installation).
+
+## Annotated example
+
+Below is an annotated sample of a `config.yaml` file.
+
+```yaml
+---
+# config schema version
+version: 1
+
+logging:
+  prod: true
+  log_level: info
+
+directory:
+  db_path: ${TOPAZ_DIR}/db/directory.db
+  seed_metadata: true
+
+# remote directory is used to resolve the identity for the authorizer.
+remote_directory:
+  address: "0.0.0.0:9292" # set as default, it should be the same as the reader as we resolve the identity from the local directory service.
+  insecure: true
+
+
+# default jwt validation configuration
+jwt:
+  acceptable_time_skew_seconds: 5 # set as default, 5 secs
+
+api:
+  reader:
+    grpc:
+      listen_address: "0.0.0.0:9292"
+      # if certs are not specified default certs will be generate with the format reader_grpc.*
+      certs:
+        tls_key_path: "${TOPAZ_DIR}/certs/grpc.key"
+        tls_cert_path: "${TOPAZ_DIR}/certs/grpc.crt"
+        tls_ca_cert_path: "${TOPAZ_DIR}/certs/grpc-ca.crt"
+    gateway:
+      listen_address: "0.0.0.0:9393"
+      # if not specified, the allowed_origins includes localhost by default
+      allowed_origins:
+      - http://localhost
+      - http://localhost:*
+      - https://localhost
+      - https://localhost:*
+      - https://*.aserto.com
+      - https://*aserto-console.netlify.app
+      # if no certs are specified, the gateway will have the http flag enabled (http: true)
+      certs:
+        tls_key_path: "${TOPAZ_DIR}/certs/gateway.key"
+        tls_cert_path: "${TOPAZ_DIR}/certs/gateway.crt"
+        tls_ca_cert_path: "${TOPAZ_DIR}/certs/gateway-ca.crt"
+      http: false
+      read_timeout: 2s # default 2 seconds
+      read_header_timeout: 2s 
+      write_timeout: 2s 
+      idle_timeout: 30s # default 30 seconds
+    health:
+      listen_address: "0.0.0.0:9494"
+  writer:
+    grpc:
+      listen_address: "0.0.0.0:9292"
+      certs:
+        tls_key_path: "${TOPAZ_DIR}/certs/grpc.key"
+        tls_cert_path: "${TOPAZ_DIR}/certs/grpc.crt"
+        tls_ca_cert_path: "${TOPAZ_DIR}/certs/grpc-ca.crt"
+    gateway:
+      listen_address: "0.0.0.0:9393"
+      allowed_origins:
+      - http://localhost
+      - http://localhost:*
+      - https://localhost
+      - https://localhost:*
+      - https://*.aserto.com
+      - https://*aserto-console.netlify.app
+      certs:
+        tls_key_path: "${TOPAZ_DIR}/certs/gateway.key"
+        tls_cert_path: "${TOPAZ_DIR}/certs/gateway.crt"
+        tls_ca_cert_path: "${TOPAZ_DIR}/certs/gateway-ca.crt"
+      http: false
+      read_timeout: 2s
+      read_header_timeout: 2s
+      write_timeout: 2s
+      idle_timeout: 30s
+    health:
+      listen_address: "0.0.0.0:9494"
+  exporter:
+    grpc:
+      listen_address: "0.0.0.0:9292"
+      certs:
+        tls_key_path: "${TOPAZ_DIR}/certs/grpc.key"
+        tls_cert_path: "${TOPAZ_DIR}/certs/grpc.crt"
+        tls_ca_cert_path: "${TOPAZ_DIR}/certs/grpc-ca.crt"
+    gateway:
+      listen_address: "0.0.0.0:9393"
+      allowed_origins:
+      - http://localhost
+      - http://localhost:*
+      - https://localhost
+      - https://localhost:*
+      - https://*.aserto.com
+      - https://*aserto-console.netlify.app
+      certs:
+        tls_key_path: "${TOPAZ_DIR}/certs/gateway.key"
+        tls_cert_path: "${TOPAZ_DIR}/certs/gateway.crt"
+        tls_ca_cert_path: "${TOPAZ_DIR}/certs/gateway-ca.crt"
+      http: false
+      read_timeout: 2s
+      read_header_timeout: 2s
+      write_timeout: 2s
+      idle_timeout: 30s
+    health:
+      listen_address: "0.0.0.0:9494"
+  importer:
+    grpc:
+      listen_address: "0.0.0.0:9292"
+      certs:
+        tls_key_path: "${TOPAZ_DIR}/certs/grpc.key"
+        tls_cert_path: "${TOPAZ_DIR}/certs/grpc.crt"
+        tls_ca_cert_path: "${TOPAZ_DIR}/certs/grpc-ca.crt"
+    gateway:
+      listen_address: "0.0.0.0:9393"
+      allowed_origins:
+      - http://localhost
+      - http://localhost:*
+      - https://localhost
+      - https://localhost:*
+      - https://*.aserto.com
+      - https://*aserto-console.netlify.app
+      certs:
+        tls_key_path: "${TOPAZ_DIR}/certs/gateway.key"
+        tls_cert_path: "${TOPAZ_DIR}/certs/gateway.crt"
+        tls_ca_cert_path: "${TOPAZ_DIR}/certs/gateway-ca.crt"
+      http: false
+      read_timeout: 2s
+      read_header_timeout: 2s
+      write_timeout: 2s
+      idle_timeout: 30s
+    health:
+      listen_address: "0.0.0.0:9494"
+  
+  authorizer:
+    needs:
+      - reader
+    grpc:
+      connection_timeout_seconds: 2
+      listen_address: "0.0.0.0:8282"
+      certs:
+        tls_key_path: "${TOPAZ_DIR}/certs/grpc.key"
+        tls_cert_path: "${TOPAZ_DIR}/certs/grpc.crt"
+        tls_ca_cert_path: "${TOPAZ_DIR}/certs/grpc-ca.crt"
+    gateway:
+      listen_address: "0.0.0.0:8383"
+      allowed_origins:
+      - http://localhost
+      - http://localhost:*
+      - https://localhost
+      - https://localhost:*
+      - https://*.aserto.com
+      - https://*aserto-console.netlify.app
+      certs:
+        tls_key_path: "${TOPAZ_DIR}/certs/gateway.key"
+        tls_cert_path: "${TOPAZ_DIR}/certs/gateway.crt"
+        tls_ca_cert_path: "${TOPAZ_DIR}/certs/gateway-ca.crt"
+      http: false
+      read_timeout: 2s
+      read_header_timeout: 2s
+      write_timeout: 2s
+      idle_timeout: 30s
+    health:
+      listen_address: "0.0.0.0:8484"
+
+opa:
+  instance_id: "-"
+  graceful_shutdown_period_seconds: 2
+  # max_plugin_wait_time_seconds: 30 set as default
+  local_bundles:
+    paths: []
+    skip_verification: true
+  config:
+    services:
+      # configure the GitHub Container Registry as a bundle source
+      ghcr:
+        url: https://ghcr.io
+        type: "oci"
+        response_header_timeout_seconds: 5
+    bundles:
+      # configure the "policy-todo" bundle
+      policy-todo:
+        service: ghcr
+        # OCI image path
+        resource: "ghcr.io/aserto-policies/policy-todo-rebac:latest"
+        persist: false
+        config:
+          # how often to poll for a new image version
+          polling:
+            min_delay_seconds: 60
+            max_delay_seconds: 120
+```

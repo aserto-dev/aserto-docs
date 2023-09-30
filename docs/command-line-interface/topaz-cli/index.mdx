@@ -1,0 +1,49 @@
+# The Topaz CLI
+
+## Installation
+
+`topaz` is available on Linux, macOS and Windows platforms.
+
+* Via Homebrew for macOS or LinuxBrew for Linux
+
+   ```shell
+  brew tap aserto-dev/tap && brew install aserto-dev/tap/topaz
+   ```
+
+* On Windows 10+
+
+  Download the `topaz_windows_x86_64.msi` file from the [GitHub releases page](https://github.com/aserto-dev/topaz/releases) and execute the MSI.
+
+* Via a GO install
+
+  ```shell
+  go install github.com/aserto-dev/topaz/cmd/topaz@latest
+  ```
+
+## Usage
+```
+Usage: topaz <command>
+
+Topaz CLI
+
+Commands:
+  backup       backup directory data
+  configure    configure topaz service
+  export       export directory objects
+  install      install topaz
+  import       import directory objects
+  load         load a manifest file
+  restore      restore directory data
+  run
+  save         save a manifest file
+  start        start topaz instance
+  status       display topaz instance status
+  stop         stop topaz instance
+  version      version information
+  uninstall    uninstall topaz, removes all locally installed artifacts
+
+Flags:
+  -h, --help    Show context-sensitive help.
+
+Run "topaz <command> --help" for more information on a command.
+```

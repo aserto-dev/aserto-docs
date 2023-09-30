@@ -301,6 +301,11 @@ module.exports = {
             },
           ],
         },
+        {
+        'Topaz CLI': [
+          'command-line-interface/topaz-cli/index',
+          'command-line-interface/topaz-cli/configuration'
+        ]}
       ],
     },
     {
