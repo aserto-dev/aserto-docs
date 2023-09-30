@@ -25,7 +25,7 @@ module.exports = {
     },
     'architecture',
     {
-      'Components': [
+      'Concepts': [
         'overview/introduction',
         'overview/authorizer',
         'overview/policy',
