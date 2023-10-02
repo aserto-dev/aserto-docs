@@ -23,8 +23,9 @@ module.exports = {
         }
       ]
     },
+    'architecture',
     {
-      'Conceptual Overview': [
+      'Concepts': [
         'overview/introduction',
         'overview/authorizer',
         'overview/policy',
