@@ -96,6 +96,14 @@ module.exports = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     {
+      announcementBar: {
+				id: "support_us",
+				content:
+					'If you like Aserto, ⭐️ us on <a href="https://github.com/aserto-dev/topaz" target="_blank" rel="noopener noreferrer">GitHub</a>, and follow us on <a href="https://twitter.com/aserto_com" target="_blank" rel="noopener noreferrer">X</a>!',
+				backgroundColor: "#277F82",
+				textColor: "#FFFFFF",
+				isCloseable: true,
+			},
       algolia: {
         apiKey: process.env.REACT_APP_ALGOLIA_API_KEY || '_',
         indexName: process.env.REACT_APP_ALGOLIA_INDEX_NAME || '_',
