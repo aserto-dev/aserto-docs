@@ -6,7 +6,10 @@ description: The Control Plane - an Overview
 
 # Control Plane
 
-The Aserto Control Plane provides a central management layer for Topaz authorizers. The control plane robust hosting layer for the Topaz Authorizer and Directory, and manages the lifecycle of policies, user context, and data using an eventing fabric that delivers any changes to all the Topaz authorizers in under a second.  In addition, it collects all the decision logs from Topaz instances and aggregates them into a composite decision log interface, which can be streamed or batched into a logging system
+The Aserto Control Plane provides a central management layer for Topaz authorizers, and brings three important capabilities:
+* Policy lifecycle management: facilitating a policy-as-code workflow, and distributing policy changes to Topaz instances in under a second, using an eventing fabric.
+* Directory management: data changes to the central directory are distributed to Topaz instances using the same fabric.
+* Decision log aggregation: decision logs gathered by the Topaz instances are collected and transmitted to the control plane using exactly-once, in-order semantics. They are then aggregated into a composite decision log interface, which can be streamed or batched into a customer's logging / SIEM system.
 
 ## Tenants
 
@@ -26,7 +29,8 @@ It is also used by client applications to indicate which tenant to interact with
 
 The artifacts that are managed per-tenant are:
 
-- [Connections](/docs/overview/connections): connections to external systems such as identity providers and source code control systems
-- [Policies](/docs/overview/policy): references to a set of authorization policy repositories
-- [Directory](/docs/overview/directory): A collection of all the objects (Users, Groups) that Aserto builds from the identity providers that it is connected to
-- [Decision logs](/docs/overview/decision-logs): a centralized log of the aggregated decisions that are made by authorizers
+- [Policy Images](/docs/overview/policy): binary (OCI) images that are built from policy source files, usually sourced from a git repository.
+- [Policy Instances](/docs/overview/policy): named instances of a policy image, which can be bound to Topaz instances and transparently distributed when the policy changes. Each policy instance also has a running *hosted authorizer* associated with it, which can be used to evaluate authorization decisions without having to deploy a local Topaz instance.
+- [Directory](/docs/overview/directory): the subjects (users, groups) that Aserto has synched from one or more connected identity providers, as well as any custom objects and relationships that are stored centrally and can be transparently distributed to edge authorizers.
+- [Decision logs](/docs/overview/decision-logs): each policy instance include the aggregated decision logs that are gathered from the Topaz instances which are configured for that policy instance.
+- [Connections](/docs/overview/connections): connections to external systems such as source code control systems and identity providers.
