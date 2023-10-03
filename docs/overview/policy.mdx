@@ -8,6 +8,16 @@ description: The Aserto Authorization Policy - an Overview
 
 At the core of Aserto’s authorization model is an authorization policy, which we refer to simply as a **Policy**. Policies are authored in a textual language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/), defined as part of the [Open Policy Agent](https://www.openpolicyagent.org/) (OPA) project in the [Cloud Native Computing Foundation](https://www.cncf.io/).
 
+## Policy Lifecycle
+
+Policies are treated just like application code or infrastructure-as-code. They are **authored** using a text / code editor, stored in a git repository, **built** into an OCI binary image, **published** to a repository hosted on an OCI container registry, **run** in a Topaz instance, and **consumed** by an application.
+
+![Policy as code](/policy-as-code.png)
+
+Aserto's control plane helps manage the policy lifecycle. For more information on authoring policies and the policy lifecycle, see this [topic](policy-lifecycle).
+
+## Policy Language Overview
+
 A policy can include one or more `rego` files, and one or more JSON data files.
 
 A `rego` file has a `package` directive which sets the namespace for the rego file, and defines one or more decisions.
@@ -26,7 +36,7 @@ In the rego file above, the `package` name follows the Aserto convention:
 `policy-root`.`HTTP method`.`HTTP route`
 :::
 
-## Decision
+### Decision
 
 A _decision_ is an output from the evaluation of a _policy_. The policy above exports a
 decision called `allowed`, and sets its value to `true`.
@@ -45,38 +55,24 @@ allowed {
 }
 ```
 
-## User context
+### User context
 
-In the policy above, we were able to use the `department` attribute to help compute the `allowed`
-decision. This is an example of User context that is used in a policy. If you hook up your
-identity providers and/or directories to Aserto, it will automatically synchronize properties from
-these sources and make them available to your policies.
+In the policy above, we were able to use the `department` attribute to help compute the `allowed` decision. This is an example of User context that is used in a policy. If you hook up your identity providers and/or directories to the Aserto control plane, it will automatically synchronize properties from these sources and make them available to your policies.
 
-In addition, you can create and manage extensions for users in the Aserto directory, on a global or
-per-application basis.
+User context is automatically resolved and injected into `input.user` when you pass in an [identity context](/docs/authorizer-guide/identity-context) to an authorizer [API call](/docs/authorizer-guide/authz).
 
-## Resource context
+Users, objects, and the relationships between them are all stored in the Aserto [Directory](/docs/overview/directory).
 
-Policies can also use resource context in their evaluation process. If we added the allowed clause 
-below to our policy, and the caller included a resource context that contains `{ "id": "<the-user-id>" }`, 
-the policy would evaluate `allowed` to `true` if the user id and the resource id match.
+### Resource context
+
+Policies can also use resource context in their evaluation process. If we added the `allowed` clause below to our policy, and the caller included a resource context that contains `{ "key": "<the-current-user-key>" }`, the policy would evaluate `allowed` to `true` if the user key and the resource key match.
 
 ```rego
 allowed {
-  input.user.id == input.resource.id
+  input.user.key == input.resource.key
 }
-
-# Policy Lifecycle
-
-Policies are treated just like application code or infrastructure-as-code - they can be stored as code in a git repository, or as an OCIv2 image in a policy repository (like the Aserto Policy Container Registry or the [Open Policy Registry](https://www.openpolicyregistry.io/)).
-
-## Policy as code
-
-Policies are **authored** using a text / code editor, **built** into an image, **published** to a repository hosted on a registry, **run** in a policy instance, and **consumed** by an application.
-
-![Policy as code](/policy-as-code.png)
-
-Aserto's control plane helps manage the policy lifecycle.
 ```
 
-For more information on authoring policies and the policy lifecycle, see this [topic](policy-lifecycle).
+### Built-ins
+
+To use data from the Aserto [Directory](/docs/overview/directory) in your policies, you can use one of the Aserto [built-ins](/docs/authorizer-guide/built-ins).
