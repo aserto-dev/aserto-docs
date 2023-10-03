@@ -7,7 +7,7 @@ description: Aserto Organizations, artifacts and role based-access control
 # Aserto Organizations
 
 The organization provides the context for the artifacts that are managed by Aserto -
-[_connections_](/docs/overview/connections), [_policies_](/docs/overview/policy), and the [_user directory_](/docs/overview/directory). You can think of it like a GitHub organization.
+[_connections_](/docs/overview/connections), [_policies_](/docs/overview/policy), and the [_directory_](/docs/overview/directory). You can think of it like a GitHub organization.
 
 Every organization has at least one owner. It can also have members and viewers.
 
@@ -15,9 +15,11 @@ Every organization has at least one owner. It can also have members and viewers.
 
 Aserto manages the following artifacts for an organization:
 
-- [Connections](/docs/overview/connections) - these are connections to external systems such as source code control systems and identity providers
-- [Policies](/docs/overview/policy) - these are references to git repositories that store authorization policies
-- [User Directory](/docs/overview/directory) - these are the users that Aserto has synched from one or more connected identity providers
+- [Policy Images](/docs/overview/policy): binary (OCI) images that are built from policy source files, usually sourced from a git repository.
+- [Policy Instances](/docs/overview/policy): named instances of a policy image, which can be bound to Topaz instances and transparently distributed when the policy changes. Each policy instance also has a running *hosted authorizer* associated with it, which can be used to evaluate authorization decisions without having to deploy a local Topaz instance.
+- [Directory](/docs/overview/directory): the subjects (users, groups) that Aserto has synched from one or more connected identity providers, as well as any custom objects and relationships that are stored centrally and can be transparently distributed to edge authorizers.
+- [Decision logs](/docs/overview/decision-logs): each policy instance include the aggregated decision logs that are gathered from the Topaz instances which are configured for that policy instance.
+- [Connections](/docs/overview/connections): connections to external systems such as source code control systems and identity providers.
 
 ## Role-based access control
 

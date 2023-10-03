@@ -94,35 +94,30 @@ which model your resource hierarchy / domain model. For example, you may have Or
 Aserto lets you create these object types in the directory, along with relation types (like Viewer, Editor, Admin, Owner)
 which model the relationship between these objects and subject types (such as User or Group).
 
-## Directory and Aserto tenants
+## Directory implementations
 
-There is one Aserto Directory per tenant, and the directory contents are shared across Policies.
+An an abstract level, a Directory is a service that implements the Directory [gRPC contract](https://buf.build/aserto-dev/directory).
 
-## Authorizer Directory (EDS)
+Currently there are three implementations.
 
-Each Authorizer instance has its own clone of the directory, known as the Edge Directory Service (EDS).
-Authorizers use the EDS for real-time access to anything stored in the directory, including user properties,
-groups, roles/relationships, and any other objects. These can be accessed in policies to help make authorization decisions.
+### Aserto Central Directory
 
-Aserto transparently synchronizes changes from the source identity providers (e.g. Auth0) to the Aserto
-Directory, and from the Directory to each of the Edge Directory Services that live with the
-Authorizers.
+The Aserto central directory, hosted at `directory.prod.aserto.com`, is a Postgres-backed multi-tenant implementation of the directory contract. Every Aserto tenant / organization is provisioned with a single directory tenant. The directory contents are accessible to a caller via read-only and read-write API keys, and are shared across Policies.
 
-## User Context
+### Topaz Directory (EDS)
 
-Policies can reference [user context](/docs/overview/policy#user-context). A calling application can
-provide the [identity context](/docs/authorizer-guide/identity-context) which is used to load that user context.
+Each Topaz instance has its own clone of the directory, known as the Edge Directory Service (EDS), implemented as an embedded BoltDB database. Topaz authorizers use the EDS for real-time access to anything stored in the directory, including user properties, groups, roles/relationships, and any other objects. These can be accessed in policies to help make authorization decisions.
 
-The Authorizer will resolve the user identity in the Directory. It will then load the user context and make it available to the Policy as `input.user`.
+Aserto transparently synchronizes changes from the source identity providers (e.g. Auth0) to the Aserto Central Directory, and from the Directory to each of the Edge Directory Services that live within the Topaz Authorizers.
 
-## Extensible properties
+### Local Directory
 
-Each object has a JSON property bag that allows storing additional information for that object.
+The Postgres-backed Aserto Directory can be deployed as a container in a customer environment. This deployment option is available with a commercial license.
 
-For example, the Aserto Directory stores a read-only replica of the user data it receives (and merges) from various
-identity providers. Administrators and application developers can store custom properties in the JSON property bag without
-worrying about conflicts with the identity provider.
+## Authorizers and the Directory
 
-## Built-ins
+The Aserto Hosted Authorizer is configured to connect to the Aserto Central Directory. 
 
-Authorization policies can access directory contents via a set of [built-ins](/docs/authorizer-guide/built-ins).
+Topaz can be configured to connect to any of the three Directory implementations mentioned above. By default, Topaz spins up its own EDS, but can be configured to connect to a remote Directory implementation - the Local Directory or the Central Directory.
+
+Regardless of the Directory implementation, Policies can access Directory contents via a set of [built-ins](/docs/authorizer-guide/built-ins).
