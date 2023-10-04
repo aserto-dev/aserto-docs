@@ -5,6 +5,7 @@ module.exports = {
   // create a sidebar manually
   sidebar: [
     'index',
+    'architecture',
     {
       'Authorization Basics': [
         'authorization-basics/authz-vs-authn',
@@ -24,7 +25,7 @@ module.exports = {
       ]
     },
     {
-      'Conceptual Overview': [
+      'Concepts': [
         'overview/introduction',
         'overview/authorizer',
         'overview/policy',

@@ -1,31 +1,17 @@
 ---
-sidebar_label: Architecture
-title: Conceptual Overview - Archiecture
-description: Overview of the Aserto Architecture
+sidebar_label: Overview
+title: Concepts - Overview
+description: Overview of Aserto Concepts
 ---
 
-# Introduction
+# Concepts
 
-Aserto is a cloud-native authorization platform that allows developers to get out of the business of rolling out custom access control solutions, and instead focus on their core user experience.  
+As shown in the Aserto Architecture [diagram](../architecture), Aserto's platform consists of a number of runtime components which are either hosted by Aserto or can be run in your own environment:
 
-## Architecture
-
-Aserto has two major components:
-* Authorizer: where authorization decisions are made
-* Control Plane: manages all the artifacts that Aserto uses to make authorization decisions
-
-![architecture](/architecture.png)
-
-## Authorizer (Topaz)
-
-The [Authorizer](/docs/overview/authorizer) is an open source authorization service called [Topaz](https://github.com/aserto-dev/topaz), which uses the Open Policy Agent (OPA) to compute a **decision** based on a **policy**, **user context**, and **data**. 
-
-It is most commonly deployed close to your application, to offer the lowest latency and the highest level of availability to your application.
-
-In addition to using OPA as its decision engine, the Authorizer includes an embedded database that caches all the data that's needed for authorization decisions. This data is sourced from the Aserto [Directory](/docs/overview/directory), which is inherits its design from Google's [Zanzibar](https://research.google/pubs/pub48190/) system. 
-
-## Control Plane
-
-The Aserto [Control Plane](/docs/overview/control-plane) manages the lifecycle of **policies**, **user context**, and **data** that are used by the authorizer. The control plane makes it easy to manage these artifacts centrally, and takes care of the details of synchronizing them to the Topaz authorizer instance(s) deployed close to your application.
-
-The control plane also aggregates all of the outputs from the Authorizers, including [decision logs](/docs/overview/decision-logs), to give an administrator a centralized, single-system view of a complex distributed system.
+* [Authorizer](authorizer): the component that makes authorization decisions on whether or not a user is allowed to perform an operation on a resource.
+* [Policy](policy): defines the rules for making authorization decisions.
+* [Directory](directory): stores a graph of subjects (such as users and groups), objects (including any properties used for authorization purposes), and the relationships between them, all of which can be used by the policy.
+* [Decision Logs](decision-logs): records of decisions performed by Authorizers.
+* [Control Plane](control-plane): manages the lifecycle of the policies, user context, and resource data used by the Authorizer.
+* [Connections](connections): connections to external systems such as Identity Providers (which are often the source of Directory data) and Source Code Control Systems (which are where policies are stored and versioned).
+* [Organization](organization): also known as an Aserto Tenant - a container of per-tenant artifacts managed by Aserto including Connections, Policies, Directory data, and Decision Logs.

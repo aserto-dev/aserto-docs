@@ -1,0 +1,31 @@
+---
+sidebar_label: Architecture
+title: Architecture
+description: Overview of the Aserto Architecture
+---
+
+# Architecture
+
+Aserto has two major components:
+* **Authorizer**: where authorization decisions are made.
+* **Control Plane**: manages all the artifacts that the Authorizer uses to make authorization decisions.
+
+![architecture](/architecture.png)
+
+## Authorizer
+
+The [Authorizer](/docs/overview/authorizer) is an open source authorization service which uses the Open Policy Agent (OPA) engine to compute a **decision** based on a **policy**, **user context**, and **resource data**. It is most commonly deployed close to your application, to offer the lowest latency and the highest level of availability to your application.
+
+In addition to using OPA as its decision engine, the Authorizer includes an embedded database that caches all the data that's needed for authorization decisions. This data is sourced from the Aserto [Directory](/docs/overview/directory), which is inherits its design from Google's [Zanzibar](https://research.google/pubs/pub48190/) system. 
+
+## Control Plane
+
+The Aserto [Control Plane](/docs/overview/control-plane) manages the lifecycle of **policies**, **user context**, and **resource data** that are used by the authorizer. The control plane makes it easy to manage these artifacts centrally, and takes care of the details of synchronizing them to the Authorizer instance(s) deployed at the edge.
+
+The control plane also aggregates all of the outputs from the Authorizers, including decision logs, to give an administrator a centralized, single-system view of a complex distributed system.
+
+## Next Steps
+
+If you're new to authorization, check out the [Authorization Basics](/docs/authorization-basics/authz-vs-authn) topic to learn more about the differences between AuthN and AuthZ, and also about the various styles of authorization.
+
+Otherwise, let's dive deeper into the [Aserto Concepts](/docs/overview/introduction).
