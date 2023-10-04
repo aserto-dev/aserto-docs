@@ -4,18 +4,14 @@ title: Concepts - Overview
 description: Overview of Aserto Concepts
 ---
 
-# Introduction
+# Concepts
 
-Aserto is a cloud-native authorization platform that allows developers to get out of the business of rolling out custom access control solutions, and instead focus on their core user experience.  
+As shown in the Aserto Architecture [diagram](../architecture), Aserto's platform consists of a number of runtime components which are either hosted by Aserto or can be run in your own environment:
 
-## Architecture
-As shown in the Aserto Architecture [diagram](../architecture), Aserto's platform consists of a number of runtime components which are either hosted by Aserto or running in your own environment.
-
-## Concepts
-* [Authorizer](authorizer) - Makes authorization decisions on whether or not a caller can access a secure resource
-* [Policy](policy) - Defines rules for making authorization decisions
-* [Directory](directory) -  Stores a graph of objects (like Users and Groups) and related information which are used by the policy.  
-* [Decision Logs](decision-logs) - Records of decisions performed by Authorizers
-* [Control Plane](control-plane) - Manages the lifecycle of policies, user context, and data used by the Authorizer
-* [Connections](connections) - Connections to external systems that are the source of Aserto artifacts
-* [Organization](organization) - A container of artifacts managed by Aserto including Connections, Policies, and the Directory
+* [Authorizer](authorizer): the component that makes authorization decisions on whether or not a user is allowed to perform an operation on a resource.
+* [Policy](policy): defines the rules for making authorization decisions.
+* [Directory](directory): stores a graph of subjects (such as users and groups), objects (including any properties used for authorization purposes), and the relationships between them, all of which can be used by the policy.
+* [Decision Logs](decision-logs): records of decisions performed by Authorizers.
+* [Control Plane](control-plane): manages the lifecycle of the policies, user context, and resource data used by the Authorizer.
+* [Connections](connections): connections to external systems such as Identity Providers (which are often the source of Directory data) and Source Code Control Systems (which are where policies are stored and versioned).
+* [Organization](organization): also known as an Aserto Tenant - a container of per-tenant artifacts managed by Aserto including Connections, Policies, Directory data, and Decision Logs.
