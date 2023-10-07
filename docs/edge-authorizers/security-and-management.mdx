@@ -6,22 +6,22 @@ description: Managing and securing edge authorizers
 # Security and Management
 
 The Aserto control plane can be used to control certain operations on running edge authorizers. For example, one can
-list running edge authorizers and issue policy and directory sync commands. This link between the Aserto control plane
-and edge authorizers requires setting up a secure connection between the two.
+list running Edge Authorizers and issue policy and directory sync commands. This link between the Aserto control plane
+and Edge Authorizers requires setting up a secure connection between the two.
 
 ## Edge Authorizer Connections
 
-Edge authorizer connections can be created from the [Aserto console](/docs/aserto-console/connections/setup-edge) or API
-and provide an identity that edge authorizers can use to connect to the control plane. Edge authorizers can use this
+Edge Authorizer connections can be created from the [Aserto console](/docs/aserto-console/connections/setup-edge) or API
+and provide an identity that edge authorizers can use to connect to the control plane. Edge Authorizers can use this
 identity by presenting a client certificate; performing a [mutual TLS
 handshake](https://en.wikipedia.org/wiki/Mutual_authentication). This identity is only authorized to establish a
 connection to the Aserto control plane for the purposes of receiving control commands and uploading decision logs.
 
-Edge authorizers use one of these identities by presenting the client certificate associated with a given edge authorizer
-connection. All edge authorizers presenting the same client certificate use the same identity and there can be as many
-edge authorizer connections as needed.
+Edge Authorizers use one of these identities by presenting the client certificate associated with a given authorizer
+connection. All authorizers presenting the same client certificate use the same identity and there can be as many
+Edge Authorizer connections as needed.
 
-Once an edge authorizer is connected to the Aserto control plane:
+Once an Edge Authorizer is connected to the Aserto control plane:
 - It will automatically refresh its policy state when a new policy image is pushed.
 - It will automatically refresh its policy state when the policy instance changes.
 - It can receive remote commands to refresh its policy and directory state.
@@ -30,25 +30,25 @@ Once an edge authorizer is connected to the Aserto control plane:
 
 ## Configuration
 
-To use an edge authorizer, you'll first need to create an edge authorizer connection. Head to the Connections tab, and
+To use an Edge Authorizer, you'll first need to create an Edge Authorizer connection. Head to the Connections tab, and
 create a new connection by clicking the "Add connection" button. Select the "Edge Authorizer" provider and provide a
-name and a display name for your edge authorizer connection.
+name and a display name for your authorizer connection.
 
 <img src="/edge-authorizer-connection.png" />
 
-Click on the newly created connection to retrieve the edge authorizer connection id, which will be used to configure the edge authorizer.
+Click on the newly created connection to retrieve the Edge Authorizer connection id, which will be used to configure the Edge Authorizer.
 
 <img src="/edge-authorizer-connection-entry.png" />
 
 ### Sidecar
 
-The Aserto CLI can be used to configure the Aserto sidecar to use the control plane by adding an option to the `configure` sub-command.
+The Aserto CLI can be used to configure the Topaz instance to use the control plane by adding an option to the `configure` sub-command.
 
 ```
 aserto x configure <policy-name> --edge-authorizer <edge-authorizer-connection-id>
 ```
 
-This will install the client certificates and configure the sidecar to connect to the control plane using them. The `edge-authorizer-connection-id` can be acquired from the console, or using the Aserto CLI:
+This will install the client certificates and configure the authorizer to connect to the control plane using them. The `edge-authorizer-connection-id` can be acquired from the console, or using the Aserto CLI:
 
 ```
 aserto p list-connections
@@ -56,7 +56,7 @@ aserto p list-connections
 
 The `list-connections` sub-command lists all the edge authorizer connections the tenant has.
 
-A sidecar can also be configured to generate decision logs and upload them to the control plane. To do this add the `--decision-logging` argument.
+An authorizer can also be configured to generate decision logs and upload them to the control plane. To do this add the `--decision-logging` argument.
 
 ```
 aserto x configure <policy-name> --edge-authorizer <edge-authorizer-connection-id> --decision-logging
@@ -84,7 +84,7 @@ This will return a JSON object with data about the client certificate, for examp
 
 The `certificate` field contains the certificate in PEM format and the `private_key` field contains the private key, also in PEM format. The contents of these fields should be saved as two files, for example `~/.config/aserto/sidecar.crt` and `~/.config/aserto/sidecar.key`.
 
-Using the paths in the example, the configuration file of a sidecar can be updated to connect to the control plane by adding a section similar to:
+Using the paths in the example, the configuration file of an Authorizer can be updated to connect to the control plane by adding a section similar to:
 
 ```yaml
 tenant_id: <TENANT-ID>
@@ -99,7 +99,7 @@ controller:
     client_key_path: ~/.config/aserto/sidecar.key
 ```
 
-To also configure a sidecar to upload decision logs, add the following config section:
+To also configure an Authorizer to upload decision logs, add the following config section:
 
 ```yaml
 decision_logger:                                               
