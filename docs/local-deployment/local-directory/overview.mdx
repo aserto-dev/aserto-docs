@@ -6,9 +6,9 @@ description: Deploy the Aserto Directory locally
 
 # Local Directory Overview
 
-The Aserto Directory can be run as a standalone container, backed by a Postgres DB.
+<img src="/deployment-helm.png"/>
 
-In addition, a local management console experience is provided for this deployment option.
+For advanced scenarios, the Aserto Directory can be deployed locally as a standalone container, backed by a Postgres DB, along with a local management console, and an Edge Authorizer. When running locally, there is no dependency on externally hosted components nor will your local Asert environment share any data externally. Optionally, you can configure the Authorizer to pull down container images from an OCI v2 Registry (such as Github), and you can import data from an IDP (Auth0) using the `ds-load` CLI. 
 
 ## Scenarios
 
@@ -28,8 +28,8 @@ Running a separate directory enables this scenario. In this type of deployment, 
 
 ### Self-hosting
 
-Some organizations want or need to self-host all of the components in their authorization solution. The smallest Aserto deployment is the Aserto Sidecar, but for organizations that want to use a relational directory without relying on the hosted Aserto Directory, this model is appropriate.
+Some organizations want or need to self-host all of the components in their authorization solution. The smallest Aserto deployment is the Edge Authorizer, but for organizations that want to use a relational directory without relying on the hosted Aserto Directory, this model is appropriate.
 
 ## Deployment
 
-The easiest way to deploy the Local Directory is via a helm chart that includes a Sidecar as well as a Local Console, described [next](helm-chart).
+The easiest way to deploy the Local Directory is via the Aserto helm chart described [next](helm-chart).

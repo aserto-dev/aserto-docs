@@ -6,38 +6,34 @@ description: Deployment and Operation of edge authorizers
 
 # Deployment and Operation
 
+<img src="/deployment-authorizer.png" />
+
 Edge authorizers can be deployed in various ways based on the application and target environment needs and requirements.
-In its most basic form, an authorizer is a Docker container instance, which can be deployed as a standalone service,
-sidecar, or development workstation.
+In its most basic form, an authorizer is a Docker container instance, which can be deployed as a standalone microservice or a sidecar.
 
 An edge authorizer always operates in the context of a (single) Aserto organization and is assigned a specific policy
 instance to serve. This information is provided to the edge authorizer via a configuration file, which it uses to send a
 discovery call to the Aserto control plane.
 
-## Edge Authorizer Flavors
 
-:::danger Note
-The `sidecar` authorizer is replaced by the [topaz](https://github.com/aserto-dev/topaz).
-:::
+## Docker image
+The Authorizer ships as a docker image and can be pulled with following command:
 
-
-Currently the following flavors of edge authorizers are available:
-
-- Topaz: a single-tenant, single policy authorizer without a web UI. Topaz is the general edge authorizer flavor with a small surface area, which can be used as a sidecar but also as a local service instance.
-
-## Docker images
-
-| Flavor  | Image
-| ------- | --------------------------------------------------------
-| Topaz   | docker pull ghcr.io/aserto-dev/topaz:latest
+```sh
+docker pull ghcr.io/aserto-dev/topaz:latest
+```
 
 :::danger Note
 Only Topaz images with a version of 0.25.6 or higher support being deployed as an edge authorizer.
 :::
 
-## Running the Edge Authorizer
+## Deploying as a microservice
 
-You can run the sidecar authorizer using `aserto` CLI. First, you need to configure your sidecar instance by running the following command. Note that POLICY_INSTANCE_NAME below is the name of a policy instance you created in the console. You can optionally turn on decision logging by using the corresponding flag:
+As shown in the diagram, you can deploy the Edge Authorizer as a standalone microservice. In this configuration the Authorizer runs in it is own dedicated container.
+
+### Running the Edge Authorizer using the Aserto CLI
+
+For most scenarios it is sufficient to start the Authorizer by using the `aserto` cli. First, you need to configure your sidecar instance by running the following command. Note that POLICY_INSTANCE_NAME below is the name of a policy instance you created in the console. You can optionally turn on decision logging by using the corresponding flag:
 
 ```sh
 aserto developer configure <POLICY_INSTANCE_NAME> [--decision-logging]
@@ -56,17 +52,19 @@ aserto control-plane list-connections
 ```
 :::
 
-Then, start the sidcar instance by running the following command. Note that if you turned on decision logging in the configure command, you need to specify the `--data-path` flag, where the DECISION_LOG_DIRECTORY is a path to where the decision logs will be stored.
+Then, start the Authorizer instance by running the following command. Note that if you turned on decision logging in the configure command, you need to specify the `--data-path` flag, where the DECISION_LOG_DIRECTORY is a path to where the decision logs will be stored.
 
 ```sh
 aserto developer start <POLICY_INSTANCE_NAME> [--data-path=<DECISION_LOG_DIRECTORY>]
 ```
 
-Or by using the `docker` CLI selecting the correct image (`ghcr.io/aserto-dev/topaz:latest`):
+### Running the Edge Authorizer using the Docker CLI
+
+For more advaced scenarios you may want to launch the Authorizer using the `docker` CLI.
+
+The following docker command can be used to run the container. Make sure to update the POLICY_INSTANCE_NAME with your Policy Instance.
 
 ```sh
-#!/usr/bin/env bash
-
 docker run \
 -ti \
 --rm \
@@ -75,9 +73,99 @@ docker run \
 -p 8282:8282 \
 -p 8383:8383 \
 -p 8484:8484 \
--v $PWD/certs:/certs:rw \
--v $PWD/cfg:/cfg:ro \
--v $PWD/eds:/db:rw \
+-p 9292:9292 \
+-v $HOME/.config/aserto/sidecar/certs:/certs:rw \
+-v $HOME/.config/aserto/sidecar/cfg:/cfg:ro \
+-v $HOME/.config/aserto/sidecar/eds:/db:rw \
 ghcr.io/aserto-dev/topaz:latest run \
---config-file /cfg/config.yaml
+--config-file /cfg/<POLICY_INSTANCE_NAME>.yaml
 ```
+
+## Deploy as a Sidecar
+
+Deploying topaz as a sidecar next to your applications is the most efficient way to use the authorizer as it minimizes the authorization latency.
+
+In this section we can follow an example deployment on minikube based on a golang backend application and topaz authorizer as a sidecar.
+
+### Prepare minikube
+Start by preparing minikube, you can follow the installation instructions [here](https://minikube.sigs.k8s.io/docs/start/).
+
+Check if your minikube cluster is running:
+```
+minikube status
+
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+```
+
+### Preparing your backend application container
+1. Clone [todo-go-v2](https://github.com/aserto-demo/todo-go-v2) repository 
+2. Add the following docker file to the root of your repository
+
+Dockerfile:
+```
+FROM golang:1.19-alpine AS build-dev
+RUN apk add --no-cache bash gcc build-base
+WORKDIR /src
+
+ENV GOBIN=/bin
+ENV ROOT_DIR=/src
+
+COPY . .
+RUN go build
+
+FROM alpine
+
+LABEL org.opencontainers.image.title="todo-go-v2"
+LABEL org.opencontainers.image.version="latest"
+
+RUN apk add --no-cache bash
+WORKDIR /app
+COPY --from=build-dev /src/todo-go /app/
+
+EXPOSE 3001
+
+ENTRYPOINT ["./todo-go"]
+```
+
+3. Use `docker build . -t todo-go-v2:latest` to build your backend application container
+
+4. Load the docker image into the minikube environment using: `minikube image load todo-go-v2:latest`
+
+### Prepare your deployment
+
+Your deployment directory should contain the following files:
+
+* [configmap.yaml](/sidecar-deployment/configmap.yaml)
+* [deployment.yaml](/sidecar-deployment/deployment.yaml)
+* [topaz-configmap.yaml](/sidecar-deployment/topaz-configmap.yaml)
+
+### Apply the deployment 
+
+To apply on your minikube cluster use: `kubectl apply -f . --recursive`
+
+Once the deployment is finished you will have a pod that will contain 2 running containers that use the following images:
+```
+ghcr.io/aserto-dev/topaz:latest 
+todo-go-v2:latest
+```
+
+Get the running pod name:
+```
+TODO_POD_NAME=$(kubectl get pods -n default -l 'app=todo' -o jsonpath="{.items[0].metadata.name}")
+```
+
+### Testing the backend application 
+
+If you want to test that the backend todo-go-v2 application is running from you local machine you can clone the [todo-application](https://github.com/aserto-demo/todo-application) but you will need to forwad the port from your minikube cluster to your local machine.
+
+To forward the port of the todo-go-v2 backend deployment pod you will need to run:
+```
+kubectl --namespace default port-forward $TODO_POD_NAME 3001:3001
+```
+
+Navigate to the folder of the todo-application you have cloned and follow the instructions from the [README](https://github.com/aserto-demo/todo-application/blob/main/README.md).
