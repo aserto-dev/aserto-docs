@@ -6,8 +6,6 @@ description: Deployment and Operation of edge authorizers
 
 # Deployment and Operation
 
-<img src="/deployment-authorizer.png" />
-
 Edge authorizers can be deployed in various ways based on the application and target environment needs and requirements.
 In its most basic form, an authorizer is a Docker container instance, which can be deployed as a standalone microservice or a sidecar.
 
@@ -15,6 +13,7 @@ An edge authorizer always operates in the context of a (single) Aserto organizat
 instance to serve. This information is provided to the edge authorizer via a configuration file, which it uses to send a
 discovery call to the Aserto control plane.
 
+<img width="70%" src="/deployment-authorizer.png" />
 
 ## Docker image
 The Authorizer ships as a docker image and can be pulled with following command:
