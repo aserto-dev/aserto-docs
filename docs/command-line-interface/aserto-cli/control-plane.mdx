@@ -6,14 +6,14 @@ description: Using the control plane
 
 # Control Plane
 
-Aserto [edge authorizers](/docs/edge-authorizers/overview) can connect to the Aserto control plane to receive policy and
-directory updates and commands. Edge authorizers must use client certificates from edge authorizer connections to
+Aserto [Edge Authorizers](/docs/edge-authorizers/overview) can connect to the Aserto control plane to receive policy and
+directory updates and commands. Edge authorizers must use client certificates from Edge Authorizer connections to
 connect to the control plane. 
 
 ## Configuration
 
 The Aserto CLI can be used to configure certificates. The `list-connections` sub-command lists a tenant's existing
-edge authorizer connections:
+Edge Authorizer connections:
 
 ```
 aserto control-plane list-connections
@@ -31,7 +31,7 @@ authorizers](/docs/edge-authorizers/security-and-management) section of this doc
 
 ## Commands
 
-To list the edge authorizer instances connected to the control plane:
+To list the Edge Authorizer instances connected to the control plane:
 ```
 aserto control-plane list-instance-registrations
 ```
@@ -41,12 +41,12 @@ is configured to run and a `remote_host` field which can be used to identify the
 the latter is the `$HOSTNAME` environment variable of the edge host, and will be overridden with the `$ASERTO_HOSTNAME`
 environment variable, if it exists.
 
-The `discovery` sub-command causes an edge authorizer to immediately fetch configuration from the control plane.
+The `discovery` sub-command causes an Edge Authorizer to immediately fetch configuration from the control plane.
 ```
 aserto control-plane discovery <instance-registration-id>
 ```
 
-The `edge-dir-sync` sub-command causes an edge authorizer to immediately synchronize its local directory state (if
+The `edge-dir-sync` sub-command causes an Edge Authorizer to immediately synchronize its local directory state (if
 synchronization is enabled).
 ```
 aserto control-plane edge-dir-sync <instance-registration-id>
