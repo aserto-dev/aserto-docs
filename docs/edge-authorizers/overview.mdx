@@ -17,8 +17,8 @@ instances running as close to your application as possible.
 
 Edge Authorizers are Topaz instances. What makes them different is how they are configured. Edge Authorizers connect to the Aserto Control Plane and light up with additional functionality:
 
-* Policy changes and data are pushed down when changes occur
-* Decisions logs are published centrally where they can be viewed from the Aserto Console or accessed via the Decision Logs API.
+* Policy changes, directory changes, and data are pushed down when changes occur
+* [Decisions logs](decision-logs) are published centrally where they can be viewed from the Aserto Console or accessed via the Decision Logs API.
 
 ## Advantages of deploying Edge Authorizers
 
@@ -27,7 +27,7 @@ and scalability:
 
 - The authorizer instances operate autonomously. Each instance has its own local instance of the policy image for the 
 application it serves and a local instance of the identity property data, which allows the authorizer to continue 
-operating even when it is disconnected from the central control plane. When reconnected, it will synchronize its state 
+operating even when it is disconnected from the central Control Plane. When reconnected, it will synchronize its state 
 and publish the decision logs.
 - This setup enables scaling the number of authorizer instances to increase throughput and redundancy.
 - Having the authorizer operate close to the application instance minimizes the network latency between the two, which

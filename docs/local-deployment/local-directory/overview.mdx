@@ -6,7 +6,7 @@ description: Deploy the Aserto Directory locally
 
 # Local Directory Overview
 
-For advanced scenarios, the Aserto Directory can be deployed locally as a standalone container, backed by a Postgres DB, along with a local management console, and an Edge Authorizer. When running locally, there is no dependency on externally hosted components nor will your local Asert environment share any data externally. Optionally, you can configure the Authorizer to pull down container images from an OCI v2 Registry (such as Github), and you can import data from an IDP (Auth0) using the `ds-load` CLI. 
+For advanced scenarios, the Aserto Directory can be deployed locally as a standalone container, backed by a Postgres DB, along with a local management console, and an Edge Authorizer. When running locally, there is no dependency on externally hosted components nor will your local Aserto environment share any data externally. Optionally, you can configure the Edge Authorizer to pull down container images from an OCI v2 Registry (such as Github), and you can import data from an IDP (Auth0, Azure AD, etc.) using the `ds-load` CLI. 
 
 <img width="70%" src="/deployment-helm.png"/>
 
@@ -24,7 +24,7 @@ Alternatively, a Postgres-backed directory provide a more scalable solution. Add
 
 Some organizations may prefer to have all their authorizers connect to a single directory instead of keeping their own cache of the subject, object, and relation data.
 
-Running a separate directory enables this scenario. In this type of deployment, the edge authorizers are completely stateless, and therefore are guaranteed to see exactly the same authorization data.
+Running a separate directory enables this scenario. In this type of deployment, the Edge Authorizers are completely stateless, and therefore are guaranteed to see exactly the same authorization data.
 
 ### Self-hosting
 

@@ -1,7 +1,7 @@
 ---
 sidebar_label: Deployment and Operation
 title: Edge Authorizers - Deployment and Operation
-description: Deployment and Operation of edge authorizers
+description: Deployment and Operation of Edge Authorizers
 ---
 
 # Deployment and Operation
@@ -10,20 +10,20 @@ Edge Authorizers can be deployed in various ways based on the application and ta
 In its most basic form, an authorizer is a Docker container instance, which can be deployed as a standalone microservice or a sidecar.
 
 An Edge Authorizer always operates in the context of a (single) Aserto organization and is assigned a specific policy
-instance to serve. This information is provided to the edge authorizer via a configuration file, which it uses to send a
-discovery call to the Aserto control plane.
+instance to serve. This information is provided to the Edge Authorizer via a configuration file, which it uses to send a
+discovery call to the Aserto Control Plane.
 
 <img width="70%" src="/deployment-authorizer.png" />
 
 ## Docker image
-The Authorizer ships as a docker image and can be pulled with following command:
+The Edge Authorizer ships as a docker image and can be pulled with following command:
 
 ```sh
 docker pull ghcr.io/aserto-dev/topaz:latest
 ```
 
 :::danger Note
-Only Topaz images with a version of 0.25.6 or higher support being deployed as an edge authorizer.
+Only Topaz images with a version of 0.25.6 or higher support being deployed as an Edge Authorizer.
 :::
 
 ## Deploying as a microservice
@@ -32,26 +32,26 @@ As shown in the diagram, you can deploy the Edge Authorizer as a standalone micr
 
 ### Running the Edge Authorizer using the Aserto CLI
 
-For most scenarios it is sufficient to start the Authorizer by using the `aserto` cli. First, you need to configure your sidecar instance by running the following command. Note that POLICY_INSTANCE_NAME below is the name of a policy instance you created in the console. You can optionally turn on decision logging by using the corresponding flag:
+For most scenarios it is sufficient to start the Authorizer by using the `aserto` CLI. First, you need to configure your sidecar instance by running the following command. Note that POLICY_INSTANCE_NAME below is the name of a policy instance you created in the console. You can optionally turn on decision logging by using the corresponding flag:
 
 ```sh
 aserto developer configure <POLICY_INSTANCE_NAME> [--decision-logging]
 ```
 
-To configure the sidecar to connect to the Aserto control plane, use the following command. Note that EDGE_AUTHORIZER_CONNECTION_ID is the connection ID of an edge authorizer that you [created in the Aserto console](/docs/aserto-console/connections/setup-edge.mdx). 
+To configure the sidecar to connect to the Aserto Control Plane, use the following command. Note that EDGE_AUTHORIZER_CONNECTION_ID is the connection ID of an Edge Authorizer that you [created in the Aserto console](/docs/aserto-console/connections/setup-edge.mdx). 
 
 ```sh
 aserto developer configure <POLICY_INSTANCE_NAME> --edge-authorizer=<EDGE_AUTHORIZER_CONNECTION_ID> [--decision-logging]
 ```
 
 :::note Tip
-To list the available edge authorizer connections, use the following command:
+To list the available Edge Authorizer connections, use the following command:
 ```sh
 aserto control-plane list-connections
 ```
 :::
 
-Then, start the Authorizer instance by running the following command. Note that if you turned on decision logging in the configure command, you need to specify the `--data-path` flag, where the DECISION_LOG_DIRECTORY is a path to where the decision logs will be stored.
+Then, start the Edge Authorizer by running the following command. Note that if you turned on decision logging in the configure command, you need to specify the `--data-path` flag, where the DECISION_LOG_DIRECTORY is a path to where the decision logs will be stored.
 
 ```sh
 aserto developer start <POLICY_INSTANCE_NAME> [--data-path=<DECISION_LOG_DIRECTORY>]
@@ -82,9 +82,9 @@ ghcr.io/aserto-dev/topaz:latest run \
 
 ## Deploy as a Sidecar
 
-Deploying topaz as a sidecar next to your applications is the most efficient way to use the authorizer as it minimizes the authorization latency.
+Deploying an Edge Authorizer as a sidecar next to your applications is the most efficient way to deploy as it minimizes the authorization latency.
 
-In this section we can follow an example deployment on minikube based on a golang backend application and topaz authorizer as a sidecar.
+In this section we can follow an example deployment on minikube based on a golang backend application and the Edge Authorizer as a sidecar.
 
 ### Prepare minikube
 Start by preparing minikube, you can follow the installation instructions [here](https://minikube.sigs.k8s.io/docs/start/).
@@ -133,7 +133,7 @@ ENTRYPOINT ["./todo-go"]
 
 3. Use `docker build . -t todo-go-v2:latest` to build your backend application container
 
-4. Load the docker image into the minikube environment using: `minikube image load todo-go-v2:latest`
+4. Load the Docker image into the minikube environment using: `minikube image load todo-go-v2:latest`
 
 ### Prepare your deployment
 
