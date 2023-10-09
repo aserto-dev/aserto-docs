@@ -1,23 +1,23 @@
 ---
 sidebar_label: Discovery Flow
 title: Edge Authorizer - Discovery Flow
-description: Discovery flow of edge authorizers
+description: Discovery flow of Edge Authorizers
 ---
 # Discovery Flow
 
-When a new edge authorizer is started, the discovery flow will be initiated:
+When a new Edge Authorizer is started, the discovery flow will be initiated:
 
 <img src="/discovery-bootstrap.png" />
 
 1. A configuration file (config.yaml) is passed to the authorizer when it is started
 2. The authorizer makes a discovery call to the control plane, passing the policy name, instance label, authorizer API key, and tenant ID.
-3. The authorizer receives a response from the control plane including the configuration that the edge authorizer will need pointing it to the specific policy bundle.
+3. The authorizer receives a response from the control plane including the configuration that the Edge Authorizer will need pointing it to the specific policy bundle.
 4. The authorizer validates and merges configuration settings
 5. Finally, the authorizer creates a runtime configuration
 
 ## Configuration
 
-To create the configuration file needed to bootstrap the edge authorizer, you can either use the `aserto` CLI or retrieve the credentials from the Aserto console and use them in the configuration template found below.
+To create the configuration file needed to bootstrap the Edge Authorizer, you can either use the `aserto` CLI or retrieve the credentials from the Aserto console and use them in the configuration template found below.
 
 ### Using the `aserto` CLI
 
@@ -46,7 +46,7 @@ You can retrieve the configuration credentials from the console and copy them in
 
 <img src="/discovery-api-key.png" />
 
-2. The tenant and policy identifiers can be retrieved from the Policy Settings page of the policy instance which needs to get assigned to the edge authorizer instance.
+2. The tenant and policy identifiers can be retrieved from the Policy Settings page of the policy instance which needs to get assigned to the Edge Authorizer instance.
 
 These credentials map into the `config.yaml` file:
 
@@ -102,7 +102,7 @@ decision_logger:
 
 ## Configuration Validation
 
-To validate the correctness of the data used and to inspect what information is exchanged between the edge authorizer and the control plane, the following `curl` command can be used to execute the discovery request:
+To validate the correctness of the data used and to inspect what information is exchanged between the Edge Authorizer and the control plane, the following `curl` command can be used to execute the discovery request:
 
 ```sh
 curl --request GET \
@@ -159,8 +159,8 @@ The expected response should be:
 }
 ```
 
-When the edge authorizer receives the discovery response, the information received will be replace the OPA element from the bootstrap configuration, resulting in the following configuration.
+When the Edge Authorizer receives the discovery response, the information received will be replace the OPA element from the bootstrap configuration, resulting in the following configuration.
 
 :::note
-The edge authorizer runtime configuration is ephemeral and does not get persisted to disk.
+The Edge Authorizer runtime configuration is ephemeral and does not get persisted to disk.
 :::

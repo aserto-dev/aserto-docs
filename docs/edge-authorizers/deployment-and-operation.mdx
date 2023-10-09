@@ -1,7 +1,7 @@
 ---
 sidebar_label: Deployment and Operation
 title: Edge Authorizers - Deployment and Operation
-description: Deployment and Operation of edge authorizers
+description: Deployment and Operation of Edge Authorizers
 ---
 
 # Deployment and Operation
@@ -10,7 +10,7 @@ Edge Authorizers can be deployed in various ways based on the application and ta
 In its most basic form, an authorizer is a Docker container instance, which can be deployed as a standalone microservice or a sidecar.
 
 An Edge Authorizer always operates in the context of a (single) Aserto organization and is assigned a specific policy
-instance to serve. This information is provided to the edge authorizer via a configuration file, which it uses to send a
+instance to serve. This information is provided to the Edge Authorizer via a configuration file, which it uses to send a
 discovery call to the Aserto control plane.
 
 <img width="70%" src="/deployment-authorizer.png" />
@@ -23,7 +23,7 @@ docker pull ghcr.io/aserto-dev/topaz:latest
 ```
 
 :::danger Note
-Only Topaz images with a version of 0.25.6 or higher support being deployed as an edge authorizer.
+Only Topaz images with a version of 0.25.6 or higher support being deployed as an Edge Authorizer.
 :::
 
 ## Deploying as a microservice
@@ -38,14 +38,14 @@ For most scenarios it is sufficient to start the Authorizer by using the `aserto
 aserto developer configure <POLICY_INSTANCE_NAME> [--decision-logging]
 ```
 
-To configure the sidecar to connect to the Aserto control plane, use the following command. Note that EDGE_AUTHORIZER_CONNECTION_ID is the connection ID of an edge authorizer that you [created in the Aserto console](/docs/aserto-console/connections/setup-edge.mdx). 
+To configure the sidecar to connect to the Aserto control plane, use the following command. Note that EDGE_AUTHORIZER_CONNECTION_ID is the connection ID of an Edge Authorizer that you [created in the Aserto console](/docs/aserto-console/connections/setup-edge.mdx). 
 
 ```sh
 aserto developer configure <POLICY_INSTANCE_NAME> --edge-authorizer=<EDGE_AUTHORIZER_CONNECTION_ID> [--decision-logging]
 ```
 
 :::note Tip
-To list the available edge authorizer connections, use the following command:
+To list the available Edge Authorizer connections, use the following command:
 ```sh
 aserto control-plane list-connections
 ```

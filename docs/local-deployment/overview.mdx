@@ -12,7 +12,7 @@ Aserto authorizers are built to be deployed right next to your application, in y
 
 The simplest local deployment is in the form of a single Topaz container that is configured as an Aserto Edge Authorizer. You can deploy it either as a local microservice (and scale it horizontally), or if you're running in Kubernetes, you can deploy it as a sidecar in your application pod.
 
-When running the Edge Authorizer it contains an embedded Aserto Directory which uses an embedded database, based on BoltDB. It scales up to a couple of GB of data (which could house 10k's of users, depending on how many properties each user contains).
+The Edge Authorizer includes an Aserto Directory that is implemented using an embedded database, based on BoltDB. It scales up to a couple of GB of data (which could house 10k's of users, depending on how many properties each user contains).
 
 The [Edge Authorizers](/docs/edge-authorizers/overview.mdx) documentation describes the Edge Authorizer and its deployment and management in more detail.
 
