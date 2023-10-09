@@ -1,14 +1,14 @@
 ---
 sidebar_label: Control Plane
 title: Control Plane
-description: Using the control plane
+description: Using the Control Plane
 ---
 
 # Control Plane
 
-Aserto [Edge Authorizers](/docs/edge-authorizers/overview) can connect to the Aserto control plane to receive policy and
+Aserto [Edge Authorizers](/docs/edge-authorizers/overview) can connect to the Aserto Control Plane to receive policy and
 directory updates and commands. Edge authorizers must use client certificates from Edge Authorizer connections to
-connect to the control plane. 
+connect to the Control Plane. 
 
 ## Configuration
 
@@ -31,7 +31,7 @@ authorizers](/docs/edge-authorizers/security-and-management) section of this doc
 
 ## Commands
 
-To list the Edge Authorizer instances connected to the control plane:
+To list the Edge Authorizer instances connected to the Control Plane:
 ```
 aserto control-plane list-instance-registrations
 ```
@@ -41,7 +41,7 @@ is configured to run and a `remote_host` field which can be used to identify the
 the latter is the `$HOSTNAME` environment variable of the edge host, and will be overridden with the `$ASERTO_HOSTNAME`
 environment variable, if it exists.
 
-The `discovery` sub-command causes an Edge Authorizer to immediately fetch configuration from the control plane.
+The `discovery` sub-command causes an Edge Authorizer to immediately fetch configuration from the Control Plane.
 ```
 aserto control-plane discovery <instance-registration-id>
 ```

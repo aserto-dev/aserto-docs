@@ -11,7 +11,7 @@ In its most basic form, an authorizer is a Docker container instance, which can 
 
 An Edge Authorizer always operates in the context of a (single) Aserto organization and is assigned a specific policy
 instance to serve. This information is provided to the Edge Authorizer via a configuration file, which it uses to send a
-discovery call to the Aserto control plane.
+discovery call to the Aserto Control Plane.
 
 <img width="70%" src="/deployment-authorizer.png" />
 
@@ -38,7 +38,7 @@ For most scenarios it is sufficient to start the Authorizer by using the `aserto
 aserto developer configure <POLICY_INSTANCE_NAME> [--decision-logging]
 ```
 
-To configure the sidecar to connect to the Aserto control plane, use the following command. Note that EDGE_AUTHORIZER_CONNECTION_ID is the connection ID of an Edge Authorizer that you [created in the Aserto console](/docs/aserto-console/connections/setup-edge.mdx). 
+To configure the sidecar to connect to the Aserto Control Plane, use the following command. Note that EDGE_AUTHORIZER_CONNECTION_ID is the connection ID of an Edge Authorizer that you [created in the Aserto console](/docs/aserto-console/connections/setup-edge.mdx). 
 
 ```sh
 aserto developer configure <POLICY_INSTANCE_NAME> --edge-authorizer=<EDGE_AUTHORIZER_CONNECTION_ID> [--decision-logging]

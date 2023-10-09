@@ -14,7 +14,7 @@ Before we get started, let’s discuss two of Aserto's major components: the **A
 
 **The Authorizer** is where authorization decisions get made. It is an open source authorization engine which uses Open Policy Agent (OPA) to compute a decision based on policy, user context and resource data. In this tutorial we’re going to use the hosted version of this authorizer.
 
-**The Control Plane** manages the lifecycle of policies, user context, and resource data that are used by the authorizer. The control plane makes it easy to manage these artifacts centrally, and takes care of the details of synchronizing them to the Authorizer instance(s) deployed at the edge. More specifically, it manages:
+**The Control Plane** manages the lifecycle of policies, user context, and resource data that are used by the authorizer. The Control Plane makes it easy to manage these artifacts centrally, and takes care of the details of synchronizing them to the Authorizer instance(s) deployed at the edge. More specifically, it manages:
 
 - Connections to external systems such as identity providers and source control systems
 - References to registered authorization policies

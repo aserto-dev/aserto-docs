@@ -10,8 +10,8 @@ When a new Edge Authorizer is started, the discovery flow will be initiated:
 <img src="/discovery-bootstrap.png" />
 
 1. A configuration file (config.yaml) is passed to the authorizer when it is started
-2. The authorizer makes a discovery call to the control plane, passing the policy name, instance label, authorizer API key, and tenant ID.
-3. The authorizer receives a response from the control plane including the configuration that the Edge Authorizer will need pointing it to the specific policy bundle.
+2. The authorizer makes a discovery call to the Control Plane, passing the policy name, instance label, authorizer API key, and tenant ID.
+3. The authorizer receives a response from the Control Plane including the configuration that the Edge Authorizer will need pointing it to the specific policy bundle.
 4. The authorizer validates and merges configuration settings
 5. Finally, the authorizer creates a runtime configuration
 
@@ -102,7 +102,7 @@ decision_logger:
 
 ## Configuration Validation
 
-To validate the correctness of the data used and to inspect what information is exchanged between the Edge Authorizer and the control plane, the following `curl` command can be used to execute the discovery request:
+To validate the correctness of the data used and to inspect what information is exchanged between the Edge Authorizer and the Control Plane, the following `curl` command can be used to execute the discovery request:
 
 ```sh
 curl --request GET \

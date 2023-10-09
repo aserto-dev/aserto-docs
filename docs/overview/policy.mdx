@@ -14,7 +14,7 @@ Policies are treated just like application code or infrastructure-as-code. They 
 
 ![Policy as code](/policy-as-code.png)
 
-Aserto's control plane helps manage the policy lifecycle. For more information on authoring policies and the policy lifecycle, see this [topic](policy-lifecycle).
+Aserto's Control Plane helps manage the policy lifecycle. For more information on authoring policies and the policy lifecycle, see this [topic](policy-lifecycle).
 
 ## Policy Language Overview
 
@@ -57,7 +57,7 @@ allowed {
 
 ### User context
 
-In the policy above, we were able to use the `department` attribute to help compute the `allowed` decision. This is an example of User context that is used in a policy. If you hook up your identity providers and/or directories to the Aserto control plane, it will automatically synchronize properties from these sources and make them available to your policies.
+In the policy above, we were able to use the `department` attribute to help compute the `allowed` decision. This is an example of User context that is used in a policy. If you hook up your identity providers and/or directories to the Aserto Control Plane, it will automatically synchronize properties from these sources and make them available to your policies.
 
 User context is automatically resolved and injected into `input.user` when you pass in an [identity context](/docs/authorizer-guide/identity-context) to an authorizer [API call](/docs/authorizer-guide/authz).
 
