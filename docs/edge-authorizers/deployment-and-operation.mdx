@@ -32,17 +32,7 @@ As shown in the diagram, you can deploy the Edge Authorizer as a standalone micr
 
 ### Running the Edge Authorizer using the Aserto CLI
 
-For most scenarios it is sufficient to start the Authorizer by using the `aserto` CLI. First, you need to configure your sidecar instance by running the following command. Note that POLICY_INSTANCE_NAME below is the name of a policy instance you created in the console. You can optionally turn on decision logging by using the corresponding flag:
-
-```sh
-aserto developer configure <POLICY_INSTANCE_NAME> [--decision-logging]
-```
-
-To configure the sidecar to connect to the Aserto Control Plane, use the following command. Note that EDGE_AUTHORIZER_CONNECTION_ID is the connection ID of an Edge Authorizer that you [created in the Aserto console](/docs/aserto-console/connections/setup-edge.mdx). 
-
-```sh
-aserto developer configure <POLICY_INSTANCE_NAME> --edge-authorizer=<EDGE_AUTHORIZER_CONNECTION_ID> [--decision-logging]
-```
+For most scenarios it is sufficient to start the Edge Authorizer by using the `aserto` CLI. First, you need to [configure](/docs/command-line-interface/aserto-cli/onebox#configuring) your instance to connect to the Aserto Control Plane. Then you can [start](/docs/command-line-interface/aserto-cli/onebox#starting) it.
 
 :::note Tip
 To list the available Edge Authorizer connections, use the following command:
@@ -50,12 +40,6 @@ To list the available Edge Authorizer connections, use the following command:
 aserto control-plane list-connections
 ```
 :::
-
-Then, start the Edge Authorizer by running the following command. Note that if you turned on decision logging in the configure command, you need to specify the `--data-path` flag, where the DECISION_LOG_DIRECTORY is a path to where the decision logs will be stored.
-
-```sh
-aserto developer start <POLICY_INSTANCE_NAME> [--data-path=<DECISION_LOG_DIRECTORY>]
-```
 
 ### Running the Edge Authorizer using the Docker CLI
 

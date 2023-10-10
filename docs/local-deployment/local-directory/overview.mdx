@@ -1,18 +1,18 @@
----
+                                                                                                                                                                                                                                                                                                                                                                  ---
 sidebar_label: Overview
 title: Deploy a local directory
 description: Deploy the Aserto Directory locally
 ---
 
-# Local Directory Overview
+# Edge Authorizer with Local Directory and Console
 
-For advanced scenarios, the Aserto Directory can be deployed locally as a standalone container, backed by a Postgres DB, along with a local management console, and an Edge Authorizer. When running locally, there is no dependency on externally hosted components nor will your local Aserto environment share any data externally. Optionally, you can configure the Edge Authorizer to pull down container images from an OCI v2 Registry (such as Github), and you can import data from an IDP (Auth0, Azure AD, etc.) using the `ds-load` CLI. 
+For advanced scenarios, the Edge Authorizer can be deployed with a stand alone directory backed by a Postgres DB, and a console. When deploying this way, there are no dependencies on externally hosted components nor will your local Aserto environment share any data externally. Optionally, you can configure the Edge Authorizer to pull down container images from an OCI v2 Registry (such as Github), and you can import data from an IDP (Auth0, Azure AD, etc.) using the `ds-load` CLI. 
 
 <img width="70%" src="/deployment-helm.png"/>
 
 ## Scenarios
 
-There are a few scenarios where running a separate, local directory instance is advantageous:
+There are a few scenarios where this type of deployment is advantageous:
 
 ### Scaling data size beyond what fits in the embedded database
 

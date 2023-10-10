@@ -1,49 +1,45 @@
 ---
-sidebar_label: Sidecar
-title: Local Developer Experience (Sidecar)
-description: Using the local developer experience (Sidecar) and the Aserto CLI
+sidebar_label: Edge Authorizer
+title: Managing the Edge Authorizer
+description: Managing the Edge Authorizer with the Aserto CLI
 ---
 
-# Local developer experience (Sidecar)
+## Deploying the Edge Authorizer
 
-Aserto's authorizer is available as a docker container that you can run locally.
-This "all-in-one" version of the Aserto Authorizer is referred to as the **Sidecar**.
+Aserto's [Edge Authorizer](/docs/edge-authorizers/overview) is a Topaz instance and is available as a Docker container that you can run locally either in its own container or as a sidecar.
 
-The CLI provides a management experience over the Sidecar.
+The CLI provides a management experience for Edge Authorizers.
 
 :::note
-The Sidecar requires `docker` to be installed and running.
+The Edge Authorizer requires `docker` to be installed and running.
 To install Docker on a Mac or Linux system: `brew install --cask docker`
 :::
 
-To get started with the Sidecar, you can pull it down using the Aserto CLI.
+To use the CLI you need to first [login](login) to your Aserto account.
 
-Sign in to your Aserto account:
-
-```bash
-aserto login
-```
-
-The following command will pull down the latest `sidecar` docker image.
+You can then pull down the latest `Topaz` docker image.
 
 ```bash
 aserto developer install
 ```
 
-The next command will pull down the configuration for a policy that you've set up in the console, using
-the name you gave it (in the example below, `peoplefinder`).
+## Configuring
+
+To configure the Edge Authorizer to connect to the Aserto Control Plane, use the following command. Note that EDGE_AUTHORIZER_CONNECTION_ID is the connection ID of an Edge Authorizer that you [created in the Aserto console](/docs/aserto-console/connections/setup-edge.mdx). 
 
 ```bash
-aserto developer configure peoplefinder
+aserto developer configure <POLICY_INSTANCE_NAME> --edge-authorizer=<EDGE_AUTHORIZER_CONNECTION_ID> [--decision-logging]
 ```
 
-The following command will `docker run` a local container with the `peoplefinder` policy configuration, writing the decision logs to `/tmp/decision-logs`:
+## Starting 
+
+Finall you can `docker run` a container running an Edge Authorizer with the `peoplefinder` policy configuration, writing the decision logs to `/tmp/decision-logs`:
 
 ```bash
 aserto developer start peoplefinder --data-path=/tmp/decision-logs
 ```
 
-The next few commands help manage the `sidecar` docker instance and image.
+These additional commands allow managing the Edge Authorizer instance.
 
 ```bash
 aserto developer status   # displays the running status of the authorizer
@@ -51,4 +47,4 @@ aserto developer stop     # stops the authorizer
 aserto developer update   # updates the authorizer image to :latest
 ```
 
-The Sidecar can be connected to the Aserto Control Plane. This enables additional functionality, including the ability to issue commands to the Sidecar remotely. To connect the Sidecar to the Aserto Control Plane see the [Edge Authorizers](/docs/edge-authorizers/security-and-management) section.
+Once the Edge Authorizer is deployed it needs to be connected to the Aserto Control Plane. To do this, see the [Edge Authorizers](/docs/edge-authorizers/security-and-management) section.

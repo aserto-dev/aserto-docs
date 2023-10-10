@@ -17,26 +17,7 @@ When a new Edge Authorizer is started, the discovery flow will be initiated:
 
 ## Configuration
 
-To create the configuration file needed to bootstrap the Edge Authorizer, you can either use the `aserto` CLI or retrieve the credentials from the Aserto console and use them in the configuration template found below.
-
-### Using the `aserto` CLI
-
-To generate the configuration file, you can use the `aserto`
-CLI.
-
-First, login to your Aserto account using the following command:
-
-```sh
-aserto login
-```
-
-Then, use the following command to generate the configuration file:
-
-```sh
-aserto developer configure <POLICY_INSTANCE_NAME>
-```
-
-The configuration will be generated in the directory ` ~/.config/aserto/sidecar/cfg`.
+To create the configuration file needed to bootstrap the Edge Authorizer, you can either the `aserto` [CLI](/docs/command-line-interface/aserto-cli/onebox#configuring-the-policy) and then copy the config out of the `~/.config/aserto/sidecar/cfg` folder or retrieve the credentials from the Aserto Console and use them in the configuration template found below.
 
 ### Retrieving credentials from the Aserto Console
 

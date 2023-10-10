@@ -40,34 +40,17 @@ Click on the newly created connection to retrieve the Edge Authorizer Connection
 
 <img src="/edge-authorizer-connection-entry.png" />
 
-### Sidecar
+## Connecting to the control plane
 
-The Aserto CLI can be used to configure the Topaz instance to use the Control Plane by adding an option to the `configure` sub-command.
-
-```
-aserto x configure <policy-name> --edge-authorizer <edge-authorizer-connection-id>
-```
-
-This will install the client certificates and configure the authorizer to connect to the Control Plane using them. The `edge-authorizer-connection-id` can be acquired from the console, or using the Aserto CLI:
-
-```
-aserto p list-connections
-```
-
-The `list-connections` sub-command lists all the Edge Authorizer connections the tenant has.
-
+The Aserto CLI can then be used to [configure](/docs/command-line-interface/aserto-cli/onebox#configuring) the Topaz instance to use the Control Plane by adding an option to the `configure` sub-command. This will install the client certificates and configure the authorizer to connect to the Control Plane using them. 
 An authorizer can also be configured to generate decision logs and upload them to the Control Plane. To do this add the `--decision-logging` argument.
-
-```
-aserto x configure <policy-name> --edge-authorizer <edge-authorizer-connection-id> --decision-logging
-```
 
 ### Obtaining certificates
 
 Certificates have a lifetime of 30 days. You can rotate the certificates in the Aserto console. To obtain the new client certificates, issue the following command using the Aserto CLI:
 
 ```
-aserto p client-cert <edge-authorizer-connection-id>
+aserto control-plane client-cert <edge-authorizer-connection-id>
 ```
 
 This will return a JSON object with data about the client certificate, for example:
