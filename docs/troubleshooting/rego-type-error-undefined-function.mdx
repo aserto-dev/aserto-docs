@@ -1,0 +1,29 @@
+---
+sidebar_label: Rego error - Undefined function
+title: Troubleshooting policy-cli error - "rego_type_error "":"" undefined function"
+description: How to solve the policy-cli "rego_type_error "":"" undefined function" error
+---
+
+# rego_type_error: undefined function
+
+## Problem
+
+When attempting to build a policy using the CLI, an `undefined function` build error occurs similar to the following:
+
+```
+policy build . -t glennblock/policy-rebac:1.0.0
+
+build failed: failed to build opa policy bundle: 3 errors occurred:
+content/src/policies/rebac.check.rego:14: rego_type_error: undefined function ds.check_relation
+content/src/policies/rebac.check_permission.rego:13: rego_type_error: undefined function ds.check_permission
+content/src/policies/rebac.check_relation.rego:13: rego_type_error: undefined function ds.check_relation
+```
+
+## Solution
+
+This error means that the policy-cli is unable to find the functions that the policy depends on. It usually occurs when the CLI is ran out of a folder like the `content` folder, that does not contain the `.manifest`.
+
+:::note
+This can also occur if the rego code is referring to functions that do not exist or have been typed incorrectly.
+
+To fix either change to the directory (`content/src`) where the `.manifest` lives, or pass the directory as the folder argument i.e. `policy build content/src -t glennblock/policy-rebac:1:0.0`

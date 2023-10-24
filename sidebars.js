@@ -349,6 +349,7 @@ module.exports = {
         'troubleshooting/leaked-secret-keys',
         'troubleshooting/github-connection-cannot-be-removed',
         'troubleshooting/policy-added-but-shows-error',
+        'troubleshooting/rego-type-error-undefined-function',
         'troubleshooting/errors-reference',
       ],
     },
