@@ -6,18 +6,20 @@ description: Deploy Self-hosted Aserto locally
 
 # Overview
 
-Aserto authorizers are built to be deployed right next to your application, in your cloud.
+Aserto authorizers can be deployed right next to your application, in your cloud, these are known as Edge Authorizers. Edge Authorizers are Topaz Instances which are configured to connect to the Aserto Control Plane.
 
-## Aserto Sidecar
+## Edge Authorizer only
 
-The simplest local deployment is in the form of a single container, known as the **Aserto Sidecar**. You can deploy it either as a local microservice (and scale it horizontally), or if you're running in Kubernetes, you can deploy it as a sidecar in your application pod.
+The simplest local deployment is in the form of a single Topaz container that is configured as an Aserto Edge Authorizer. 
 
-The Sidecar container implements the Aserto Directory using an embedded database, based on BoltDB. It scales up to a couple of GB of data (which could house 10k's of users, depending on how many properties each user contains).
+You can deploy it either as a local microservice (and scale it horizontally), or if you're running in Kubernetes, you can deploy it as a sidecar in your application pod.
 
-The [Edge Authorizers](/docs/edge-authorizers/overview.mdx) documentation describes the Sidecar and its deployment and management in more detail.
+The Edge Authorizer includes an Aserto Directory that is implemented using an embedded database, based on BoltDB. It scales up to a couple of GB of data (which could house 10k's of users, depending on how many properties each user contains).
 
-## Local Directory
+The [Edge Authorizers](/docs/edge-authorizers/overview.mdx) documentation describes the Edge Authorizer and its deployment and management in more detail.
 
-The second flavor of a local deployment is to host the Aserto Directory as a separate container. This implementation of the Aserto Directory uses Postgres as a back-end relational store, and can scale to larger data sizes than can fit in the embedded store.
+## Edge Authorizer with Self-hosted Directory and Console
 
-The [Local Directory](local-directory/overview.mdx) documentation describes the scenarios where running a separate directory is advantageous, and how to deploy it in your local Kubernetes environment.
+The second flavor of a local authorizer deployment adds a separate Aserto Directory running locally in its own container, as well as a self-hosted Console for adminstering. This implementation of the Aserto Directory uses Postgres as a back-end relational store, and can scale to larger data sizes than can fit in the embedded store. 
+
+The [Local Directory](local-directory/overview.mdx) documentation describes the scenarios where running A self-hosted directory is advantageous, and how to deploy it in your local Kubernetes environment.

@@ -1,22 +1,22 @@
 ---
 sidebar_label: Runtime Flow
 title: Edge Authorizer - Runtime flow
-description: Runtime flow of edge authorizers
+description: Runtime flow of Edge Authorizers
 ---
 
 # Runtime Flow
 
-When the edge authorizer has been bootstrapped it will transition to the runtime flow:
+When the Edge Authorizer has been bootstrapped it will transition to the runtime flow:
 
 <img src="/runtime-flow.png" />
 
 In this state, it will spin up two timer-based background tasks: The first is the discovery updates flow, which executes the discovery request described above to retrieve configuration updates. These updates include updates of the policy in case of a new version as well as configuration changes for the plugins, concretely the edge directory plugin. When a new policy version is available, the policy will be downloaded and applied to the authorizer.
 
-A second time-based background task will synchronize the identity data from the central directory to the edge authorizer when the edge directory plugin is enabled. By default, directory synchronization is turned off and can be enabled in the Aserto console.
+A second time-based background task will synchronize the identity data from the central directory to the Edge Authorizer when the edge directory plugin is enabled. By default, directory synchronization is turned off and can be enabled in the Aserto console.
 
 ## Runtime configuration
 
-The runtime configuration is automatically retrieved from the control plane and is not persisted. The example below shows the resolved runtime configuration of the edge authorizer.
+The runtime configuration is automatically retrieved from the Control Plane and is not persisted. The example below shows the resolved runtime configuration of the Edge Authorizer.
 
 Example configuration of an authorizer that uses a policy image from the Aserto registry service:
 ```yaml
