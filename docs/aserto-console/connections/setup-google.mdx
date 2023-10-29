@@ -1,0 +1,59 @@
+---
+sidebar_label: Google
+title: Setting up Google Workspace as an Identity Provider
+description: Setting up Google Workspace as an Identity Provider
+---
+
+Follow the steps below to set up Google Workspace as an Identity Provider.
+
+## Create an OAuth application
+In order for Aserto to communicate with Google Workspace, you'll need an OAuth application set up in Google Cloud. To create one, open your Google Cloud console, and navigate to [APIs & Services / Credentials](https://console.cloud.google.com/apis/credentials).
+
+Create a new OAuth application by clicking the "Create Credentials" button and select "OAuth client ID".
+
+<img src="/google-credentials.png" width="800px"/>
+
+In the following screen, select "Web application" as the application type, and name the application "Aserto".
+
+Add the URI "http://localhost:8761" to the Authorized redirect URIs, then click the "Create" button.
+
+<img src="/google-oauth-client.png" width="500px"/>
+
+
+After you clich the "Create" button, you'll see the new OAuth app details. Copy the **Client ID** and **Client Secret** values.
+
+<img src="/google-oauth-app.png" width="500px"/>
+
+## Obtain a refresh token
+
+Install the `ds-load` CLI, if you haven't already:
+
+```sh
+brew tap aserto-dev/tap && brew install ds-load
+```
+
+Run the following command to obtain a refresh token using the client ID and client secret you just registered:
+
+```sh
+ds-load-google get-refresh-token --client-id=<client-id> --client-secret=<client-secret>
+```
+
+This command will return a URL to enter into a browser window. You'll need to login with an account that has admin access to the Google Workspace. You'll then be asked to grant consent to the Aserto application.
+
+<img src="/google-consent.png" width="500px"/>
+
+Finally, you'll see a refresh token returned on the command line.
+
+## Connect Google Workspace to Aserto
+
+Connect Google Workspace to Aserto as an identity provider. Head to the Aserto console and open the Connections tab.
+
+<img src="/connections-tab.png" width="400px" />
+
+In the Connections tab, click the "Add a Connection" button. In the following screen, use the "Google Workspace" provider. Name the connection "google" and use the display name "Google Workspace". Then, paste the Client ID, Client Secret, and Refresh Token you retrieved from the Google Cloud Console into their corresponding fields.
+
+If you'd like to retrieve groups as well as users, turn on the corresponding checkbox.
+
+<img src="/add-google-connection.png"  width="500px"/>
+
+Finally, click the "Add connection" button to save the connection. Aserto will now automatically sync your Google Workspace users to the Aserto directory.
