@@ -111,6 +111,7 @@ module.exports = {
               items: [
                 'aserto-console/connections/setup-auth0',
                 'aserto-console/connections/setup-azuread',
+                'aserto-console/connections/setup-google',
                 'aserto-console/connections/setup-okta',
               ],
             },
