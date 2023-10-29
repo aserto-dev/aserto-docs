@@ -227,7 +227,7 @@ The Topaz / Aserto [authorizers](https://github.com/aserto-dev/topaz) exposes SS
 
 For a hosted authorizer that has a TLS certificate that is signed by a trusted Certificate Authority, this section isn't relevant because that TLS certificate will be successfully validated.
 
-In a development environment, the Edge Authorizer (either Topaz or the Aserto [sidecar](https://github.com/aserto-dev/sidecar)) automatically creates a set of self-signed certificates and certificates of the CA (certificate authority) that signed them. It places them in a well-known location on the filesystem, defaulting to `$HOME/.config/aserto/sidecar/certs/`. For Topaz this is `$HOME/.config/topaz/certs/`.
+In a development environment, Topaz automatically creates a set of self-signed certificates and certificates of the CA (certificate authority) that signed them. It places them in a well-known location on the filesystem, defaulting to `$HOME/.config/aserto/sidecar/certs/`. For Topaz this is `$HOME/.config/topaz/certs/`.
 
 In order for the `aserto-node` package to perform the TLS handshake, it needs to verify the TLS certificate of the one-box using the certificate of the CA that signed it - which was placed in `$HOME/.config/aserto/sidecar/certs/gateway-ca.crt`. Therefore, in order for this middleware to work successfully, either the `authorizerCertFile` must be set to the correct path for the CA cert file, or the `disableTlsValidation` flag must be set to `true`.
 
