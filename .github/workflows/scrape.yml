@@ -20,6 +20,10 @@ jobs:
             kv/data/algolia  "API_KEY"          | API_KEY;
             kv/data/algolia  "APPLICATION_ID"   | APPLICATION_ID;
 
+      - name: Wait for netlify build
+        run: |
+          sleep 120
+
       - name: Run Algolia Scrape
         run: |
           docker run --rm -e "APPLICATION_ID=${APPLICATION_ID}" -e API_KEY="${API_KEY}" -e "CONFIG=$(cat ./scripts/algolia-config.json)" algolia/docsearch-scraper
