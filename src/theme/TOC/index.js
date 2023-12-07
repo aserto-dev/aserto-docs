@@ -2,12 +2,12 @@ import React from "react";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import TOC from "@theme-original/TOC";
 
-const WrappedTOC = ({ toc, editUrl, ...props }) =>
+const EnhancedTOC = ({ toc, ...props }) =>
   <div className="toc">
     <TOC toc={toc} {...props} />
     <BrowserOnly>
       {() => (
-        <>
+        <div className="toc-container">
           <hr className="toc-separator" />
           <div className="toc-links toc-slack-icon">
             <img src="/icons/community-slack.svg" height="18" alt="join-slack" />
@@ -28,9 +28,9 @@ const WrappedTOC = ({ toc, editUrl, ...props }) =>
               Speak to an engineer
             </a>
           </div>
-        </>
+        </div>
       )}
     </BrowserOnly>
   </div>
 
-export default WrappedTOC
+export default EnhancedTOC
