@@ -14,9 +14,9 @@ Aserto has two major components:
 
 ## Authorizer
 
-The [Authorizer](/docs/overview/authorizer) is an open source authorization service which uses the Open Policy Agent (OPA) engine to compute a **decision** based on a **policy**, **user context**, and **resource data**. It is most commonly deployed close to your application, to offer the lowest latency and the highest level of availability to your application.
+The [Authorizer](/docs/overview/authorizer) is the component that makes authorization decisions based on inputs. Aserto leverages the [Topaz](https://www.topaz.sh) open source project as its Authorizer. Topaz, in turn, leveragess the CNCF [Open Policy Agent (OPA)](https://www.openpolicyagent.org) engine to compute a **decision** based on a **policy**, **user context**, and **resource data**. The Authorizer is most commonly deployed close to your application, to offer the lowest latency and the highest level of availability to your application.
 
-In addition to using OPA as its decision engine, the Authorizer includes an embedded database that caches all the data that's needed for authorization decisions. This data is sourced from the Aserto [Directory](/docs/overview/directory), which is inherits its design from Google's [Zanzibar](https://research.google/pubs/pub48190/) system. 
+Authorization requires both rules (logic) and data (properties about subjects, objects, and relationships between them). OPA handles the logic, but doesn't help with data. Topaz adds a "data plane" to OPA, in the form of an embedded database that caches all the data that's needed for authorization decisions. This data is sourced from the Aserto [Directory](/docs/overview/directory), which is inherits its design from Google's [Zanzibar](https://research.google/pubs/pub48190/) system.
 
 ## Control Plane
 
@@ -27,5 +27,7 @@ The Control Plane also aggregates all of the outputs from the Authorizers, inclu
 ## Next Steps
 
 If you're new to authorization, check out the [Authorization Basics](/docs/authorization-basics/authz-vs-authn) topic to learn more about the differences between AuthN and AuthZ, and also about the various styles of authorization.
+
+You can learn more about the differences between [Topaz and Aserto](/docs/overview/aserto-vs-topaz.mdx).
 
 Otherwise, let's dive deeper into the [Aserto Concepts](/docs/overview/introduction).
