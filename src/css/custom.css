@@ -159,3 +159,28 @@ html[data-theme='dark'] .main-wrapper aside {
 .table-of-contents {
   font-size: 14px;
 }
+
+.toc {
+  position: sticky;
+  top: calc(var(--ifm-navbar-height));
+  max-height: calc(100vh - var(--ifm-navbar-height));
+}
+
+.toc-links {
+  margin-left: 15px;
+  margin-top: 5px;
+  display: flex;
+}
+
+.toc-slack-icon {
+  margin-left: 20px;
+}
+
+.toc-community-slack {
+  margin-top: -2px;
+  margin-left: 7px;
+}
+
+.toc-separator {
+  opacity: 0.5;
+}
