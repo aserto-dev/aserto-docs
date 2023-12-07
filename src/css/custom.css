@@ -205,6 +205,7 @@ html[data-theme='light'] .toc-container {
 #__docusaurus > div.announcementBar_node_modules-\@docusaurus-theme-classic-lib-theme-AnnouncementBar-styles-module {
   border-bottom-width: 0px;
 }
-.announcementBar_mb4j {
+#__docusaurus > div.announcementBar_mb4j {
   border-bottom-width: 0px;
 }
+
