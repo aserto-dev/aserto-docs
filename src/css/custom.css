@@ -70,7 +70,7 @@
   --ifm-navbar-link-hover-color: #e7e7e7;
 
   /* adjust navbar height */
-  --ifm-navbar-height: 111px;
+  --ifm-navbar-height: 81px;
 }
 
 .docusaurus-highlight-code-line {
@@ -199,4 +199,8 @@ html[data-theme='light'] .toc-container {
 
 .toc-separator {
   opacity: 0.5;
+}
+
+#__docusaurus > div.announcementBar_node_modules-\@docusaurus-theme-classic-lib-theme-AnnouncementBar-styles-module {
+  border-bottom-width: 0px;
 }
