@@ -34,6 +34,7 @@ module.exports = {
         'overview/control-plane',
         'overview/connections',
         'overview/organization',
+        'overview/aserto-vs-topaz',
       ],
     },
     {
