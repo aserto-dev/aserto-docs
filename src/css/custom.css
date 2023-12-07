@@ -201,6 +201,10 @@ html[data-theme='light'] .toc-container {
   opacity: 0.5;
 }
 
+/* hacks to fix announcement bar bottom border */
 #__docusaurus > div.announcementBar_node_modules-\@docusaurus-theme-classic-lib-theme-AnnouncementBar-styles-module {
+  border-bottom-width: 0px;
+}
+.announcementBar_mb4j {
   border-bottom-width: 0px;
 }
