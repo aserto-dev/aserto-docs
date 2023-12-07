@@ -1,0 +1,71 @@
+---
+sidebar_label: Aserto vs Topaz
+title: Concepts - Aserto vs Topaz
+description: What Aserto adds to Topaz
+---
+
+# Aserto vs Topaz
+
+[Topaz](https://www.topaz.sh) is a standalone open source authorization engine that can be used free of charge to build your own authorization service.
+
+Aserto's commercial offering is meant to help organizations that are trying to scale their authorization to multiple policies, applications, data sources, and authorizers. This topic provides an overview of the advantages of using Aserto instead of solving these problems on your own.
+
+## Automated policy-as-code workflow
+
+Topaz leverages OPA policies to express authorization logic as code. This mirrors the way that configuration or infrastructure can be expressed as code. The advantages of this approach are the ability to easily understand policy changes as code diffs, use `git` as a versioning and review workflow for policy changes, and get audit trails for policy changes "for free".
+
+Many organizations choose to create a continuous integration and delivery (CI/CD) pipeline for their code artifacts, and Aserto makes it easy to set up a CI/CD workflow for your authorization policies.
+
+Aserto supports both [GitHub](/docs/aserto-console/connections/setup-github.mdx) and [GitLab](/docs/aserto-console/connections/setup-gitlab.mdx) as source code control systems.
+
+## Built-in policy registry
+
+Topaz consumes policies as OCI images, and can be configured to retrieve them from any OCIv2-compatible OCI registry, such as GitHub Container Registry, AWS ECR, Azure Container Registry, Google Artifact Repository, etc.
+
+Aserto includes a purpose-built policy registry for managing your policy images, which works hand-in-hand with the policy-as-code workflow and the Aserto Control Plane to streamline the build-tag-push workflow for policy images.
+
+## Eventing fabric for high-speed policy change propagation
+
+Topaz leverages the OPA polling mechanism for refreshing policies. When a new policy image becomes available in a policy registry, it will be distributed across the Topaz instances that have loaded the policy over the polling period (usually set to a minute or two).  If multiple Topaz instances are serving the same policy, these instances may receive the policy at different intervals and therefore serve different results.
+
+Aserto provides an eventing fabric via the [Control Plane](/docs/overview/control-plane.mdx). Each Topaz instance that is connected to the control plane will receive an event that a new policy image is available, and can then immediately retrieve the new image. Updated policy instances converge to the new policy version in under a second.
+
+## Central directory for managing objects and relations
+
+Each Topaz instance has an embedded database that stores object and relationship data. The Aserto [Directory](/docs/overview/directory.mdx) functions as a central store for managing this data. When running multiple Topaz instances that are meant to have the same data, updating the data in the central directory will result in all the Topaz instances receiving these updates, as opposed to having to coordinate the data across all the distributed Topaz instances "by hand".
+
+Much like policies, this is done via the [Control Plane](/docs/overview/control-plane.mdx), which can deliver data sync events to the Topaz authorizers taht are connected to it.
+
+## Management Console / UI experience
+
+Topaz has a built-in UI for visualizing policies, manifests, and data. The [Aserto Console](/docs/aserto-console/introduction.mdx) scales this experience into a full-fledged a management console that can be used to administer multiple policies, authorizers, and tenants.
+
+## Administration and management of many authorizers
+
+Topaz authorizers can register with the control plane by establishing a secure mutual TLS connection. The Aserto Console makes it easy to manage the authorizers that are connected to the control plane, including certificate rotation, policy versioning, and sending events over the control plane.
+
+## Scaling authorization across many policies and applications
+
+Each Topaz instance runs exactly one policy, typically for a single application. Aserto helps you scale the management of multiple policies for multiple applications. Each policy image can have one or more instances, and each instance can have one or more Topaz authorizers bound to it.
+
+## Connectors to identity providers / policy information points
+
+The data that Topaz manages often includes users, groups, and group memberships. These can easily be imported into the Aserto Directory as a set of objects and relationships. Aserto has native support for many identity providers, including [Auth0](/docs/aserto-console/connections/setup-auth0.mdx), [AWS Cognito](/docs/aserto-console/connections/setup-cognito.mdx), [Entra (Azure AD)](/docs/aserto-console/connections/setup-azuread.mdx), [Google](/docs/aserto-console/connections/setup-google.mdx), and [Okta](/docs/aserto-console/connections/setup-okta.mdx).
+
+## Local hosting of the relational directory and other CP components
+
+Topaz contains an embedded database that can easily scale to many thousands of objects and relations. However, sometimes it's desireable to have the data stored in a relational database, such as Postgres. The Aserto Central Directory is a scalable Postgres-backed directory implementation.
+
+The Aserto commercial solution allows [local hosting](/docs/local-deployment/local-directory/overview.mdx) of the Postgres-backed directory implementation. This enables four benefits:
+* scale to millions of objects and relationships
+* utilize your cloud provider's managed database solution (e.g. AWS RDS) for clustering and backups
+* never have your authorization data leave your premises / VPC
+* run Topaz authorizers in "stateless" mode by connecting them to the locally hosted Aserto Directory, eliminating the need for the Topaz instances to cache their own data.
+
+## Decision log aggregation and retention
+
+Topaz can be configured to emit and store [decision logs](/docs/overview/decision-logs) on a local volume. When a Topaz authorizer is connected to the Control Plane, it can be configured to push its decision logs to a centralized log service, which supports a guaranteed (exactly-once, in-order) delivery semantic. Logs are aggregated per-policy, and made available for batch upload or streaming into your logging / SIEM system, such as Elastic or Splunk.
+
+## Enterprise support
+
+Last but not least, Aserto commercial plans include enterprise support for Topaz.
