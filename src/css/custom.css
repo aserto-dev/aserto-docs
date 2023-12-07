@@ -68,6 +68,9 @@
   /* header theme adjustments - these don't seem to work */
   --ifm-navbar-link-color: #a0a0a0;
   --ifm-navbar-link-hover-color: #e7e7e7;
+
+  /* adjust navbar height */
+  --ifm-navbar-height: 81px;
 }
 
 .docusaurus-highlight-code-line {
@@ -159,3 +162,50 @@ html[data-theme='dark'] .main-wrapper aside {
 .table-of-contents {
   font-size: 14px;
 }
+
+.toc {
+  position: sticky;
+  top: calc(var(--ifm-navbar-height));
+  max-height: calc(100vh - var(--ifm-navbar-height));
+}
+
+.toc-container {
+  position: relative;
+  z-index: 10;
+}
+
+html[data-theme='dark'] .toc-container {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme='light'] .toc-container {
+  background-color: #ffffff;
+}
+
+.toc-links {
+  margin-left: 15px;
+  margin-top: 5px;
+  display: flex;
+}
+
+.toc-slack-icon {
+  margin-left: 20px;
+}
+
+.toc-community-slack {
+  margin-top: -2px;
+  margin-left: 7px;
+}
+
+.toc-separator {
+  opacity: 0.5;
+}
+
+/* hacks to fix announcement bar bottom border */
+#__docusaurus > div.announcementBar_node_modules-\@docusaurus-theme-classic-lib-theme-AnnouncementBar-styles-module {
+  border-bottom-width: 0px;
+}
+#__docusaurus > div.announcementBar_mb4j {
+  border-bottom-width: 0px;
+}
+

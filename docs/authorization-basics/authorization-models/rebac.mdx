@@ -4,7 +4,7 @@ title: Relationship-based Access Control (ReBAC)
 ---
 <img width="60%" src="https://cdn.sanity.io/images/4gqsq44z/production/f1c0fdaab8e232d83156f2987513f079c4b648cf-1600x1000.png"/>
 
-# Overview
+## Overview
 ReBAC is an authorization model that assigns permissions based on relations between resources. Relations include data ownership, parent-child relationships, groups, and hierarchies. Google Zanzibar, the authorization system for Drive, YouTube, and other Google services, is most commonly associated with this authorization model.
 
 ReBAC allows organizations to model their application’s resource hierarchy so that the authorization model matches it. Most B2B apps have tenants or organizations at the top of their resource hierarchy, followed other object types, such as teams, projects, lists, folders, and even individual items. ReBAC allows organizations to restrict access at any level of the hierarchy and apply the *principle of least privilege* using fine-grained access control.
