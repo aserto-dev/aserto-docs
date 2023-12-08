@@ -175,7 +175,7 @@ html[data-theme='dark'] .main-wrapper aside {
 }
 
 html[data-theme='dark'] .toc-container {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: #1b1b1d;
 }
 
 html[data-theme='light'] .toc-container {
@@ -198,7 +198,7 @@ html[data-theme='light'] .toc-container {
 }
 
 .toc-separator {
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 /* hacks to fix announcement bar bottom border */
