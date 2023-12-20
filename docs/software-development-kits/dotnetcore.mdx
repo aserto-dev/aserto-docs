@@ -40,7 +40,8 @@ The following configuration settings are required for Aserto.AspNetCore middlewa
 "Aserto": {
     "AuthorizerApiKey": "YOUR_AUTHORIZER_API_KEY",
     "TenantID": "YOUR_ASERTO_TENANTID",
-    "PolicyID": "YOUR_ASERTO_POLICY_ID",
+    "PolicyName": "YOUR_POLICY_NAME",
+    "PolicyInstanceLabel": "YOUR_POLICY_INSTANCE_LABEL",
     "PolicyRoot": "YOUR_POLICY_ROOT"
 }
 ```
@@ -444,13 +445,14 @@ To enable Aserto authorization, you need to add a dependency to the Aserto dotne
 $dotnetmvc/src/QuickstartMVC$ dotnet add package Aserto.AspNetCore.Middleware
 ```
 
-Configure the Authorizer API Key, Tenant ID, Policy root and Policy ID in the `appsettings.json`:
+Configure the Authorizer API Key, Tenant ID, Policy root and Policy Name and Instance label in the `appsettings.json`:
 
 ```json
 "Aserto": {
     "AuthorizerApiKey": "YOUR_AUTHORIZER_API_KEY",
     "TenantID": "YOUR_ASERTO_TENANT_ID",
-    "PolicyID": "YOUR_ASERTO_POLICY_ID",
+    "PolicyName": "YOUR_POLICY_NAME",
+    "PolicyInstanceLabel": "YOUR_POLICY_INSTANCE_LABEL",
     "PolicyRoot": "quickstartmvc"
 }
 ```
