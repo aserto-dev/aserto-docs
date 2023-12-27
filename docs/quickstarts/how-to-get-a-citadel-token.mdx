@@ -29,6 +29,20 @@ The response will contain a JSON which contains an access token and an ID token.
 {"access_token":"eyJh...","token_type":"bearer","expires_in":86399,"id_token":"eyJh..."}
 ```
 
+:::tip
+You can automatically copy the token into the clipboard, by using the `jq` and `pbcopy` commands. If you do not have `jq` you can install it on Mac using `brew` or follow the instructions [here](https://jqlang.github.io/jq/download/). Then use the following `curl`:
+
+```ssh
+curl -X POST \
+  --url https://aserto-console-backend.eng.aserto.com/api/v1/dex/token \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"username": "<email>",
+	"password": "<password>"
+}' | jq -r '.access_token' | pbcopy
+```
+:::
+
 ## Example
 
 As an example, assume we we want to test out the `resource` API from the Simple RBAC and see if Morty is able to delete a mega-seed. 
