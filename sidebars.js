@@ -79,6 +79,7 @@ module.exports = {
             'quickstarts/react/conditional-ui-rendering',
           ],
         },
+        'quickstarts/how-to-get-a-citadel-token',
       ],
     },
     {

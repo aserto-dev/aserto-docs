@@ -1,0 +1,87 @@
+---
+sidebar_label: Citadel Tokens
+title:  Creating Citadel JWTs
+description: How to create Citadel JWTs for calling Aserto Quickstart APIs
+---
+
+# Creating Citadel JWTs
+
+## Overview 
+When testing out the sample applications included as part of the Todo or Simple RBAC quickstarts, you will need to pass in an authorization header with a [JWT](https://jwt.io/introduction) for the user. These samples all use the **Citadel Demo IDP**, which contains five users based on the Rick & Morty cartoon. Aserto provides an API for creating Citadel access tokens, which can easily be invoked via `curl`.
+
+## Creating a token
+To create a token use the following curl:
+
+```ssh
+curl -X POST \
+  --url https://aserto-console-backend.eng.aserto.com/api/v1/dex/token \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"username": "<email>",
+	"password": "<password>"
+}'
+```
+
+The JSON response contains an access token and an ID token. You'll want to use the access token.
+
+```ssh
+{"access_token":"eyJh...","token_type":"bearer","expires_in":86399,"id_token":"eyJh..."}
+```
+
+:::tip
+On a Mac, you can automatically copy the token into the clipboard, by using the `jq` and `pbcopy` commands. If you do not have `jq` you can install it using `brew` or follow the instructions [here](https://jqlang.github.io/jq/download/). Then use the following `curl`:
+
+```ssh
+curl -X POST \
+  --url https://aserto-console-backend.eng.aserto.com/api/v1/dex/token \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"username": "<email>",
+	"password": "<password>"
+}' | jq -r '.access_token' | pbcopy
+```
+:::
+
+## Example
+
+As an example, assume we we want to test out the `resource` API in the Simple RBAC demo application, and see if Morty is able to delete a `mega-seed`.
+
+### Creating the token
+
+First we'll issue the curl to create Morty's token:
+
+```ssh
+curl -X POST \
+  --url https://aserto-console-backend.eng.aserto.com/api/v1/dex/token \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"username": "morty@the-citadel.com",
+	"password": "V@erySecre#t123!"
+}'
+```
+
+We'll get back a response similar to the following with the token.
+
+```ssh
+{"access_token":"eyJ...","token_type":"bearer","expires_in":86399,"id_token":"eyJ..."}
+```
+
+### Using the token
+
+Copy the `access_token` and use it with the DELETE `curl` request.
+
+```
+curl -X DELETE http://localhost:3001/resource/mega-seed \
+-H 'Authorization: Bearer eyJ...'
+```
+
+You should receive the following response indicating the request was successful.
+
+```ssh
+Hello from DELETE /resource/mega-seed
+``` 
+
+
+
+
+
