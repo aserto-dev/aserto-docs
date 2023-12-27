@@ -4,12 +4,13 @@ title:  How to create Citadel JWTs
 description: How to Citadel JWTs for calling Aserto Quickstart APIs
 ---
 
-# Overview
+# How to create Citadel JWTs
 
+## Overview 
 When testing out Aserto Quickstart APIs such as Todo or Simple RBAC, you will often need multiple Citadel [JWTs](https://jwt.io/introduction) for different users. Aserto provides an API for creating Citadel tokens which can easily be invoked via `curl`.
 
 
-# Creating a token
+## Creating a token
 To create a token use the following format:
 
 ```ssh
@@ -28,11 +29,11 @@ The response will contain a JSON which contains an access token and an ID token.
 {"access_token":"eyJh...","token_type":"bearer","expires_in":86399,"id_token":"eyJh..."}
 ```
 
-# Example
+## Example
 
 As an example, assume we we want to test out the `resource` API from the Simple RBAC and see if Morty is able to delete a mega-seed. 
 
-## Create the token
+### Creating the token
 
 First we'll issue the curl to create Rick's token
 
@@ -52,7 +53,7 @@ We'll get back a response similar to the following with the token.
 {"access_token":"eyJ...","token_type":"bearer","expires_in":86399,"id_token":"eyJ..."}
 ```
 
-## Use the token
+### Using the token
 
 Copy the access_token and use it with the DELETE `curl` request.
 
