@@ -40,7 +40,6 @@ module.exports = {
     {
       Quickstarts: [
         'quickstarts/overview',
-        'quickstarts/how-to-get-a-citadel-token',
         {
           type: 'category',
           label: 'Todo',
@@ -80,6 +79,7 @@ module.exports = {
             'quickstarts/react/conditional-ui-rendering',
           ],
         },
+        'quickstarts/how-to-get-a-citadel-token',
       ],
     },
     {
