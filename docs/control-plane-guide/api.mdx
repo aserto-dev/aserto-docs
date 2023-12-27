@@ -1,0 +1,74 @@
+---
+sidebar_label: API
+title: Sending a command via the API
+description: Sending a control plane command via the API
+---
+
+# Sending a command via the REST API
+
+## Required information
+
+There are three pieces of information that are required to send a command to an Edge Authorizer via the REST API:
+1. The Edge Authorizer's instance ID
+2. The Tenant ID for the account/organization
+3. The Discovery API key for the tenant
+
+### Instance ID
+
+The instance ID can be obtained from the Authorizers tab:
+
+<img src="/control-plane-instance-id.png" alt="control plane instance ID" />
+
+### Tenant ID
+
+For a personal account, the tenant ID can be obtained from the Account Settings page. For an organization, the tenant ID can be obtained from the Manage Organization page.
+
+### Discovery API key
+
+The Discovery API key can be obtained from the Connections tab:
+
+<img src="/discovery-api-key.png" alt="discovery api key" />
+
+## Available commands
+
+Two commands are available to send to connected Edge Authorizers:
+* Sync Policy Instance: this will short-circuit the OPA Discovery timer and force an immediate download of a policy image
+* Sync Edge Directory: this will short-circuit the Directory timer and force an immediage sync of any new manifest or data in the Central Directory
+
+Both of these commands can be invoked by sending the following REST calls to the `relay` endpoint.
+
+### Issue a Discovery (Policy Download) API call
+
+```bash
+curl -X POST 'https://relay.prod.aserto.com/api/v2/management/control_plane/exec' \
+  -H 'content-type: application/json' \
+  -H 'aserto-tenant-id: <Aserto-Tenant-ID>' \
+  -H 'Authorization: basic <Discovery-API-key> \
+  -d '{"id":"<Instance-ID>","command":{"discovery":{}}}' 
+```
+
+A successful response looks like this:
+
+```json
+{
+  "result": {}
+}
+```
+
+### Issue a Directory Sync API call
+
+```bash
+curl -X POST 'https://relay.prod.aserto.com/api/v2/management/control_plane/exec' \
+  -H 'content-type: application/json' \
+  -H 'aserto-tenant-id: <Aserto-Tenant-ID>' \
+  -H 'Authorization: basic <Discovery-API-key> \
+  -d '{"id":"<Instance-ID>","command":{"sync_edge_directory":{}}}' 
+```
+
+A successful response looks like this:
+
+```json
+{
+  "result": {}
+}
+```

@@ -1,0 +1,60 @@
+---
+sidebar_label: CLI
+title: Sending a command via the CLI
+description: Sending a control plane command via the Aserto CLI
+---
+
+# Sending a command via the CLI
+
+The `aserto` CLI can be used to send commands to Edge Authorizer instances.
+
+## Required information
+
+Once logged in, the `aserto` CLI will already have the Tenant ID and authorization information to communicate with the `relay` endpoint. You will need to determine the registered instance ID. You can either do this via the [console](/docs/control-plane-guide/api#instance-id), or via the CLI.
+
+```bash
+aserto control-plane list-instance-registrations
+```
+
+This will return a JSON array with all the Topaz instances that have registered with the control plane, in the following format:
+
+```json
+[
+  {
+    "id": "0c0607e8-3689-491f-b42f-f9eb24409abb",
+    "info": {
+      "policy_id": "a4966ba0-b626-11ec-810f-018dbb604591",
+      "policy_label": "todo",
+      "remote_host": "29f48f6dc3f1",
+      "connection_id": "bc1bbfe2-20c8-11ee-9069-031f1f3ef1c7",
+      "certificate_id": "7a:b9:5c:b9:31:4c:81:00:8a:97:5b:c4:f7:1d:4e:02:b8:40:b1:e4",
+      "policy_name": "todo"
+    }
+  },
+  ...
+]
+```
+
+The `id` field is the one that's required to send control plane commands to the instance.
+
+## Available commands
+
+Two commands are available to send to connected Edge Authorizers:
+* Discovery: this will short-circuit the OPA Discovery timer and force an immediate download of a policy image
+* Sync Edge Directory: this will short-circuit the Directory timer and force an immediage sync of any new manifest or data in the Central Directory
+
+### Discovery (Sync Policy Instance)
+
+```bash
+aserto control-plane discovery <Instance-ID>
+```
+
+A successful call will return nothing.
+
+### Sync Edge Directory
+
+```bash
+aserto control-plane edge-dir-sync <Instance-ID>
+```
+
+A successful call will return nothing.

@@ -11,6 +11,8 @@ The Aserto Control Plane provides a central management layer for Topaz authorize
 * Directory management: data changes to the central directory are distributed to Topaz instances using the same fabric.
 * Decision log aggregation: decision logs gathered by the Topaz instances are collected and transmitted to the Control Plane using exactly-once, in-order semantics. They are then aggregated into a composite decision log interface, which can be streamed or batched into a customer's logging / SIEM system.
 
+When a Topaz instance connects to the Control Plane, we call it an [Edge Authorizer](/docs/edge-authorizers/overview.mdx). The Control Plane can relay commands to the edge authorizers that are connected to it. See the [API topic](/docs/control-plane-guide/overview.mdx) for more information.
+
 ## Tenants
 
 An Aserto tenant provides the scoping and isolation mechanism for artifacts managed by the Aserto Control Plane. There 

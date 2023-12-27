@@ -1,0 +1,24 @@
+---
+sidebar_label: Overview
+title: Control Plane Overview
+description: An overview of the Control Plane 
+---
+
+# Overview
+
+When a Topaz authorizer connects to the Control Plane, we call it an [Edge Authorizer](/docs/edge-authorizers/overview.mdx). Topaz makes an outgoing mTLS connection, which enables bidirectional communication between Topaz and the Control Plane.
+
+## Topaz outgoing messages
+
+Topaz stores decision logs on a local volume. When connected to the control plane, it will send these decision logs to the control plane, preserving durability, and utilizing exactly-once, in-order semantics.  Once the decision logs are durably stored in Aserto's cloud object storage, these logs are available for consumption using the [Decision Log APIs](/docs/decision-logs-guide/overview.mdx).
+
+## Topaz incoming commands
+
+The Control Plane can send commands to Edge Authorizers using the Relay service.  The Relay supports two commands:
+* Invoking OPA Discovery, which will immediately download a new policy image if one is available, short-circuiting the polling timer.
+* Invoking the Directory synchronization logic in Topaz, which will immediately download any new manifest and/or data changes and synchronize them with the local Topaz directory.
+
+These commands can be sent via three mechanisms:
+* The [Aserto Console](/docs/control-plane-guide/console#sending-commands-to-instances)
+* The [Aserto CLI](/docs/control-plane-guide/cli.mdx)
+* A [REST API](/docs/control-plane-guide/api.mdx) call
