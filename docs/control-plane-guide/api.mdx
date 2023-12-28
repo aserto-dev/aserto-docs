@@ -13,9 +13,13 @@ There are three pieces of information that are required to send a command to an 
 2. The Tenant ID for the account/organization
 3. The Discovery API key for the tenant
 
+:::tip Tip
+See the script [below](#scripting-commands) for a way to obtain the Instance ID for an Aserto Tenant and Edge Authorizer connection, and send a command to that instance.
+:::
+
 ### Instance ID
 
-The instance ID can be obtained from the Authorizers tab:
+The instance ID shows up in the Authorizers tab:
 
 <img src="/control-plane-instance-id.png" alt="control plane instance ID" />
 
@@ -71,4 +75,27 @@ A successful response looks like this:
 {
   "result": {}
 }
+```
+
+## Scripting commands
+
+```bash
+CONNECTION_ID=<Edge-Authorizer-Connection-ID>
+ASERTO_TENANT_ID=<Aserto-Tenant-ID>
+ASERTO_DISCOVER_KEY=<Aserto-Discovery-API-key>
+
+INSTANCE_ID=$(curl -s 'https://relay.prod.aserto.com/api/v2/management/control_plane/instance_registrations' \
+    -H 'aserto-tenant-id: '${ASERTO_TENANT_ID} \
+    -H 'authorization: basic '${ASERTO_DISCOVER_KEY} \
+    -H 'content-type: application/json' | jq -r '.result[] | select (.info.connection_id == '\"$CONNECTION_ID\"' ) .id')
+
+echo "TENANT_ID     = ${ASERTO_TENANT_ID}"
+echo "CONNECTION_ID = ${CONNECTION_ID}"
+echo "INSTANCE_ID   = ${INSTANCE_ID}"
+
+curl -X POST 'https://relay.prod.aserto.com/api/v2/management/control_plane/exec' \
+    -H 'content-type: application/json' \
+    -H 'aserto-tenant-id: '${ASERTO_TENANT_ID} \
+    -H 'authorization: basic '${ASERTO_DISCOVER_KEY} \
+    --data-raw '{"id":'\"$INSTANCE_ID\"',"command":{"sync_edge_directory":{}}}'
 ```

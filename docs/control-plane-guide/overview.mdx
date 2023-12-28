@@ -18,7 +18,18 @@ The Control Plane can send commands to Edge Authorizers using the Relay service.
 * Invoking OPA Discovery, which will immediately download a new policy image if one is available, short-circuiting the polling timer.
 * Invoking the Directory synchronization logic in Topaz, which will immediately download any new manifest and/or data changes and synchronize them with the local Topaz directory.
 
-These commands can be sent via three mechanisms:
+### Commands sent automatically
+
+When the Aserto Control Plane detects that a new policy image is available in the Aserto Policy Registry, it will automatically send the command to short-circuit OPA Discovery.
+
+### Scenarios for sending commands manually
+
+1. If you're using a different OCI v2 artifact registry (such as AWS ECR, Azure Container Registry, Google Artifact Registry, GitHub Container Registry, etc), you may elect to use the control plane to send the OPA Discovery message using the API as part of your CI workflow.
+2. If you need to trigger a directory sync right after you write objects or relations to the Aserto Central Directory, you can use the control plane to send the Sync Edge Directory command using the API.
+
+### Sending control plane commands
+
+The control plane commands can be sent via three mechanisms:
 * The [Aserto Console](/docs/control-plane-guide/console#sending-commands-to-instances)
 * The [Aserto CLI](/docs/control-plane-guide/cli.mdx)
 * A [REST API](/docs/control-plane-guide/api.mdx) call
