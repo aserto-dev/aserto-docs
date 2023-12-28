@@ -31,6 +31,7 @@ module.exports = {
         'overview/policy',
         'overview/directory',
         'overview/decision-logs',
+        'overview/tenant',
         'overview/control-plane',
         'overview/connections',
         'overview/organization',
