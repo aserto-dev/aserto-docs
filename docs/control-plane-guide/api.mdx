@@ -36,8 +36,8 @@ The Discovery API key can be obtained from the Connections tab:
 ## Available commands
 
 Two commands are available to send to connected Edge Authorizers:
-* Sync Policy Instance: this will short-circuit the OPA Discovery timer and force an immediate download of a policy image
-* Sync Edge Directory: this will short-circuit the Directory timer and force an immediage sync of any new manifest or data in the Central Directory
+* Sync Policy Instance: this short-circuits the OPA Discovery timer and forces an immediate download of a policy image.
+* Sync Edge Directory: this short-circuits the Directory timer and forces an immediate sync of any new manifest or data in the Central Directory.
 
 Both of these commands can be invoked by sending the following REST calls to the `relay` endpoint.
 
@@ -79,7 +79,7 @@ A successful response looks like this:
 
 ## Scripting commands
 
-The following script will obtain the Instance ID from the Edge Authorizer Connection ID, Aserto Tenant ID, and Discovery API key, and send a `sync_edge_directory` command to the control plane, triggering an Edge Directory sync:
+The following script obtains the Instance ID from the Edge Authorizer Connection ID, Aserto Tenant ID, and Discovery API key. It then sends a `sync_edge_directory` command to the control plane, triggering an Edge Directory sync:
 
 ```bash
 CONNECTION_ID=<Edge-Authorizer-Connection-ID>
