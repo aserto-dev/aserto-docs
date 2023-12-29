@@ -31,6 +31,7 @@ module.exports = {
         'overview/policy',
         'overview/directory',
         'overview/decision-logs',
+        'overview/tenant',
         'overview/control-plane',
         'overview/connections',
         'overview/organization',
@@ -140,6 +141,7 @@ module.exports = {
         'aserto-console/view-policies',
         'overview/policy-lifecycle',
         'decision-logs-guide/console',
+        'control-plane-guide/console',
         'aserto-console/manage-organizations',
       ],
     },
@@ -318,6 +320,13 @@ module.exports = {
             'authorizer-guide/built-ins',
             'authorizer-guide/grpc'
           ],
+        },
+        {
+          'Control Plane': [
+            'control-plane-guide/overview',
+            'control-plane-guide/cli',
+            'control-plane-guide/api',
+          ]
         },
         {
           'Decision Logs': [

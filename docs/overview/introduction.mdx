@@ -10,10 +10,14 @@ As shown in the Aserto Architecture [diagram](../architecture), Aserto's platfor
 
 ## Overview of Concepts
 
-* [Authorizer](authorizer): the component that makes authorization decisions on whether or not a user is allowed to perform an operation on a resource.
+Authorization:
+* [Authorizer](authorizer): the component that makes authorization decisions on whether or not a user is allowed to perform an operation on a resource. Aserto uses [Topaz](https://topaz.sh) as its authorizer.
 * [Policy](policy): defines the rules for making authorization decisions.
 * [Directory](directory): stores a graph of subjects (such as users and groups), objects (including any properties used for authorization purposes), and the relationships between them, all of which can be used by the policy.
 * [Decision Logs](decision-logs): records of decisions performed by Authorizers.
-* [Control Plane](control-plane): manages the lifecycle of the policies, user context, and resource data used by the Authorizer.
+
+Management:
+* [Tenant](tenant): the unit of isolation and management of Policy Instances, Policy Images, Directory data, Decision Logs, Connections, and Edge Authorizers.
+* [Control Plane](control-plane): manages Edge Authorizers: keeps policy and data up-to-date, aggregates Decision Logs, and sends remote commands to Edge Authorizers.
 * [Connections](connections): connections to external systems such as Identity Providers (which are often the source of Directory data) and Source Code Control Systems (which are where policies are stored and versioned).
-* [Organization](organization): also known as an Aserto Tenant - a container of per-tenant artifacts managed by Aserto including Connections, Policies, Directory data, and Decision Logs.
+* [Organization](organization): a type of tenant that is shared across multiple collaborators, and enforces an RBAC model.
