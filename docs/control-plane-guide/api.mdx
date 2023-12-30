@@ -1,0 +1,103 @@
+---
+sidebar_label: API
+title: Sending a command via the API
+description: Sending a control plane command via the API
+---
+
+# Sending a command via the REST API
+
+## Required information
+
+There are three pieces of information that are required to send a command to an Edge Authorizer via the REST API:
+1. The Edge Authorizer's instance ID
+2. The Tenant ID for the account/organization
+3. The Discovery API key for the tenant
+
+:::tip Tip
+See the script [below](#scripting-commands) for a way to obtain the Instance ID for an Aserto Tenant and Edge Authorizer connection, and send a command to that instance.
+:::
+
+### Instance ID
+
+The instance ID shows up in the Authorizers tab:
+
+<img src="/control-plane-instance-id.png" alt="control plane instance ID" />
+
+### Tenant ID
+
+For a personal account, the tenant ID can be obtained from the Account Settings page. For an organization, the tenant ID can be obtained from the Manage Organization page.
+
+### Discovery API key
+
+The Discovery API key can be obtained from the Connections tab:
+
+<img src="/discovery-api-key.png" alt="discovery api key" />
+
+## Available commands
+
+Two commands are available to send to connected Edge Authorizers:
+* Sync Policy Instance: this short-circuits the OPA Discovery timer and forces an immediate download of a policy image.
+* Sync Edge Directory: this short-circuits the Directory timer and forces an immediate sync of any new manifest or data in the Central Directory.
+
+Both of these commands can be invoked by sending the following REST calls to the `relay` endpoint.
+
+### Issue a Discovery (Policy Download) API call
+
+```bash
+curl -X POST 'https://relay.prod.aserto.com/api/v2/management/control_plane/exec' \
+  -H 'content-type: application/json' \
+  -H 'aserto-tenant-id: <Aserto-Tenant-ID>' \
+  -H 'Authorization: basic <Discovery-API-key> \
+  -d '{"id":"<Instance-ID>","command":{"discovery":{}}}' 
+```
+
+A successful response looks like this:
+
+```json
+{
+  "result": {}
+}
+```
+
+### Issue a Directory Sync API call
+
+```bash
+curl -X POST 'https://relay.prod.aserto.com/api/v2/management/control_plane/exec' \
+  -H 'content-type: application/json' \
+  -H 'aserto-tenant-id: <Aserto-Tenant-ID>' \
+  -H 'Authorization: basic <Discovery-API-key> \
+  -d '{"id":"<Instance-ID>","command":{"sync_edge_directory":{}}}' 
+```
+
+A successful response looks like this:
+
+```json
+{
+  "result": {}
+}
+```
+
+## Scripting commands
+
+The following script obtains the Instance ID from the Edge Authorizer Connection ID, Aserto Tenant ID, and Discovery API key. It then sends a `sync_edge_directory` command to the control plane, triggering an Edge Directory sync:
+
+```bash
+CONNECTION_ID=<Edge-Authorizer-Connection-ID>
+ASERTO_TENANT_ID=<Aserto-Tenant-ID>
+ASERTO_DISCOVER_KEY=<Aserto-Discovery-API-key>
+
+INSTANCE_ID=$(curl -s 'https://relay.prod.aserto.com/api/v2/management/control_plane/instance_registrations' \
+    -H 'aserto-tenant-id: '${ASERTO_TENANT_ID} \
+    -H 'authorization: basic '${ASERTO_DISCOVER_KEY} \
+    -H 'content-type: application/json' | jq -r '.result[] | select (.info.connection_id == '\"$CONNECTION_ID\"' ) .id')
+
+echo "TENANT_ID     = ${ASERTO_TENANT_ID}"
+echo "CONNECTION_ID = ${CONNECTION_ID}"
+echo "INSTANCE_ID   = ${INSTANCE_ID}"
+
+curl -X POST 'https://relay.prod.aserto.com/api/v2/management/control_plane/exec' \
+    -H 'content-type: application/json' \
+    -H 'aserto-tenant-id: '${ASERTO_TENANT_ID} \
+    -H 'authorization: basic '${ASERTO_DISCOVER_KEY} \
+    --data-raw '{"id":'\"$INSTANCE_ID\"',"command":{"sync_edge_directory":{}}}'
+```

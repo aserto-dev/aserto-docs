@@ -1,19 +1,29 @@
 ---
-sidebar_label: Organizations
-title: Concepts - Organizations
-description: Aserto Organizations, artifacts and role based-access control
+sidebar_label: Tenants
+title: Concepts - Tenants
+description: Aserto Tenants
 ---
 
-# Aserto Organizations
+# Aserto Tenants
 
-An organization is a production-level [tenant](/docs/overview/tenant). It provides the unit of scoping and isolation for the artifacts that are managed by Aserto -
+The tenant provides the unit of scoping and isolation for the artifacts that are managed by Aserto -
 [_connections_](/docs/overview/connections), [_policies_](/docs/overview/policy), [_directory_](/docs/overview/directory), and [_decision logs_](/docs/overview/decision-logs).
 
-Every organization has at least one owner. It can also have admins, members, and viewers.
+There are two types of tenants:
+* **Account** (or Personal tenant): when you sign up for Aserto, you get a free account. An Account is a full tenant, with one restriction: you can't invite others to collaborate with you.
+* **Organization**: a tenant which has at least one owner, who can invite other collaborators. [Organizations](/docs/overview/organization) can have an unlimited number of owners, admins, members, and viewers. This type of tenant is suitable for production workloads that require collaboration.
+
+:::tip
+You can think of an account just like a GitHub account, and an organization just like a GitHub organization.
+:::
+
+## Tenant ID
+
+Each of Aserto's hosted APIs requires a Tenant ID (expressed as a UUID), and is provided as the value of the `Aserto-Tenant-ID` header.
 
 ## Artifacts
 
-Aserto manages the following artifacts for an organization:
+Aserto manages the following artifacts for each tenant:
 
 - [Policy Images](/docs/overview/policy): binary (OCI) images that are built from policy source files, usually sourced from a git repository.
 - [Policy Instances](/docs/overview/policy): named instances of a policy image, which can be bound to Topaz instances and transparently distributed when the policy changes. Each policy instance also has a running *hosted authorizer* associated with it, which can be used to evaluate authorization decisions without having to deploy a local Topaz instance.
@@ -21,18 +31,3 @@ Aserto manages the following artifacts for an organization:
 - [Decision logs](/docs/overview/decision-logs): each policy instance include the aggregated decision logs that are gathered from the Topaz instances which are configured for that policy instance.
 - [Edge authorizers](/docs/edge-authorizers/overview.mdx): a Topaz instance can register with the Aserto Control Plane and become an Edge Authorizer, which means that it automatically receives its policy and directory data from the tenant, and sends its decision logs back to the Control Plane.
 - [Connections](/docs/overview/connections): connections to external systems such as source code control systems and identity providers.
-
-## Role-based access control
-
-Naturally, Aserto uses Aserto for authorization, using a simple role-based access control (RBAC) model.
-
-The roles that Aserto supports:
-
-- Owner: can perform all operations on an organization, including inviting other viewers, members, and owners, as well as reset the role of another member of the organization
-- Admin: can perform all operations on an organization except inviting others to the organization or managing organization membership
-- Member: can perform all operations on an organization except inviting others to the organization or managing organization membership
-- Viewer: allowed to see all organization information, but not create or edit any organization artifacts
-
-The Aserto policy for the Aserto API can be found [here](https://github.com/aserto-dev/policy-aona).
-
-Learn more about how to [manage Aserto organizations](/docs/aserto-console/manage-organizations) using the Aserto Console.

@@ -1,0 +1,33 @@
+---
+sidebar_label: Managing Edge Authorizers
+title: Managing Edge Authorizers via the console
+description: Managing Edge Authorizers via the Aserto Console
+---
+
+# Managing Edge Authorizers
+
+The Aserto Console **Authorizers** tab tracks the Edge Authorizer connections, and within each of these connections, the connected instances.
+
+## Creating an Edge Authorizer connection
+
+To connect a Topaz instance as an Edge Authorizer, follow the instructions on [creating an Edge Authorizer connection](/docs/aserto-console/connections/setup-edge.mdx).
+
+## Viewing registered instances
+
+When Topaz is configured to connect to the Control Plane, it will make an mTLS connection and show up as a registered instance. Each Edge Authorizer connection may have one or more registered instances.
+
+<img src="/control-plane-instance-id.png" alt="control plane registrations" />
+
+## Sending commands to instances
+
+Two commands are available to send to connected Edge Authorizers:
+* Sync Policy Instance: this short-circuits the OPA Discovery timer and forces an immediate download of a policy image.
+* Sync Edge Directory: this short-circuits the Directory timer and forces an immediate sync of any new manifest or data in the Central Directory.
+
+See the screenshot below on how to invoke these commands.
+
+<img src="/control-plane-commands.png" alt="control plane commands" />
+
+## Sending commands via the CLI or API
+
+To learn more about sending commands via the Control Plane, refer to the [Control Plane Guide](/docs/control-plane-guide/overview.mdx).
