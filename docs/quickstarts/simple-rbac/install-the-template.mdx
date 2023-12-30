@@ -1,24 +1,24 @@
 ---
-sidebar_label: Install the Template
-title: Install the Simple RBAC template
-description: Install the Simple RBAC template which includes the simple-rebac policy, Demo Citadel IDP, sample objects, and the Quickstart 
+sidebar_label: Instantiate the Template
+title: Instantiate the Simple RBAC template
+description: Instantiate the Simple RBAC template which includes the simple-rbac policy, Demo Citadel IDP, sample objects, and the Quickstart 
 ---
 
-# Install the Simple RBAC template
+# Instantiate the Simple RBAC template
 
-To use Simple RBAC the first thing you need to do is install the Simple RBAC template. This will accomplish the following
+To use Simple RBAC the first thing you need to do is install the Simple RBAC template. This will accomplish the following:
 
-* Create a `simple-rebac` policy instance which uses the `policy-rebac` policy and contains the Simple RBAC Quickstart
-* Install the Citadel Demo IDP which is based on Rick & Morty and contains 5 users.
-* Install the Citadel Data which contains several objects along with permissions, groups, roles, and relations.
+* Create a `simple-rbac` policy instance which uses the `policy-rebac` policy image, and contains the Simple RBAC Quickstart.
+* Install the **Citadel Demo IDP** which is based on the Rick & Morty cartoon and contains 5 users.
+* Install the **Citadel Data** which contains several objects along with relations to the Citadel users.
 
-## Installation
+## Instantiate the template
 
 From the Console, click on the `Policies` tab. This will display the list of available Policy instances. Click on the `Create an instance` button in the upper right corner.
 
 <img src="/quickstart-simple-rbac/simple-rbac-1-policy.png"/>
 
-A create policy instance screen will be displayed with a list of options. Click on "...by instantiating a template".
+The "Create a policy instance" screen will be displayed with a list of options. Click on "...by instantiating a template".
 
 <img src="/quickstart-simple-rbac/simple-rbac-2-create.png" width="50%"/>
 
@@ -26,19 +26,21 @@ Next you'll see the available templates that you can apply. Select `Simple RBAC`
 
 <img src="/quickstart-simple-rbac/simple-rbac-3-apply.png" width="75%"/>
 
-You'll now see a popup warning that all directory data will be removed. When you install a template all existing directory data is removed. _If you previously connected your own identity providers or manually added any data, then it will be erased. The data from the identity providers will be reimported but manual data will be lost.  To proceed, click the `Delete Data` button.
+You'll now see a modal warning that all directory data will be removed. When you install a template, all existing directory data is removed. If you previously connected your own identity providers or manually added any data,  it will be erased. The data from your identity providers will be re-imported, but any data created manually will be lost.  To proceed, click the `Delete Data` button.
 
 <img src="/quickstart-simple-rbac/simple-rbac-4-remove-data.png" width="50%"/>
 
-Once the template has finished installing, you will be taken back to the `Policy instances` screen where you can see the new `simple-rbac` instance has been created. Notice that it relies on the `policy-rebac` image, which is possible because RBAC can be expressed via relationships.  Click on it.
+Once the template has finished installing, you will be taken back to the `Policy instances` screen where you can see the new `simple-rbac` instance has been created. Click on it.
 
 <img src="/quickstart-simple-rbac/simple-rbac-5-created.png" width="50%"/>
 
+:::tip Tip
+Notice that the `simple-rbac` instance relies on the `policy-rebac` policy image: our RBAC scenario is a simple case of a relationship-based access control (ReBAC) model.
+:::
+
 ## Next Steps
 
-You can now see the `simple-rbac` evaluator which you will use in the next topic to test out your policy.
+You should see the `simple-rbac` evaluator, which you will use in the next topic to test out your policy.
 
 <img src="/quickstart-simple-rbac/simple-rbac-6-choose-instance.png" />
-
-
 

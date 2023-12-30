@@ -1,14 +1,16 @@
 # Using the API
 
-The Quickstart provides a helpful tool for generating requests against the API using `curl` and it automatically generates the necessary JWT for authentication and authorization. This will allow you to see Aserto in action. We'll use the same tests that we used for the Evaluator.
+The Quickstart provides a helpful tool for generating `curl` requests to the API, and it automatically generates the necessary JWT for authentication and authorization. This will allow you to see Aserto in action. We'll test the same scenarios that we used for the Evaluator.
 
-From the Quickstart screen, scroll down to Step 3, `Test the demo` app and click the `Test demo app` button.
+From the Quickstart screen, scroll down to Step 3, `Test the demo app` and click the `Test demo app` button.
 
 <img src= "/quickstart-simple-rbac/simple-rbac-12-test-app-step.png" width="50%"/>
 
-## How to use the Test app
+## How to use the testing modal
 
-The Test app screen will open. On the left you can select a User, Resource, and an HTTP Method. Below in the Request box, you can see a `curl` çommand for issuing the reeuest which contains a valid JWT for the selected user. Clicking the "Copy as cUrl" button will copy the command so that you can paste and execute in your shell. On the right you can see the incoming and outgoing relations for the selected User. This is helpful for determining what the expected behavior should be. Select `Morty Smith` and you can see that he has an incoming relation as `owner`, `writer` or `reader` for the resources.
+The testing modal will open. On the left you can select a User, Resource, and an HTTP Method. Below in the Request box, there is a `curl` command for issuing the request, which contains a valid JWT for the selected user. Clicking the "Copy as cURL" button will copy the command so that you can paste and execute in your terminal.
+
+On the right you can see the incoming and outgoing relations for the selected User. This is helpful for determining what the expected behavior should be. Select `Morty Smith` and you can see that he has `owner`, `writer`, or `reader` relations from various resources.
 
 <img src="/quickstart-simple-rbac/simple-rbac-13-morty-relations.png" />
 
@@ -16,49 +18,49 @@ The Test app screen will open. On the left you can select a User, Resource, and 
 
 Now you can try the same scenarios that we tested previously in the Evaluator, only this time going through the API. 
 
-### Scenario 1 - Morty can use the `mega-seed?
+### Scenario 1 - can Morty read the `mega-seed`?
 
-* For User, select `Morty Smith`
-* For Resource, select `mega-seed`
-* For Operation, select `GET`
-* Click the `Copy as cUrl button` and paste into a terminal window.
+* For User, select `Morty Smith`.
+* For Resource, select `mega-seed`.
+* For Operation, select `GET`.
+* Click the `Copy as cURL button` and paste into a terminal window.
 
 You should see this response showing that the call has succeeded and the user had the required permissions.
 
 <img src="/quickstart-simple-rbac/simple-rbac-14-test-app-curl.png" />
 
-### Scenario 2 - Rick can use the `mega-seed?
+### Scenario 2 - can Rick read the `mega-seed`?
 
-* For User, select `Rick Sanchez`
-* For Resource, select `mega-seed`
-* For Operation, select `GET`
-* Click the `Copy as cUrl button` and paste into a terminal window.
+* For User, select `Rick Sanchez`.
+* For Resource, select `mega-seed`.
+* For Operation, select `GET`.
+* Click the `Copy as cURL button` and paste into a terminal window.
 
-You should see the response: 
+You should see the response, indicating the operation was allowed:
 
 ```
 Hello from GET /resource/mega-seed
 ```
 
-### Scenario 3 - Morty can change the `mega-seed`
+### Scenario 3 - can Morty write the `mega-seed`?
 
-* For User, select `Morty Smith`
-* For Resource, select `mega-seed`
-* For Operation, select `PUT`
-* Click the `Copy as cUrl button` and paste into a terminal window.
+* For User, select `Morty Smith`.
+* For Resource, select `mega-seed`.
+* For Operation, select `PUT`.
+* Click the `Copy as cURL button` and paste into a terminal window.
 
-You should see the response: 
+You should see the response, indicating that the operation was allowed:
 
 ```
 Hello from PUT /resource/mega-seed
 ```
 
-### Scenario 4 - Rick cannot change the `mega-seed`
+### Scenario 4 - can Rick write the `mega-seed`?
 
-* For User, select `Rick Sanchez`
-* For Resource, select `mega-seed`
-* For Operation, select `PUT`
-* Click the `Copy as cUrl button` and paste into a terminal window.
+* For User, select `Rick Sanchez`.
+* For Resource, select `mega-seed`.
+* For Operation, select `PUT`.
+* Click the `Copy as cURL button` and paste into a terminal window.
 
 You should see this reponse indicating the the call failed due to the user not having the required permissions.
 
@@ -66,32 +68,39 @@ You should see this reponse indicating the the call failed due to the user not h
 Forbidden by policy rebac.check
 ```
 
-### Scenario 5 - Morty can destroy the `mega-seed`
+### Scenario 5 - can Morty delete the `mega-seed`?
 
-* For User, select `Morty Smith`
-* For Resource, select `mega-seed`
-* For Operation, select `DELETE`
-* Click the `Copy as cUrl button` and paste into a terminal window.
+* For User, select `Morty Smith`.
+* For Resource, select `mega-seed`.
+* For Operation, select `DELETE`.
+* Click the `Copy as cURL button` and paste into a terminal window.
 
-You should see the response: 
+You should see the response, indicating that the operation was allowed:
 
 ```
-Hello from PUT /resource/mega-seed
+Hello from DELETE /resource/mega-seed
 ```
 
-### Scenario 6 - Rick cannot destroy the `mega-seed`
+### Scenario 6 - can Rick delete the `mega-seed`?
 
-* For User, select `Rick Sanchez`
-* For Resource, select `mega-seed`
-* For Operation, select `DELETE`
-* Click the `Copy as cUrl button` and paste into a terminal window.
+* For User, select `Rick Sanchez`.
+* For Resource, select `mega-seed`.
+* For Operation, select `DELETE`.
+* Click the `Copy as cURL button` and paste into a terminal window.
+
+You should see this reponse indicating the the call failed due to the user not having the required permissions.
+
+```
+Forbidden by policy rebac.check
+```
 
 # Explore
 
-Now that you have learned how to use the Test App, try different users and resoure combinations. Refer to the relationships browser to understand what actions the user should be able to perform depending on the resource. Try both actions the user should be able to perform and those they should not.
+Now that you have learned how to use the Test App, try different users and resoure combinations. Refer to the relationships browser to understand what actions the user should be able to perform depending on the resource.
 
 # Congratulations
 
 You have now completed the Simple RBAC Quickstart! 
 
-As a next step, open up the API that you have downloaded and learn how to build an app using the simple-rbac policy.
+As a next step, check out the code for the back-end API that you downloaded, and learn how to use the `simple-rbac` policy to provide relationship-based access control for your application.
+

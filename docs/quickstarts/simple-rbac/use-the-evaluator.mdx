@@ -6,81 +6,81 @@ description: Use the Simple RBAC Evaluator to test out the simple-rbac policy
 
 # Use the Simple RBAC Evaluator
 
-Now that you have created your policy instance, you can test it out with the Evaluator. The Evaluator has several different modes, the default "Check" mode is specifically for policy-rebac.  Using the Evalator allows you to quickly verify whether an action performed on an object requiring the specified relation will be permitted.
+Now that you have created your policy instance, you can test it out with the Evaluator. The Evaluator supports several requests, corresponding to Aserto's authorization APIs - `is`, `decisiontree`, and `query`. The default "Check" request, however, is specifically for designed for `policy-rebac`.  Using the Evaluator allows you to quickly verify whether a user has a relationship (or permission) on an object.
 
 <img src="/quickstart-simple-rbac/simple-rbac-6-choose-instance.png" />
 
-The Evaluator has two parts. The `REQUEST` part on the left is where you specify information about the action being performed, while the "OUTPUT:" on the right displays the body of the request as well as the response.
+The Evaluator has two parts. The `REQUEST` part on the left is where you specify information about the action being performed, while the `OUTPUT` on the right displays the body of the request as well as the response.
 
 The table below explains the selection fields.
 
 |Field|Description|
 |----|-----------|
-|Subject|Which user is performing the action. For Simple RBAC there are 5 users that you can select from|
-|Object Type|What type of object is the action performed on|
-|Object|Which object of the selected Object Type will the action be perform on|
-|Relation|Which relation or permission is required|
+|Subject|The user to evaluate. For Simple RBAC there are 5 Citadel users that you can select from.|
+|Object Type|The type of object to evaluate. For Simple RBAC this will be `Resource`.|
+|Object|The object instance to evaluate.|
+|Relation|Which relation or permission to evaluate.|
 
 ## Testing the policy
 
 Now let's check a few different scenarios using the Evalator. First, a few important things to note about Rick and Morty:
 
-* Morty is an Owner for the mega-seed object. This means he has the `can_read`, `can_write`, and `can_delete` permission which correspond to using, changing, or destorying the mega-seed.  
-* Rick is a Viewer for the mega-seed object. This means he only has the `can_read` permission.
+* Morty is an `owner` of the `mega-seed` object. This means he has the `can_read`, `can_write`, and `can_delete` permissions which correspond to reading, writing, or deleting the `mega-seed`.  
+* Rick is a `reader` of the `mega-seed` object. This means he only has the `can_read` permission.
 
-### Scenario 1 - Morty can use the `mega-seed?
+### Scenario 1 - can Morty read the `mega-seed`?
 
-* For Subject, select "Morty Smith"
-* For Object Type, select "mega-seed"
-* For Relation, select "can-read"
+* For Subject, select "Morty Smith".
+* For Object Type, select "mega-seed".
+* For Relation, select "can-read".
 * Click the `Play` button.
 * You should see `"is": true` under results indicating the action will be permitted.
 
 <img src="/quickstart-simple-rbac/simple-rbac-7-evaluator.png" />
 
-### Scenario 2 - Rick can use the `mega-seed?
+### Scenario 2 - can Rick read the `mega-seed`?
 
-* For Subject, select "Rick Sanchez"
-* For Object Type, select "mega-seed"
-* For Relation, select "can-read"
+* For Subject, select "Rick Sanchez".
+* For Object Type, select "mega-seed".
+* For Relation, select "can-read".
 * Click the `Play` button.
 * You should see `"is": true` under results indicating the action will be permitted.
 
-### Scenario 3 - Morty can change the `mega-seed`
+### Scenario 3 - can Morty write the `mega-seed`?
 
-* For Subject, select "Morty Smith"
-* For Object Type, select "mega-seed"
-* For Relation, select "can-write"
+* For Subject, select "Morty Smith".
+* For Object Type, select "mega-seed".
+* For Relation, select "can-write".
 * Click the `Play` button.
 * You should see `"is": true` under results indicating the action will be permitted.
 
-### Scenario 4 - Rick cannot change the `mega-seed`
+### Scenario 4 - can Rick write the `mega-seed`?
 
-* For Subject, select "Morty Smith"
-* For Object Type, select "mega-seed"
-* For Relation, select "can-write"
+* For Subject, select "Rick Sanchez".
+* For Object Type, select "mega-seed".
+* For Relation, select "can-write".
 * Click the `Play` button.
-* You should see `"is": false` under results indicating the action will be permitted.
+* You should see `"is": false` under results indicating the action will be denied.
 
-### Scenario 5 - Morty can destroy the `mega-seed`
+### Scenario 5 - can Morty delete the `mega-seed`?
 
-* For Subject, select "Morty Smith"
-* For Object Type, select "mega-seed"
-* For Relation, select "can-delete"
+* For Subject, select "Morty Smith".
+* For Object Type, select "mega-seed".
+* For Relation, select "can-delete".
 * Click the `Play` button.
 * You should see `"is": true` under results indicating the action will be permitted.
 
-### Scenario 6 - Rick cannot destroy the `mega-seed`
+### Scenario 6 - can Rick delete the `mega-seed`?
 
-* For Subject, select "Rick Sanchez"
-* For Object Type, select "mega-seed"
-* For Relation, select "can-delete"
+* For Subject, select "Rick Sanchez".
+* For Object Type, select "mega-seed".
+* For Relation, select "can-delete".
 * Click the `Play` button.
 * You should see `"is": false` under results indicating the action will be denied.
 
 ## Next steps
 
-Now that you have seen how the policy works, you'll use the Quickstart in the console to install the sample application make requests to the API which is bound to the simple-rbac policy instance.
+Now that you have seen how the policy works, you'll use the Quickstart in the console to download and run the sample back-end API, which uses the `simple-rbac` policy for access control.
 
 Click on the "Quickstart" tab on the left.
 

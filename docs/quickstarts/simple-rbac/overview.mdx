@@ -6,17 +6,22 @@ description: Simple RBAC Quickstart overview page
 
 # Simple RBAC Quickstart
 
-The Simple RBAC Quickstart includes
-* The **Citadel Demo IDP**, which contains five users based on the Rick & Morty cartoon and several sample .
-* An API using the simple-rbac policy, which is implemented in several languages
+The Simple RBAC scenario is an example of how to implement an authorization policy using a simple relationship-based access control (ReBAC) model.
+
+The Simple RBAC Quickstart includes:
+* A domain model for Simple RBAC, including a `resource` object type, `owner`, `writer`, and `reader` relationships, and `can_read`, `can_write`, and `can_delete` permissions.
+* A boilerplate authorization policy called `policy-rebac` which simply uses the underlying relationships to determine access.
+* A connection to the **Citadel Demo IDP**, which contains five demo users based on the Rick & Morty cartoon.
+* Sample *resources*, such as `mega-seed` and `time-crystal`. Rick & Morty have `owner`, `writer`, and `reader` *relationships* to these resources, demonstrating a relationship-based (ReBAC) model.
+* A back-end API that uses `simple-rbac` policy for authorization, implemented in several languages.
+* An interactive tutorial which helps construct `curl` requests to test the back-end API.
 
 As you go through the Quickstart, you'll learn the following:
-* How to install the Simple RBAC template
-* How to browse the directory and examine the manifest
-* How to evaluate simple-rbac policy decisions within the Aserto Evaluator
-* How to download and run the Simple RBAC backend.
-* How to call the backend in order to test out the API.
+* How to instantiate the Simple RBAC template.
+* How to browse the directory and examine the manifest.
+* How to evaluate policy decisions within the Aserto Evaluator.
+* How to download and run the Simple RBAC back-end API.
+* How to construct `curl` requests to the back-end in order to test out the API.
 
 ## Prerequisites
 To follow this Quickstart you'll need to have an Aserto account. If you do not have one, you can create one [here](https://www.aserto.com/#signup). Once you have created your tenant, you can continue.
-

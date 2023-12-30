@@ -11,13 +11,13 @@ export default [
     description: 'A corporate directory sample that contains a React front-end and a Node.js backend in a monorepo. It includes 3 different policy styles - RBAC, ABAC, and ReBAC. It also shows how to build a front-end that conditionally renders UI based on the user\'s permissions.',
     docs: '/docs/getting-started/peoplefinder/peoplefinder-overview',
   },
-  /*
   {
     title: 'Simple RBAC',
     icon: 'simple-rbac.svg',
-    description: 'Simple RBAC.',
-    docs: '/docs/quickstarts/react/overview',
+    description: 'A simple RBAC scenario, with a back-end written in six different languages. This is our simplest relationship-based access control (ReBAC) scenario.',
+    docs: '/docs/quickstarts/simple-rbac/overview',
   },
+/*
   {
     title: 'Multi-tenant RBAC',
     icon: 'multi-tenant-rbac.svg',
