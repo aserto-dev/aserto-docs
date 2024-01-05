@@ -1,0 +1,76 @@
+---
+sidebar_label: LDAP
+---
+
+# LDAP plugin
+
+## Usage
+```sh
+Usage: ds-load-ldap <command>
+
+ldap directory loader
+
+Commands:
+  version             version information
+  fetch               fetch ldap data
+  transform           transform ldap data
+  export-transform    export default transform template
+  exec                fetch and transform ldap data
+  verify              verify fetcher configuration and credentials
+
+Flags:
+  -h, --help                  Show context-sensitive help.
+  -c, --config=CONFIG-FLAG    Configuration file path
+  -v, --verbosity=INT         Use to increase output verbosity.
+
+Run "ds-load-ldap <command> --help" for more information on a command.
+```
+
+## Arguments
+
+The LDAP plugin supports the following arguments:
+
+```sh
+  -h, --help                                                   Show context-sensitive help.
+  -c, --config=CONFIG-FLAG                                     Configuration file path
+  -v, --verbosity=INT                                          Use to increase output verbosity.
+
+  -u, --user=STRING                                            LDAP user ($LDAP_USER)
+  -p, --password=STRING                                        LDAP password ($LDAP_PASSWORD)
+  -s, --host=STRING                                            LDAP host ($LDAP_HOST)
+  -b, --base-dn="dc=example,dc=org"                            LDAP base DN ($LDAP_BASE_DN)
+  -f, --user-filter="(&(objectClass=organizationalPerson))"    LDAP user filter ($LDAP_USER_FILTER)
+  -g, --group-filter="(&(objectClass=groupOfNames))"           LDAP group filter ($LDAP_GROUP_FILTER)
+  -i, --insecure                                               Allow insecure LDAP connection ($LDAP_INSECURE)
+  -U, --uuid-field="objectGUID"                                LDAP field to use as UUID ($LDAP_UUID_FIELD)
+  -t, --template=STRING                                        transformation template file path ($DS_TEMPLATE_FILE)
+```
+
+## Transform
+
+The LDAP plugin can retrieve both users and groups, and transform these into directory user objects, identity objects, groups, and relationships between these.
+
+To export the default transform, use:
+
+`ds-load ldap export-transform`
+
+You can use this as the basis for your own transform, which can be tweaked for a different mapping between LDAP and directory objects and relations.
+
+To learn about the transformation language, refer to the [transform](/docs/command-line-interface/ds-load-cli/transform) docs.
+
+
+## Config example
+```
+---
+host: "directory.prod.aserto.com:8443"
+api-key: "<your-directory-api-key>"
+tenant-id: "<your-tenant-id>"
+ldap:
+  base-dn: "dc=aserto,dc=com"
+  user: "CN=aserto,CN=Users,DC=aserto,DC=com"
+  password: "<ldap-user-password>"
+  host: "ldap://localhost:1389"
+  user-filter: "(&(objectClass=organizationalPerson))"
+  group-filter: "(&(objectClass=group))"
+  uuid-field: "objectGUID"
+```

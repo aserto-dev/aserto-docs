@@ -295,6 +295,7 @@ module.exports = {
                 'command-line-interface/ds-load-cli/plugins/cognito',
                 'command-line-interface/ds-load-cli/plugins/google',
                 'command-line-interface/ds-load-cli/plugins/okta',
+                'command-line-interface/ds-load-cli/plugins/ldap',
                 'command-line-interface/ds-load-cli/plugins/custom',
               ],
             },
