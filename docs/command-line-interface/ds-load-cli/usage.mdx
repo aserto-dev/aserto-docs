@@ -35,7 +35,7 @@ The `ds-load` pipeline has three stages: `fetch`, `transform`, and `publish`:
 The default command for ds-load is `exec`, which executes all three stages. When running `ds-load` without any command, the exec parameters need to be passed.
 
 :::tip Tip
-The plugin examples below all use `auth0`, but every one of the plugins (`azuread`, `cognito`, `google`, `okta`, etc) follows the same patterns. Each plugin has its own documentation page.
+The plugin examples below all use `auth0`, but every one of the plugins (`azuread`, `cognito`, `google`, `okta`, `ldap`, etc) follows the same patterns. Each plugin has its own documentation page.
 :::
 
 ### ds-load vs plugin parameters
@@ -61,7 +61,7 @@ Usage: ds-load exec <command> ...
 import data in directory by running fetch, transform and publish
 
 Arguments:
-  <command> ...    available commands are: auth0|azuread|cognito|google|okta
+  <command> ...    available commands are: auth0|azuread|cognito|google|okta|ldap
 
 Flags:
   -h, --help                  Show context-sensitive help.
