@@ -262,7 +262,7 @@ module.exports = {
           label: 'Policy CLI',
           collapsed: true,
           items: [
-            'command-line-interface/policy-cli/download',
+            'command-line-interface/policy-cli/installation',
             'command-line-interface/policy-cli/login',
             'command-line-interface/policy-cli/init',
             'command-line-interface/policy-cli/build',
