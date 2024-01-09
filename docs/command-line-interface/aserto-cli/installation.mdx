@@ -4,34 +4,41 @@ title: Installing the Aserto CLI
 description: Aserto CLI installation instructions
 ---
 
-# Installing the Aserto CLI
+# Installation
 
-On Mac and Linux systems, we use `brew` to install the Aserto CLI.
+`aserto` is available on Linux, macOS, and Windows platforms.
 
-```bash
-brew tap aserto-dev/tap && brew install aserto
-```
+- Binaries for Linux, Windows, and Mac are available as tarballs in the [release](https://github.com/aserto-dev/aserto/releases) page.
 
-Here are the download links for each platform:
+- Via Homebrew for macOS or LinuxBrew for Linux
 
-- [Mac Intel](https://storage.googleapis.com/aserto-cli/aserto/latest/aserto_darwin_x86_64.zip)
-- [Mac M1](https://storage.googleapis.com/aserto-cli/aserto/latest/aserto_darwin_arm64.zip)
-- [Linux Intel](https://storage.googleapis.com/aserto-cli/aserto/latest/aserto_linux_x86_64.zip)
-- [Linux ARM64](https://storage.googleapis.com/aserto-cli/aserto/latest/aserto_linux_arm64.zip)
-- [Windows (zip)](https://storage.googleapis.com/aserto-cli/aserto/latest/aserto_windows_x86_64.zip)
+  ```shell
+  brew tap aserto-dev/tap && brew install aserto
+  ```
+
+    If you installed using brew, to update the Aserto CLI to the latest version, use:
+
+    ```shell
+    brew upgrade aserto
+    ```
+
+- Via WinGet for Windows
+
+  ```shell
+  winget install Aserto.CLI
+  ```
+
+- Via a GO install
+
+  ```shell
+  # NOTE: The dev version will be in effect!
+  go install github.com/aserto-dev/aserto/cmd/aserto@latest
+  ```
 
 ## Version
 
-To find out what version of the Aserto CLI you are running, use the following command:
+To find out which version of the Aserto CLI you have installed, execute the following command:
 
-```bash
+```shell
 aserto version
-```
-
-## Update to latest version
-
-If you installed using brew, to update the Aserto CLI to the latest version, use:
-
-```bash
-brew upgrade aserto
 ```
