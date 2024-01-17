@@ -66,6 +66,18 @@ module.exports = {
         },
         {
           type: 'category',
+          label: 'Simple RBAC',
+          collapsed: true,
+          items: [
+            'quickstarts/simple-rbac/overview',
+            'quickstarts/simple-rbac/install-the-template',
+            'quickstarts/simple-rbac/use-the-evaluator',
+            'quickstarts/simple-rbac/install-the-backend',
+            'quickstarts/simple-rbac/use-the-api',
+          ]
+        },
+        {
+          type: 'category',
           label: 'React and Node',
           collapsed: true,
           items: [
