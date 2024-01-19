@@ -14,7 +14,7 @@ This package provides three capabilities for Flask apps:
 
 1.  `authorize`: route decorator that validates incoming requests and authorizes access to a route.
 2.  `register_display_state_map`: application middleware which implements and exposes an endpoint for returning the [display state map](/docs/authorizer-guide/display-state-map) for a service, based on its authorization policy.
-3.  `check`: function that can be called to make a decision about a user's access to a resource based on a policy.
+3.  `check`: function that can be called to create a `CheckMiddleware` that can make a decision about a user's access to a resource based on a policy.
 
 ## Installation
 
@@ -32,6 +32,19 @@ poetry add flask-aserto
 
 ## Middleware instantiation
 
+When authorization middleware is configured and attached to a server, it examines incoming requests, extracts authorization parameters like the caller's identity, calls the Aserto authorizers, and rejects messages if their access is denied.
+
+`AuthorizerOptions` are needed for the cration of an `AsertoMiddleware`.
+
+```py
+options = AuthorizerOptions(
+        url=authorizer_service_url,
+        tenant_id=tenant_id,
+        api_key=authorizer_api_key,
+        cert_file_path=cert_file_path,
+    )
+```
+
 To use any of the capabilities, you must first create an `AsertoMiddleware` instance.
 
 ```py
@@ -40,127 +53,67 @@ from flask_aserto import AsertoMiddleware
 aserto = AsertoMiddleware(**options)
 ```
 
-### Options
+Besides the authorizer's options, the following can be configure when creating the middleware:
 
-All options must be passed as keyword arguments, but may be provided in any order.
+```py
+        authorizer_options: AuthorizerOptions,
+        policy_path_root: str,
+        identity_provider: IdentityMapper,
+        policy_instance_name: Optional[str]= None,
+        policy_instance_label: Optional[str]= None,
+        policy_path_resolver: Optional[StringMapper] = None,
+        resource_context_provider: Optional[ResourceMapper] = None,
+```
 
-- `policy_id` (_required_): Policy ID
-- `policy_path_root` (_required_): Policy root
-- `authorizer` (_required_): An [`Authorizer`](/docs/software-development-kits/python/authorizers) instance that describes the Authorizer service being used.
-- `identity_provider` (_required_): A callable object which returns an `Identity` instance that represents a user.
+### Policy
+`policy_path_root` is the name of the authorization policy package to evaluate.`policy_instance_name`, `policy_instance_label` are the name and label of the policy that is used by the authorizer.
 
-  #### Example using the [aserto-idp](/docs/software-development-kits/python/identity-providers) package to define an Auth0 identity provider
+The authorization policy's ID and the decision to be evaluated are specified when creating authorization Middleware, but the policy path is often derived from the URL or method being called. To provide custom logic, `policy_path_resolver` can be provided. An example can be found
+https://github.com/aserto-dev/flask-aserto/tree/HEAD/src/flask_aserto/_defaults.py
 
-  :::info Note
-  The `aserto-idp` package needs to be installed separately.
-  :::
+### Identity
+Middleware offer control over the identity used in authorization calls by providing an `IdentityMapper`. Example of a method that takes the identity from flask's `g` object:
 
-  ```py
-  from aserto import Identity
-  from aserto_idp.auth0 import AccessTokenError, provide_identity
-  from flask import request
+```py
+def identity_provider() -> Identity:
+    identity = g.identity
 
-  # Both `async` and non-`async` functions are supported
-  async def identity_provider() -> Identity:
-    authorization_header = request.headers.get("Authorization")
+    if identity is None:
+        return Identity(IdentityType.IDENTITY_TYPE_NONE)
 
-    if authorization_header is None:
-        # Represents an "anonymous"/"logged-out" user
-        return Identity(type="NONE")
+    return Identity(type=IdentityType.IDENTITY_TYPE_SUB, value=identity)
+```
 
-    try:
-        identity = await provide_identity(
-            authorization_header=authorization_header,
-            domain=AUTH0_DOMAIN,
-            client_id=AUTH0_CLIENT_ID,
-            audience=AUTH0_AUDIENCE,
-        )
-    except AccessTokenError:
-        return Identity(type="NONE")
+### Resource
+A resource can be any structured data that the authorization policy uses to evaluate decisions. By default, middleware do not include a resource in authorization calls.
 
-    # Represents a user from an Auth0 user directory
-    return Identity(type="SUBJECT", subject=identity)
-  ```
+To add resource data, you can provide a `ResourceMapper` to `resource_context_provider` to attach custom logic. For example:
 
-- `policy_path_resolver` (_optional_):
-  By convention, Aserto policy package names are of the form `policy_root.METHOD.path`. By default,
-  the package name will be inferred from the policy name, HTTP method, and route path:
-
-  - A `GET` request to `/api/users` would use the policy package named `policy_root.GET.api.users`
-  - A `POST` request to `/api/users/<id>` would use the policy package named `policy_root.POST.api.users.__id`
-
-    The `policy_path_resolver` option can be used to override the default behavior. It must be a
-    callable object which takes no arguments and returns a `str` as the package name. The global
-    `request` object provided by `Flask` can be used to access the current route's request data if needed.
-
-    #### Example:
-
-    ```py
-    from flask import request
-
-    POLICY_ROOT = "my_app_policy"
-
-    # Both `async` and non-`async` functions are supported
-    async def custom_policy_path_resolver():
-        """A naive implementation of the default resolver"""
-        rule_string = str(request.url_rule)  # e.g. "/api/users/<id>"
-        policy_sub_path = rule_string.replace("/", ".").replace("<", "__").replace(">", "")
-        return ".".join([POLICY_ROOT, request.method.upper(), policy_sub_path])
-    ```
-
-- `resource_context_provider` (_optional_):
-  By default, the resource context data provided to Aserto authorizer calls will be created from the
-  path parameters of the request. For example, if the route path is defined as `/api/users/<id>` and
-  a request is made to `/api/users/42`, then the resource would be `{"id": "42"}`.
-
-  The `resource_context_provider` option can be used to override the default behavior. It must be a
-  callable object which takes no arguments and returns a `dict`. The global `request` object provided
-  by `Flask` can be used to access the current route's request data if needed.
-
-  #### Example:
-
-  ```py
-  from flask import request
-
-  # Both `async` and non-`async` functions are supported
-  async def custom_resource_context_provider():
-      """A naive implementation of the default resolver"""
-      return request.view_args
-  ```
+```py
+def resource_context_from_request() -> ResourceContext:
+    return request.view_args or {}
+```
 
 ## `authorize` decorator
 
 Once you have an `AsertoMiddleware` instance, you can use it to decorate routes so that the
 permission policies will automatically determine whether the call to the endpoint is allowed.
-
-### Example
+Below, there is an example of how to add the Middleware to your routes:
 
 ```py
-from flask import Flask
-from flask.wrappers import Response
 from flask_aserto import AsertoMiddleware, AuthorizationError
 
+
 app = Flask(__name__)
-aserto = AsertoMiddleware(**options)
+aserto = AsertoMiddleware(**aserto_options)
 
-@app.errorhandler(AuthorizationError)
-def handle_auth_error(exception: AuthorizationError) -> Response:
-    """
-    An `AuthorizationError` will be raised if the call to the endpoint is not allowed.
-    These can be automatically handled by returning a 403 (Forbidden) status code.
-    """
-    return Response(response=f"Forbidden by policy {exception.policy_path}", status=403)
 
-@app.route("/api/users", methods=["GET"])
+@app.route("/api/users/<id>", methods=["GET"])
 @aserto.authorize
-async def api_users() -> Response:
-  ...
-
-# The options provided to the `AsertoMiddleware` can also be overridden per route
-@app.route("/api/users/<id>", methods=["POST"])
-@aserto.authorize(**option_overrides)
-async def api_user(id: str) -> Response:
-  ...
+def api_user(id: str) -> Response:
+    # Raises an AuthorizationError if the `GET.api.users.__id`
+    # policy returns a decision of "allowed = false" 
+    ...
 ```
 
 ## `register_display_state_map`
@@ -189,52 +142,75 @@ aserto.register_display_state_map(app)
 aserto.register_display_state_map(app, endpoint="custom_display_state_map_path")
 ```
 
-### Options
+## Check Middleware (ReBAC)
+In addition to the pattern described above, in which each route is authorized by its own policy module, the middleware can be used to implement Relation-Based Access Control (rebac) in which authorization decisions are made by checking if a given subject has the necessary permission or relation to the object being accessed.
 
-- `endpoint` (_optional_): Overrides the default endpoint name
-- `resource_context_provider` (\_optional): By default, the resource context will be the `POST` body
-  of the request.
+This is achieved using the `Check` function on `AsertoMiddleware`.
 
-  The `resource_context_provider` option can be used to override the default behavior.
-  It must be a callable object which takes no arguments and returns a `dict`. The global `request` object provided
-  by `Flask` can be used to access the route's request data if needed.
+A check call needs three pieces of information:
+    - The type and key of the object.
+    - The name of the relation or permission to look for.
+    - The type and key of the subject. When omitted, the subject is derived from the middleware's Identity with type "user".
 
-  #### Example:
+Example:
+```py
 
-  ```py
-  from flask import request
+def id_mapper() -> str:
+    return request.view_args['asset']
 
-  # Both `async` and non-`async` functions are supported
-  async def custom_resource_context_provider():
-    return request.get_json(silent=True) or {}
-  ```
+@app.route("/resource/<asset>", methods=["GET"])
+@requires_auth
+@aserto.check(objType="resource", objIdMapper=id_mapper, relationName="can_read").authorize
+def get_resource(asset: str):
+    return {"message": "Hello from GET /resource/" + asset}
 
-## `check` function
+```
 
-An alternative to the `authorize` decorator is the `check` function, which provides an explicit
-mechanism for calling the Aserto authorizer.
+GetResource(asset) is an http handler function that serves GET request to the /resource/<asset> route. The `check` call only authorizes requests if the calling user has the `can_read` permission on an object of type resource with the object name extracted from the route's {asset} parameter.
 
-Use the `check` function to call the authorizer with a decision, policy, and resource, and get a boolean `True` or `False` response.
-The decision is a named value in the policy: the string `allowed` is used by convention.
-Examples: `check("allowed")`, `check("enabled")`, `check("visible")`, etc.
-
-### Example
+### Check Options
+The `check` function accepts options that configure the object, subject, and relation sent to the authorizer.
 
 ```py
-from flask import Flask
-from flask.wrappers import Response
-from flask_aserto import AsertoMiddleware
-
-app = Flask(__name__)
-aserto = AsertoMiddleware(**options)
-
-@app.route("/api/users", methods=["GET"])
-async def api_users() -> Response:
-    if not await aserto.check("allowed", **option_overrides):
-        return Response(status=403)
-    ...
+    def check(
+        self, 
+        objId: Optional[str] = "",
+        objType: Optional[str] = "",
+        objIdMapper: Optional[StringMapper] = None,
+        objMapper: Optional[ObjectMapper] = None,
+        relationName: Optional[str] = "",
+        relationMapper: Optional[StringMapper] = None,
+        subjType: Optional[str] = "",
+        subjMapper: Optional[IdentityMapper] = None,
+        policyPath: Optional[str] = "",
+        policyRoot: Optional[str] = "",
+        policyPathMapper: Optional[StringMapper] = None,
 ```
+
+`subjType` can be used to override `subject_type` in the resource context. If an subject mapper isn't provided, the check call uses the default one which is `user`.
+
+`relationName` sets the relation name sent to the authorizer.
+
+`relationMapper` can be used in cases where the relation to be checked isn't known ahead of time. It receives a function that returns the name of the relation.
+
+`objType` sets the object type sent to the authorizer.
+
+`objId` sets the object ID sent to the authorizer.
+
+`objIdMapper` is used to determine the object ID sent to the authorizer at runtime. It receives a function that returns an object ID.
+
+`objMapper` can be used to set both the object type and ID at runtime. It receives a function that takes returns an `Obj`.
+
+```py
+class Obj:
+    id: str
+    objType: str
+```
+
+`policyPath` sets the name of the policy module to evaluate in check calls. It defaults to `check`.
+
+`policyRoot` sets the root of the policy module. For example, if the root is set to "myPolicy", the Check call looks for a policy module named `myPolicy.check`.
 
 ## Github
 
-This package is open source and can be found on [GitHub](https://github.com/aserto-dev/aserto-python/tree/main/packages/flask-aserto).
+This package is open source and can be found on [GitHub](https://github.com/aserto-dev/flask-aserto/tree/main).

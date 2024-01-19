@@ -31,21 +31,30 @@ poetry add aserto
 The `AuthorizerClient` class provides the methods for interacting with the API. The constructor takes
 two arguments:
 
-- `identity` (_required_): An `Identity` instance that represents a user.
-  Refer to the [aserto-idp](/docs/software-development-kits/python/identity-providers) package
-  (installed separately) on creating `Identity`s
-- `authorizer` (_required_): An [`Authorizer`](/docs/software-development-kits/python/authorizers) instance that describes the Authorizer service being used
+- `identity` (_required_): An `Identity` instance that represents a user. To create an Identity you need to provide a `type` and a `value`. Example:
 
+  ```py
+  from aserto import Identity, IdentityType
+
+    identitySub = Identity(type=IdentityType.IDENTITY_TYPE_SUB, value=identity)
+    idenitytNone = Identity(IdentityType.IDENTITY_TYPE_NONE)
+  ```
+- `options` (_required_): An [`AuthorizerOptions`] that contains the necessary information to create an Authorizer client. The options that can be provided are:
+    - `api_key` (_optional_): An Aserto Authorizer API Key
+    - `tenant_id` (_optional_): An Aserto Tenant ID
+    - `cert_file_path` (_optional_): Path to Authorizer certs if the authtorizer runs locally.
+    - `url` (_optional_): `hostname:port` of Aserto Authorizer. Defaults to `"authorizer.prod.aserto.com:8443"`.
+
+Creating an `AuthorizerClient` example:
 ```py
-from aserto import Identity
-from flask import request
+from aserto import Identity, IdentityType
+from aserto.client.authorizer import AuthorizerClient, AuthorizerOptions
 
 client = AuthorizerClient(
-    identity=Identity(type="NONE"),
-    authorizer=HostedAuthorizer(
+    identity=Identity(IdentityType.IDENTITY_TYPE_NONE),
+    options=AuthorizerOptions(
         api_key=YOUR_ASERTO_API_KEY,
         tenant_id=YOUR_ASERTO_TENANT_ID,
-        service_type="gRPC",
     ),
 )
 ```
@@ -57,9 +66,10 @@ client = AuthorizerClient(
 #### Arguments
 
 - `decisions` (_required_): A list of decision values to request, e.g. `["allowed"]`
-- `policy_id` (_required_): The ID of the policy to use
-- `policy_path` (_required_): The path of the policy module, including the policy root
-- `resource_context` (_required_): The [resource context](/docs/authorizer-guide/resource-context) provided to the Authorizer as a serializable `dict`
+- `policy_path` (_required_): The path of the policy module, including the policy root.
+- `policy_instance_name` (_optional_): The policy instance name run by the authorizer.
+- `policy_instance_label` (_optional_): The policy instance label run by the authorizer.
+- `resource_context` (_optional_): The [resource context](/docs/authorizer-guide/resource-context) provided to the Authorizer as a serializable `dict`
 - `deadline` (_optional_): How long to wait for the request to time-out.
   Either a Python `timedelta` object representing the duration to wait or a `datetime` object
   representing when the request should time-out
@@ -69,9 +79,9 @@ client = AuthorizerClient(
 ```py
 decisions = client.decisions(
     decisions=["allowed", "enabled"],
-    policy_id=POLICY_ID,
+    policy_instance_name=ASERTO_POLICY_INSTANCE_NAME,
+    policy_instance_label=ASERTO_POLICY_INSTANCE_LABEL,
     policy_path="my_policy_root.GET.user.__id",
-    resource_context={},
 )
 
 assert decisions ==  {
@@ -85,34 +95,63 @@ assert decisions ==  {
 #### Arguments
 
 - `decisions` (_required_): A list of decision values to request, e.g. `["allowed"]`
-- `policy_id` (_required_): The ID of the policy to use
 - `policy_path_root` (_required_): The root path of all the policy modules
-- `resource_context` (_required_): The [resource context](/docs/authorizer-guide/resource-context) provided to the Authorizer as a serializable `dict`
-- `policy_path_separator` (_required_): Either `"DOT"` or `"SLASH"`, the delimiter to use in the returned policy path keys
+- `policy_instance_name` (_optional_): The policy instance name run by the authorizer.
+- `policy_instance_label` (_optional_): The policy instance label run by the authorizer.
+- `resource_context` (_optional_): The [resource context](/docs/authorizer-guide/resource-context) provided to the Authorizer as a serializable `dict`
+- `policy_path_separator` (_optional_): Either `"DOT"` or `"SLASH"`, the delimiter to use in the returned policy path keys
 - `deadline` (_optional_): How long to wait for the request to time-out.
   Either a Python `timedelta` object representing the duration to wait or a `datetime` object
-  representing when the request should time-out
+  representing when the request should time-out.
 
 #### Example
 
 ```py
-decision_tree = client.decision_tree(
-    decisions=["enabled", "allowed"],
-    policy_id=POLICY_ID,
-    policy_path_root="my_policy_root",
-    resource_context={},
-    policy_path_separator="SLASH",
+result = await client.decision_tree(
+    decisions=["visible", "enabled", "allowed"],
+    policy_instance_name=ASERTO_POLICY_INSTANCE_NAME,
+    policy_instance_label=ASERTO_POLICY_INSTANCE_LABEL,
+    policy_path_root=ASERTO_POLICY_PATH_ROOT,
+    policy_path_separator="DOT",
 )
 
-# The result given that the following policy modules exist
-# - `my_policy_root.GET.user.__id`
-# - `my_policy_root.PUT.user`
-assert decision_tree == {
-    "GET/user/__id": {"enabled": True, "allowed": False},
-    "PUT/user": {"enabled": True, "allowed": False},
+assert result == {
+    "GET.your.policy.path": {
+        "visible": True,
+        "enabled": True,
+        "allowed": False,
+    },
 }
 ```
 
+### [`query`](/docs/authorizer-guide/query)
+
+#### Arguments
+
+- `query` (_required_): A rego query that is evaluated over the policy. Example: `x = input` (bind the `input` to the `x` variable).
+- `input` (_required_): A string that encodes a JSON document.
+- `policy_path` (_required_): The path of the policy module, including the policy root.
+- `decisions` (_required_): A list of decision values to request, e.g. `["allowed"]`.
+- `policy_instance_name` (_optional_): The policy instance name run by the authorizer.
+- `policy_instance_label` (_optional_): The policy instance label run by the authorizer.
+- `resource_context` (_optional_): The [resource context](/docs/authorizer-guide/resource-context) provided to the Authorizer as a serializable `dict`.
+- `options` (_optional_): `QueryOptions` that can indicate the trace level, if the result should include the metrics, etc.
+  ```py
+    metrics: bool
+    instrument: bool
+    trace: TraceLevel
+    trace_summary: bool
+  ```
+  The trace levels can be one of the following values:
+
+  - TRACE_LEVEL_OFF
+  - TRACE_LEVEL_FULL
+  - TRACE_LEVEL_NOTES
+  - TRACE_LEVEL_FAIL
+- `deadline` (_optional_): How long to wait for the request to time-out.
+  Either a Python `timedelta` object representing the duration to wait or a `datetime` object
+  representing when the request should time-out.
+
 ## Github
 
-This package is open source and can be found on [GitHub](https://github.com/aserto-dev/aserto-python/tree/main/packages/aserto).
+This package is open source and can be found on [GitHub](https://github.com/aserto-dev/aserto-python/tree/main).
