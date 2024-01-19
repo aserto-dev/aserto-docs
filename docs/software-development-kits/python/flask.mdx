@@ -166,7 +166,7 @@ def get_resource(asset: str):
 
 ```
 
-GetResource(asset) is an http handler function that serves GET request to the /resource/<asset> route. The `check` call only authorizes requests if the calling user has the `can_read` permission on an object of type resource with the object name extracted from the route's {asset} parameter.
+GetResource(asset) is an http handler function that serves GET request to the `/resource/<asset>` route. The `check` call only authorizes requests if the calling user has the `can_read` permission on an object of type resource with the object name extracted from the route's {asset} parameter.
 
 ### Check Options
 The `check` function accepts options that configure the object, subject, and relation sent to the authorizer.

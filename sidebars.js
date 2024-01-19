@@ -216,16 +216,8 @@ module.exports = {
           collapsed: true,
           items: [
             'software-development-kits/python/api-client',
+            'software-development-kits/python/directory',
             'software-development-kits/python/flask',
-            {
-              type: 'category',
-              label: 'Reference',
-              collapsed: true,
-              items: [
-                'software-development-kits/python/identity-providers',
-                'software-development-kits/python/authorizers',
-              ],
-            },
           ],
         },
         {
