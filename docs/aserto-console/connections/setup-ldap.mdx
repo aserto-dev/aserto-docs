@@ -1,0 +1,41 @@
+---
+sidebar_label: LDAP
+title: Setting up Lightweight Directory Access Protocol (LDAP) as an Identity Provider
+description: Setting up Lightweight Directory Access Protocol (LDAP) as an Identity Provider
+---
+
+Follow the steps below to set up Lightweight Directory Access Protocol (LDAP) as an Identity Provider.
+
+## LDAP information
+
+To setup a LDAP connection, you need the following configuration settings:
+* `LDAP host`: this is the address of your LDAP host (`ldap://host:port`)
+* `LDAP user`: the user used for connecting to the LDAP host (`CN=admin,CN=Users,DC=example,DC=com`)
+* `LDAP password`: the users password
+* `LDAP base DN`: the LDAP distinguished name (`DC=example,DC=com`)
+
+Additionally, depending on your LDAP provider (Microsoft LDAP, Openldap, etc.), you need to provide some custom values:
+
+### `LDAP user filter`
+* Microsoft LDAP: `(&(objectClass=organizationalPerson))`
+* OpenLDAP: `(&(objectClass=organizationalPerson))`
+
+### `LDAP group filter`
+* Microsoft LDAP: `(&(objectClass=group))`
+* OpenLDAP: `(&(objectClass=groupOfNames))`
+
+### `LDAP field to use as UUID`
+* Microsoft LDAP: `objectGUID`
+* OpenLDAP: `entryUUID`
+
+### Create an LDAP connection
+
+Next, connect LDAP to Aserto as an identity provider. Head to the Aserto console and open the Connections tab.
+
+<img src="/connections-tab.png" />
+
+In the Connections tab, click the "Add a Connection" button. In the following screen, use the "Lightweight Directory Access Protocol (LDAP)" provider. Name the connection "ldap" and use the display name "LDAP". Then, paste the configuration values into their corresponding fields. If you are using an insecure connection, toggle the `Insecure` button.
+
+<img src="/add-ldap-connection.png"  width="500px"/>
+
+Finally, click the "Add connection" button to save the connection. Aserto will now automatically sync your LDAP users to the Aserto directory.

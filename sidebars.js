@@ -129,6 +129,7 @@ module.exports = {
                 'aserto-console/connections/setup-azuread',
                 'aserto-console/connections/setup-google',
                 'aserto-console/connections/setup-okta',
+                'aserto-console/connections/setup-ldap',
               ],
             },
             {
