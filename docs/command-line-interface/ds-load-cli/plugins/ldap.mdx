@@ -42,7 +42,7 @@ The LDAP plugin supports the following arguments:
   -f, --user-filter="(&(objectClass=organizationalPerson))"    LDAP user filter ($LDAP_USER_FILTER)
   -g, --group-filter="(&(objectClass=groupOfNames))"           LDAP group filter ($LDAP_GROUP_FILTER)
   -i, --insecure                                               Allow insecure LDAP connection ($LDAP_INSECURE)
-  -U, --uuid-field="objectGUID"                                LDAP field to use as UUID ($LDAP_UUID_FIELD)
+  -U, --id-field="objectGUID"                                  LDAP field to use as ID ($LDAP_ID_FIELD)
   -t, --template=STRING                                        transformation template file path ($DS_TEMPLATE_FILE)
 ```
 
@@ -72,5 +72,5 @@ ldap:
   host: "ldap://localhost:1389"
   user-filter: "(&(objectClass=organizationalPerson))"
   group-filter: "(&(objectClass=group))"
-  uuid-field: "objectGUID"
+  id-field: "objectGUID"
 ```
