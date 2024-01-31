@@ -24,7 +24,7 @@ Additionally, depending on your LDAP provider (Microsoft LDAP, Openldap, etc.), 
 * Microsoft LDAP: `(&(objectClass=group))`
 * OpenLDAP: `(&(objectClass=groupOfNames))`
 
-### `LDAP field to use as ID`
+### `LDAP field to use as directory object ID`
 * Microsoft LDAP: `objectGUID`
 * OpenLDAP: `entryUUID`
 
@@ -34,7 +34,7 @@ Next, connect LDAP to Aserto as an identity provider. Head to the Aserto console
 
 <img src="/connections-tab.png" />
 
-In the Connections tab, click the "Add a Connection" button. In the following screen, use the "Lightweight Directory Access Protocol (LDAP)" provider. Name the connection "ldap" and use the display name "LDAP". Then, paste the configuration values into their corresponding fields. If you are using an insecure connection, toggle the `Insecure` button.
+In the Connections tab, click the "Add a Connection" button. In the following screen, use the "Lightweight Directory Access Protocol (LDAP)" provider. Name the connection "ldap" and use the display name "LDAP". Then, paste the configuration values into their corresponding fields. If you are using an insecure connection, toggle the `Skip TLS verification (insecure)` button.
 
 <img src="/add-ldap-connection.png"  width="500px"/>
 
