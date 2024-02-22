@@ -78,6 +78,42 @@ module.exports = {
         },
         {
           type: 'category',
+          label: 'Google Drive',
+          collapsed: true,
+          items: [
+            'quickstarts/gdrive/overview',
+            'quickstarts/gdrive/install-the-template',
+            'quickstarts/gdrive/use-the-evaluator',
+            'quickstarts/gdrive/install-the-backend',
+            'quickstarts/gdrive/use-the-api',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Slack',
+          collapsed: true,
+          items: [
+            'quickstarts/slack/overview',
+            'quickstarts/slack/install-the-template',
+            'quickstarts/slack/use-the-evaluator',
+            'quickstarts/slack/install-the-backend',
+            'quickstarts/slack/use-the-api',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'GitHub',
+          collapsed: true,
+          items: [
+            'quickstarts/github/overview',
+            'quickstarts/github/install-the-template',
+            'quickstarts/github/use-the-evaluator',
+            'quickstarts/github/install-the-backend',
+            'quickstarts/github/use-the-api',
+          ]
+        },
+        {
+          type: 'category',
           label: 'React and Node',
           collapsed: true,
           items: [

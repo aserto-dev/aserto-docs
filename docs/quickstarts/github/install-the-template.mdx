@@ -1,0 +1,46 @@
+---
+sidebar_label: Instantiate the Template
+title: Instantiate the GitHub template
+description: Instantiate the GitHub template which includes the github policy, Demo Citadel IDP, sample objects, and the Quickstart 
+---
+
+# Instantiate the GitHub template
+
+To use GitHub the first thing you need to do is install the GitHub template. This will accomplish the following:
+
+* Create a `github` policy instance which uses the `policy-rebac` policy image, and contains the GitHub Quickstart.
+* Install the **Citadel Demo IDP** which is based on the Rick & Morty cartoon and contains 5 users.
+* Install the **GitHub Data Connection** which contains several objects along with relations to the Citadel users.
+
+## Instantiate the template
+
+From the Console, click on the `Policies` tab. This will display the list of available Policy instances. Click on the `Create an instance` button in the upper right corner.
+
+<img src="/quickstart-github/github-1-policy.png"/>
+
+The "Create a policy instance" screen will be displayed with a list of options. Click on "...by instantiating a template".
+
+<img src="/quickstart-github/github-2-create.png" width="50%"/>
+
+Next you'll see the available templates that you can apply. Select `GitHub` and click the `Apply template` button.
+
+<img src="/quickstart-github/github-3-apply.png" width="75%"/>
+
+You'll now see a modal warning that all directory data will be removed. When you install a template, all existing directory data is removed. If you previously connected your own identity providers or manually added any data,  it will be erased. The data from your identity providers will be re-imported, but any data created manually will be lost.  To proceed, click the `Delete Data` button.
+
+<img src="/quickstart-github/github-4-remove-data.png" width="50%"/>
+
+Once the template has finished installing, you will be taken back to the `Policy instances` screen where you can see the new `github` instance has been created. Click on it.
+
+<img src="/quickstart-github/github-5-created.png" width="50%"/>
+
+:::tip Tip
+Notice that the `github` instance relies on the `policy-rebac` policy image: our GitHub scenario is an example of a relationship-based access control (ReBAC) model.
+:::
+
+## Next Steps
+
+You should see the `github` evaluator, which you will use in the next topic to test out your policy.
+
+<img src="/quickstart-github/github-6-choose-instance.png" />
+
