@@ -24,10 +24,10 @@ On the right you can see the incoming and outgoing relations for the selected Us
 
 Now you can try the same scenarios that we tested previously in the Evaluator, only this time going through the API. 
 
-### Scenario 1 - can Morty read the `mega-seed`?
+### Scenario 1 - can Rick read the `citadel` channel?
 
-* For User, select `Morty Smith`.
-* For Resource, select `mega-seed`.
+* For User, select `Rick Sanchez`.
+* For Channel, select `citadel`.
 * For Operation, select `GET`.
 * Click the `Copy as cURL button` and paste into a terminal window.
 
@@ -35,69 +35,56 @@ You should see this response showing that the call has succeeded and the user ha
 
 <img src="/quickstart-slack/slack-14-test-app-curl.png" width="500px" />
 
-### Scenario 2 - can Rick read the `mega-seed`?
+### Scenario 2 - can Rick delete the `general` channel?
 
 * For User, select `Rick Sanchez`.
-* For Resource, select `mega-seed`.
-* For Operation, select `GET`.
+* For Channel, select `general`.
+* For Operation, select `DELETE`.
 * Click the `Copy as cURL button` and paste into a terminal window.
 
 You should see the response, indicating the operation was allowed:
 
 ```
-Hello from GET /resource/mega-seed
+Hello from DELETE /channel/smiths.general
 ```
 
-### Scenario 3 - can Morty write the `mega-seed`?
+### Scenario 3 - can Morty write the `citadel` channel?
 
 * For User, select `Morty Smith`.
-* For Resource, select `mega-seed`.
+* For Channel, select `citadel`.
+* For Operation, select `PUT`.
+* Click the `Copy as cURL button` and paste into a terminal window.
+
+You should see the response, indicating the operation was allowed:
+
+```
+Hello from PUT /channel/smiths.citadel
+```
+
+### Scenario 4 - can Morty write the `general` channel?
+
+* For User, select `Morty Smith`.
+* For Channel, select `general`.
+* For Operation, select `PUT`.
+* Click the `Copy as cURL button` and paste into a terminal window.
+
+You should see this reponse indicating the call failed due to the user not having the required permissions.
+
+```
+Forbidden by policy rebac.check
+```
+
+### Scenario 5 - can Morty write the `gossip` channel?
+
+* For User, select `Morty Smith`.
+* For Channel, select `gossip`.
 * For Operation, select `PUT`.
 * Click the `Copy as cURL button` and paste into a terminal window.
 
 You should see the response, indicating that the operation was allowed:
 
 ```
-Hello from PUT /resource/mega-seed
-```
-
-### Scenario 4 - can Rick write the `mega-seed`?
-
-* For User, select `Rick Sanchez`.
-* For Resource, select `mega-seed`.
-* For Operation, select `PUT`.
-* Click the `Copy as cURL button` and paste into a terminal window.
-
-You should see this reponse indicating the the call failed due to the user not having the required permissions.
-
-```
-Forbidden by policy rebac.check
-```
-
-### Scenario 5 - can Morty delete the `mega-seed`?
-
-* For User, select `Morty Smith`.
-* For Resource, select `mega-seed`.
-* For Operation, select `DELETE`.
-* Click the `Copy as cURL button` and paste into a terminal window.
-
-You should see the response, indicating that the operation was allowed:
-
-```
-Hello from DELETE /resource/mega-seed
-```
-
-### Scenario 6 - can Rick delete the `mega-seed`?
-
-* For User, select `Rick Sanchez`.
-* For Resource, select `mega-seed`.
-* For Operation, select `DELETE`.
-* Click the `Copy as cURL button` and paste into a terminal window.
-
-You should see this reponse indicating the the call failed due to the user not having the required permissions.
-
-```
-Forbidden by policy rebac.check
+Hello from PUT /channel/smiths.gossip
 ```
 
 # Explore
