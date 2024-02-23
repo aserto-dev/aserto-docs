@@ -6,7 +6,7 @@ description: Use the Simple RBAC Evaluator to test out the simple-rbac policy
 
 # Use the Simple RBAC Evaluator
 
-Now that you have created your policy instance, you can test it out with the Evaluator. The Evaluator supports several requests, corresponding to Aserto's authorization APIs - `is`, `decisiontree`, and `query`. The default "Check" request, however, is specifically for designed for `policy-rebac`.  Using the Evaluator allows you to quickly verify whether a user has a relationship (or permission) on an object.
+Now that you have created your policy instance, you can test it out with the Evaluator. The Evaluator supports several requests, corresponding to Aserto's authorization APIs - `is`, `decisiontree`, and `query`. The default "Check" request, however, is specifically designed for `policy-rebac`.  Using the Evaluator allows you to quickly verify whether a user has a relationship (or permission) on an object.
 
 <img src="/quickstart-simple-rbac/simple-rbac-6-choose-instance.png" />
 
@@ -31,7 +31,8 @@ Now let's check a few different scenarios using the Evalator. First, a few impor
 ### Scenario 1 - can Morty read the `mega-seed`?
 
 * For Subject, select "Morty Smith".
-* For Object Type, select "mega-seed".
+* For Object Type, select "Resource".
+* For Object, select "mega-seed".
 * For Relation, select "can-read".
 * Click the `Play` button.
 * You should see `"is": true` under results indicating the action will be permitted.
@@ -41,7 +42,8 @@ Now let's check a few different scenarios using the Evalator. First, a few impor
 ### Scenario 2 - can Rick read the `mega-seed`?
 
 * For Subject, select "Rick Sanchez".
-* For Object Type, select "mega-seed".
+* For Object Type, select "Resource".
+* For Object, select "mega-seed".
 * For Relation, select "can-read".
 * Click the `Play` button.
 * You should see `"is": true` under results indicating the action will be permitted.
@@ -49,7 +51,8 @@ Now let's check a few different scenarios using the Evalator. First, a few impor
 ### Scenario 3 - can Morty write the `mega-seed`?
 
 * For Subject, select "Morty Smith".
-* For Object Type, select "mega-seed".
+* For Object Type, select "Resource".
+* For Object, select "mega-seed".
 * For Relation, select "can-write".
 * Click the `Play` button.
 * You should see `"is": true` under results indicating the action will be permitted.
@@ -57,7 +60,8 @@ Now let's check a few different scenarios using the Evalator. First, a few impor
 ### Scenario 4 - can Rick write the `mega-seed`?
 
 * For Subject, select "Rick Sanchez".
-* For Object Type, select "mega-seed".
+* For Object Type, select "Resource".
+* For Object, select "mega-seed".
 * For Relation, select "can-write".
 * Click the `Play` button.
 * You should see `"is": false` under results indicating the action will be denied.
@@ -65,7 +69,8 @@ Now let's check a few different scenarios using the Evalator. First, a few impor
 ### Scenario 5 - can Morty delete the `mega-seed`?
 
 * For Subject, select "Morty Smith".
-* For Object Type, select "mega-seed".
+* For Object Type, select "Resource".
+* For Object, select "mega-seed".
 * For Relation, select "can-delete".
 * Click the `Play` button.
 * You should see `"is": true` under results indicating the action will be permitted.
@@ -73,7 +78,8 @@ Now let's check a few different scenarios using the Evalator. First, a few impor
 ### Scenario 6 - can Rick delete the `mega-seed`?
 
 * For Subject, select "Rick Sanchez".
-* For Object Type, select "mega-seed".
+* For Object Type, select "Resource".
+* For Object, select "mega-seed".
 * For Relation, select "can-delete".
 * Click the `Play` button.
 * You should see `"is": false` under results indicating the action will be denied.

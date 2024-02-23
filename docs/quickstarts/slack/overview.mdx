@@ -1,0 +1,27 @@
+---
+sidebar_label: Overview
+title: Slack Quickstart
+description: Slack Quickstart overview page
+---
+
+# Slack Quickstart
+
+The Slack scenario is an example of how to implement an authorization policy using a hierarchical, nested relationship-based access control (ReBAC) model.
+
+The Slack Quickstart includes:
+* A domain model for Slack, including `workspace` and `channel` object types. Workspaces have `channel_admin`, `guest`, and `member` relationships which grant permissions like `can_administer_channel`. Channels have `commenter` and `writer` relationships which grant permissions like `can_read`, `can_write`, `can_comment`, and `can_delete`.
+* A policy instance called `slack` which uses a boilerplate authorization policy called `policy-rebac`. This policy simply uses the underlying relationships to determine access.
+* A connection to the **Citadel Demo IDP**, which contains five demo users based on the Rick & Morty cartoon.
+* Sample *resources*, including workspaces such as `The Smiths workspace` and channels such as `general`, `citadel`, and `gossip`. Rick & Morty have `channel_admin` and `member` *relationships* to the workspace, which gives them permissions on the channels in the workspace, demonstrating a relationship-based (ReBAC) model.
+* A back-end API that uses the `slack` policy for authorization, implemented in several languages.
+* An interactive tutorial which helps construct `curl` requests to test the back-end API.
+
+As you go through the Quickstart, you'll learn the following:
+* How to instantiate the Slack template.
+* How to browse the directory and examine the manifest.
+* How to evaluate policy decisions within the Aserto Evaluator.
+* How to download and run the Slack back-end API.
+* How to construct `curl` requests to the back-end in order to test out the API.
+
+## Prerequisites
+To follow this Quickstart you'll need to have an Aserto account. If you do not have one, you can create one [here](https://www.aserto.com/#signup). Once you have created your tenant, you can continue.

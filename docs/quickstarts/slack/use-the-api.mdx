@@ -1,7 +1,7 @@
 ---
 sidebar_label: Call the API
 title: Call the API from the Testing modal
-description: Use the Testing modal to test out the simple-rbac policy
+description: Use the Testing modal to test out the slack policy
 ---
 
 # Call the back-end API
@@ -10,7 +10,7 @@ The Quickstart provides a helpful tool for generating `curl` requests to the API
 
 From the Quickstart screen, scroll down to Step 3, `Test the demo app` and click the `Test demo app` button.
 
-<img src= "/quickstart-simple-rbac/simple-rbac-12-test-app-step.png" width="50%"/>
+<img src= "/quickstart-slack/slack-12-test-app-step.png" width="50%"/>
 
 ## How to use the testing modal
 
@@ -18,53 +18,53 @@ The testing modal will open. On the left you can select a User, Resource, and an
 
 On the right you can see the incoming and outgoing relations for the selected User. This is helpful for determining what the expected behavior should be. Select `Morty Smith` and you can see that he has `owner`, `writer`, or `reader` relations from various resources.
 
-<img src="/quickstart-simple-rbac/simple-rbac-13-morty-relations.png" />
+<img src="/quickstart-slack/slack-13-rick-relations.png" />
 
 ## Test requests
 
 Now you can try the same scenarios that we tested previously in the Evaluator, only this time going through the API. 
 
-### Scenario 1 - can Morty read the `mega-seed`?
+### Scenario 1 - can Rick read the `citadel` channel?
 
-* For User, select `Morty Smith`.
-* For Resource, select `mega-seed`.
+* For User, select `Rick Sanchez`.
+* For Channel, select `citadel`.
 * For Operation, select `GET`.
 * Click the `Copy as cURL button` and paste into a terminal window.
 
 You should see this response showing that the call has succeeded and the user had the required permissions.
 
-<img src="/quickstart-simple-rbac/simple-rbac-14-test-app-curl.png" />
+<img src="/quickstart-slack/slack-14-test-app-curl.png" width="500px" />
 
-### Scenario 2 - can Rick read the `mega-seed`?
+### Scenario 2 - can Rick delete the `general` channel?
 
 * For User, select `Rick Sanchez`.
-* For Resource, select `mega-seed`.
-* For Operation, select `GET`.
+* For Channel, select `general`.
+* For Operation, select `DELETE`.
 * Click the `Copy as cURL button` and paste into a terminal window.
 
 You should see the response, indicating the operation was allowed:
 
 ```
-Hello from GET /resource/mega-seed
+Hello from DELETE /channel/smiths.general
 ```
 
-### Scenario 3 - can Morty write the `mega-seed`?
+### Scenario 3 - can Morty write the `citadel` channel?
 
 * For User, select `Morty Smith`.
-* For Resource, select `mega-seed`.
+* For Channel, select `citadel`.
 * For Operation, select `PUT`.
 * Click the `Copy as cURL button` and paste into a terminal window.
 
-You should see the response, indicating that the operation was allowed:
+You should see the response, indicating the operation was allowed:
 
 ```
-Hello from PUT /resource/mega-seed
+Hello from PUT /channel/smiths.citadel
 ```
 
-### Scenario 4 - can Rick write the `mega-seed`?
+### Scenario 4 - can Morty write the `general` channel?
 
-* For User, select `Rick Sanchez`.
-* For Resource, select `mega-seed`.
+* For User, select `Morty Smith`.
+* For Channel, select `general`.
 * For Operation, select `PUT`.
 * Click the `Copy as cURL button` and paste into a terminal window.
 
@@ -74,30 +74,17 @@ You should see this reponse indicating the call failed due to the user not havin
 Forbidden by policy rebac.check
 ```
 
-### Scenario 5 - can Morty delete the `mega-seed`?
+### Scenario 5 - can Morty write the `gossip` channel?
 
 * For User, select `Morty Smith`.
-* For Resource, select `mega-seed`.
-* For Operation, select `DELETE`.
+* For Channel, select `gossip`.
+* For Operation, select `PUT`.
 * Click the `Copy as cURL button` and paste into a terminal window.
 
 You should see the response, indicating that the operation was allowed:
 
 ```
-Hello from DELETE /resource/mega-seed
-```
-
-### Scenario 6 - can Rick delete the `mega-seed`?
-
-* For User, select `Rick Sanchez`.
-* For Resource, select `mega-seed`.
-* For Operation, select `DELETE`.
-* Click the `Copy as cURL button` and paste into a terminal window.
-
-You should see this reponse indicating the call failed due to the user not having the required permissions.
-
-```
-Forbidden by policy rebac.check
+Hello from PUT /channel/smiths.gossip
 ```
 
 # Explore
@@ -106,7 +93,7 @@ Now that you have learned how to use the Test App, try different users and resou
 
 # Congratulations
 
-You have now completed the Simple RBAC Quickstart! 
+You have now completed the Slack Quickstart! 
 
-As a next step, check out the code for the back-end API that you downloaded, and learn how to use the `simple-rbac` policy to provide relationship-based access control for your application.
+As a next step, check out the code for the back-end API that you downloaded, and learn how to use the `slack` policy to provide relationship-based access control for your application.
 

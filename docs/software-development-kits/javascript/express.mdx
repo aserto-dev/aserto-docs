@@ -912,7 +912,7 @@ app.get('/users/:id', async function(req, res) {
 - `decision`: a string representing the name of the decision - typically `allowed` (_required_)
 - `req`: Express request object (_required_)
 - `options`: a javascript map containing at least `{ authorizerServiceUrl, policyRoot }` as well as `authorizerApiKey` and `tenantId` for the hosted authorizer (_required_)
-- `packageName`: a string representing the package name for the the policy (optional)
+- `packageName`: a string representing the package name for the policy (optional)
 - `resourceMap`: a map of key/value pairs to use as the resource context for evaluation (optional)
 
 #### decision argument

@@ -1,0 +1,84 @@
+---
+sidebar_label: Use the Evaluator
+title: Use the GitHub Evaluator
+description: Use the GitHub Evaluator to test out the github policy
+---
+
+# Use the GitHub Evaluator
+
+Now that you have created your policy instance, you can test it out with the Evaluator. The Evaluator supports several requests, corresponding to Aserto's authorization APIs - `is`, `decisiontree`, and `query`. The default "Check" request, however, is specifically designed for `policy-rebac`.  Using the Evaluator allows you to quickly verify whether a user has a relationship (or permission) on an object.
+
+<img src="/quickstart-github/github-6-choose-instance.png" />
+
+The Evaluator has two parts. The `REQUEST` part on the left is where you specify information about the action being performed, while the `OUTPUT` on the right displays the body of the request as well as the response.
+
+The table below explains the selection fields.
+
+|Field|Description|
+|----|-----------|
+|Subject|The user to evaluate. For GitHub there are 5 Citadel users that you can select from.|
+|Object Type|The type of object to evaluate. For GitHub this will be `Repo`.|
+|Object|The object instance to evaluate.|
+|Relation|Which relation or permission to evaluate.|
+
+## Testing the policy
+
+Now let's check a few different scenarios using the Evalator. First, a few important things to note about Rick and Morty:
+
+* Both Rick and Morty are a `repo_admin` of the `citadel` organization. This means both of them have the `can_read`, `can_triate`, `can_write`, `can_maintain`, `can_delete`, and `can_administer` permissions on every `repo` for which the `citadel` organization is the `owner`. This includes the `citadel.missions` repo.
+* Morty is a `repo_reader` of the `smiths` organization. This means he only has the `can_read` permission on the organization and on any `repo` that is owned by the `smiths` organization, which includes the `smiths.budget` repo.
+
+### Scenario 1 - can Morty administer the `smiths.budget` repo?
+
+* For Subject, select "Morty Smith".
+* For Object Type, select "Repo".
+* For Object, select "The Smith's budget repository".
+* For Relation, select "can-administer".
+* Click the `Play` button.
+* You should see `"is": false` under results indicating the action will be denied.
+
+<img src="/quickstart-github/github-7-evaluator.png" />
+
+### Scenario 2 - can Morty read the `smiths.budget` repo?
+
+* For Subject, select "Morty Smith".
+* For Object Type, select "Repo".
+* For Object, select "The Smith's budget repository".
+* For Relation, select "can-read".
+* Click the `Play` button.
+* You should see `"is": true` under results indicating the action will be permitted.
+
+### Scenario 3 - can Rick read the `smiths.budget` repo?
+
+* For Subject, select "Rick Sanchez".
+* For Object Type, select "Repo".
+* For Object, select "The Smith's budget repository".
+* For Relation, select "can-read".
+* Click the `Play` button.
+* You should see `"is": false` under results indicating the action will be denied.
+
+### Scenario 4 - can Rick write the `citadel.missions` repo?
+
+* For Subject, select "Rick Sanchez".
+* For Object Type, select "Repo".
+* For Object, select "The citadel missions repository".
+* For Relation, select "can-write".
+* Click the `Play` button.
+* You should see `"is": true` under results indicating the action will be permitted.
+
+### Scenario 5 - can Morty delete the `citadel.missions` repo?
+
+* For Subject, select "Morty Smith".
+* For Object Type, select "Repo".
+* For Object, select "The citadel missions repository".
+* For Relation, select "can-delete".
+* Click the `Play` button.
+* You should see `"is": true` under results indicating the action will be permitted.
+
+## Next steps
+
+Now that you have seen how the policy works, you'll use the Quickstart in the console to download and run the sample back-end API, which uses the `github` policy for access control.
+
+Click on the "Quickstart" tab on the left.
+
+<img src="/quickstart-github/github-8-select-quickstart.png" width="20%" />

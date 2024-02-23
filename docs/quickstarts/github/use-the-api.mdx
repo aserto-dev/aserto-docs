@@ -1,0 +1,99 @@
+---
+sidebar_label: Call the API
+title: Call the API from the Testing modal
+description: Use the Testing modal to test out the github policy
+---
+
+# Call the back-end API
+
+The Quickstart provides a helpful tool for generating `curl` requests to the API, and it automatically generates the necessary JWT for authentication and authorization. This will allow you to see Aserto in action. We'll test the same scenarios that we used for the Evaluator.
+
+From the Quickstart screen, scroll down to Step 3, `Test the demo app` and click the `Test demo app` button.
+
+<img src= "/quickstart-github/github-12-test-app-step.png" width="50%"/>
+
+## How to use the testing modal
+
+The testing modal will open. On the left you can select a User, Repo, and an HTTP Method. Below in the Request box, there is a `curl` command for issuing the request, which contains a valid JWT for the selected user. Clicking the "Copy as cURL" button will copy the command so that you can paste and execute in your terminal.
+
+On the right you can see the incoming and outgoing relations for the selected User. This is helpful for determining what the expected behavior should be. Select `Morty Smith` and you can see that he has `repo_admin` and `repo_reader` relations from various organizations.
+
+<img src="/quickstart-github/github-13-morty-relations.png" />
+
+## Test requests
+
+Now you can try the same scenarios that we tested previously in the Evaluator, only this time going through the API. 
+
+### Scenario 1 - can Morty read the `citadel.missions` repo?
+
+* For User, select `Morty Smith`.
+* For Repo, select `The citadel missions repository`.
+* For Operation, select `GET`.
+* Click the `Copy as cURL button` and paste into a terminal window.
+
+You should see this response showing that the call has succeeded and the user had the required permissions.
+
+<img src="/quickstart-github/github-14-test-app-curl.png" width="500px" />
+
+### Scenario 2 - can Morty read the `smiths.budget` repo?
+
+* For User, select `Morty Smith`.
+* For Repo, select `The Smith's budget repository`.
+* For Operation, select `GET`.
+* Click the `Copy as cURL button` and paste into a terminal window.
+
+You should see the response, indicating the operation was allowed:
+
+```
+Hello from GET /repo/smiths.budget
+```
+
+### Scenario 3 - can Morty delete the `smiths.budget` repo?
+
+* For User, select `Morty Smith`.
+* For Repo, select `The Smith's budget repository`.
+* For Operation, select `DELETE`.
+* Click the `Copy as cURL button` and paste into a terminal window.
+
+You should see this response indicating the call failed due to the user not having the required permissions.
+
+```
+Forbidden by policy rebac.check
+```
+
+### Scenario 4 - can Rick read the `smiths.budget` repo?
+
+* For User, select `Rick Sanchez`.
+* For Repo, select `The Smith's budget repository`.
+* For Operation, select `GET`.
+* Click the `Copy as cURL button` and paste into a terminal window.
+
+You should see this response indicating the call failed due to the user not having the required permissions, since Rick has no relationship to the `smiths` organization.
+
+```
+Forbidden by policy rebac.check
+```
+
+### Scenario 5 - can Rick write the `citadel.missions` repo?
+
+* For User, select `Rick Sanchez`.
+* For Repo, select `The citadel missions repository`.
+* For Operation, select `PUT`.
+* Click the `Copy as cURL button` and paste into a terminal window.
+
+You should see the response, indicating the operation was allowed:
+
+```
+Hello from PUT /repo/citadel.missions
+```
+
+# Explore
+
+Now that you have learned how to use the Test App, try different users and resource combinations. Refer to the relationships browser to understand what actions the user should be able to perform depending on the resource.
+
+# Congratulations
+
+You have now completed the GitHub Quickstart! 
+
+As a next step, check out the code for the back-end API that you downloaded, and learn how to use the `github` policy to provide relationship-based access control for your application.
+
