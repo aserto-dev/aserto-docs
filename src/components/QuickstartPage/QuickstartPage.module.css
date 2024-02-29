@@ -6,16 +6,15 @@
 }
 
 html[data-theme='dark'] .pageTitle {
-  color: #a0a0a0;
+  color: #e7e7e7;
 }
 
 .pageSubtitle {
-  font-size: 24px;
   color: #121212;
 }
 
 html[data-theme='dark'] .pageSubtitle {
-  color: #a0a0a0;
+  color: #e7e7e7;
 }
 
 .wrapper {
