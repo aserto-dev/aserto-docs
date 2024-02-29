@@ -1,15 +1,24 @@
 /* Aserto Quickstart Page - set to Aserto's light and dark theme */
 
 .pageTitle {
-    font-size: 32px;
-    color: #121212;
+  font-size: 32px;
+  color: #121212;
 }
 
 html[data-theme='dark'] .pageTitle {
-    color: #a0a0a0;
+  color: #a0a0a0;
+}
+
+.pageSubtitle {
+  font-size: 24px;
+  color: #121212;
+}
+
+html[data-theme='dark'] .pageSubtitle {
+  color: #a0a0a0;
 }
 
 .wrapper {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
