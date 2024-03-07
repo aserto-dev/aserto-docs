@@ -8,108 +8,117 @@ description: Built-in Functions that can be used in your policy
 
 Aserto provides a set of built-in functions that can be used in your policy. These functions make it easier to leverage information found the Aserto directory.
 
-:::note
-The parameter passing convention has changed from positional arguments to a JSON map that contains named arguments.
-:::
-
 ### `ds.identity`
 ```js
 ds.identity({
   "id": "<value>"
 })
 ```
-Looks up a user identity by one of the ids (e.g. email address or PID), and returns the `id` of the user object.
+Looks up a user identity by one of the ids (e.g. email address or PID), and returns the `identifier` of the user object associated to the identity instance.
 
 For example: `ds.identity({ "id": "euang@acmecorp.com" })` will return `dfdadc39-7335-404d-af66-c77cf13a15f8`.
 
 ### `ds.object`
 ```js
 ds.object({
-  "object_type": "<type>",
-  "object_id": "<id>",
-  "with_relation": false
+  "object_type": "<object type>",
+  "object_id": "<object identifier>",
+  "with_relation": <boolean>
 })
 ```
 Returns an object instance looked up by the combination of `<type>` and `<id>`.
 
 For example: `ds.object({ "type": "identity", "id": "euang@acmecorp.com" })` will return the identity object associated with Euan.
 
+If `with_relation` is included and set to `true`, the response includes all the relation instances.
+
+
 ### `ds.relation`
 
 ```js
 ds.relation({
-  "object_id": "<object-id>",
-  "object_type": "<object-type>",
-  "relation": "<relation-name>",
-  "subject_id": "<subject-id>",
-  "subject_type": "<subject-type>",
-  "subject_relation": "<subject-relation>",
-  "with_objects": false
+  "object_type": "<object type>",
+  "object_id": "<object identifier>",
+  "relation": "<relation name>",
+  "subject_type": "<subject type>",
+  "subject_id": "<subject identifier>",
+  "subject_relation": "subject relation name>",
+  "with_objects": <boolean>
 })
 ```
-Returns the relation instance that connects the object with the subject through the relation.
+Returns the relation instance that connects the subject with the object through the relation identified by `<object type>` and `<relation name>`.
+If `with_objects` is included and set to `true`, the response includes all the subject and object instances.
 
 ### `ds.check`
+
 ```js
 ds.check({
-  "object_type":"<object-type>",
-  "object_id": "<object-id>",
-  "relation": "<relation-name>",
-  "subject_type": "<subject-type>",
-  "subject_id": "<subject-id>",
-  "trace": false
+  "object_type": "<object type>",
+  "object_id": "<object identifier>",
+  "relation": "<relation or permission name>",
+  "subject_type": "<subject type>",
+  "subject_id": "<subject identifier>"
 })
 ```
-An object can be identified by the combination of its `<object-type>` and `<object-id>`. The same is true for a subject.
 
-`ds.check` returns `true` if the object instance has a relation of the type specified to the subject instance.
+An object is identified by the combination of its `<object type>` and `<object identifier>`. The same is true for a subject.
+
+A relation type is uniquely identified by the object type name and the relation name. A relation instance of that type will relate an object instance to a subject instance.
+
+`ds.check` returns `true` if the object instance has a relation or permission of the type specified to the subject instance.
 
 
 ### `ds.check_relation`
 
 ```js
 ds.check_relation({
-  "object_type": "<object-type>",
-  "object_id": "<object-id>",
-  "relation": "<relation-name>",
-  "subject_type": "<subject-type>",
-  "subject_id": "<subject-id>",
-  "trace": false
+  "object_type": "<object type>",
+  "object_id": "<object identifier>",
+  "relation": "<relation name>",
+  "subject_type": "<subject type>",
+  "subject_id": "<subject identifier>"
 })
 ```
-An object can be identified by the combination of its `<object-type>` and `<object-id>`. The same is true for a subject.
+An object is identified by the combination of its `<object type>` and `<object identifier>`. The same is true for a subject.
 
-`ds.check_relation` returns `true` if the object instance has a relation of the type specified to the subject instance. 
+A relation type is uniquely identified by the object type name and the relation name. A relation instance of that type will relate an object instance to a subject instance.
+
+`ds.check_relation` returns `true` if the object instance has a relation of the type specified to the subject instance.
 
 ### `ds.check_permission`
 
 ```js
 ds.check_permission({
-  "object_type": "<object-type>"
-  "object_id": "<object-id>",
-  "permission": "<permission-name>",
-  "subject_type": "<subject-type>"
-  "subject_id": "<subject-id>",
-  "trace": false
+  "object_type": "<object type>",
+  "object_id": "<object identifier>",
+  "permission": "<permission name>",
+  "subject_type": "<subject type>",
+  "subject_id": "<subject identifier>"
 })
 ```
-An object can be identified by the combination of its `<object-type>` and `<object-id>`. The same is true for a subject.
+An object is identified by the combination of its `<object type>` and `<object identifier>`. The same is true for a subject.
 
-`ds.check_permission` returns`true` if the subject has the permission `<permission-name>` referenced through one or more relations to the object.
+`ds.check_permission` returns`true` if the subject has the permission `<permission name>` referenced through one or more relations to the object.
 
 ### `ds.graph`
 
 ```js
 ds.graph({
-  "object_type": "<object-type>",
-  "object_id": "<object-id>",
-  "relation": "<relation-name>",
-  "subject_type": "<subject-type>",
-  "subject_id": "<subject-id>",
-  "subject_relation": "<subject-relation>",
-  "explain": false,
-  "trace": false
+    "object_type": "<object type>",
+    "object_id": "<object identifier>",
+    "relation": "<relation name>",
+    "subject_type": "<subject type>",
+    "subject_id": "<subject identifier>",
+    "subject_relation": "<subject relation>",
+    "explain": <boolean>
 })
 ```
 
-Returns a list of objects that are found b searching the graph to find all object of a given type with a specified relation to a given subject or vice versa, all subjects of a given type that a specified object has a given relation to.
+Searches the graph to find all subjects of a given type with a specified relation to a given subject or vice versa, all objects of a given type that a specified subject has a given relation to.
+
+The `object_type`, `subject_type`, and `relation` values are required in addition to one of the `object_id` or `subject_id` values.
+
+If `object_id` is provided, the results include all subjects of the specified `subject_type` that have the relation to the object.
+If `subject_id` is provided, the results include all objects of the specified type with which the subject has the given relation.
+
+If `explain` is set to `true` the output also includes all the graph paths that connect the given object or subject with the returned results.
