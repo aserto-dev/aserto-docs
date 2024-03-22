@@ -39,7 +39,7 @@ export default [
     icon: 'flask.svg',
     link: 'https://flask.palletsprojects.com',
     github:
-      'https://github.com/aserto-dev/aserto-python/tree/main/packages/flask-aserto',
+      'https://github.com/aserto-dev/flask-aserto',
     docs: '/docs/software-development-kits/python/flask',
   },
   {
