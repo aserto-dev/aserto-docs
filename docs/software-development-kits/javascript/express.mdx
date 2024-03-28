@@ -6,9 +6,7 @@ description: Aserto SDKs - Node.js / Express.js - Installing and using the Expre
 
 # Node.js / Express.js SDK
 
-Aserto authorization middleware for the node Express server, based on
-Auth0's [express-jwt-authz](https://github.com/auth0/express-jwt-authz)
-package.
+Aserto authorization SDK for Node.js, as well as Express.js-compatible middleware.
 
 ## Github
 
@@ -735,7 +733,8 @@ await directoryClient.deleteManifest();
 ```ts
 
 const importRequest = createAsyncIterable([
-  new ImportRequest({
+  {
+    opCode: 1,
     msg: {
       case: "object",
       value: {
@@ -745,8 +744,9 @@ const importRequest = createAsyncIterable([
         displayName: "name1",
       },
     },
-  }),
-  new ImportRequest({
+  },
+  {
+    opCode: 1,
     msg: {
       case: "object",
       value: {
@@ -756,8 +756,9 @@ const importRequest = createAsyncIterable([
         displayName: "name2",
       },
     },
-  }),
-  new ImportRequest({
+  },
+  {
+    opCode: 1,
     msg: {
       case: "relation",
       value: {
@@ -768,7 +769,7 @@ const importRequest = createAsyncIterable([
         relation: "manager",
       },
     },
-  }),
+  },
 ]);
 
 const resp = await directoryClient.import(importRequest);
