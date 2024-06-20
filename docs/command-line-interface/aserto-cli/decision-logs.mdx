@@ -16,7 +16,7 @@ be discovered and then downloaded individually using the Aserto CLI. The CLI als
 ### Listing Objects
 
 ```
-aserto decision-logs list [--policies=<policy-id1>,<policy-id2>...<policy-idN>]
+aserto decision-logs list [--policies=<policy-name1>,<policy-name2>...<policy-nameN>]
 ```
 
 ### Fetch a Download URL
@@ -35,43 +35,11 @@ into analytics tools.
 
 ```
 aserto decision-logs get [--path <destination path>] \
-[--policies <policy-id1>,<policy-id2>...<policyi-idN>]
+[--policies <policy-name1>,<policy-name2>...<policyi-nameN>]
 ```
 
 When used this way, the CLI will only download decision log objects which don't already exist in the destination path.
 This is safe because, once they exist, decision log objects are final and immutable.
-
-## Other Storage Objects
-
-Aserto's decision logging system maintains versioned copies of users involved in decisions. These can be accessed using
-the Aserto CLI.
-
-### Listing User Objects
-
-```
-aserto decision-logs list-users
-```
-
-### Fetch a Download URL
-
-For each user object name, a download URL can be obtained. The download URL can be used to perform a standard HTTP
-download.
-
-```
-aserto decision-logs get-user --info <object name>
-```
-
-### Bulk Downloads
-
-The Aserto CLI can also perform bulk downloads, which can be useful when automating ingestion of data referenced by
-decision log objects.
-
-```
-aserto decision-logs get-users [--path <destination path>]
-```
-
-When used this way, the CLI will only download objects that have changed since last downloaded, according to the
-metadata on the local versions and remote versions of the objects.
 
 ## Decision stream
 
@@ -79,7 +47,7 @@ The decision stream is a near real-time stream of decison events. The `decisions
 the stream and output it to `stdout`.
 
 ```
-aserto decisions stream <policy-id> [--since <time in RFC3339 format>]
+aserto decisions stream <policy-name> <instance-label> [--since <time in RFC3339 format>]
 ```
 
 The CLI will remain open, outputting events to `stdout`. Events are typically delivered in under one minute.

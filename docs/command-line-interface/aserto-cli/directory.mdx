@@ -7,32 +7,31 @@ description: Interacting with the Directory
 # Interact with the Aserto Directory
 
 Here are some commands that can get you started interacting with the Aserto directory.
-For a full listing, type `aserto directory`, or `aserto d` for short.
+For a full listing, type `aserto directory`, or `aserto ds` for short.
 
 ```bash
-aserto d list-users          # list users in the directory
-aserto d get-identity <key>  # get the GUID associated with a user's identity key (e.g. email)
-aserto d get-user <key>      # get the full user object based on a GUID or a key
+Usage: aserto directory (ds) <command> [flags]
+
+directory commands
+
+Commands:
+  directory (ds) check      check permission
+  directory (ds) search     search relation graph
+  directory (ds) get        get object|relation|manifest
+  directory (ds) set        set object|relation|manifest
+  directory (ds) delete     delete object|relation|manifest
+  directory (ds) list       list objects|relations
+  directory (ds) import     import directory data
+  directory (ds) export     export directory data
+  directory (ds) backup     backup directory data
+  directory (ds) restore    restore directory data
+  directory (ds) test       execute directory assertions
+
+Flags:
+  -h, --help             Show context-sensitive help.
+  -c, --config=STRING    name or path of configuration file
+  -v, --verbosity        Use to increase output verbosity.
+      --tenant=STRING    tenant id override ($ASERTO_TENANT_ID)
 ```
 
-## Loading users
-
-You can load users into the Aserto directory either from an identity provider or from a file.
-
-### Identity Provider
-
-To load users from an existing IDP connection, use the following command:
-
-```bash
-aserto d load-users --provider=auth0
-```
-
-### Side-loading
-
-To "side-load" users from a JSON file in our canonical user format, use this command:
-
-```bash
-aserto d load-users --provider=json file=peoplefinder.json
-```
-
-An example json file for the peoplefinder users can be found [here](https://raw.githubusercontent.com/aserto-dev/aserto-cli/main/assets/peoplefinder.json).
+As the Aserto CLI is based on the Topaz CLI please see documentation available [here](https://www.topaz.sh/docs/command-line-interface/topaz-cli/directory)

@@ -1,0 +1,32 @@
+---
+sidebar_label: Authorizer
+title: Aserto CLI - Authorizer
+description: Interacting with the Authorizer
+---
+
+# Interact with the Aserto Authorizer
+
+Here are some commands that can get you started interacting with the Aserto authorizer.
+For a full listing, type `aserto authorizer`, or `aserto az` for short.
+
+```
+Usage: aserto authorizer (az) <command> [flags]
+
+authorizer commands
+
+Commands:
+  authorizer (az) eval             evaluate policy decision
+  authorizer (az) query            execute query
+  authorizer (az) decisiontree     get decision tree
+  authorizer (az) get-policy       get policy
+  authorizer (az) list-policies    list policies
+  authorizer (az) test             execute authorizer assertions
+
+Flags:
+  -h, --help             Show context-sensitive help.
+  -c, --config=STRING    name or path of configuration file
+  -v, --verbosity        Use to increase output verbosity.
+      --tenant=STRING    tenant id override ($ASERTO_TENANT_ID)
+```
+
+As the Aserto CLI is based on the Topaz CLI please see documentation available [here](https://www.topaz.sh/docs/command-line-interface/topaz-cli/authorizer)

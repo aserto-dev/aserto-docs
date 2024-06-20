@@ -1,0 +1,68 @@
+---
+sidebar_label: Config
+title: Aserto CLI - Config
+description: Configuring the aserto CLI
+---
+
+# Configuring the Aserto CLI
+
+For a full listing, type `aserto config`.
+
+```
+Usage: aserto config <command> [flags]
+
+configuration commands
+
+Commands:
+  config use       use a topaz configuration
+  config new       create new configuration
+  config list      list configurations
+  config rename    rename configuration
+  config delete    delete configuration
+  config info      display configuration information
+
+Flags:
+  -h, --help             Show context-sensitive help.
+  -c, --config=STRING    name or path of configuration file
+  -v, --verbosity        Use to increase output verbosity.
+      --tenant=STRING    tenant id override ($ASERTO_TENANT_ID)
+```
+
+## Listing available configurations
+
+If you previously used [Topaz CLI Configurations](https://www.topaz.sh/docs/command-line-interface/topaz-cli/configuration) this should seem very familiar.
+If you are not logged in to aserto the list will display you available Topaz configuration files, however once you login you will see your available tenants in this list.
+
+Example:
+```
+aserto config list
+     NAME                CONFIG                                
+     tenant1.aserto.com  7dxc1dscb-8541-11ee-8530-00fde8f8691a  
+     tenant2.aserto.com  c8x4x115-28cb-11rf-b88b-009az7b104e6  
+     gdrive              gdrive.yaml                                
+     peoplefinder        peoplefinder.yaml                          
+     todo                todo.yaml             
+```
+## Selecting a configuration
+
+Running `aserto config use <name>` you can select the configuration that will be used by the CLI. 
+Please note that for local topaz instance configurations some of the remote Aserto CLI commands will not be available.
+
+Once you selected a configuration if you run an `aserto config list` you should see your selection marked as:
+Example:
+```
+aserto config use tenant1.aserto.com
+```
+```
+aserto config list
+
+     NAME                CONFIG                                
+ *   tenant1.aserto.com  7dxc1dscb-8541-11ee-8530-00fde8f8691a  
+     tenant2.aserto.com  c8x4x115-28cb-11rf-b88b-009az7b104e6  
+     gdrive              gdrive.yaml                                
+     peoplefinder        peoplefinder.yaml                          
+     todo                todo.yaml             
+```
+
+Please note that the `aserto config rename`, `aserto config delete` and `aserto config info` are meant for interacting with you local Topaz configurations only.
+For more details regarding the basics of these commands see the [Topaz Configuration Docs](https://www.topaz.sh/docs/command-line-interface/topaz-cli/configuration)
