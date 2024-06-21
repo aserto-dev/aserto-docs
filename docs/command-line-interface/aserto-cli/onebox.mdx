@@ -20,31 +20,44 @@ To use the CLI you need to first [login](login) to your Aserto account.
 You can then pull down the latest `Topaz` docker image.
 
 ```bash
-aserto developer install
+aserto install
 ```
+## Selecting the tenant
 
-## Configuring
+To select the tenant from which to configure an Edge Authorizer, refer to the [Config](/docs/command-line-interface/aserto-cli/config.mdx) documentation.
+
+## Configuring an Edge Authorizer to connect to the Control Plane
 
 To configure the Edge Authorizer to connect to the Aserto Control Plane, use the following command. Note that EDGE_AUTHORIZER_CONNECTION_ID is the connection ID of an Edge Authorizer that you [created in the Aserto console](/docs/aserto-console/connections/setup-edge.mdx). 
 
 ```bash
-aserto developer configure <POLICY_INSTANCE_NAME> --edge-authorizer=<EDGE_AUTHORIZER_CONNECTION_ID> [--decision-logging]
+aserto config new -n <POLICY_INSTANCE_NAME> --edge-authorizer=<EDGE_AUTHORIZER_CONNECTION_ID> [--decision-logging]
 ```
 
-## Starting 
+This will create a new **local** Topaz configuration, which will instruct Topaz to connect to the control plane using the downloaded certificates and create a mutual TLS connection with the control plane.
 
-Finall you can `docker run` a container running an Edge Authorizer with the `peoplefinder` policy configuration, writing the decision logs to `/tmp/decision-logs`:
+To enable decision logs to be collected and forwarded to the Aserto Control Plane, use the `--decision-logging` option of the `aserto config new` command.
+
+## Selecting the new configuration to run
+
+Once you configure an edge authorizer you should be able to see the configuration file in the `aserto config list` command results.
+
+From there you need to select the configuration file to be able to manage the authorizer using the `aserto config use <POLICY_INSTANCE_NAME>` command.
+
+## Starting an Edge Authorizer
+
+Finall you can `docker run` a container running an Edge Authorizer with the created policy configuration:
 
 ```bash
-aserto developer start peoplefinder --data-path=/tmp/decision-logs
+aserto start
 ```
 
 These additional commands allow managing the Edge Authorizer instance.
 
 ```bash
-aserto developer status   # displays the running status of the authorizer
-aserto developer stop     # stops the authorizer
-aserto developer update   # updates the authorizer image to :latest
+aserto status   # displays the running status of the authorizer
+aserto stop     # stops the authorizer
+aserto update   # updates the authorizer image to :latest
 ```
 
-Once the Edge Authorizer is deployed it needs to be connected to the Aserto Control Plane. To do this, see the [Edge Authorizers](/docs/edge-authorizers/security-and-management) section.
+For more details about the edge authorizer configuration see the [Edge Authorizers](/docs/edge-authorizers/security-and-management) section.

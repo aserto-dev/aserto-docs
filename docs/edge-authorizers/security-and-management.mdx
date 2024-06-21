@@ -42,7 +42,8 @@ Click on the newly created connection to retrieve the Edge Authorizer Connection
 
 ## Connecting to the control plane
 
-The Aserto CLI can then be used to [configure](/docs/command-line-interface/aserto-cli/onebox#configuring) the Topaz instance to use the Control Plane by adding an option to the `configure` sub-command. This will install the client certificates and configure the authorizer to connect to the Control Plane using them. 
+The Aserto CLI can then be used to [configure](/docs/command-line-interface/aserto-cli/onebox) the Topaz instance to use the Control Plane by adding an option to the `aserto config new` sub-command. This will install the client certificates and configure the authorizer to connect to the Control Plane using them.
+
 An authorizer can also be configured to generate decision logs and upload them to the Control Plane. To do this add the `--decision-logging` argument.
 
 ### Obtaining certificates

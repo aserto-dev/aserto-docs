@@ -1,29 +1,28 @@
 ---
-sidebar_label: Install the Aserto Sidecar
-title: Install the Aserto Sidecar
-description: Installing a local authorizer running as a docker container
+sidebar_label: Install Topaz
+title: Install Topaz
+description: Installing a local Topaz authorizer running as a docker container
 ---
 
-# Installing a local authorizer running as a docker container
+# Installing a local Topaz authorizer
 
-So far, we've only interacted with a multi-tenant hosted version of the Aserto Authorizer. But there are
-other deployment models:
+So far, we've only interacted with a multi-tenant hosted version of the Aserto Authorizer. But there are other deployment models:
 
-- Developing locally against a containerized version of the Aserto Authorizer, referred to as the **Sidecar**
-- Deploying the Aserto Authorizer as a sidecar in the same kubernetes pod as the calling service
-- Deploying the Aserto Authorizer as another microservice in the same subnet as the other microservices in your application
+- Developing locally against [Topaz](https://www.topaz.sh), which is a containerized version of the Aserto Authorizer
+- Deploying the Topaz Authorizer as a sidecar in the same kubernetes pod as the calling service
+- Deploying the Topaz Authorizer as another microservice in the same subnet as the other microservices in your application
 
-These scenarios all use the open-source `sidecar` docker image, which is a containerized version of the
-Aserto authorization system, which can either be run independently with no connection to the Aserto control
-plane, or can be connected to the Aserto Control Plane to automatically receive policy changes, user attribute
+These scenarios all use the open-source `topaz` docker image, which is a containerized version of the
+Aserto authorization system, which can either be run independently with no connection to the Aserto Control
+Plane, or can be connected to the Aserto Control Plane to automatically receive policy changes, directory data 
 changes, and push decision logs back to the Control Plane.
 
 :::note
-The Sidecar requires `docker` to be installed and running.
+Topaz requires `docker` to be installed and running.
 To install Docker: `brew install --cask docker`
 :::
 
-To get started with the Sidecar, you can pull it down using the Aserto CLI.
+To get started with Topaz, you can pull it down using the Aserto CLI.
 
 If you haven't yet, you can install it using `brew` on Mac or Linux.
 
@@ -41,33 +40,74 @@ Sign in to your Aserto account:
 aserto login
 ```
 
-You can use the CLI to install and run a local authorizer on your desktop.
+You can use the CLI to install and run a local Topaz authorizer on your desktop. The following instructions will show you how to create a local configuration of the Aserto policy and directory that you created using the Aserto Console.
 
-The following command will pull down the latest `sidecar` docker image.
+## Install Topaz
+
+The following command will pull down the latest `topaz` docker image.
 
 ```bash
-aserto developer install
+aserto install
 ```
 
-The next command will pull down the configuration for a policy that you've set up in the console, using
-the name you gave it (in our case, `peoplefinder`).
+## Select the tenant to target
+
+Next, you'll need to select the Aserto tenant that you'd like to target. List the remote configs (tenants):
 
 ```bash
-aserto developer configure peoplefinder
+aserto config list
 ```
 
-The following command will `docker run` a local container with the `peoplefinder` policy configuration, writing the decision logs to `/tmp/decision-logs`:
+Then select the tenant you'd like to target:
 
 ```bash
-aserto developer start peoplefinder --data-path=/tmp/decision-logs
+aserto config use <your-tenant-name.aserto.com>
 ```
 
-The next few commands help manage the `sidecar` docker instance and image.
+## Create a Topaz configuration that mirrors a policy
+
+The next command will create a local configuration for a policy that you've set up in the Aserto Console, using the name you gave it (in our case, `peoplefinder`).
 
 ```bash
-aserto developer status   # displays the running status of the authorizer
-aserto developer stop     # stops the authorizer
-aserto developer update   # updates the authorizer image to :latest
+aserto config new --name="peoplefinder"
+```
+
+This will create a new local configuration that mirrors the `peoplefinder` instance. You'll need to switch to this config:
+
+```bash
+aserto config use peoplefinder
+```
+
+:::tip
+Refer to the [CLI docs](/docs/command-line-interface/aserto-cli/onebox.mdx) to learn how to create an Edge Authorizer configuration, which will allow this local Topaz instance to be managed by the Aserto Control Plane.
+:::
+
+## Start Topaz with the local configuration
+
+The following command will `docker run` a local container with the `peoplefinder` policy configuration:
+
+```bash
+aserto start
+```
+
+Once Topaz is started, it will pull down the policy and data (if you've configured data syncing) from the instance you configured in the Aserto Console. You now have a local copy running on your own machine!
+
+## Bring up the console
+
+Topaz has a fully featured local console that mirrors the Aserto Console. Use the following command to bring it up in a browser window:
+
+```bash
+aserto console
+```
+
+## Other commands
+
+The next few commands help manage the `topaz` docker instance and image.
+
+```bash
+aserto status   # displays the running status of the topaz authorizer
+aserto stop     # stops the topaz authorizer
+aserto update   # updates the topaz authorizer image to :latest
 ```
 
 ## Next Steps
