@@ -22,8 +22,11 @@ You can then pull down the latest `Topaz` docker image.
 ```bash
 aserto install
 ```
+## Selecting the tenant
 
-## Configuring
+To select the tenant from which to configure an Edge Authorizer, refer to the [Config](/docs/command-line-interface/aserto-cli/config.mdx) documentation.
+
+## Configuring an Edge Authorizer to connect to the Control Plane
 
 To configure the Edge Authorizer to connect to the Aserto Control Plane, use the following command. Note that EDGE_AUTHORIZER_CONNECTION_ID is the connection ID of an Edge Authorizer that you [created in the Aserto console](/docs/aserto-console/connections/setup-edge.mdx). 
 
@@ -31,12 +34,17 @@ To configure the Edge Authorizer to connect to the Aserto Control Plane, use the
 aserto config new -n <POLICY_INSTANCE_NAME> --edge-authorizer=<EDGE_AUTHORIZER_CONNECTION_ID> [--decision-logging]
 ```
 
-## Selection the configuration to run
+This will create a new **local** Topaz configuration, which will instruct Topaz to connect to the control plane using the downloaded certificates and create a mutual TLS connection with the control plane.
+
+To enable decision logs to be collected and forwarded to the Aserto Control Plane, use the `--decision-logging` option of the `aserto config new` command.
+
+## Selecting the new configuration to run
 
 Once you configure an edge authorizer you should be able to see the configuration file in the `aserto config list` command results.
+
 From there you need to select the configuration file to be able to manage the authorizer using the `aserto config use <POLICY_INSTANCE_NAME>` command.
 
-## Starting 
+## Starting an Edge Authorizer
 
 Finall you can `docker run` a container running an Edge Authorizer with the created policy configuration:
 

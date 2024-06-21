@@ -1,10 +1,18 @@
 ---
 sidebar_label: Config
-title: Aserto CLI - Config
-description: Configuring the aserto CLI
+title: Aserto CLI - Configurations
+description: Creating and managing configurations
 ---
 
-# Configuring the Aserto CLI
+# Creating and managing Aserto configurations
+
+The Aserto CLI provides a convenient way to target its commands at a particular tenant and policy instance. These are known as "configs".
+
+The Aserto CLI leverages [Topaz configurations](https://www.topaz.sh/docs/command-line-interface/topaz-cli/configuration), which can be used to target local configurations. It also adds a convenient way to target **remote** configurations: these are policy instances that are managed by the Aserto SaaS platform.
+
+To access these configurations, be sure to [login](/docs/command-line-interface/aserto-cli/login.mdx) first.
+
+## Aserto configuration commands
 
 For a full listing, type `aserto config`.
 
@@ -30,8 +38,7 @@ Flags:
 
 ## Listing available configurations
 
-If you previously used [Topaz CLI Configurations](https://www.topaz.sh/docs/command-line-interface/topaz-cli/configuration) this should seem very familiar.
-If you are not logged in to aserto the list will display you available Topaz configuration files, however once you login you will see your available tenants in this list.
+If you are not logged in, the list will display you available Topaz configuration files. Once you've logged in, you will see your available tenants in this list.
 
 Example:
 ```
@@ -43,17 +50,20 @@ aserto config list
      peoplefinder        peoplefinder.yaml                          
      todo                todo.yaml             
 ```
+
 ## Selecting a configuration
 
-Running `aserto config use <name>` you can select the configuration that will be used by the CLI. 
-Please note that for local topaz instance configurations some of the remote Aserto CLI commands will not be available.
+Running `aserto config use <name>`, you can select the configuration that will be used by the CLI. 
+
+Please note that for local topaz configurations, some of the remote Aserto CLI commands will not be available.
 
 Once you selected a configuration if you run an `aserto config list` you should see your selection marked as:
 Example:
-```
+```bash
 aserto config use tenant1.aserto.com
 ```
-```
+
+```bash
 aserto config list
 
      NAME                CONFIG                                
@@ -65,4 +75,19 @@ aserto config list
 ```
 
 Please note that the `aserto config rename`, `aserto config delete` and `aserto config info` are meant for interacting with you local Topaz configurations only.
-For more details regarding the basics of these commands see the [Topaz Configuration Docs](https://www.topaz.sh/docs/command-line-interface/topaz-cli/configuration)
+
+For more details regarding these commands, see the [Topaz Configuration Docs](https://www.topaz.sh/docs/command-line-interface/topaz-cli/configuration).
+
+## Issuing commands to remote instances
+
+Once you've selected an Aserto tenant as your current configuration, you can use the [Connections](/docs/command-line-interface/aserto-cli/connections.mdx), [Policies](/docs/command-line-interface/aserto-cli/policies.mdx), [Decision Logs](/docs/command-line-interface/aserto-cli/connections.mdx), and [Control Plane](/docs/command-line-interface/aserto-cli/control-plane.mdx) commands, targeting that tenant.
+
+In addition, all of the [Directory](/docs/command-line-interface/aserto-cli/directory.mdx) and [Authorizer](/docs/command-line-interface/aserto-cli/authorizer.mdx) commands will target that specific tenant.
+
+## Creating an Edge Authorizer configuration
+
+[Edge Authorizers](/docs/edge-authorizers/overview.mdx) are Topaz instances that are managed by the Aserto Control Plane.
+
+Creating an Edge Authorizer configuration allows you to mirror a policy and directory in an Aserto Tenant, but run these locally - either on your workstation, as a microservice, or as a sidecar.
+
+Refer to the [Edge Authorizer CLI docs](/docs/command-line-interface/aserto-cli/onebox.mdx) to learn how to use the `aserto config new` command to create an Edge Authorizer configuration that mirrors one of your policies in your Aserto Tenant.

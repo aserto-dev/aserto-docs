@@ -290,8 +290,10 @@ module.exports = {
           items: [
             'command-line-interface/aserto-cli/installation',
             'command-line-interface/aserto-cli/login',
+            'command-line-interface/aserto-cli/config',
             'command-line-interface/aserto-cli/policies',
             'command-line-interface/aserto-cli/connections',
+            'command-line-interface/aserto-cli/authorizer',
             'command-line-interface/aserto-cli/directory',
             'command-line-interface/aserto-cli/decision-logs',
             'command-line-interface/aserto-cli/onebox',
