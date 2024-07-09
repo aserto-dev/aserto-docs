@@ -29,7 +29,7 @@ Metadata metadata = new Metadata();
 Metadata.Key<String> asertoTenantId = Metadata.Key.of("aserto-tenant-id", Metadata.ASCII_STRING_MARSHALLER);
 Metadata.Key<String> authorization = Metadata.Key.of("authorization", Metadata.ASCII_STRING_MARSHALLER);
 metadata.put(asertoTenantId, "<Aserto tenant ID>");
-metadata.put(authorization, "basic " + "<Aserto API key>"");
+metadata.put(authorization, "basic " + "<Aserto API key>");
 
 ManagedChannel channel = NettyChannelBuilder
         .forAddress(authorizerAddress, authorizerPort)
