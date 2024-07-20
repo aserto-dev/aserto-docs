@@ -1,0 +1,44 @@
+---
+sidebar_label: Governance
+title: Answering Governance questions
+description: Answering Governance questions - find users that can invoke an endpoint
+---
+
+# Governance
+
+Before we wrap up, it’s worth noting that with the ReBAC model, we can now trivially find out which users are able to invoke which endpoints.
+
+## Finding endpoints that a user can invoke
+
+Go back to the Aserto Console, click on the Directory tab, and the [Evaluator](https://console.aserto.com/ui/directory/evaluator). Select the request called “Find objects that a user can access”, and select *Beth*, the *Endpoint* type, and the `can_invoke` permission.
+
+<img src="/quickstart-api-auth/api-auth-25-find-endpoints-beth.png" />
+
+Clicking the “Play” button invokes the query, and shows that Beth can only invoke the three GET endpoints on the Todo API service.
+
+<img src="/quickstart-api-auth/api-auth-26-beth-endpoints.png" />
+
+This makes sense because she’s a member of the `viewer-group`, and doesn’t have any additional entitlements. Play around with other users such as *Morty* and *Rick* to get different results, and feel free to copy the request as a cURL and execute it from a terminal to see how to invoke this type of request as a REST call.
+
+```sh
+curl 'https://directory.prod.aserto.com/api/v3/directory/graph/endpoint/can_invoke/user?object_id=&subject_id=beth%40the-smiths.com' \
+          -H 'aserto-tenant-id: <your-tenant-id>' \
+          -H 'authorization: basic <your-dir-api-key>' \
+          -H 'content-type: application/json'
+```
+
+## Finding users that can invoke an endpoint
+
+Lastly, we can ask the question in the opposite direction - which users can invoke an endpoint? Select the “Find users that can access an object” request, select the first endpoint (`DELETE /v1/todos/{todoId}`), and select the `can_invoke` permission. You should see only a single user - *Rick* - that is entitled to invoke that endpoint.
+
+<img src="/quickstart-api-auth/api-auth-27-find-users.png" />
+
+## Wrap-up
+
+This tutorial covered a lot of ground - the API Authorization model, importing an OpenAPI spec, entitling users on services and endpoints, calling Aserto / Topaz from an API gateway, and answering governance questions.
+
+This is only the tip of the iceberg, but should hopefully show the potential of setting up a scalable way to perform fine-grained API authorization for all your services, enforced at the API gateway.
+
+Aserto has a CLI toolchain that enables organizations to easily onboard a new service from its OpenAPI spec, creating the possibility of a CI/CD pipeline that easily adds new services (or handles adding new endpoints) in an automated fashion.
+
+Entitling users to endpoints can be done by adding users to IDP groups (which are imported into Aserto), and break-the-glass scenarios can be achieved in the Aserto Console, through the aserto/topaz CLI, through the REST or gRPC APIs, or one of our [language SDKs](/docs/software-development-kits/overview.mdx).

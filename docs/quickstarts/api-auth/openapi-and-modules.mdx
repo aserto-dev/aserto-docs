@@ -1,0 +1,32 @@
+---
+sidebar_label: Quickstart and Modules
+title: Import OpenAPI and Examine Modules
+description: Import an OpenAPI spec and examine OPA modules
+---
+
+# Quickstart and Modules tabs
+
+Click on the `api-auth` policy instance, and select the [Quickstart](https://console.aserto.com/ui/policies/api-auth/quickstart) tab. The Citadel identity provider that contains the Rick and Morty users is already connected.
+
+<img src="/quickstart-api-auth/api-auth-2-openapi.png" width="75%" />
+
+## Import an OpenAPI spec
+
+In the next step, you can optionally import your own OpenAPI spec. If you have one ready, try it out... otherwise feel free to skip this step and rely on the existing three services that we’re using as sample data.
+
+## The OPA policy
+
+Click on the [Modules](https://console.aserto.com/ui/policies/api-auth/modules) tab, and observe a **single** Rego module - the boilerplate `policy-rebac.check` module.
+
+<img src="/quickstart-api-auth/api-auth-3-module.png" width="75%" />
+
+Compare that with the complexity of having to manage a custom policy for every service! As mentioned, we are transforming a policy problem into a data modeling problem, which we will explore next.
+
+But it’s important to note that any additional attribute-based access control or environment-oriented access restrictions can be easily added to this boilerplate policy. For example, you can easily extend the policy to ensure that users who are “contractors” are only allowed to invoke endpoints on weekdays.
+
+Since every OPA policy is a Topaz policy, you can bring the full power of OPA and Rego to bear on your custom authorization policies.
+
+## Next steps
+
+Next, let's explore the authorization model and the instance data that the template created.
+

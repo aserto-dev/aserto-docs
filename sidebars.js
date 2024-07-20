@@ -90,6 +90,20 @@ module.exports = {
         },
         {
           type: 'category',
+          label: 'API Authorization',
+          collapsed: true,
+          items: [
+            'quickstarts/api-auth/overview',
+            'quickstarts/api-auth/install-the-template',
+            'quickstarts/api-auth/openapi-and-modules',
+            'quickstarts/api-auth/directory',
+            'quickstarts/api-auth/api-gateway',
+            'quickstarts/api-auth/api-gateway-testing',
+            'quickstarts/api-auth/governance',
+          ]
+        },
+        {
+          type: 'category',
           label: 'Slack',
           collapsed: true,
           items: [
@@ -110,6 +124,18 @@ module.exports = {
             'quickstarts/github/use-the-evaluator',
             'quickstarts/github/install-the-backend',
             'quickstarts/github/use-the-api',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Multi-tenant RBAC',
+          collapsed: true,
+          items: [
+            'quickstarts/multi-tenant/overview',
+            'quickstarts/multi-tenant/install-the-template',
+            'quickstarts/multi-tenant/use-the-evaluator',
+            'quickstarts/multi-tenant/install-the-backend',
+            'quickstarts/multi-tenant/use-the-api',
           ]
         },
         {
