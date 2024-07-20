@@ -1,0 +1,47 @@
+---
+sidebar_label: Testing the APIs
+title: Testing the Todo APIs
+description: Testing the Todo APIs using Rick and Morty
+---
+
+# Testing the APIs
+
+We can finally test our APIs using Zuplo’s *Test* modal. Go back to the `routes.oas.json` file in the left navbar, click the `DELETE /v1/todos/{todoId}` route, and click the `Test` button.
+
+<img src="/quickstart-api-auth/api-auth-18-test-modal.png" />
+
+Now, fill in an arbitrary value for the `todo ID`, and enter the `Authorization` header and its value:
+
+<img src="/quickstart-api-auth/api-auth-19-authz-headers.png" />
+
+In the screenshot you’ll see that we also put in some dummy headers - `AuthorizationRick` and `AuthorizationMorty`, just so we can copy-paste these headers (and their `Bearer` tokens) into the `Authorization` header value. This is a convenient way to flip between invoking the service as Rick and as Morty.
+
+First, let’s try as *Rick*. Copy and paste the value of the `AuthorizationRick` header into the `Authorization` header value. Then click the *Test* button. You should see an HTTP `200 OK` status, and the logs should show that Aserto returned the resulting allowed decision as `true`. This is as expected, since *Rick* is a superuser and can invoke all endpoints by virtue of being a `Global Deleter`.
+
+<img src="/quickstart-api-auth/api-auth-20-test-rick.png" />
+
+Next, paste *Morty’s* bearer token into the `Authorization` header, and click *Test*. You should see an HTTP `403 Forbidden` status, as expected, since *Morty* is a member of the `viewer-group`, which can only invoke the `GET` APIs on the `Todo API service`.
+
+<img src="/quickstart-api-auth/api-auth-21-test-morty.png" />
+
+## Break the glass
+
+Finally, let’s simulate a “break the glass” scenario where *Morty* needs access to the `DELETE /v1/todos/{todoId}` endpoint.
+
+Go to the Aserto Console, click the *Directory* tab, and the [Endpoint](https://console.aserto.com/ui/directory/objects/endpoint) type. Type “delete” in the *Find input* and click the `todo:DELETE:/v1/todos/{todoId}` [endpoint](https://console.aserto.com/ui/directory/objects/endpoint/todo%3ADELETE%3A%2Fv1%2Ftodos%2F%7BtodoId%7D/graph).
+
+<img src="/quickstart-api-auth/api-auth-22-endpoint-delete.png" />
+
+Click the *Outgoing relations* tab, and the [invoker](https://console.aserto.com/ui/directory/objects/endpoint/todo%3ADELETE%3A%2Fv1%2Ftodos%2F%7BtodoId%7D/outgoing-relations/endpoint/invoker) relation:
+
+<img src="/quickstart-api-auth/api-auth-23-morty-invoker.png" />
+
+Click the *Add a relation* button and select *User* for the type and *Morty* for the instance. Click *Add relation* and you should see *Morty* as a direct assignee of the `invoker` relation.
+
+<img src="/quickstart-api-auth/api-auth-24-add-relation.png" />
+
+Go back to the Zuplo console, and click the *Test* button again. You should now see an HTTP `200 OK` status code, indicating that *Morty* is now able to invoke the `DELETE /v1/todos/{todoId}` endpoint. If you go back to the Aserto Console and delete the relation you just added, *Morty* will once again receive an HTTP `403 Forbidden` status.
+
+## Next steps
+
+Last but not least, let's look at answering governance questions.

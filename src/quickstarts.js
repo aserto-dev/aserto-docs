@@ -28,6 +28,13 @@ export default [
     category: 'template',
   },
   {
+    title: 'API Authorization',
+    icon: 'api-auth.svg',
+    description: 'A model that supports services and endpoints, with three sample services, and a simple back-end written in six different languages. This demonstrates gateway-enforced API authorization.',
+    docs: '/docs/quickstarts/api-auth/overview',
+    category: 'template',
+  },
+  {
     title: 'Slack',
     icon: 'slack.svg',
     description: 'A model that mimics Slack\'s workspaces and channels, with a simple back-end written in six different languages. You can evolve it to fit your needs.',
@@ -41,14 +48,14 @@ export default [
     docs: '/docs/quickstarts/github/overview',
     category: 'template',
   },
-/*
   {
     title: 'Multi-tenant RBAC',
-    icon: 'multi-tenant-rbac.svg',
-    description: 'Multi-tenant RBAC.',
-    docs: '/docs/quickstarts/react/overview',
+    icon: 'multi-tenant.svg',
+    description: 'A model that supports resources under tenants, which both have owners, writers, and readers. It also includes a simple back-end written in six different languages. This is a good place to start for multi-tenant RBAC.',
+    docs: '/docs/quickstarts/multi-tenant/overview',
     category: 'template',
   },
+/*
   {
     title: 'Tenants and Teams',
     icon: 'tenant-and-team.svg',

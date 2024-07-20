@@ -1,0 +1,115 @@
+---
+sidebar_label: Authorization Model
+title: The API Authorization Model and instance data
+description: The API Authorization Model and template instance data
+---
+
+# The API Authorization model
+
+Click the [Directory](https://console.aserto.com/ui/directory/model) tab, and the `Edit manifest` button. This will show you the API Authorization model definition. The important type definitions are for *service* and *endpoint*.
+
+## Model
+
+<img src= "/quickstart-api-auth/api-auth-4-model.png" />
+
+```yaml
+types:
+  # user represents a user that can be granted role(s)
+  user:
+    relations:
+      manager: user
+
+    permissions:
+      ### display_name: user#in_management_chain ###
+      in_management_chain: manager | manager->in_management_chain
+
+  # group represents a collection of users and/or (nested) groups
+  group:
+    relations:
+      member: user | group#member
+
+  # identity represents a collection of identities for users
+  identity:
+    relations:
+      identifier: user
+
+  # service represents a set of endpoints
+  service:
+    relations:
+      owner: user
+      deleter: user | group#member
+      creator: user | group#member
+      writer: user | group#member
+      reader: user | group#member
+
+    permissions:
+      can_get: reader | can_put
+      can_put: writer | can_post
+      can_patch: writer | can_post
+      can_post: creator | can_delete
+      can_delete: deleter | owner
+
+  # endpoint represents a specific API endpoint
+  endpoint:
+    relations:
+      # each endpoint picks the reader/writer/creator/deleter relation to the service
+      # based on the method (GET -> reader, PUT/PATCH -> writer, etc)
+      service-reader: service
+      service-writer: service
+      service-creator: service
+      service-deleter: service
+      # invoker allows a user or group to get access to invoke this specific endpoint
+      invoker: user | group#member
+    permissions:
+      can_invoke: invoker | service-reader->can_get | service-writer->can_put |
+        service-creator->can_post | service-deleter->can_delete
+```
+
+Let’s start at the bottom. An endpoint has a `can_invoke` permission, which is directly assignable by creating an `invoker` relationship to a `user` or a `group`. This allows an API administrator to entitle a user or a group directly on a discrete endpoint.
+
+The endpoint also has relations called `service-reader`, `service-writer`, `service-creator`, and `service-deleter` which ladder up to the enclosing `service`. The default transformation that occurs when importing an OpenAPI definition is to set the relationship of the endpoint based on its HTTP method - a `GET` creates the `service-reader` relation, a `PUT` or `PATCH` creates the `service-writer` relation, a `POST` uses the `service-creator` relation, and a `DELETE` uses the `service-deleter` relation. This allows the `can_invoke` permission to ALSO be assignable via relationships that a user or group has to the service. You can of course customize this default transform if you have different conventions or needs.
+
+Now, let’s look at the `service` type. A `service` has discrete permissions called `can_get`, `can_put`, `can_patch`, `can_post`, and `can_delete` which are assignable through the `reader`, `writer`, `creator`, `deleter`, and `owner` relations on the service. These permissions are additive, in the sense that a `deleter` can invoke `DELETE` endpoints, and can also do anything that a `creator` can do. A `creator` can `POST`, and can also do anything that a `writer` can do... and so on.
+
+To put it all together, `users` (or groups) can be entitled at the level of an entire `service`, at the level of a class of `endpoints` on a `service` (e.g. all `GET` endpoints), or at the level of a discrete `endpoint`. This provides a lot of flexibility in API entitlement, while keeping things simple and consistent.
+
+Next, let’s look at the `user`, `group`, `service`, and `endpoint` instance data.
+
+## Authorization data
+
+Click on the Objects tab, and within that the [Service](https://console.aserto.com/ui/directory/objects/service) type. You should see the three services that were automatically added by the template.
+
+<img src= "/quickstart-api-auth/api-auth-5-services.png" />
+
+Let’s follow the trail of entitlements from users and groups to the services and endpoints. Click on the [User](https://console.aserto.com/ui/directory/objects/user) type, which should show the five Citadel users - *Beth*, *Jerry*, *Morty*, *Rick*, and *Summer*.
+
+Let’s click on *Rick*. As you can see, *Rick* is a member of the `Global Deleters` group.
+
+<img src= "/quickstart-api-auth/api-auth-6-rick.png" width="75%" />
+
+Next, click on the [Global Deleters](https://console.aserto.com/ui/directory/objects/group/global-deleters/graph) group.
+
+<img src= "/quickstart-api-auth/api-auth-7-global-deleters.png" />
+
+This group aggregates the `deleters` group for each service. This pattern makes *Rick* a super-user - he can invoke any endpoint in the system, since the members of the `Petstore API Deleters`, `Rick and Morty API Deleters`, and `Todo API Deleters` groups can invoke any endpoint on the respective services, and being a member of the `Global Deleters` group means that Rick is transitively a member of these groups.
+
+Next, let’s look at *Morty* - click the User type and then click [Morty](https://console.aserto.com/ui/directory/objects/user/morty%40the-citadel.com/graph). Morty is a member of the `Petstore API Creators` group, which means he can invoke any `Petstore` endpoint that is not a `DELETE`. This demonstrates the pattern of how to entitle a user on a set of methods within a service.
+
+<img src= "/quickstart-api-auth/api-auth-8-morty.png" />
+
+Finally, let’s go back to the `Service` type and click the [Todo List API](https://console.aserto.com/ui/directory/objects/service/todo/graph). This shows the six endpoints that are part of this API.
+
+<img src= "/quickstart-api-auth/api-auth-9-todo.png" />
+
+The group called `Todo List API Readers` is a `reader` of the service, meaning every member is entitled to invoke all the `GET` endpoints on this service. Click on the [Todo List API Readers](https://console.aserto.com/ui/directory/objects/group/todo-readers/graph), and follow the trail of nested groups. As you can see, it includes the `viewer-group`, which comes from the Citadel IDP.
+
+<img src= "/quickstart-api-auth/api-auth-10-todo-readers.png" />
+
+Clicking the [viewer-group](https://console.aserto.com/ui/directory/objects/group/viewer/graph) reveals its members - *Beth* and *Jerry*, as well as the members of the `editor-group`. Clicking the [editor-group](https://console.aserto.com/ui/directory/objects/group/editor/graph) reveals its members -  *Morty* and *Summer*, as well as members of the `admin-group`. And the [admin-group](https://console.aserto.com/ui/directory/objects/group/admin/graph) includes *Rick*. So, transitively, every one of our protagonists are entitled to invoke any `GET` endpoint on the `Todo API Service`.
+
+This pattern shows how to use nested groups in the IDP to control entitlements to classes of endpoints (in this case, the `GET` endpoints) in a service.
+
+## Next steps
+
+Now that we understand the model and the instance data (services, endpoints, groups, entitlements), let's turn our attention to how to integrate the authorization model with an API gateway.
+

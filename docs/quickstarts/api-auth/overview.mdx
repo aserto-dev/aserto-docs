@@ -1,0 +1,38 @@
+---
+sidebar_label: Overview
+title: API Authorization Quickstart
+description: API Authorization Quickstart overview page
+---
+
+# API Authorization Quickstart
+
+The API Authorization scenario is an example of how to implement a data-centric authorization model for services and endpoints using a relationship-based access control (ReBAC) model.
+
+## Tutorial video
+
+If you'd like to view a tutorial video of what this quickstart will cover, check it out below.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qn6c-XNLdqw?si=DshKVhaNCuYlAZCP" title="API Authorization Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## Quickstart contents
+
+The API Authorization Quickstart includes:
+* A domain model for API Authorization, including the `system`, `tenant`, and `resource` object types.
+  * The `system` type is meant to be a singleton representing the entire system, which has `admin`, `editor`, and `viewer` relationships, representing roles that extend across all tenants. The `admin` role grants the `can_create_tenant` permission.
+  * The `tenant` type represents tenants within the system. It has `owner`, `admin`, `editor`, and `viewer` relations that grant permissions such as `can_administer`, `can_edit`, and `can_view`, as well as fine-grained permissions such as `can_delete_tenant`, `can_manage_members`, `can_list_members`, and `can_leave_tenant`. This last permission is granted to anyone *except* for owners, who can only be removed by other owners. It also has permissions relating to resources - includng `can_create_resources`, `can_delete_resources`, `can_write_resources`, and `can_read_resources`.
+  * The `resource` type has a `tenant` relation that links it to the parent tenant. It also has `owner`, `writer`, and `reader` relations that grant permissions such as `can_delete`, `can_write`, and `can_read`. These permissions are also granted through roles on the parent tenant.
+* A policy instance called `multi-tenant` which uses a boilerplate authorization policy called `policy-rebac`. This policy simply uses the underlying relationships to determine access.
+* A connection to the **Citadel Demo IDP**, which contains five demo users based on the Rick & Morty cartoon.
+* Sample *object instances*, including a system singleton called `The entire system`, tenants such as `Citadel tenant` and `Smiths tenant`, and resources such as `The Citadel adventures resource` (in the Citadel tenant) and `The Smiths family's budget` (in the Smiths tenant). Rick, Morty, Summer, Beth, and Jerry have `owner`, `editor`, and `viewer` *relationships* to the system, tenants, and resources, demonstrating a relationship-based (ReBAC) model.
+* A back-end API that uses the `multi-tenant` policy for authorization, implemented in several languages.
+* An interactive tutorial which helps construct `curl` requests to test the back-end API.
+
+As you go through the Quickstart, you'll learn the following:
+* How to instantiate the API Authorization template.
+* How to browse the directory and examine the manifest.
+* How to evaluate policy decisions within the Aserto Evaluator.
+* How to download and run the API Authorization back-end API.
+* How to construct `curl` requests to the back-end in order to test out the API.
+
+## Prerequisites
+To follow this Quickstart you'll need to have an Aserto account. If you do not have one, you can create one [here](https://www.aserto.com/#signup). Once you have created your tenant, you can continue.

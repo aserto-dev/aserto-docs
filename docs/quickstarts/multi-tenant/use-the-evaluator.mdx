@@ -1,0 +1,84 @@
+---
+sidebar_label: Use the Evaluator
+title: Use the Multi-tenant RBAC Evaluator
+description: Use the Multi-tenant RBAC Evaluator to test out the multi-tenant policy
+---
+
+# Use the Multi-tenant RBAC Evaluator
+
+Now that you have created your policy instance, you can test it out with the Evaluator. The Evaluator supports several requests, corresponding to Aserto's authorization APIs - `is`, `decisiontree`, and `query`. The default "Check" request, however, is specifically designed for `policy-rebac`.  Using the Evaluator allows you to quickly verify whether a user has a relationship (or permission) on an object.
+
+<img src="/quickstart-multi-tenant/multi-tenant-6-choose-instance.png" />
+
+The Evaluator has two parts. The `REQUEST` part on the left is where you specify information about the action being performed, while the `OUTPUT` on the right displays the body of the request as well as the response.
+
+The table below explains the selection fields.
+
+|Field|Description|
+|----|-----------|
+|Subject|The user to evaluate. For Multi-tenant RBAC there are 5 Citadel users that you can select from.|
+|Object Type|The type of object to evaluate. For Multi-tenant RBAC this will be `Resource`.|
+|Object|The object instance to evaluate.|
+|Relation|Which relation or permission to evaluate.|
+
+## Testing the policy
+
+Now let's check a few different scenarios using the Evalator. First, a few important things to note about Rick and Morty:
+
+* Rick is an `admin` of the whole `system`. This means that Rick has every permission in the system.
+* Morty is a `viewer` on the system. Morty is also an `editor` on the `Citadel` tenant, and an `owner` of the `Citadel adventures` resource, granting him all permissions on that resource. Morty is also a `viewer` of the `Smiths` tenant, so the only permission he has on the `Smiths family budget` resource is the `can_read` permission.
+
+### Scenario 1 - can Rick read the `citadel-adventures` resource?
+
+* For Subject, select "Rick Sanchez".
+* For Object Type, select "Resource".
+* For Object, select "The Citadel adventures resource".
+* For Relation, select "can_read".
+* Click the `Play` button.
+* You should see `"is": true` under results indicating the action will be permitted.
+
+<img src="/quickstart-multi-tenant/multi-tenant-7-evaluator.png" />
+
+### Scenario 2 - can Rick delete the `citadel-adventures` resource?
+
+* For Subject, select "Rick Sanchez".
+* For Object Type, select "Resource".
+* For Object, select "The Citadel adventures resource".
+* For Relation, select "can_delete".
+* Click the `Play` button.
+* You should see `"is": true` under results indicating the action will be permitted.
+
+### Scenario 3 - can Morty delete the `citadel-adventures` resource?
+
+* For Subject, select "Morty Smith".
+* For Object Type, select "Resource".
+* For Object, select "The Citadel adventures resource".
+* For Relation, select "can_delete".
+* Click the `Play` button.
+* You should see `"is": true` under results indicating the action will be permitted.
+
+### Scenario 4 - can Morty read the `smiths-budget` resource?
+
+* For Subject, select "Morty Smith".
+* For Object Type, select "Resource".
+* For Object, select "The Smiths family's budget".
+* For Relation, select "can_read".
+* Click the `Play` button.
+* You should see `"is": true` under results indicating the action will be permitted.
+
+### Scenario 5 - can Morty delete the `smiths-budget` resource?
+
+* For Subject, select "Morty Smith".
+* For Object Type, select "Resource".
+* For Object, select "The Smiths family's budget".
+* For Relation, select "can_delete".
+* Click the `Play` button.
+* You should see `"is": false` under results indicating the action will be denied.
+
+## Next steps
+
+Now that you have seen how the policy works, you'll use the Quickstart in the console to download and run the sample back-end API, which uses the `multi-tenant` policy for access control.
+
+Click on the "Quickstart" tab on the left.
+
+<img src="/quickstart-multi-tenant/multi-tenant-8-select-quickstart.png" width="20%" />
