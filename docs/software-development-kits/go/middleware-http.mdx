@@ -56,8 +56,8 @@ import (
 mw := httpz.New(
     azClient,
     middleware.Policy{
-        Name:       "<aserto policy name>",
-        Decision: "allowed",                // Name of the policy rule to evaluate.
+        Name:       "< policy name>",
+        Decision: "allowed",           // Name of the policy rule to evaluate.
     },
 )
 ```

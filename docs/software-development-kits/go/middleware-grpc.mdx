@@ -37,8 +37,8 @@ import (
 mw := grpcz.New(
     azClient,
     middleware.Policy{
-        Name:     "<policy instance name>",
-        Decision: "allowed",                 // Name of the policy rule to evaluate.
+        Name:     "<policy name>",
+        Decision: "allowed",        // Name of the policy rule to evaluate.
     },
 )
 ```

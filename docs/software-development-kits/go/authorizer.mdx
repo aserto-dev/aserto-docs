@@ -62,7 +62,7 @@ result, err := azClient.Is(ctx, &authorizer.IsRequest{
         Decisions: []string{"allowed"},       // Policy rules to evaluate.
     },
     PolicyInstance: &api.PolicyInstance {
-        Name: "<policy instance name>",
+        Name: "<policy name>",
         InstanceLabel: "<policy instance label>"
     },
 })
