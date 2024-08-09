@@ -24,7 +24,7 @@ export default [
     title: 'Go',
     icon: 'go.svg',
     link: 'https://go.dev/',
-    github: 'https://github.com/aserto-dev/aserto-go',
+    github: 'https://github.com/aserto-dev/go-aserto',
     docs: '/docs/software-development-kits/go/install',
   },
   {
@@ -38,8 +38,7 @@ export default [
     title: 'Flask',
     icon: 'flask.svg',
     link: 'https://flask.palletsprojects.com',
-    github:
-      'https://github.com/aserto-dev/flask-aserto',
+    github: 'https://github.com/aserto-dev/flask-aserto',
     docs: '/docs/software-development-kits/python/flask',
   },
   {
