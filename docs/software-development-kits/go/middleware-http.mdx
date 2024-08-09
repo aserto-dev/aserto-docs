@@ -11,6 +11,32 @@ to a single component instead of fragmenting the logic across all routes.
 
 The middleware can be configured to retrieve authorization information, such as user identity, from incoming requests.
 
+There are three flavors of the HTTP middleware:
+
+* `middleware/httpz` provides middleware for HTTP servers using the standard [net/http](https://pkg.go.dev/net/http) package.
+* `middleware/gorillaz` provides middleware for HTTP servers using [gorilla/mux](https://github.com/gorilla/mux) routers.
+* `middleware/ginz` provides middleware for HTTP servers using the [Gin web framework](https://gin-gonic.com).
+
+## Installation
+
+**net/http**:
+
+```shell
+go get github.com/aserto-dev/go-aserto/middleware/httpz
+```
+
+**gorilla/mux**:
+
+```shell
+go get github.com/aserto-dev/go-aserto/middleware/gorillaz
+```
+
+**Gin**:
+
+```shell
+go get github.com/aserto-dev/go-aserto/middleware/ginz
+```
+
 ## Creating Middleware
 
 Creating middleware requires two arguments: an [authorizer client](/docs/software-development-kits/go/authorizer),
@@ -20,17 +46,18 @@ request's URL. This behavior too can be further customized to fit other naming s
 
 ```go
 import (
-    middleware "github.com/aserto-dev/aserto-go/middleware/http"
+     "github.com/aserto-dev/aserto-go/middleware"
+     "github.com/aserto-dev/aserto-go/middleware/httpz"
 )
 
 ...
 
 // Create HTTP middleware.
-mw := middleware.New(
-    authClient,
-    mw.Policy{
-        ID:       "<Aserto policy ID>",
-        Decision: "allowed",             // Name of the policy rule to evaluate.
+mw := httpz.New(
+    azClient,
+    middleware.Policy{
+        Name:       "< policy name>",
+        Decision: "allowed",           // Name of the policy rule to evaluate.
     },
 )
 ```
@@ -89,15 +116,9 @@ mw.WithPolicyPathMapper(
 
 ```go
 mw.WithResourceMapper(
-    func(r *http.Request) *structpb.Struct {
-        resourceContext, err := structpb.NewStruct(map[string]string{
-            "ownerId": GetOwner(r),  // Custom function to retrieve the owner of the resource being accessed.
-        })
-        if err != nil {
-            return resourceContext
-        }
-
-        return nil
+    func(r *http.Request, resource map[string]interface{}) {
+        // Custom function to retrieve the owner of the resource being accessed.
+        resource["ownerId"] = GetOwner(r)
     },
 )
 ```
@@ -120,22 +141,45 @@ func Hello(w http.ResponseWriter, r *http.Request) {
 mux := http.NewServeMux()
 
 // Attach middleware to route handler.
-mux.Handle("/", mw.Handler(http.HandlerFunc(Hello)))
+mux.Handle("/hello", mw.HandlerFunc(Hello))
 
 ```
 
 ### gorilla/mux
 
 The popular [`gorilla/mux`](https://pkg.go.dev/github.com/gorilla/mux) package lets you set apply middleware to all
-routes:
+handlers in a router:
 
 ```go
 func Hello(w http.ResponseWriter, r *http.Request) {
-    w.Write([]byte(`"hello"`))
+	name = mux.Vars(r)["name"]
+    w.Write([]byte(fmt.Sprintf(`"hello %s"`, name)))
 }
 
 r := mux.NewRouter()  // Create new gorilla/mux Router.
 r.Use(mw)             // Attach authorization middleware to all routes.
 
-r.HandleFunc("/", Hello) // Define route.
+r.HandleFunc("/hello/{name}", Hello) // Define route.
+```
+
+## Gin
+
+The `middleware/ginz` package is similar to the `middleware/gorillaz` module but uses `gin.Context` instead of
+`http.Request`.
+
+```go
+func Hello(c *gin.Context) {
+	name = c.Params.ByName("name")
+	c.JSON(http.StatusOK, fmt.Sprintf("hello %s", name))
+}
+```
+
+A Gin resource mapper would look like this:
+```go
+mw.WithResourceMapper(
+    func(c *gin.Context, resource map[string]interface{}) {
+        // Custom function to retrieve the owner of the resource being accessed.
+        resource["ownerId"] = GetOwner(c)
+    },
+)
 ```

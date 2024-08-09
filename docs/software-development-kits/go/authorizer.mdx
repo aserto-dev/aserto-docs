@@ -6,26 +6,31 @@ description: Aserto SDKs - Go - Creating a client and making authorization calls
 
 # Authorizer Client
 
-[`AuthorizerClient`](https://github.com/aserto-dev/go-grpc-authz/blob/main/aserto/authorizer/authorizer/v1/authorizer_grpc.pb.go#L20)
+[`AuthorizerClient`](https://github.com/aserto-dev/go-authorizer/blob/main/aserto/authorizer/v2/authorizer_grpc.pb.go#L34)
 is the low-level interface that talks to the Aserto [authorization API](/docs/authorizer-guide/authz).
-It can be used on its own to make authorization calls or, more commonly, it can be used to create authorization
+It can be used on its own to make authorization requests or, more commonly, it can be used to create authorization
 middleware.
 
 ## Create a Client
 
 ```go
 import (
-    authz "github.com/aserto-dev/aserto-go/authorizer/grpc"
-    "github.com/aserto-dev/aserto-go/client"
+    "log"
+
+    "github.com/aserto-dev/go-aserto"
+    "github.com/aserto-dev/go-aserto/az"
 )
 
 ...
 
-authClient, err := authz.New(
-        ctx,
-        client.WithAPIKeyAuth("<Aserto authorizer API key"),
-        client.WithTenantID("<Aserto tenant ID>"),
+azClient, err := az.New(
+    aserto.WithAPIKeyAuth("<Aserto authorizer API key"),
+    aserto.WithTenantID("<Aserto tenant ID>"),
 )
+if err != nil {
+    log.Fatal("Failed to create authorizer client:", err)
+}
+defer azClient.Close()
 ```
 
 ## Make Authorization Calls
@@ -35,23 +40,29 @@ to perform an operation.
 
 ```go
 import (
+    "context"
     "fmt"
+    "log"
 
-    "github.com/aserto-dev/go-grpc-authz/aserto/authorizer/authorizer/v1"
-    "github.com/aserto-dev/go-grpc/aserto/api/v1"
+    "github.com/aserto-dev/go-authorizer/aserto/authorizer/v2"
+    "github.com/aserto-dev/go-authorizer/aserto/authorizer/v2/api"
 )
 
 ...
 
-result, err := authClient.Is(ctx, &authorizer.IsRequest{
+ctx := context.Background()
+
+result, err := azClient.Is(ctx, &authorizer.IsRequest{
     IdentityContext: &api.IdentityContext{          // The user performing the operation.
         Type: api.IdentityType_IDENTITY_TYPE_SUB,
         Identity: "username",
     },
     PolicyContext: &api.PolicyContext{
-        Id:        "<Aserto Policy ID>",
         Path:      "peoplefinder.GET.users",  // Policy module to evaluate.
         Decisions: []string{"allowed"},       // Policy rules to evaluate.
+    },
+    PolicyInstance: &api.PolicyInstance {
+        Name: "<policy name>",
     },
 })
 if err != nil {
