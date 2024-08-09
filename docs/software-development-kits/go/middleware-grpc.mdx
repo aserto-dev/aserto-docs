@@ -12,6 +12,12 @@ to a single component instead of fragmenting the logic across many service metho
 The middleware can be configured to retrieve authorization information, such as user identity, from incoming messages
 and streams.
 
+## Installation
+
+```shell
+go get github.com/aserto-dev/go-aserto/middleware/grpz
+```
+
 ## Creating Middleware
 
 Creating middleware requires two arguments: an [authorizer client](/docs/software-development-kits/go/authorizer),
@@ -21,17 +27,18 @@ request's URL. This behavior too can be further customized to fit other naming s
 
 ```go
 import (
-    middleware "github.com/aserto-dev/aserto-go/middleware/grpc"
+    "github.com/aserto-dev/go-aserto/middleware"
+    "github.com/aserto-dev/go-aserto/middleware/grpcz"
 )
 
 ...
 
 // Create gRPC middleware.
-mw := middleware.New(
-    authClient,
-    mw.Policy{
-        ID:       "<Aserto policy ID>",
-        Decision: "allowed",             // Name of the policy rule to evaluate.
+mw := grpcz.New(
+    azClient,
+    middleware.Policy{
+        Name:     "<policy instance name>",
+        Decision: "allowed",                 // Name of the policy rule to evaluate.
     },
 )
 ```
