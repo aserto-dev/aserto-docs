@@ -1,0 +1,37 @@
+---
+sidebar_label: Aserto Clients
+title: Aserto SDKs - ASP.NET Clients - Installation and setup
+description: Aserto SDKs - ASP.NET Clients - Installing and using the ASP.NET Clients
+---
+
+# ASP.NET Clients
+
+Aserto package containing the Aserto Authorizer and Aserto Directory Clients.
+
+## Overview
+
+This package allows .NET Standard 2.0 applications to interact with the Aserto Authorizer and Directory APIs.
+
+## Installation
+
+[Aserto.Clients](https://www.nuget.org/packages/Aserto.Clients/) is provided as a NuGet package.
+
+It can be installed:
+
+- Using Package Manager:
+
+```powershell
+Install-Package Aserto.Clients
+```
+
+- Using .NET CLI
+
+```cmd
+dotnet add package Aserto.Clients
+```
+
+## Usage 
+
+In the [aserto-dotnet repository examples](https://github.com/aserto-dev/aserto-dotnet/tree/aserto_clients/examples) there are two CLI example applications that use the Aserto Clients package to interact with an Aserto Authorizer API and a Directory API respectively.
+
+You can use [Topaz](https://www.topaz.sh/) to spin up a local instance that exposes the APIs and provided the necessary configuration information in the example's *app.config* files to test and get familiar with the package and the APIs.

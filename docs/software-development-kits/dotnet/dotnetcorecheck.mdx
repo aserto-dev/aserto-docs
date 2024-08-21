@@ -1,0 +1,82 @@
+---
+sidebar_label: ASP.NET Core Check
+title: Aserto SDKs - ASP.NET Core Check Middleware - Installation and setup
+description: Aserto SDKs - ASP.NET Core Check Middleware - Installing and using the ASP.NET Core Check Middleware
+---
+
+# ASP.NET Core Check Middleware (ReBAC)
+In addition to the pattern described by the Aserto Middleware, in which each route is authorized by its own policy module, the check middleware can be used to implement Relation-Based Access Control (rebac) in which authorization decisions are made by checking if a given subject has the necessary permission or relation to the object being accessed.
+
+This is achieved using the `Check` attribute of the `CheckMiddleware`.
+
+A check call needs three pieces of information:
+    - The type and key of the object.
+    - The name of the relation or permission to look for.
+    - The type and key of the subject. When omitted, the subject is derived from the middleware's Identity with type "user".
+
+## Installation
+
+[Aserto.AspNetCore.Middleware](https://www.nuget.org/packages/Aserto.AspNetCore.Middleware/) is provided as a NuGet package.
+
+It can be installed:
+
+- Using Package Manager:
+
+```powershell
+Install-Package Aserto.AspNetCore.Middleware
+```
+
+- Using .NET CLI
+
+```cmd
+dotnet add package Aserto.AspNetCore.Middleware
+```
+
+## Configuration
+
+The following configuration settings are required for Aserto.AspNetCore middleware. You can add them to your `appsettings.json`:
+
+```json
+// appsettings.json
+
+"Aserto": {
+    "AuthorizerApiKey": "YOUR_AUTHORIZER_API_KEY",
+    "TenantID": "YOUR_ASERTO_TENANTID",
+    "PolicyName": "YOUR_POLICY_NAME",
+    "PolicyInstanceLabel": "YOUR_POLICY_INSTANCE_LABEL",
+    "PolicyRoot": "YOUR_POLICY_ROOT"
+}
+```
+
+These settings can be retrieved from the [Policy Settings](https://console.aserto.com/ui/policies) page of your Aserto account.
+
+The middleware accepts the following optional parameters:
+
+| Parameter name | Default value                             | Description                                                                           |
+| -------------- | ----------------------------------------- | ------------------------------------------------------------------------------------- |
+| Enabled        | true                                      | Enables or disables Aserto Authorization.                                             |
+| ServiceUrl     | `https://authorizer.prod.aserto.com:8443` | Sets the URL for the authorizer endpoint.                                             |
+| Decision       | "allowed"                                 | The decision that will be used by the middleware when creating an authorizer request. |
+
+## Usage 
+
+To use the check middleware in the `Startup.cs` you will need to add the check options and allow the service to add the check authorization:
+```
+            CheckOptions checkOptions = new CheckOptions();
+            Configuration.GetSection("Aserto").Bind(checkOptions.BaseOptions);
+            // Adding the check middleware
+            services.AddAsertoCheckAuthorization(checkOptions,
+            authorizerConfig =>
+            {
+                Configuration.GetSection("Aserto").Bind(authorizerConfig);
+            });
+```
+
+After the initialization in your controllers you can attach the check attribute to a method as show in the example bellow:
+```
+        [HttpPost]        
+        [Check(objectID: "resource-creators", objectType: "resource-creator", relation: "member")]
+
+```        
+
+The [todo-dotnet-v2](https://github.com/aserto-demo/todo-dotnet-v2/tree/main) example highlights the usage of the ASP.NET Core Aserto middleware next to the ASP.NET Core Check Middleware. 
