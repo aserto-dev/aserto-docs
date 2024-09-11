@@ -293,7 +293,18 @@ module.exports = {
             'software-development-kits/java/middleware',
           ],
         },
-        'software-development-kits/dotnetcore',
+        {
+          type: 'category',
+          label: 'DotNet',
+          collapsed: true,
+          items: [
+            'software-development-kits/dotnet/clients',
+            'software-development-kits/dotnet/dotnetcore',
+            'software-development-kits/dotnet/dotnetcorecheck', 
+            'software-development-kits/dotnet/middleware',
+          ],
+ 
+        },
         {
           type: 'category',
           label: 'Ruby',
