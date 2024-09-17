@@ -7,26 +7,31 @@ description: The Identity Context and how it is used
 # Identity Context
 
 When an Authorizer evaluates a policy, it receives an Identity Context from the calling application.
-The `type` property of that Identity Context instructs the Authorizer how to identify the user:
+The Identity Context instructs the Authorizer whether and how to populate the `input.user` object
+when evaluating the policy. The process of identifying the user referred to by the Identity Context
+and loading it into the `input.user` object is known as "identity resolution".
 
-- IDENTITY_TYPE_NONE: the policy is evaluated without a user context (input.user is empty)
-- IDENTITY_TYPE_SUB: the user context is passed in as an OAuth subject
-- IDENTITY_TYPE_JWT: the user context is passed in as a JWT access token
+An identity context contains two fields: `type` and `identity`.
 
-## Passing a user identity
+The `type` of an Identity Context gives callers control over the identity resolution process:
 
-In the IDENTITY_TYPE_SUB and IDENTITY_TYPE_JWT cases, the Authorizer will treat the `identity` string as a
-OAuth subject or a JWT access, respectively. In the case of a JWT access token, the Authorizer will extract the `sub` (subject) claim, whereas
-IDENTITY_TYPE_SUB indicates that the `identity` string already contains a subject.
+- `IDENTITY_TYPE_NONE`: the policy is evaluated without a user context (`input.user` is empty).
+  This is most commonly used to authorize anonymous requests.
+- `IDENTITY_TYPE_SUB`: the `identity` field is a user identity such as email, username, or OAuth2 subject name.
+- `IDENTITY_TYPE_JWT`: the `identity` field is a JWT access token. The authorizer extracts the `sub` (subject)
+  claim from the token and uses it as the user identity.
+- `IDENTITY_TYPE_MANUAL`: disables identity resolution. The identity context is available in the poilcy
+  as `input.identity` but `input.user` is empty.
 
-Once the Authorizer has obtained the subject, it will use it as a key and look up the user in its
-local directory instance (known as the Edge Directory Service, or EDS). It will then load the user
-object identified by the identity context and make it available to the Policy as `input.user`.
+When using `IDENTITY_TYPE_SUB` or `IDENTITY_TYPE_JWT`, a user with the given identity must exist in
+the authorizer's directory. If no such user exists, the authorizer returns an error.
 
-For a user-facing API (for example, a back-end REST API that requires a JSON Web Token (JWT)
-in the `Authorization` header), the caller will often extract the `sub` claim from the JWT and use it
-in the `identity` field. That said, the `identity` can be any key that is used by the Identity Provider
-to identify the user.
+In a user-facing API (e.g. a back-end REST API that requires a JWT in the `Authorization` header),
+the token is typically decoded and validated during the _authentication_ phase. The service can then
+extract the `sub` claim from the JWT and pass it to the authorizer with `IDENTITY_TYPE_SUB`.
+Alternately, the entire JWT can be forwarded to the authorizer with `IDENTITY_TYPE_JWT` but the
+authorizer would then decode and validate the token too.
+
 
 ## Setting the Identity Context
 
