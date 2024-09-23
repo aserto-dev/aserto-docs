@@ -60,7 +60,7 @@ export default [
     icon: 'dotnet-core.svg',
     link: 'https://dotnet.microsoft.com/apps/aspnet',
     github: 'https://github.com/aserto-dev/aserto-dotnet',
-    docs: '/docs/software-development-kits/dotnetcore',
+    docs: '/docs/software-development-kits/dotnet/dotnetcore',
   },
   {
     title: 'Ruby',
