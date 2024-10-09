@@ -51,7 +51,7 @@ An authorizer can also be configured to generate decision logs and upload them t
 Certificates have a lifetime of 30 days. You can rotate the certificates in the Aserto console. To obtain the new client certificates, issue the following command using the Aserto CLI:
 
 ```
-aserto control-plane client-cert <edge-authorizer-connection-id>
+aserto control-plane get certificates <edge-authorizer-connection-id>
 ```
 
 This will return a JSON object with data about the client certificate, for example:
@@ -86,17 +86,17 @@ controller:
 To also configure an Authorizer to upload decision logs, add the following config section:
 
 ```yaml
-decision_logger:                                               
-  type: self                                                   
-  config:                                                      
-    store_directory: /app/decision_logs                        
-    scribe:                                                    
-      address: ems.prod.aserto.com:8443                        
-      client_cert_path: ~/.config/aserto/sidecar.crt                  
-      client_key_path: ~/.config/aserto/sidecar.key                    
-      ack_wait_seconds: 30                                     
-      headers:                                                 
+decision_logger:
+  type: self
+  config:
+    store_directory: /app/decision_logs
+    scribe:
+      address: ems.prod.aserto.com:8443
+      client_cert_path: ~/.config/aserto/sidecar.crt
+      client_key_path: ~/.config/aserto/sidecar.key
+      ack_wait_seconds: 30
+      headers:
         Aserto-Tenant-Id: <TENANT-ID>
-    shipper:                                                   
-      publish_timeout_seconds: 2                               
+    shipper:
+      publish_timeout_seconds: 2
 ```

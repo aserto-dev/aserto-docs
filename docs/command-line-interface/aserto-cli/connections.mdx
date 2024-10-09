@@ -13,7 +13,7 @@ To list the connections you've established, use the following command:
 ## Commands
 
 ```bash
-aserto tenant list-connections
+aserto tenant list connections
 ```
 
 There are two types of connections: system connections and user connections.
@@ -28,31 +28,31 @@ A user connection is one that the user has established between Aserto and one of
 To display detailed information about a particular connection, type
 
 ```bash
-aserto tenant get-connection <connection-id>
+aserto tenant get connection <connection-id>
 ```
 
 To verify that a connection is still operational (i.e. the token that Aserto holds is still valid), use the following command:
 
 ```bash
-aserto tenant verify-connection <connection-id>
+aserto tenant exec verify <connection-id>
 ```
 
 To discover the types of connections Aserto supports (known as [Providers](/docs/overview/connections#providers)),
 use the following:
 
 ```bash
-aserto tenant list-providers
+aserto tenant list providers
 ```
 
 To list the kinds of providers Aserto supports, type
 
 ```bash
-aserto tenant list-provider-kinds
+aserto tenant list provider-kinds
 ```
 
 To get more detailed information about a provider, use the following command (using the ID that
-is listed in the `list-providers` results):
+is listed in the `list providers` results):
 
 ```bash
-aserto tenant get-provider <provider-id>
+aserto tenant get provider <provider-id>
 ```
