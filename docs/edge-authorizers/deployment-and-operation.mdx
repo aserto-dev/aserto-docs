@@ -37,7 +37,7 @@ For most scenarios it is sufficient to start the Edge Authorizer by using the `a
 :::note Tip
 To list the available Edge Authorizer connections, use the following command:
 ```sh
-aserto control-plane list-connections
+aserto control-plane list connections
 ```
 :::
 
@@ -88,7 +88,7 @@ kubeconfig: Configured
 ```
 
 ### Preparing your backend application container
-1. Clone [todo-go-v2](https://github.com/aserto-demo/todo-go-v2) repository 
+1. Clone [todo-go-v2](https://github.com/aserto-demo/todo-go-v2) repository
 2. Add the following docker file to the root of your repository
 
 Dockerfile:
@@ -129,13 +129,13 @@ Your deployment directory should contain the following [files](
 * [deployment.yaml](https://github.com/aserto-dev/topaz/tree/main/docs/deployments/sidecar-deployment/deployment.yaml)
 * [topaz-configmap.yaml](https://github.com/aserto-dev/topaz/tree/main/docs/deployments/sidecar-deployment/topaz-configmap.yaml)
 
-### Apply the deployment 
+### Apply the deployment
 
 To apply on your minikube cluster use: `kubectl apply -f . --recursive`
 
 Once the deployment is finished you will have a pod that will contain 2 running containers that use the following images:
 ```
-ghcr.io/aserto-dev/topaz:latest 
+ghcr.io/aserto-dev/topaz:latest
 todo-go-v2:latest
 ```
 
@@ -144,7 +144,7 @@ Get the running pod name:
 TODO_POD_NAME=$(kubectl get pods -n default -l 'app=todo' -o jsonpath="{.items[0].metadata.name}")
 ```
 
-### Testing the backend application 
+### Testing the backend application
 
 If you want to test that the backend todo-go-v2 application is running from you local machine you can clone the [todo-application](https://github.com/aserto-demo/todo-application) but you will need to forwad the port from your minikube cluster to your local machine.
 

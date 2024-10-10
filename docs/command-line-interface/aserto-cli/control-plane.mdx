@@ -8,22 +8,22 @@ description: Using the Control Plane
 
 Aserto [Edge Authorizers](/docs/edge-authorizers/overview) can connect to the Aserto Control Plane to receive policy and
 directory updates and commands. Edge authorizers must use client certificates from Edge Authorizer connections to
-connect to the Control Plane. 
+connect to the Control Plane.
 
 ## Configuration
 
-The Aserto CLI can be used to configure certificates. The `list-connections` sub-command lists a tenant's existing
+The Aserto CLI can be used to configure certificates. The `list connections` sub-command lists a tenant's existing
 Edge Authorizer connections:
 
 ```
-aserto control-plane list-connections
+aserto control-plane list connections
 ```
 
 Each of the listed connections has an `id` field, which can be used to retrieve certificate data, including the
 certificate and private key:
 
 ```
-aserto control-plane client-cert <edge-authorizer-connection-id>
+aserto control-plane get certificates <edge-authorizer-connection-id>
 ```
 
 For more details on how to configure the certificate see the [edge
@@ -33,7 +33,7 @@ authorizers](/docs/edge-authorizers/security-and-management) section of this doc
 
 To list the Edge Authorizer instances connected to the Control Plane:
 ```
-aserto control-plane list-instance-registrations
+aserto control-plane list instances
 ```
 
 Each entry in the resulting list will have an `id` field, a `policy-id` field indicating what policy instance the edge
@@ -43,11 +43,11 @@ environment variable, if it exists.
 
 The `discovery` sub-command causes an Edge Authorizer to immediately fetch configuration from the Control Plane.
 ```
-aserto control-plane discovery <instance-registration-id>
+aserto control-plane exec discovery <instance-registration-id>
 ```
 
-The `edge-dir-sync` sub-command causes an Edge Authorizer to immediately synchronize its local directory state (if
+The `exec edge-sync` sub-command causes an Edge Authorizer to immediately synchronize its local directory state (if
 synchronization is enabled).
 ```
-aserto control-plane edge-dir-sync <instance-registration-id>
+aserto control-plane exec edge-sync <instance-registration-id>
 ```

@@ -10,10 +10,11 @@ The `aserto` CLI can be used to send commands to Edge Authorizer instances.
 
 ## Required information
 
-Once logged in, the `aserto` CLI already has the Tenant ID and authorization information to communicate with the `relay` endpoint. You will need to determine the registered instance ID. You can either do this via the [console](/docs/control-plane-guide/api#instance-id), or via the CLI.
+Once logged in, the `aserto` CLI already has the Tenant ID and authorization information to communicate with the `relay` endpoint.
+You will need to determine the registered instance ID. You can either do this via the [console](/docs/control-plane-guide/api#instance-id), or via the CLI.
 
 ```bash
-aserto control-plane list-instance-registrations
+aserto control-plane list instances
 ```
 
 This returns a JSON array with all the Topaz instances that have registered with the control plane, in the following format:
@@ -46,15 +47,15 @@ Two commands are available to send to connected Edge Authorizers:
 ### Discovery (Sync Policy Instance)
 
 ```bash
-aserto control-plane discovery <Instance-ID>
+aserto control-plane exec discovery <Instance-ID>
 ```
 
-A successful call will return nothing.
+A successful call returns nothing.
 
 ### Sync Edge Directory
 
 ```bash
-aserto control-plane edge-dir-sync <Instance-ID>
+aserto control-plane exec edge-sync <Instance-ID>
 ```
 
-A successful call will return nothing.
+A successful call returns nothing.
