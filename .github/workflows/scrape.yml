@@ -9,9 +9,9 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Read Configuration
-        uses: hashicorp/vault-action@v2.5.0
+        uses: hashicorp/vault-action@v3
         id: vault
         with:
           url: https://vault.eng.aserto.com/
