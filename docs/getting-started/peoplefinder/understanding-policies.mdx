@@ -14,7 +14,7 @@ A Policy is a collection of rules that govern access to the resources within an 
 
 ## How Aserto Policies are authored and deployed
 
-Aserto Policies contain a collection of *Policy Modules* which are authored in a declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/). The PeopleFinder policy adheres to a convention where a Policy Module exists for each API that needs to be authorized. 
+Aserto Policies contain a collection of *Policy Modules* which are authored in a declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/). The PeopleFinder policy adheres to a convention where a Policy Module exists for each API that needs to be authorized.
 
 Each module contains one or more decisions. All the modules within your application are packaged into a *Policy Image* that is stored in a *Policy Repository* (just like a docker repo). A *Policy Registry* is a collection of Policy Repositories (just like a docker registry). Aserto has a native Policy Registry, but can be configured to use any OCIv2-compliant registry.
 
@@ -24,7 +24,7 @@ When it comes time to deploy your application, you can run an authorizer instanc
 
 ## How PeopleFinder uses Policies
 
-At runtime, PeopleFinder uses Aserto Policies for multiple things, which are represented by three *decisions*: 
+At runtime, PeopleFinder uses Aserto Policies for multiple things, which are represented by three *decisions*:
 
 * `visible` - whether elements of the UI should appear at all.
 * `enabled` - whether elements are enabled or disabled.
@@ -46,28 +46,28 @@ PeopleFinder has 6 Policy Modules shown here. Each module is named using a conve
 
 |Module                                |API Request                                        |
 |--------------------------------------|---------------------------------------------------|
-|peoplefinder.DELETE.api.users.__id    | DELETE /api/users/{id}                            |
+|peoplefinder.DELETE.api.users.__id    | DELETE /api/users/\{id\}                            |
 |peoplefinder.GET.api.users            | GET /api/users                                    |
-|peoplefinder.GET.api.users.__id       | GET /api/users/{id}                               |
+|peoplefinder.GET.api.users.__id       | GET /api/users/\{id\}                               |
 |peoplefinder.POST.api.users           | POST /api/users                                   |
-|peoplefinder.POST.api.users.__id      | POST /api/users/{id}                              |
-|peoplefinder.PUT.api.users.__id       | PUT /api/users/{id}                               |
+|peoplefinder.POST.api.users.__id      | POST /api/users/\{id\}                              |
+|peoplefinder.PUT.api.users.__id       | PUT /api/users/\{id\}                               |
 
 In the viewer you can select a module on the left and see the policy [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) code. Each of the PeopleFinder Policy Modules has been documented so you can see how they work.
 
 ![peoplefinder-policy-3](/peoplefinder-policy-3.png)
 
-This policy runs when a DELETE request is made to the User API or when elements are rendered for issuing the DELETE. Looking through the code you will policies have four main parts. 
+This policy runs when a DELETE request is made to the User API or when elements are rendered for issuing the DELETE. Looking through the code you will policies have four main parts.
 
-* The `package` statement - Defines the name of the module. 
+* The `package` statement - Defines the name of the module.
 * Imports - Importing external libraries and data. Imports can be aliased, for example here you can see the user's roles are imported as `user_roles`.
-* Decision declaration - Decisions are declared with their default values. In this case `allowed`, `visible`, and `enabled` have been declared as `false`. 
+* Decision declaration - Decisions are declared with their default values. In this case `allowed`, `visible`, and `enabled` have been declared as `false`.
 * Rule definition - Rules are code that executes to determine the outcome of the decision.
 
 This table shows the three decisions that are defined by the policy:
 
 |Decision | Rule                                                                           |
-|---------|--------------------------------------------------------------------------------| 
+|---------|--------------------------------------------------------------------------------|
 |allowed  | If the user is an admin                                                        |
 |visible  | If the user is an editor or admin                                              |
 |enabled  | The result of allowed                                                          |
@@ -97,13 +97,13 @@ Using the Policy Evaluator allows you to conveniently test your policy instantly
 * For `Identity Context` select `Subject`. In the Subject dropdown choose 'Euan Garden'. This provides the identity of the caller to the API (the logged in user).
 * For `Path` choose `peoplefinder.POST.api.users.__id`. This represents the API that we're evaluating.
 * Leave `Decisions` with the default.
-* For Resource Context, put ```{ "id": "dfdadc39-7335-404d-af66-c77cf13a15f8" }```. This is Euan's id, the resource that we're updating. 
+* For Resource Context, put ```{ "id": "dfdadc39-7335-404d-af66-c77cf13a15f8" }```. This is Euan's id, the resource that we're updating.
 
-Press the `Play` button in the top to run the evaluation. 
+Press the `Play` button in the top to run the evaluation.
 
 ![peoplefinder-policy-6](/peoplefinder-policy-6.png)
 
-The result is `false` as expected as Euan is not an admin. Now let's try an admin, Kris Johnsen. In `Identity Context` dropdown select `Kris Johnsen` and then press Play again. 
+The result is `false` as expected as Euan is not an admin. Now let's try an admin, Kris Johnsen. In `Identity Context` dropdown select `Kris Johnsen` and then press Play again.
 
 ![/peoplefinder-policy-7](/peoplefinder-policy-7.png)
 

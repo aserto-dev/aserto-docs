@@ -101,7 +101,7 @@ E.g.
 
 ## Resource
 A resource can be any structured data that the authorization policy uses to evaluate decisions.
-By default, the middleware extracts resources from the path parameters. For example if we have a mapping of /user/{id}
+By default, the middleware extracts resources from the path parameters. For example if we have a mapping of /user/\{id\}
 and we get a request to /user/123, the middleware will extract the resource from the path parameter `id` and use it.
 
 This behavior can be changed by implementing the `ResourceMapper` interface and creating a bean that returns it.

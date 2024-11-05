@@ -10,7 +10,7 @@ The Authorizer makes three APIs available to the calling application for the pur
 interacting with the Policies modules that are loaded in the Authorizer:
 
 - `policies`
-- `policies/{id}`
+- `policies/\{id\}`
 
 Each of these APIs is a `GET` style API.
 
@@ -25,7 +25,7 @@ This will return a list of all the policies loaded in the Authorizer runtime.
 `field_mask=<field1>,<field2>`: the set of fields to return (defaults to ALL if unspecified)
 
 Available fields:
-* `id`: the id of the policy module (which can be passed into the `policies/{id}` API)
+* `id`: the id of the policy module (which can be passed into the `policies/\{id\}` API)
 * `raw`: the raw text of the Rego module
 * `package_path`: the path of the package
 * `ast`: the parsed abstract syntax tree of the package
@@ -52,11 +52,11 @@ The results contain all the policy modules, with the specified fields. If no `fi
 }
 ```
 
-## policies/{id}
+## policies/\{id\}
 
-`GET .../api/v2/policies/{id}?field_mask=<field1>,<field2>`
+`GET .../api/v2/policies/\{id\}?field_mask=<field1>,<field2>`
 
-This will return the details for a particular policy module identified by `{id}`, which can be obtained from the `/api/v2/policies` call.
+This will return the details for a particular policy module identified by `\{id\}`, which can be obtained from the `/api/v2/policies` call.
 
 ### parameters
 
