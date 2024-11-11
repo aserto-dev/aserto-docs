@@ -15,20 +15,20 @@ middleware.
 
 ```go
 import (
-    "log"
+	"log"
 
-    "github.com/aserto-dev/go-aserto"
-    "github.com/aserto-dev/go-aserto/az"
+	"github.com/aserto-dev/go-aserto"
+	"github.com/aserto-dev/go-aserto/az"
 )
 
 ...
 
 azClient, err := az.New(
-    aserto.WithAPIKeyAuth("<Aserto authorizer API key"),
-    aserto.WithTenantID("<Aserto tenant ID>"),
+	aserto.WithAPIKeyAuth("<Aserto authorizer API key"),
+	aserto.WithTenantID("<Aserto tenant ID>"),
 )
 if err != nil {
-    log.Fatal("Failed to create authorizer client:", err)
+	log.Fatal("Failed to create authorizer client:", err)
 }
 defer azClient.Close()
 ```
@@ -40,44 +40,56 @@ to perform an operation.
 
 ```go
 import (
-    "context"
-    "fmt"
-    "log"
+	"context"
+	"fmt"
+	"log"
 
-    "github.com/aserto-dev/go-authorizer/aserto/authorizer/v2"
-    "github.com/aserto-dev/go-authorizer/aserto/authorizer/v2/api"
+	"google.golang.org/protobuf/types/known/structpb"
+
+	"github.com/aserto-dev/go-authorizer/aserto/authorizer/v2"
+	"github.com/aserto-dev/go-authorizer/aserto/authorizer/v2/api"
 )
 
 ...
 
 ctx := context.Background()
 
-result, err := azClient.Is(ctx, &authorizer.IsRequest{
-    IdentityContext: &api.IdentityContext{          // The user performing the operation.
-        Type: api.IdentityType_IDENTITY_TYPE_SUB,
-        Identity: "username",
-    },
-    PolicyContext: &api.PolicyContext{
-        Path:      "peoplefinder.GET.users",  // Policy module to evaluate.
-        Decisions: []string{"allowed"},       // Policy rules to evaluate.
-    },
-    PolicyInstance: &api.PolicyInstance {
-        Name: "<policy name>",
-    },
+// Information about the resource being accessed can be sent
+// to the authorizer as a JSON object.
+resource, err := structpb.NewStruct(map[string]any{
+	"id": "aprils@acmecorp.com",
 })
 if err != nil {
-    log.Fatal("Failed to call authorizer:", err)
+	log.Fatalf("failed to create resource: %v", err)
+}
+
+result, err := azClient.Is(ctx, &authorizer.IsRequest{
+	IdentityContext: &api.IdentityContext{             // The user performing the operation.
+		Type: api.IdentityType_IDENTITY_TYPE_SUB,
+		Identity: "username",
+	},
+	PolicyContext: &api.PolicyContext{
+		Path:      "peoplefinder.PUT.api.users.__id",  // Policy module to evaluate.
+		Decisions: []string{"allowed"},                // Policy rules to evaluate.
+	},
+	ResourceContext: resource,
+	PolicyInstance: &api.PolicyInstance {
+		Name: "<policy name>",
+	},
+})
+if err != nil {
+	log.Fatal("Failed to call authorizer:", err)
 }
 
 // Check the authorizer's decision.
 for _, decision := range result.Decisions {
-    if decision.Decision == "allowed" {
-        if decision.Is {
-            fmt.Println("Access granted")
-        } else {
-            fmt.Println("Access denied")
-        }
-    }
+	if decision.Decision == "allowed" {
+		if decision.Is {
+			fmt.Println("Access granted")
+		} else {
+			fmt.Println("Access denied")
+		}
+	}
 }
 ```
 
